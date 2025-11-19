@@ -1,38 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://o07nqy5h87ky"]
+[gd_scene load_steps=4 format=3 uid="uid://o07nqy5h87ky"]
 
-[ext_resource type="PackedScene" uid="uid://bb358udn6m8jj" path="res://assets/models/characters/Barbarian.glb" id="1_neniy"]
+[ext_resource type="Script" uid="uid://f8hscb277xfq" path="res://prefabs/hero.gd" id="1_f2obt"]
+[ext_resource type="PackedScene" uid="uid://cf3k04aniw6vx" path="res://assets/scenes/characters/barbarian.tscn" id="2_f2obt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_404h8"]
+radius = 0.55029297
+height = 2.40625
 
 [node name="Hero" type="CharacterBody3D"]
+script = ExtResource("1_f2obt")
 
-[node name="Barbarian" parent="." instance=ExtResource("1_neniy")]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1912085, 0)
+shape = SubResource("CapsuleShape3D_404h8")
 
-[node name="Skeleton3D" parent="Barbarian/Rig_Medium" index="0"]
-bones/1/position = Vector3(0, 0.39206383, 0)
-bones/1/rotation = Quaternion(-1.11122625e-10, 0.043157753, 2.5724098e-09, 0.9990683)
-bones/2/rotation = Quaternion(-6.938893e-18, 7.1054274e-15, 4.93038e-32, 1)
-bones/3/rotation = Quaternion(8.271806e-25, 3.7252903e-09, -2.75506e-40, 1)
-bones/4/position = Vector3(0.21200736, 0.13413203, 7.9299625e-08)
-bones/4/rotation = Quaternion(-0.5599063, -0.060880348, -0.6439745, 0.5177794)
-bones/5/rotation = Quaternion(3.7650654e-08, -5.1384802e-08, -0.4947193, 0.8690529)
-bones/7/rotation = Quaternion(-0.32106528, -0.32531866, 0.1457259, 0.8774103)
-bones/8/position = Vector3(-6.936717e-09, 0.096125185, -0.057500005)
-bones/8/rotation = Quaternion(6.9489685e-09, -3.587743e-09, -0.7071068, 0.7071067)
-bones/9/rotation = Quaternion(-5.8060785e-11, -0.031341746, -1.880125e-09, 0.99950874)
-bones/10/position = Vector3(-0.21200737, 0.13413203, 8.6813984e-08)
-bones/10/rotation = Quaternion(-0.6182439, 0.08072865, 0.61801153, 0.47887278)
-bones/11/rotation = Quaternion(2.1687793e-08, 6.223694e-08, 0.5179393, 0.8554175)
-bones/13/rotation = Quaternion(-0.31929126, 0.30052418, -0.22734974, 0.8695117)
-bones/14/position = Vector3(-1.541501e-08, 0.096125126, -0.057499975)
-bones/14/rotation = Quaternion(-9.53579e-10, -4.3147743e-09, 0.7071068, 0.7071067)
-bones/15/position = Vector3(0.17094508, 0.1135872, 1.5994095e-08)
-bones/15/rotation = Quaternion(0.9925089, 0.073577166, -0.09013844, -0.03725043)
-bones/16/rotation = Quaternion(0.16501392, 8.071145e-08, -1.0972214e-07, 0.9862912)
-bones/17/rotation = Quaternion(-0.53554744, -0.12492985, 0.0538403, 0.8334763)
-bones/18/rotation = Quaternion(-5.381821e-06, 0.92025304, -0.391324, 1.328151e-06)
-bones/19/position = Vector3(-0.17094508, 0.11358732, 1.557549e-08)
-bones/19/rotation = Quaternion(0.9973222, -0.029457364, 0.03152927, 0.05904832)
-bones/20/rotation = Quaternion(0.2740081, -6.3812955e-08, 1.927607e-07, 0.9617275)
-bones/21/rotation = Quaternion(-0.5590394, 0.11451276, -0.008627633, 0.82115)
-bones/22/rotation = Quaternion(-8.934892e-05, 0.9202217, -0.3913977, 2.0290998e-05)
-
-[editable path="Barbarian"]
+[node name="Barbarian" parent="." instance=ExtResource("2_f2obt")]
