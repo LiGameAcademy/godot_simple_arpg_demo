@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://4vgdnjonqiax"]
+
+[ext_resource type="MeshLibrary" uid="uid://ceah45cwlao24" path="res://assets/grid_libraries/dungeon_grid_library.tres" id="1_siryk"]
+
+[node name="BattleLevel" type="Node3D"]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="GridMap_Floor" type="GridMap" parent="Environment"]
+mesh_library = ExtResource("1_siryk")
+data = {
+"cells": PackedInt32Array(65531, 65535, 82, 65532, 65535, 82, 65533, 65535, 82, 65534, 65534, 82, 65535, 65534, 82, 0, 65534, 82, 1, 65534, 82, 2, 65534, 82, 3, 65534, 82, 4, 65534, 82, 5, 65534, 82, 6, 65534, 82, 6, 65535, 82, 6, 0, 82, 5, 0, 82, 5, 1, 82, 4, 1, 82, 3, 1, 82, 3, 2, 82, 2, 1, 82, 1, 1, 82, 0, 0, 82, 65535, 0, 82, 65535, 65535, 82, 0, 65535, 82, 1, 65535, 82, 2, 65535, 82, 3, 65535, 82, 4, 65535, 82, 4, 0, 82, 3, 0, 82, 2, 0, 82, 2, 2, 82, 2, 3, 82, 1, 2, 82, 1, 3, 82, 3, 3, 82, 4, 3, 82, 5, 3, 82, 5, 2, 82, 4, 2, 82, 4, 4, 82, 6, 3, 82, 6, 2, 82, 6, 1, 82, 6, 4, 82, 5, 4, 82, 5, 5, 82, 4, 5, 82, 2, 5, 82, 1, 5, 82, 0, 5, 82, 0, 4, 82, 1, 4, 82, 2, 4, 82, 2, 6, 82, 1, 6, 82, 0, 6, 82, 65535, 4, 82, 65535, 3, 82, 65535, 2, 82, 65535, 1, 82, 65534, 2, 82, 65533, 3, 82, 65532, 3, 82, 65532, 2, 82, 65532, 1, 82, 65532, 0, 82, 65532, 4, 82, 65533, 5, 82, 65533, 6, 82, 65534, 4, 82, 65534, 3, 82, 65534, 1, 82, 65534, 0, 82, 65534, 65535, 82, 65533, 0, 82, 65533, 1, 82, 65533, 2, 82, 65534, 5, 82, 65534, 6, 82, 65535, 6, 82, 9, 65535, 82)
+}
+
+[node name="GridMap_Walls" type="GridMap" parent="Environment"]
+visible = false
+mesh_library = ExtResource("1_siryk")
+
+[node name="GridMap_Decor" type="GridMap" parent="Environment"]
+visible = false
+mesh_library = ExtResource("1_siryk")
+
+[node name="Interactables" type="Node3D" parent="."]
