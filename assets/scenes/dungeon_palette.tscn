@@ -1,0 +1,63 @@
+[gd_scene load_steps=16 format=3 uid="uid://7fm0ywqh6nfw"]
+
+[ext_resource type="PackedScene" uid="uid://djguwxal6gsh4" path="res://assets/models/dungeon/wall.gltf" id="2_0tv1h"]
+[ext_resource type="PackedScene" uid="uid://beool3iy8olj2" path="res://assets/models/dungeon/floor_tile_large.gltf" id="2_81cgk"]
+[ext_resource type="PackedScene" uid="uid://cygjxenborx6" path="res://assets/models/dungeon/floor_tile_large_rocks.gltf" id="3_ej7ms"]
+[ext_resource type="PackedScene" uid="uid://deyiu7ok5f2g3" path="res://assets/models/dungeon/floor_wood_large.gltf" id="3_uj2wh"]
+[ext_resource type="PackedScene" uid="uid://dx6x5n3snx33o" path="res://assets/models/dungeon/floor_wood_large_dark.gltf" id="4_6ctbl"]
+[ext_resource type="PackedScene" uid="uid://bfxxn8xyaldmo" path="res://assets/models/dungeon/wall_archedwindow_gated.gltf" id="4_8xpkp"]
+[ext_resource type="PackedScene" uid="uid://1w01kkb7jvtp" path="res://assets/models/dungeon/wall_corner.gltf" id="4_ej7ms"]
+[ext_resource type="PackedScene" uid="uid://c1oeyntb5nk2" path="res://assets/models/dungeon/wall_archedwindow_open.gltf" id="5_uj2wh"]
+[ext_resource type="PackedScene" uid="uid://lx5ukjqfinmt" path="res://assets/models/dungeon/wall_shelves.gltf" id="6_6ctbl"]
+[ext_resource type="PackedScene" uid="uid://o68srku4mcuj" path="res://assets/models/dungeon/wall_window_closed.gltf" id="7_1lqg2"]
+[ext_resource type="PackedScene" uid="uid://csuc7lo76euwf" path="res://assets/models/dungeon/wall_corner_gated.gltf" id="9_h8bj8"]
+[ext_resource type="PackedScene" uid="uid://dmmar5s51oun" path="res://assets/models/dungeon/keg_decorated.gltf" id="12_1lqg2"]
+[ext_resource type="PackedScene" uid="uid://bbtoc1h7q17fc" path="res://assets/models/dungeon/stool.gltf" id="13_h8bj8"]
+[ext_resource type="PackedScene" uid="uid://ck4e16cf2n0oh" path="res://assets/models/dungeon/wall_doorway.gltf" id="14_1wia4"]
+[ext_resource type="PackedScene" uid="uid://kp4gkhk6huo4" path="res://assets/models/dungeon/floor_tile_big_grate.gltf" id="15_hlakr"]
+
+[node name="DungeonPalette" type="Node3D"]
+
+[node name="floor_tile_large2" parent="." instance=ExtResource("2_81cgk")]
+
+[node name="floor_tile_large_rocks2" parent="." instance=ExtResource("3_ej7ms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="floor_wood_large2" parent="." instance=ExtResource("3_uj2wh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[node name="floor_wood_large_dark2" parent="." instance=ExtResource("4_6ctbl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)
+
+[node name="wall2" parent="." instance=ExtResource("2_0tv1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="wall_archedwindow_gated2" parent="." instance=ExtResource("4_8xpkp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
+
+[node name="wall_archedwindow_open2" parent="." instance=ExtResource("5_uj2wh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 5)
+
+[node name="wall_window_closed2" parent="." instance=ExtResource("7_1lqg2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 5)
+
+[node name="wall_shelves2" parent="." instance=ExtResource("6_6ctbl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 5)
+
+[node name="wall_corner2" parent="." instance=ExtResource("4_ej7ms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+
+[node name="wall_corner_gated2" parent="." instance=ExtResource("9_h8bj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 10)
+
+[node name="keg_decorated2" parent="." instance=ExtResource("12_1lqg2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+
+[node name="stool2" parent="." instance=ExtResource("13_h8bj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 15)
+
+[node name="wall_doorway2" parent="." instance=ExtResource("14_1wia4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 5)
+
+[node name="floor_tile_big_grate2" parent="." instance=ExtResource("15_hlakr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
