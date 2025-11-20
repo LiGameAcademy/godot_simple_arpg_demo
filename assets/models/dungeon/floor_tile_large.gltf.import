@@ -47,8 +47,8 @@ _subresources={
 },
 "nodes": {
 "PATH:floor_tile_large": {
-"generate/navmesh": 2,
 "generate/physics": true,
+"physics/mask": 0,
 "physics/shape_type": 1
 }
 }
