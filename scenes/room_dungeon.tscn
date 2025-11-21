@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://5u5shejmnm2d"]
+[gd_scene load_steps=5 format=3 uid="uid://5u5shejmnm2d"]
 
 [ext_resource type="Script" uid="uid://jd33pyvoymt8" path="res://scenes/dungeon_room.gd" id="1_rl6qx"]
 [ext_resource type="MeshLibrary" uid="uid://n4o6kmw6ap81" path="res://assets/grid_libraries/dungeon_tileset.tres" id="1_w4156"]
 [ext_resource type="PackedScene" uid="uid://cn7gh6vlj8af5" path="res://assets/scenes/door.tscn" id="2_oakt6"]
+[ext_resource type="PackedScene" uid="uid://c8pswujmax0c7" path="res://prefabs/enemy.tscn" id="4_13qsq"]
 
-[node name="RoomDungeon" type="Node3D" node_paths=PackedStringArray("camera_marker")]
+[node name="RoomDungeon" type="Node3D" node_paths=PackedStringArray("camera_marker", "enemies_container")]
 script = ExtResource("1_rl6qx")
 camera_marker = NodePath("CamPos")
+enemies_container = NodePath("Enemies")
 
 [node name="GridMapFloor" type="GridMap" parent="."]
 mesh_library = ExtResource("1_w4156")
@@ -42,3 +44,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.913582, 0, 20)
 
 [node name="CamPos" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 18, 15)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("4_13qsq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 7)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("4_13qsq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 7)
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("4_13qsq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 7)
+
+[node name="Enemy4" parent="Enemies" instance=ExtResource("4_13qsq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 12)
+
+[node name="Enemy5" parent="Enemies" instance=ExtResource("4_13qsq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 12)

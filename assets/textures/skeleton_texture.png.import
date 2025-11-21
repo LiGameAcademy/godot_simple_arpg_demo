@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://db2lthygauygw"
-path.s3tc="res://.godot/imported/Mage_mage_texture.png-4182d647f8b0f3d86aad5529fe14911e.s3tc.ctex"
+uid="uid://ck2tohoo6hstd"
+path.s3tc="res://.godot/imported/skeleton_texture.png-d8a8064af0b84bb3bbd5e7da7c27ec1b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "b1207aa319eb415e8237eb1997986ef5"
-}
 
 [deps]
 
-source_file="res://assets/models/characters/Mage_mage_texture.png"
-dest_files=["res://.godot/imported/Mage_mage_texture.png-4182d647f8b0f3d86aad5529fe14911e.s3tc.ctex"]
+source_file="res://assets/textures/skeleton_texture.png"
+dest_files=["res://.godot/imported/skeleton_texture.png-d8a8064af0b84bb3bbd5e7da7c27ec1b.s3tc.ctex"]
 
 [params]
 

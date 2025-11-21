@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
-[ext_resource type="PackedScene" uid="uid://cwod0ct36wlgo" path="res://prefabs/Player.tscn" id="2_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://cwod0ct36wlgo" path="res://prefabs/player.tscn" id="2_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://b1t1sf3ftqb3f" path="res://prefabs/Teleporter.tscn" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://5u5shejmnm2d" path="res://scenes/room_dungeon.tscn" id="3_tefeu"]
 [ext_resource type="PackedScene" uid="uid://b3e2ofxe5aiji" path="res://scenes/room_boss.tscn" id="4_o6xl0"]

@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dj00xnpnifdk1"]
+
+[ext_resource type="Script" uid="uid://cse505r5wkc7n" path="res://prefabs/loot_item.gd" id="1_kx03a"]
+[ext_resource type="PackedScene" uid="uid://dpaftsxkq2q08" path="res://assets/models/dungeon/bottle_A_brown.gltf" id="1_xgwkq"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kx03a"]
+radius = 0.45632458
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xgwkq"]
+radius = 1.8703284
+
+[node name="LootPotion" type="RigidBody3D"]
+collision_layer = 0
+lock_rotation = true
+script = ExtResource("1_kx03a")
+
+[node name="bottle_A_brown2" parent="." instance=ExtResource("1_xgwkq")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44031286, 0)
+shape = SubResource("SphereShape3D_kx03a")
+
+[node name="LootArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LootArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44244385, 0)
+shape = SubResource("SphereShape3D_xgwkq")
+debug_color = Color(0.7058824, 0.4862745, 0.18431373, 0.90588236)

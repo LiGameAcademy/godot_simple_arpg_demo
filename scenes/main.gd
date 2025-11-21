@@ -31,6 +31,8 @@ func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> v
 	# 5. 等待运镜结束
 	await tween.finished
 	
+	target_room.on_player_enter()
+	
 	# 6. 搬运玩家
 	player.reparent(target_room)
 	player.global_position = target_position
