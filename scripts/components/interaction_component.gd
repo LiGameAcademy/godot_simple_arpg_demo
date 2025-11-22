@@ -1,11 +1,15 @@
 extends Area3D
 class_name InteractionComponent
 
-# 【核心】策略模式：持有一个动作列表
+## 前置条件列表 (必须全部满足)
+@export var conditions: Array[GameCondition] = []
+## 【核心】策略模式：持有一个动作列表
 @export var actions: Array[GameAction] = []
+## 这里可以扩展：如果失败了，执行另一组动作（比如播放“锁住”的音效）
+@export var failure_actions: Array[GameAction] = []
+## 交互提示标签
 @export var interaction_label : Label3D = null
-
-# 可以在这里加一个交互提示文本，比如 "按 E 打开"
+## 可以在这里加一个交互提示文本，比如 "按 E 打开"
 @export var prompt_text: String = "E: Interact"
 
 signal interacted(initiator: Node)
@@ -20,7 +24,19 @@ func interact(initiator: Node) -> void:
 		return
 		
 	print("开始执行交互动作...")
-	
+
+	# 1. 安检环节
+	for condition in conditions:
+		if condition and not condition.is_met(initiator, self):
+			print("交互失败：", condition.get_failure_message())
+			
+			# 执行失败反馈 (比如播放 '咣当' 的撞门声)
+			_execute_actions(failure_actions, initiator)
+			return
+
+	# 2. 通过安检，执行正常逻辑
+	print("交互成功！")
+
 	# 遍历并执行所有配置好的动作
 	for action in actions:
 		if action:
@@ -44,7 +60,8 @@ func _setup_label() -> void:
 	interaction_label.no_depth_test = true
 	interaction_label.hide()
 	
-	
-	
-	
-	
+# 封装一个执行函数，复用代码
+func _execute_actions(action_list: Array[GameAction], initiator: Node) -> void:
+	for action in action_list:
+		if action:
+			action.execute(initiator, self)
