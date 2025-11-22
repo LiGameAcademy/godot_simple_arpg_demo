@@ -10,6 +10,9 @@ extends CharacterBody3D
 @onready var interaction_area: Area3D = $Visuals/InteractionArea
 @onready var inventory_component: C_Inventory = $InventoryComponent
 
+# 记录当前焦点，用于对比变化
+var current_interactable: InteractionComponent = null
+
 var animation_state_machine: AnimationNodeStateMachinePlayback
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -46,12 +49,18 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, acceleration * delta)
 		
 	_set_movement_blend_position(velocity.length())
+
+	# 每帧更新交互焦点
+	_update_interaction_focus()
+	
 	# 6. 应用移动
 	move_and_slide()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
-		_try_interact()
+		# 直接使用已经检测到的 current_interactable，无需再次 get_overlapping_areas
+		if is_instance_valid(current_interactable):
+			current_interactable.interact(self)
 	elif event.is_action_pressed("attack"):
 		_play_anim("attack")
 
@@ -67,12 +76,28 @@ func _play_anim(anim_name: String) -> void:
 func _set_movement_blend_position(blend_position: float) -> void:
 	animation_tree.set("parameters/StateMachine/movement/blend_position", blend_position)
 
-func _try_interact() -> void:
-	# 获取探测区域内所有的物体
-	var bodies = interaction_area.get_overlapping_areas() # 假设交互物也是Area3D
-	if bodies.size() > 0:
-		# 找到最近的一个 (简单处理：取第一个)
-		var target = bodies[0]
-		# 检查目标是否有 interact 方法
-		if target.has_method("interact"):
-			target.interact()
+func _update_interaction_focus() -> void:
+	# 获取探测区域内所有的 Area3D
+	var areas = interaction_area.get_overlapping_areas()
+	var new_interactable: InteractionComponent = null
+	
+	# 筛选出最近的一个 InteractionComponent
+	if areas.size() > 0:
+		# 这里简单取第一个，严谨的做法是遍历计算距离最近的那个
+		var target = areas[0]
+		if target is InteractionComponent:
+			new_interactable = target
+	
+	# 【核心逻辑】焦点切换检测
+	# 如果当前注视的物体发生了变化 (从有到无，从A到B)
+	if new_interactable != current_interactable:
+		# 1. 告诉旧的物体：我不看你了，隐藏提示
+		if current_interactable:
+			current_interactable.unfocused()
+		
+		# 2. 告诉新的物体：我在看你，显示提示
+		if new_interactable:
+			new_interactable.focused()
+		
+		# 3. 更新记录
+		current_interactable = new_interactable

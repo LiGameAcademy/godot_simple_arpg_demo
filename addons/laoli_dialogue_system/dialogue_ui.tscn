@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7jbvgjqg3w8h"]
+
+[ext_resource type="Script" uid="uid://bxu70q5yqc70" path="res://addons/laoli_dialogue_system/dialogue_ui.gd" id="1_25t1q"]
+[ext_resource type="AudioStream" uid="uid://dgsdna7h8jl7h" path="res://assets/sfx/typing.mp3" id="2_2x5cq"]
+[ext_resource type="Script" uid="uid://2hdvi1pkbdl5" path="res://addons/laoli_dialogue_system/rich_text_effects/text_shake_effect.gd" id="2_683g5"]
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_r5kn6"]
+script = ExtResource("2_683g5")
+metadata/_custom_type_script = "uid://2hdvi1pkbdl5"
+
+[node name="DialogueUI" type="CanvasLayer"]
+script = ExtResource("1_25t1q")
+
+[node name="Panel" type="Panel" parent="."]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -203.0
+offset_right = 400.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NameLabel" type="Label" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 22
+text = "角色名"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextLabel" type="RichTextLabel" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+bbcode_enabled = true
+custom_effects = [SubResource("RichTextEffect_r5kn6")]
+
+[node name="ChoicesContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TypingSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_2x5cq")

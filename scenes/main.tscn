@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://30orglekea3b"]
+[gd_scene load_steps=13 format=3 uid="uid://30orglekea3b"]
 
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://5u5shejmnm2d" path="res://scenes/room_dungeon.tscn" id="3_tefeu"]
 [ext_resource type="PackedScene" uid="uid://b3e2ofxe5aiji" path="res://scenes/room_boss.tscn" id="4_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://cgv4kbrho80c8" path="res://addons/simple_inventory/src/widgets/inventory.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://c7jbvgjqg3w8h" path="res://addons/laoli_dialogue_system/dialogue_ui.tscn" id="8_85g3d"]
+[ext_resource type="PackedScene" uid="uid://ck0v10cu8d6ke" path="res://ui/quest_log_ui.tscn" id="9_choun"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ubp1v"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -38,18 +40,18 @@ transform = Transform3D(1, 0, 0, 0, 0.17364822, 0.9848077, 0, -0.9848077, 0.1736
 [node name="Player" parent="RoomLobby" instance=ExtResource("2_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.606604, 0.09957409, 5.87055)
 
-[node name="Teleporter" parent="RoomLobby" node_paths=PackedStringArray("target_room", "target") instance=ExtResource("3_tbgi4")]
+[node name="Teleporter" parent="RoomLobby" node_paths=PackedStringArray("target_room", "target_marker") instance=ExtResource("3_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, 1.060358)
 target_room = NodePath("../../RoomDungeon")
-target = NodePath("../../RoomDungeon/Teleporter")
+target_marker = NodePath("../../RoomDungeon/Teleporter")
 
 [node name="RoomDungeon" parent="." instance=ExtResource("3_tefeu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
 
-[node name="Teleporter" parent="RoomDungeon" node_paths=PackedStringArray("target_room", "target") instance=ExtResource("3_tbgi4")]
+[node name="Teleporter" parent="RoomDungeon" node_paths=PackedStringArray("target_room", "target_marker") instance=ExtResource("3_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, 19.060358)
 target_room = NodePath("../../RoomLobby")
-target = NodePath("../../RoomLobby/Teleporter")
+target_marker = NodePath("../../RoomLobby/Teleporter")
 
 [node name="RoomBoss" parent="." instance=ExtResource("4_o6xl0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
@@ -75,3 +77,7 @@ anchor_bottom = 1.0
 offset_top = -436.0
 offset_right = 577.0
 grow_vertical = 0
+
+[node name="DialogueUI" parent="." instance=ExtResource("8_85g3d")]
+
+[node name="QuestLogUI" parent="." instance=ExtResource("9_choun")]

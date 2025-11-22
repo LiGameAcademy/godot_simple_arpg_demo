@@ -1,9 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://b1t1sf3ftqb3f"]
+[gd_scene load_steps=16 format=3 uid="uid://b1t1sf3ftqb3f"]
 
-[ext_resource type="Script" uid="uid://r0lyfuvxjbca" path="res://prefabs/teleporter.gd" id="1_dnrpo"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_v7e6t"]
-size = Vector3(2, 2, 2)
+[ext_resource type="Script" uid="uid://63ghh1b1n7wj" path="res://prefabs/teleporter.gd" id="1_dnrpo"]
+[ext_resource type="Script" uid="uid://t0fmrjfr7nfv" path="res://scripts/components/interaction_component.gd" id="2_5e6f3"]
+[ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://scripts/core/interaction/game_action.gd" id="2_ayalb"]
+[ext_resource type="Script" uid="uid://r0lyfuvxjbca" path="res://scripts/core/interaction/action_teleporter.gd" id="3_5e6f3"]
 
 [sub_resource type="Curve" id="Curve_dnrpo"]
 _limits = [-360.0, 360.0, 0.0, 1.0]
@@ -53,14 +53,15 @@ albedo_color = Color(1, 0, 1, 1)
 material = SubResource("StandardMaterial3D_ayalb")
 size = Vector2(0.1, 0.1)
 
-[node name="Teleporter" type="Area3D"]
-collision_layer = 128
-collision_mask = 0
-script = ExtResource("1_dnrpo")
+[sub_resource type="Resource" id="Resource_6d140"]
+script = ExtResource("3_5e6f3")
+metadata/_custom_type_script = "uid://r0lyfuvxjbca"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_v7e6t")
-debug_color = Color(0.15686275, 0.36862746, 0.06666667, 0.9019608)
+[sub_resource type="BoxShape3D" id="BoxShape3D_v7e6t"]
+size = Vector3(2, 2, 2)
+
+[node name="Teleporter" type="Node3D"]
+script = ExtResource("1_dnrpo")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 amount = 100
@@ -74,3 +75,21 @@ draw_pass_1 = SubResource("QuadMesh_dnrpo")
 light_color = Color(1, 0, 1, 1)
 light_energy = 2.0
 omni_range = 1.5
+
+[node name="InteractionComponent" type="Area3D" parent="." node_paths=PackedStringArray("interaction_label")]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("2_5e6f3")
+actions = Array[ExtResource("2_ayalb")]([SubResource("Resource_6d140")])
+interaction_label = NodePath("../InteractionLabel")
+metadata/_custom_type_script = "uid://t0fmrjfr7nfv"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionComponent"]
+shape = SubResource("BoxShape3D_v7e6t")
+debug_color = Color(0.15686275, 0.36862746, 0.06666667, 0.9019608)
+
+[node name="InteractionLabel" type="Label3D" parent="."]
+pixel_size = 0.01
+billboard = 1
+text = "交互"
+font_size = 55

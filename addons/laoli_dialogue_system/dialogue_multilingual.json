@@ -1,0 +1,81 @@
+{
+	"village_chief_start": {
+	  "character": {
+		"zh_CN": "村长",
+		"en": "Village Chief"
+	  },
+	  "text": {
+		"zh_CN": "年轻人，你终于来了。村子东边的森林里最近不太平，你能去调查一下吗？",
+		"en": "Young one, you've finally arrived. The forest to the east has been restless lately, can you investigate?"
+	  },
+	  "choices": [
+		{
+		  "text": {
+			"zh_CN": "好的，我这就去。",
+			"en": "Alright, I'll go right away."
+		  },
+		  "next_node": "accept_quest_forest"
+		},
+		{
+		  "text": {
+			"zh_CN": "我还需要一些准备。",
+			"en": "I still need some preparation."
+		  },
+		  "next_node": "refuse_quest_forest"
+		},
+		{
+		  "text": {
+			"zh_CN": "我早就调查过了，没什么大不了的。",
+			"en": "I've already investigated, it was no big deal."
+		  },
+		  "display_condition_prefix": true,
+		  "next_node": "already_done_quest",
+		  "condition": {
+			"has_item": "badge_of_courage"
+		  }
+		}
+	  ]
+	},
+	"accept_quest_forest": {
+	  "character": {
+		"zh_CN": "村长",
+		"en": "Village Chief"
+	  },
+	  "text": {
+		"zh_CN": "太好了！这是我给你的一些干粮，路上小心。",
+		"en": "Excellent! Here are some rations for the road. Be careful."
+	  },
+	  "action": {
+		"type": "give_item",
+		"id": "bread",
+		"amount": 2
+	  },
+	  "next_node": "END"
+	},
+	"refuse_quest_forest": {
+	  "character": {
+		"zh_CN": "村长",
+		"en": "Village Chief"
+	  },
+	  "text": {
+		"zh_CN": "好吧，那你先去准备一下吧，村子的安危就靠你了。",
+		"en": "Alright, go and prepare then. The safety of our village rests on you."
+	  },
+	  "next_node": "END"
+	},
+	"already_done_quest": {
+	  "character": {
+		"zh_CN": "村长",
+		"en": "Village Chief"
+	  },
+	  "text": {
+		"zh_CN": "哦？看不出来你年纪轻轻，身手却如此了得！这是给你的奖励。",
+		"en": "Oh? I couldn't tell you were so skilled at such a young age! This is your reward."
+	  },
+	  "action": {
+		"type": "give_reward",
+		"id": "QUEST_1_REWARD"
+	  },
+	  "next_node": "END"
+	}
+  }
