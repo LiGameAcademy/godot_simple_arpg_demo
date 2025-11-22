@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://dy41c1kilsgu3"]
+
+[ext_resource type="Script" uid="uid://81t6vkwvxdxa" path="res://addons/simple_inventory/src/core/Item.gd" id="1_icd6b"]
+[ext_resource type="Texture2D" uid="uid://bc56qiw1qnegb" path="res://assets/textures/item.svg" id="1_op3ix"]
+
+[resource]
+script = ExtResource("1_icd6b")
+name = "小红药水"
+icon = ExtResource("1_op3ix")
+description = "恢复 20 点生命值。"
+category = 1
+max_stack = 10
+attributes = Dictionary[String, float]({
+"health": 20.0
+})
+metadata/_custom_type_script = "uid://81t6vkwvxdxa"

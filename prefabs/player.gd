@@ -8,6 +8,7 @@ extends CharacterBody3D
 @onready var visuals: Node3D = $Visuals
 @onready var animation_tree: AnimationTree = $Visuals/Barbarian/AnimationTree
 @onready var interaction_area: Area3D = $Visuals/InteractionArea
+@onready var inventory_component: C_Inventory = $InventoryComponent
 
 var animation_state_machine: AnimationNodeStateMachinePlayback
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -15,6 +16,11 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ready() -> void:
 	animation_state_machine = animation_tree.get("parameters/StateMachine/playback")
 	animation_state_machine.travel("movement")
+	# 【测试福利】送 3 瓶药水
+	var potion = load("res://data/items/potion_health_small.tres")
+	if potion:
+		for i in range(3):
+			inventory_component.add_item(potion.duplicate())
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -48,6 +54,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		_try_interact()
 	elif event.is_action_pressed("attack"):
 		_play_anim("attack")
+
+func get_inventory() -> C_Inventory:
+	return inventory_component
 
 func _play_anim(anim_name: String) -> void:
 	if not is_instance_valid(animation_state_machine):

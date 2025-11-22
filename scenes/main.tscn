@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://30orglekea3b"]
+[gd_scene load_steps=11 format=3 uid="uid://30orglekea3b"]
 
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b1t1sf3ftqb3f" path="res://prefabs/Teleporter.tscn" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://5u5shejmnm2d" path="res://scenes/room_dungeon.tscn" id="3_tefeu"]
 [ext_resource type="PackedScene" uid="uid://b3e2ofxe5aiji" path="res://scenes/room_boss.tscn" id="4_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://cgv4kbrho80c8" path="res://addons/simple_inventory/src/widgets/inventory.tscn" id="7_o6xl0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ubp1v"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -52,3 +53,25 @@ target = NodePath("../../RoomLobby/Teleporter")
 
 [node name="RoomBoss" parent="." instance=ExtResource("4_o6xl0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="HUD" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="inventory" parent="UILayer/HUD" instance=ExtResource("7_o6xl0")]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -436.0
+offset_right = 577.0
+grow_vertical = 0

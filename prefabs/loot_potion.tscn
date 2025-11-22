@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dj00xnpnifdk1"]
+[gd_scene load_steps=6 format=3 uid="uid://dj00xnpnifdk1"]
 
 [ext_resource type="Script" uid="uid://cse505r5wkc7n" path="res://prefabs/loot_item.gd" id="1_kx03a"]
 [ext_resource type="PackedScene" uid="uid://dpaftsxkq2q08" path="res://assets/models/dungeon/bottle_A_brown.gltf" id="1_xgwkq"]
+[ext_resource type="Resource" uid="uid://dy41c1kilsgu3" path="res://data/items/potion_health_small.tres" id="2_w4y78"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kx03a"]
 radius = 0.45632458
@@ -13,6 +14,7 @@ radius = 1.8703284
 collision_layer = 0
 lock_rotation = true
 script = ExtResource("1_kx03a")
+item_def = ExtResource("2_w4y78")
 
 [node name="bottle_A_brown2" parent="." instance=ExtResource("1_xgwkq")]
 

@@ -4,12 +4,23 @@ extends Node3D
 const TRANSITION_TIME = 1.5 
 
 @onready var player: CharacterBody3D = $RoomLobby/Player
+@onready var inventory_ui: MarginContainer = $UILayer/HUD/inventory
 @onready var camera: Camera3D = $Camera3D
 
 func _ready() -> void:
 	# 初始化：游戏开始时，把摄像机瞬间定格在第一个房间
 	var start_room = $RoomLobby
 	camera.global_position = start_room.camera_marker.global_position
+	# 我们获取 Player 身上的组件，传给 UI
+	var player_inventory : C_Inventory = player.get_inventory() # 确保你在player脚本中实现了这个方法
+	inventory_ui.initialize(player_inventory)
+	
+func _unhandled_input(event) -> void:
+	if event.is_action_pressed("toggle_inventory"):
+		if inventory_ui.visible:
+			inventory_ui.hide()
+		else:
+			inventory_ui.open()
 
 func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> void:
    # 1. 冻结玩家 (禁止乱动)
