@@ -38,9 +38,7 @@ func interact(initiator: Node) -> void:
 	print("交互成功！")
 
 	# 遍历并执行所有配置好的动作
-	for action in actions:
-		if action:
-			action.execute(initiator, self) # 将组件自己作为 target 传进去
+	_execute_actions(actions, initiator)
 
 	interacted.emit(initiator)
 

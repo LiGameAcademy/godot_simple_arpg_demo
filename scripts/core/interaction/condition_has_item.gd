@@ -3,7 +3,7 @@ class_name ConditionHasItem
 
 @export var item_name: String = ""  # 需要检查的物品名称
 @export var amount: int = 1 # 需要的数量
-@export var consume_on_success: bool = true # 成功后是否消耗物品？
+#@export var consume_on_success: bool = true # 成功后是否消耗物品？
 
 func is_met(activator: Node, _target: Node) -> bool:
 	if item_name.is_empty(): return true # 没配置物品，默认放行

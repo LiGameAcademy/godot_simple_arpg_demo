@@ -43,6 +43,13 @@ func remove_item(remove_item: Item) -> void:
 		index += 1
 	item_changed.emit()
 
+func get_item_count_by_name(item_name: String) -> int:
+	var count = 0
+	for i in items:
+		if i and i.name == item_name:
+			count += i.quantity
+	return count
+
 ## 删除道具
 func remove_item_by_name(item_name: String, amount: int = 1) -> bool:
 	if amount > get_item_count_by_name(item_name): return false
@@ -55,32 +62,17 @@ func remove_item_by_name(item_name: String, amount: int = 1) -> bool:
 				dirty = true
 				break
 			else:
-				remove_item(i)
 				count -= i.quantity
+				remove_item(i)
 				if count == 0:
 					break
 	if dirty:
 		item_changed.emit()
 	return true
-			
+
 ## 获取道具
 func get_item(index: int) -> Item:
 	return items[index]
-
-## 获取道具数量
-func get_item_count(item: Item) -> int:
-	var count = 0
-	for i in items:
-		if i and i.name == item.name:
-			count += i.quantity
-	return count
-
-func get_item_count_by_name(item_name: String) -> int:
-	var count = 0
-	for i in items:
-		if i and i.name == item_name:
-			count += i.quantity
-	return count
 
 ## 获取空的索引
 func get_empty_index() -> int:
