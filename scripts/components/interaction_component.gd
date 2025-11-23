@@ -38,13 +38,9 @@ func unfocused() -> void:
 
 func _setup_label() -> void:
 	if not is_instance_valid(interaction_label):
+		push_error("interaction label is invalid!")
 		return
 	interaction_label.text = prompt_text
 	interaction_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	interaction_label.no_depth_test = true
 	interaction_label.hide()
-	
-	
-	
-	
-	

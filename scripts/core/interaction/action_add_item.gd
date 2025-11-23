@@ -10,11 +10,11 @@ func execute(initiator: Node, _target: Node) -> void:
 	
 	# 检查发起者(玩家)身上是否有背包组件
 	# 假设我们给 Player 挂载的组件名叫 "InventoryComponent"
-	var inventory = initiator.get_inventory() if initiator.has_method("get_inventory") else null
-	
+	var inventory : C_Inventory = initiator.get_inventory() if initiator.has_method("get_inventory") else null
 	if is_instance_valid(inventory):
-		for i in range(amount):
-			inventory.add_item(item.duplicate())
+		var final_item : Item = item.duplicate()
+		final_item.quantity = amount
+		inventory.add_item(final_item)
 		print("获得物品：", item.name, " x", amount)
 		
 		# 可选：在这里触发一个 UI 弹窗提示

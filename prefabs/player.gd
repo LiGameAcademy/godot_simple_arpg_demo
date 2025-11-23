@@ -87,6 +87,10 @@ func _update_interaction_focus() -> void:
 		var target = areas[0]
 		if target is InteractionComponent:
 			new_interactable = target
+	else:
+		if current_interactable:
+			current_interactable.unfocused()
+		current_interactable = null
 	
 	# 【核心逻辑】焦点切换检测
 	# 如果当前注视的物体发生了变化 (从有到无，从A到B)
