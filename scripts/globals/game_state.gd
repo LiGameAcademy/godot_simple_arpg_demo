@@ -7,22 +7,11 @@ var item_database = {
 	"badge_of_courage": { "name": "勇气徽章" }
 }
 
-# 新增：任务数据库，定义所有任务的元数据
-var quest_database: Dictionary = {
-	"chief_forest_quest": {
-		"title": "调查东边的森林",
-		"description": "村长让你去调查一下村子东边森林里的异常情况。"
-	}
-}
-
+# 运行时查找表 (ID -> Quest Resource)
+var quest_database: Dictionary = {}
 # 2. 玩家的背包现在存储的是道具ID，而不是名称
 #var inventory = ["sword_rust", "bread"]
 var inventory = ["sword_rust", "bread", "badge_of_courage"]
-var completed_quests = ["新手村报道"]
-
-# 新增：玩家任务列表，存储玩家已接取或已完成的任务
-# Key是任务ID, Value是任务状态 (e.g., "active", "completed")
-var player_quests: Dictionary = {}
 
 # 新增：用于存储NPC好感度的字典
 # Key是NPC的唯一ID，Value是好感度数值
@@ -30,12 +19,23 @@ var npc_affinities: Dictionary = {
 	"village_chief": 50 # 比如村长，初始好感度是50
 }
 
-# 新增一个信号，当任务列表更新时，广播出去
-signal quest_log_updated
+signal game_event_occurred(type: String, data: Dictionary)
 
 func _ready() -> void:
 	# 连接信号的代码保持不变
 	DialogueManager.action_triggered.connect(_on_action_triggered)
+
+func emit_game_event(type: String, data: Dictionary) -> void:
+	game_event_occurred.emit(type, data)
+
+func register_quest(quest: Quest) -> void:
+	if not is_instance_valid(quest) or quest.id.is_empty():
+		push_error("警告：任务 ID 为空 -> ", quest)
+		return
+	if quest_database.has(quest.id):
+		push_error("警告：任务 ID 重复 -> ", quest.id)
+	else:
+		quest_database[quest.id] = quest
 
 # 3. has_item和add_item现在都使用ID
 func has_item(item_id: String) -> bool:
@@ -114,9 +114,13 @@ func handle_change_affinity_action(action: Dictionary) -> void:
 	var value : int = action.get("value", 0)
 	change_npc_affinity(npc_id, value)
 
-# 新增：一个用来开启任务的函数
+## 开启任务的函数
 func start_quest(quest_id: String) -> void:
-	if quest_database.has(quest_id) and not player_quests.has(quest_id):
-		player_quests[quest_id] = "active"
-		print("Quest started: ", quest_database[quest_id]["title"])
-		quest_log_updated.emit() # 发出信号，通知UI刷新
+	if not quest_database.has(quest_id):
+		push_error("警告：任务 ID 不存在 -> ", quest_id)
+		return
+	var quest = quest_database[quest_id]
+	if not is_instance_valid(quest):
+		push_error("警告：任务实例不存在 -> ", quest_id)
+		return
+	QuestManager.accept_quest(quest)

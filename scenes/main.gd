@@ -7,7 +7,10 @@ const TRANSITION_TIME = 1.5
 @onready var inventory_ui: MarginContainer = $UILayer/HUD/inventory
 @onready var camera: Camera3D = $Camera3D
 
+@export var registered_quests: Array[Quest] = []
+
 func _ready() -> void:
+	_register_quests()
 	# 初始化：游戏开始时，把摄像机瞬间定格在第一个房间
 	var start_room = $RoomLobby
 	camera.global_position = start_room.camera_marker.global_position
@@ -51,3 +54,7 @@ func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> v
 	
 	# 7. 恢复控制
 	player.set_physics_process(true)
+
+func _register_quests() -> void:
+	for quest in registered_quests:
+		GameState.register_quest(quest)

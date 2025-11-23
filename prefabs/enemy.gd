@@ -4,6 +4,7 @@ extends CharacterBody3D
 
 # 预留给掉落物的插槽 (稍后制作)
 @export var loot_scene: PackedScene 
+@export var enemy_id: String = "skeleton"
 
 # 简单的生命值
 var hp: int = 3
@@ -34,6 +35,7 @@ func die() -> void:
 	spawn_loot()
 	# 2. 销毁自身
 	animation_state_machine.travel("death")
+	GameState.emit_game_event("enemy_died", {"id": enemy_id})
 
 func spawn_loot() -> void:
 	if not is_instance_valid(loot_scene):

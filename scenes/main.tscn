@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://30orglekea3b"]
+[gd_scene load_steps=14 format=3 uid="uid://30orglekea3b"]
 
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
+[ext_resource type="Script" uid="uid://bw4a3qea7fktc" path="res://scripts/core/quest/quest.gd" id="2_choun"]
 [ext_resource type="PackedScene" path="res://prefabs/player.tscn" id="2_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://b1t1sf3ftqb3f" path="res://prefabs/Teleporter.tscn" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://5u5shejmnm2d" path="res://scenes/room_dungeon.tscn" id="3_tefeu"]
@@ -28,6 +29,7 @@ glow_bloom = 0.2
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_tefeu")
+registered_quests = Array[ExtResource("2_choun")]([null])
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fpimf")

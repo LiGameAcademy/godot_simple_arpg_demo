@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 DialogueManager="*res://addons/laoli_dialogue_system/dialogue_manager.gd"
 GameState="*res://scripts/globals/game_state.gd"
+QuestManager="*res://scripts/globals/quest_manager.gd"
 
 [display]
 
