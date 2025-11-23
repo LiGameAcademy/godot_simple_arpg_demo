@@ -2,7 +2,7 @@
 extends Resource
 class_name GameAction 
 
-# 可以在编辑器里给动作写备注
+## 可以在编辑器里给动作写备注
 @export var description: String = ""
 
 # 核心接口：执行动作
