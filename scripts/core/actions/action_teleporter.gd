@@ -1,6 +1,9 @@
 extends GameAction
 class_name ActionTeleport
 
+func init_from_data(_data: Dictionary) -> void:
+	pass
+
 func execute(initiator: Node, target: Node) -> void:
 	# 1. 获取宿主 (Owner)
 	# target 是 InteractionComponent，它的父节点通常就是 Teleporter

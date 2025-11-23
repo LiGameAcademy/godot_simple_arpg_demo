@@ -9,7 +9,7 @@ func init_from_data(action_data: Dictionary) -> void:
 		push_error("ActionGiveReward: reward_id为空")
 		return
 
-func execute(initiator: Node, _target: Node) -> void:
+func execute(_initiator: Node, _target: Node) -> void:
 	if reward_id.is_empty():
 		push_error("ActionGiveReward: reward_id为空")
 		return

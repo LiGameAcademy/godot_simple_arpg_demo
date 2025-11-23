@@ -16,7 +16,7 @@ func init_from_data(action_data: Dictionary) -> void:
 		push_error("ActionChangeAffinity: value为0")
 		return
 
-func execute(initiator: Node, _target: Node) -> void:
+func execute(_initiator: Node, _target: Node) -> void:
 	if npc_id.is_empty():
 		push_error("ActionChangeAffinity: npc_id为空")
 		return
