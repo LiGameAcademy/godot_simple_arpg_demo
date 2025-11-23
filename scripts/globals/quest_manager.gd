@@ -1,5 +1,13 @@
 extends Node
 
+## --- 任务状态枚举 ---
+enum QuestStatus { 
+	CAN_ACCEPT,      	## 可以接取（在数据库中，但未接取）
+	IN_PROGRESS,     	## 进行中（已接取，但未完成）
+	READY_TO_TURN_IN, 	## 已完成，可以交任务
+	FINISHED         	## 已完成并已交任务
+}
+
 # --- 数据存储 ---
 # 存储所有正在进行中的任务实例 (Quest Resource 实例)
 var active_quests: Array[Quest] = [] ## 正在进行中的任务实例
@@ -57,6 +65,28 @@ func has_quest(quest_id: String) -> bool:
 
 func is_quest_completed(quest_id: String) -> bool:
 	return completed_quest_ids.has(quest_id)
+
+## 获取任务当前状态
+## [param quest_id] 任务ID
+## [return] QuestStatus 枚举值
+func get_quest_status(quest_id: String) -> QuestStatus:
+	if is_quest_completed(quest_id):
+		return QuestStatus.FINISHED
+	
+	if has_quest(quest_id):
+		# 查找任务实例，检查是否所有目标都完成
+		for q in active_quests:
+			if q.id == quest_id:
+				if q.is_completed:
+					return QuestStatus.READY_TO_TURN_IN
+				else:
+					return QuestStatus.IN_PROGRESS
+	
+	# 任务未接取，检查是否在数据库中（可以接取）
+	if GameState.quest_database.has(quest_id):
+		return QuestStatus.CAN_ACCEPT
+	
+	return QuestStatus.CAN_ACCEPT  # 默认返回可接取
 
 # --- 内部逻辑：任务完成 ---
 func _on_quest_completed(quest: Quest) -> void:

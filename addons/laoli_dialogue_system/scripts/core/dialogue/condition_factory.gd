@@ -1,7 +1,9 @@
 class_name ConditionFactory
 
 # --- 条件类型映射表 ---
-var condition_type_map: Dictionary[String, GameCondition] = {}
+var condition_type_map: Dictionary[String, GameCondition] = {
+	"quest_status": ConditionQuestStatus.new(),
+}
 
 # --- 核心方法：从JSON数据创建GameCondition实例 ---
 func create_condition_from_data(condition_data: Dictionary) -> GameCondition:
