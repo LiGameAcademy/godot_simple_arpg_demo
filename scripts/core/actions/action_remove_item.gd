@@ -4,6 +4,13 @@ class_name ActionRemoveItem
 @export var item_name: String = ""
 @export var amount: int = 1
 
+func init_from_data(action_data: Dictionary) -> void:
+	item_name = action_data.get("id", "")
+	amount = action_data.get("amount", 1)
+	if item_name.is_empty():
+		push_error("ActionRemoveItem: item_name不能为空")
+		return
+
 func execute(initiator: Node, _target: Node) -> void:
 	if item_name.is_empty():
 		print("移除物品名称不能为空！")

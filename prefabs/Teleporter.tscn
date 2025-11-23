@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://63ghh1b1n7wj" path="res://prefabs/teleporter.gd" id="1_dnrpo"]
 [ext_resource type="Script" uid="uid://t0fmrjfr7nfv" path="res://scripts/components/interaction_component.gd" id="2_5e6f3"]
-[ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://scripts/core/interaction/game_action.gd" id="2_ayalb"]
-[ext_resource type="Script" uid="uid://r0lyfuvxjbca" path="res://scripts/core/interaction/action_teleporter.gd" id="3_5e6f3"]
-[ext_resource type="Script" path="res://scripts/core/interaction/game_condition.gd" id="3_g1m3v"]
-[ext_resource type="Script" uid="uid://cll42kf3h1bdw" path="res://scripts/core/interaction/condition_has_item.gd" id="4_6pr02"]
-[ext_resource type="Script" path="res://scripts/core/interaction/action_remove_item.gd" id="7_20kps"]
+[ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://addons/laoli_dialogue_system/scripts/core/interaction/game_action.gd" id="2_ayalb"]
+[ext_resource type="Script" uid="uid://r0lyfuvxjbca" path="res://addons/laoli_dialogue_system/scripts/core/interaction/action_teleporter.gd" id="3_5e6f3"]
+[ext_resource type="Script" uid="uid://cuacmob0vopu8" path="res://addons/laoli_dialogue_system/scripts/core/interaction/game_condition.gd" id="3_g1m3v"]
+[ext_resource type="Script" uid="uid://cll42kf3h1bdw" path="res://addons/laoli_dialogue_system/scripts/core/interaction/condition_has_item.gd" id="4_6pr02"]
+[ext_resource type="Script" uid="uid://b34y0od56o80a" path="res://addons/laoli_dialogue_system/scripts/core/interaction/action_remove_item.gd" id="7_20kps"]
 
 [sub_resource type="Curve" id="Curve_dnrpo"]
 _limits = [-360.0, 360.0, 0.0, 1.0]

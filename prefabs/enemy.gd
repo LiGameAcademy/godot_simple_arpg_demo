@@ -31,11 +31,11 @@ func take_damage(amount: int) -> void:
 		die()
 
 func die() -> void:
+	GameState.emit_game_event("enemy_died", {"enemy_id": enemy_id})
 	# 1. 生成掉落物 (稍后实现)
 	spawn_loot()
 	# 2. 销毁自身
 	animation_state_machine.travel("death")
-	GameState.emit_game_event("enemy_died", {"id": enemy_id})
 
 func spawn_loot() -> void:
 	if not is_instance_valid(loot_scene):

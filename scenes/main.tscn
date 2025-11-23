@@ -1,15 +1,37 @@
-[gd_scene load_steps=14 format=3 uid="uid://30orglekea3b"]
+[gd_scene load_steps=20 format=3 uid="uid://30orglekea3b"]
 
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
-[ext_resource type="Script" uid="uid://bw4a3qea7fktc" path="res://scripts/core/quest/quest.gd" id="2_choun"]
-[ext_resource type="PackedScene" path="res://prefabs/player.tscn" id="2_tbgi4"]
+[ext_resource type="Script" uid="uid://bw4a3qea7fktc" path="res://addons/laoli_dialogue_system/scripts/core/quest/quest.gd" id="2_choun"]
+[ext_resource type="PackedScene" uid="uid://bhnc0qrow402l" path="res://prefabs/Player.tscn" id="2_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://b1t1sf3ftqb3f" path="res://prefabs/Teleporter.tscn" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://5u5shejmnm2d" path="res://scenes/room_dungeon.tscn" id="3_tefeu"]
+[ext_resource type="Script" uid="uid://c3ecw04xqk861" path="res://addons/laoli_dialogue_system/scripts/core/quest/quest_objective.gd" id="3_trceg"]
+[ext_resource type="Script" uid="uid://idhfdfg4eg6v" path="res://addons/laoli_dialogue_system/scripts/core/quest/objective_kill.gd" id="4_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://b3e2ofxe5aiji" path="res://scenes/room_boss.tscn" id="4_o6xl0"]
+[ext_resource type="Script" uid="uid://bifopecxyouao" path="res://addons/laoli_dialogue_system/scripts/core/quest/objective_collect.gd" id="5_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://cgv4kbrho80c8" path="res://addons/simple_inventory/src/widgets/inventory.tscn" id="7_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://c7jbvgjqg3w8h" path="res://addons/laoli_dialogue_system/dialogue_ui.tscn" id="8_85g3d"]
+[ext_resource type="PackedScene" uid="uid://c7jbvgjqg3w8h" path="res://addons/laoli_dialogue_system/ui/dialogue_ui.tscn" id="8_85g3d"]
 [ext_resource type="PackedScene" uid="uid://ck0v10cu8d6ke" path="res://ui/quest_log_ui.tscn" id="9_choun"]
+
+[sub_resource type="Resource" id="Resource_jbj1t"]
+script = ExtResource("4_a8y0u")
+description = "击杀怪物"
+metadata/_custom_type_script = "uid://idhfdfg4eg6v"
+
+[sub_resource type="Resource" id="Resource_muem4"]
+script = ExtResource("5_jkv2x")
+target_item_id = "小红药水"
+description = "收集道具"
+metadata/_custom_type_script = "uid://bifopecxyouao"
+
+[sub_resource type="Resource" id="Resource_dp3eg"]
+script = ExtResource("2_choun")
+id = "test"
+title = "测试任务"
+description = "测试任务"
+objectives = Array[ExtResource("3_trceg")]([SubResource("Resource_jbj1t"), SubResource("Resource_muem4")])
+metadata/_custom_type_script = "uid://bw4a3qea7fktc"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ubp1v"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -29,7 +51,7 @@ glow_bloom = 0.2
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_tefeu")
-registered_quests = Array[ExtResource("2_choun")]([null])
+registered_quests = Array[ExtResource("2_choun")]([SubResource("Resource_dp3eg")])
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fpimf")

@@ -2,6 +2,7 @@ extends Node3D
 
 # 运镜时间 (秒)
 const TRANSITION_TIME = 1.5 
+const DIALOGUE_PATH = "res://data/dialogues/dialogue.json"
 
 @onready var player: CharacterBody3D = $RoomLobby/Player
 @onready var inventory_ui: MarginContainer = $UILayer/HUD/inventory
@@ -10,7 +11,10 @@ const TRANSITION_TIME = 1.5
 @export var registered_quests: Array[Quest] = []
 
 func _ready() -> void:
+	_register_actions()
+	_register_conditions()
 	_register_quests()
+	_init_dialogue()
 	# 初始化：游戏开始时，把摄像机瞬间定格在第一个房间
 	var start_room = $RoomLobby
 	camera.global_position = start_room.camera_marker.global_position
@@ -58,3 +62,15 @@ func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> v
 func _register_quests() -> void:
 	for quest in registered_quests:
 		GameState.register_quest(quest)
+
+func _register_actions() -> void:
+	DialogueManager.register_action("give_item", ActionAddItem.new())
+	DialogueManager.register_action("remove_item", ActionRemoveItem.new())
+	DialogueManager.register_action("give_reward", ActionGiveReward.new())
+	DialogueManager.register_action("affinity_change", ActionChangeAffinity.new())
+
+func _register_conditions() -> void:
+	DialogueManager.register_condition("has_item", ConditionHasItem.new())
+
+func _init_dialogue() -> void:
+	DialogueManager.load_dialogue_file(DIALOGUE_PATH)

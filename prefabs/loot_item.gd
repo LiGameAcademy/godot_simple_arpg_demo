@@ -10,6 +10,7 @@ func _ready() -> void:
 func collect(target_inventory: C_Inventory) -> void:
 	if is_instance_valid(item_def):
 		print("物品进入背包：", item_def.name)
+		GameState.emit_game_event("item_added", {"item_id": item_def.id, "amount": item_def.quantity})
 		# 调用组件的方法添加物品
 		target_inventory.add_item(item_def.duplicate())
 		

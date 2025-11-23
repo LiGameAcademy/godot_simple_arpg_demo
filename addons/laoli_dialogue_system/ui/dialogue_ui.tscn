@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://c7jbvgjqg3w8h"]
 
-[ext_resource type="Script" uid="uid://bxu70q5yqc70" path="res://addons/laoli_dialogue_system/dialogue_ui.gd" id="1_25t1q"]
+[ext_resource type="Script" uid="uid://bxu70q5yqc70" path="res://addons/laoli_dialogue_system/ui/dialogue_ui.gd" id="1_25t1q"]
 [ext_resource type="AudioStream" uid="uid://dgsdna7h8jl7h" path="res://assets/sfx/typing.mp3" id="2_2x5cq"]
-[ext_resource type="Script" uid="uid://2hdvi1pkbdl5" path="res://addons/laoli_dialogue_system/rich_text_effects/text_shake_effect.gd" id="2_683g5"]
+[ext_resource type="Script" uid="uid://2hdvi1pkbdl5" path="res://addons/laoli_dialogue_system/scripts/rich_text_effects/text_shake_effect.gd" id="2_683g5"]
 
 [sub_resource type="RichTextEffect" id="RichTextEffect_r5kn6"]
 script = ExtResource("2_683g5")

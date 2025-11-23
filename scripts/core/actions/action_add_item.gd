@@ -5,6 +5,20 @@ class_name ActionAddItem
 @export var item: Item 
 @export var amount: int = 1
 
+func init_from_data(action_data: Dictionary) -> void:
+	# ActionAddItem需要item和amount
+	# 但JSON里只有id，我们需要从GameState的item_database查找
+	var item_id = action_data.get("id", "")
+	amount = action_data.get("amount", 1)
+	
+	# 这里需要根据item_id获取Item资源
+	# 假设GameState有get_item_resource方法
+	var item_resource = GameState.get_item_resource(item_id)
+	if item_resource:
+		item = item_resource
+	else:
+		push_error("ActionAddItem: 找不到物品资源 '%s'" % item_id)
+
 func execute(initiator: Node, _target: Node) -> void:
 	if item == null: return
 	

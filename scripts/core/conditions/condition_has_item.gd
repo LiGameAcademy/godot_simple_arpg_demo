@@ -3,7 +3,16 @@ class_name ConditionHasItem
 
 @export var item_name: String = ""  # 需要检查的物品名称
 @export var amount: int = 1 # 需要的数量
-#@export var consume_on_success: bool = true # 成功后是否消耗物品？
+
+func init_from_data(condition_data: Dictionary) -> void:
+	var data = condition_data.get("has_item", {})
+	if typeof(data) != TYPE_DICTIONARY:
+		push_error("ConditionHasItem: data必须是字典")
+		return
+	item_name = data.get("id", "")
+	amount = data.get("amount", 1)
+	if item_name.is_empty():
+		push_error("ConditionHasItem: item_name不能为空")
 
 func is_met(activator: Node, _target: Node) -> bool:
 	if item_name.is_empty(): return true # 没配置物品，默认放行

@@ -30,6 +30,24 @@ enum ITEM_TYPE {
 
 signal quantity_changed(value: int)
 
+func _init(
+		p_name: String = "", 
+		p_icon: Texture = null, 
+		p_description: String = "", 
+		p_category: ITEM_TYPE = ITEM_TYPE.NONE, 
+		p_max_stack: int = 1, 
+		p_quantity: int = 1, 
+		p_weight: float = 0, 
+		p_attributes: Dictionary[String, float] = {}) -> void:
+	name = p_name
+	icon = p_icon
+	description = p_description
+	category = p_category
+	max_stack = p_max_stack
+	quantity = p_quantity
+	weight = p_weight
+	attributes = p_attributes
+
 ## 是否达到堆叠上限
 func is_stack_maxed() -> bool:
 	return self.quantity >= self.max_stack

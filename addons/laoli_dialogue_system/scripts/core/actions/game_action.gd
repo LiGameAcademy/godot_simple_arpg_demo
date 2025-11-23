@@ -9,3 +9,6 @@ class_name GameAction
 # initiator: 谁发起了交互？(通常是 Player)
 # target: 交互的对象是谁？(比如宝箱本身)
 @abstract func execute(initiator: Node, target: Node) -> void
+
+## 便捷方法：从JSON数据初始化GameAction实例
+@abstract func init_from_data(action_data: Dictionary) -> void
