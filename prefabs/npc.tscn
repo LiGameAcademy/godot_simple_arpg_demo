@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://viljtp7cx1pd"]
+
+[ext_resource type="PackedScene" uid="uid://bqqk3c0rfeqjk" path="res://assets/scenes/mage.tscn" id="1_tnah1"]
+[ext_resource type="Script" uid="uid://t0fmrjfr7nfv" path="res://scripts/components/interaction_component.gd" id="2_1ov3m"]
+[ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://addons/laoli_dialogue_system/scripts/core/actions/game_action.gd" id="3_cuwdc"]
+[ext_resource type="Script" uid="uid://bg0bhe5cam1cx" path="res://addons/laoli_dialogue_system/scripts/core/actions/action_start_dialogue.gd" id="4_2m1cq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1ov3m"]
+
+[sub_resource type="Resource" id="Resource_h87kd"]
+script = ExtResource("4_2m1cq")
+dialogue_node_id = "village_chief_start"
+metadata/_custom_type_script = "uid://bg0bhe5cam1cx"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cuwdc"]
+radius = 0.7
+height = 2.5
+
+[node name="NPC" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 3
+
+[node name="Mage" parent="." instance=ExtResource("1_tnah1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_1ov3m")
+
+[node name="InteractionComponent" type="Area3D" parent="." node_paths=PackedStringArray("interaction_label")]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("2_1ov3m")
+actions = Array[ExtResource("3_cuwdc")]([SubResource("Resource_h87kd")])
+interaction_label = NodePath("../InteractionLabel")
+prompt_text = "E: 对话"
+metadata/_custom_type_script = "uid://t0fmrjfr7nfv"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_cuwdc")
+debug_color = Color(0.6368245, 0.5205771, 0.2305724, 0.41960785)
+
+[node name="InteractionLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+pixel_size = 0.01
+billboard = 1
+text = "交互"
+font_size = 55

@@ -7,7 +7,7 @@ class_name ConditionHasItem
 func init_from_data(condition_data: Dictionary) -> void:
 	var data = condition_data.get("has_item", {})
 	if typeof(data) != TYPE_DICTIONARY:
-		push_error("ConditionHasItem: data必须是字典")
+		item_name = data
 		return
 	item_name = data.get("id", "")
 	amount = data.get("amount", 1)

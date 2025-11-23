@@ -20,7 +20,6 @@ config/icon="res://icon.svg"
 DialogueManager="*res://addons/laoli_dialogue_system/scripts/core/dialogue/dialogue_manager.gd"
 GameState="*res://scripts/globals/game_state.gd"
 QuestManager="*res://scripts/globals/quest_manager.gd"
-GlobalEventBus="*res://scripts/globals/global_event_bus.gd"
 
 [display]
 
@@ -72,10 +71,15 @@ toggle_inventory={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://localization/translations.en.translation", "res://localization/translations.zh_CN.translation")
+
 [layer_names]
 
 3d_physics/layer_1="Environment"
 3d_physics/layer_2="Player"
+3d_physics/layer_3="npc"
 3d_physics/layer_4="Enemy"
 3d_physics/layer_8="Interaction"
 

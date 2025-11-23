@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bi0a0beepuvxv"
-path.s3tc="res://.godot/imported/Barbarian_barbarian_texture.png-7bb9c02a9e7b2ef9d8598402a0f9d716.s3tc.ctex"
+uid="uid://db2lthygauygw"
+path.s3tc="res://.godot/imported/Mage_mage_texture.png-4182d647f8b0f3d86aad5529fe14911e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "7e5fe19d7f7dc17d0a426dc28321729d"
+"md5": "b1207aa319eb415e8237eb1997986ef5"
 }
 
 [deps]
 
-source_file="res://assets/models/characters/Barbarian_barbarian_texture.png"
-dest_files=["res://.godot/imported/Barbarian_barbarian_texture.png-7bb9c02a9e7b2ef9d8598402a0f9d716.s3tc.ctex"]
+source_file="res://assets/models/characters/Mage_mage_texture.png"
+dest_files=["res://.godot/imported/Mage_mage_texture.png-4182d647f8b0f3d86aad5529fe14911e.s3tc.ctex"]
 
 [params]
 

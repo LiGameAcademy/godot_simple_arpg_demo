@@ -69,7 +69,8 @@ func process_node(node_id: String) -> void:
 	# 处理选项或下一节点
 	if current_node.has_choices():
 		# 获取可用的选项（过滤条件不满足的）
-		var available_options = current_node.get_available_options(null)  # 暂时传null，后续可以传Player
+		var player = get_tree().get_first_node_in_group("Player")
+		var available_options = current_node.get_available_options(player)
 		
 		# 格式化选项数据（保持与UI的兼容性）
 		var formatted_choices = []
