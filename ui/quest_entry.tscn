@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://buxpglhrujy2"]
+
+[ext_resource type="Script" uid="uid://crvi0ppv6n3ie" path="res://ui/quest_entry.gd" id="1_vk1oi"]
+
+[node name="QuestEntry" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("1_vk1oi")

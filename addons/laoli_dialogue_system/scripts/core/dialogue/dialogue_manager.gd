@@ -1,7 +1,7 @@
 extends Node
 
 # 【重构】从Dictionary改为Resource图
-var dialogue_graph: Dictionary = {}  # Dictionary<String, DialogueNode>
+var dialogue_graph: Dictionary[String, DialogueNode] = {}
 var current_node: DialogueNode = null  # 当前对话节点
 var is_active: bool = false 			## 标记对话系统是否正在运行
 
@@ -9,10 +9,10 @@ var action_factory: ActionFactory = ActionFactory.new()
 var condition_factory: ConditionFactory = ConditionFactory.new()
 var dialogue_parser: DialogueParser = DialogueParser.new(action_factory, condition_factory)
 
-signal text_updated(character_name: String, text: String)
-signal dialogue_finished
-signal choices_updated(choices: Array)
-signal action_triggered(action: Dictionary)
+signal text_updated(character_name: String, text: String)		## 文本更新信号
+signal dialogue_started											## 对话开始信号
+signal dialogue_finished										## 对话结束信号
+signal choices_updated(choices: Array)							## 选项更新信号
 
 ## 加载并解析指定的JSON文件
 ## [param path] JSON文件的路径
@@ -44,6 +44,7 @@ func start_dialogue(node_id: String) -> void:
 		return
 
 	is_active = true # 标记对话开始
+	dialogue_started.emit()
 	process_node(node_id)
 
 ## 处理单个对话节点
@@ -61,15 +62,15 @@ func process_node(node_id: String) -> void:
 	current_node = dialogue_graph[node_id]
 
 	# 发出文本更新信号
-	emit_signal("text_updated", current_node.get_character_name(), current_node.get_text())
+	text_updated.emit(current_node.get_character_name(), current_node.get_text())
 	
 	# 执行节点动作
-	_execute_actions(current_node.actions, null)
+	var player = get_tree().get_first_node_in_group("Player")
+	_execute_actions(current_node.actions, player)
 	
 	# 处理选项或下一节点
 	if current_node.has_choices():
 		# 获取可用的选项（过滤条件不满足的）
-		var player = get_tree().get_first_node_in_group("Player")
 		var available_options = current_node.get_available_options(player)
 		
 		# 格式化选项数据（保持与UI的兼容性）
@@ -82,7 +83,7 @@ func process_node(node_id: String) -> void:
 			}
 			formatted_choices.append(choice_data)
 		
-		emit_signal("choices_updated", formatted_choices)
+		choices_updated.emit(formatted_choices)
 	elif not current_node.next_node_id.is_empty():
 		# 单线对话，等待UI继续（不自动跳转）
 		pass

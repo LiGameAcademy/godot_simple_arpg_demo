@@ -4,7 +4,7 @@ class_name ActionStartQuest
 @export var quest_id: String = ""
 
 func init_from_data(action_data: Dictionary) -> void:
-	quest_id = action_data.get("quest_id", "")
+	quest_id = action_data.get("id", "")
 
 func execute(initiator: Node, _target: Node) -> void:
 	if quest_id.is_empty():

@@ -6,17 +6,41 @@
 	  {
 		"text": "VILLAGE_CHIEF_CHOICE_ACCEPT",
 		"next_node": "accept_quest_forest",
-	},
+		"condition": {
+		  "quest_status": {
+			"id": "chief_forest_quest",
+			"status": "can_accept"
+		  }
+		}
+	  },
 	  {
 		"text": "VILLAGE_CHIEF_CHOICE_REFUSE",
 		"next_node": "refuse_quest_forest",
+		"condition": {
+		  "quest_status": {
+			"id": "chief_forest_quest",
+			"status": "can_accept"
+		  }
+		}
 	  },
 	  {
-		"text": "VILLAGE_CHIEF_CHOICE_CONDITIONAL",
-		"display_condition_prefix": true,
-		"next_node": "already_done_quest",
+		"text": "VILLAGE_CHIEF_CHOICE_IN_PROGRESS",
+		"next_node": "quest_in_progress",
 		"condition": {
-		  "has_item": "badge_of_courage"
+		  "quest_status": {
+			"id": "chief_forest_quest",
+			"status": "in_progress"
+		  }
+		}
+	  },
+	  {
+		"text": "VILLAGE_CHIEF_CHOICE_COMPLETE",
+		"next_node": "quest_complete",
+		"condition": {
+		  "quest_status": {
+			"id": "chief_forest_quest",
+			"status": "ready_to_turn_in"
+		  }
 		}
 	  }
 	]
@@ -50,15 +74,26 @@
 		"type": "affinity_change",
 			"npc_id": "village_chief", 
 			"value": -5
-	},
+	}
   },
-  "already_done_quest": {
+  "quest_in_progress": {
 	"character": "CHARACTER_VILLAGE_CHIEF",
-	"text": "VILLAGE_CHIEF_ALREADYDONE_REPLY",
-	"action": {
-	  "type": "give_reward",
-	  "id": "QUEST_1_REWARD"
-	},
+	"text": "VILLAGE_CHIEF_IN_PROGRESS_REPLY",
+	"next_node": "END"
+  },
+  "quest_complete": {
+	"character": "CHARACTER_VILLAGE_CHIEF",
+	"text": "VILLAGE_CHIEF_COMPLETE_REPLY",
+	"actions": [
+	  {
+		"type": "turn_in_quest",
+		"id": "chief_forest_quest"
+	  },
+	  {
+		"type": "give_reward",
+		"id": "badge_of_courage"
+	  }
+	],
 	"next_node": "END"
   }
 }

@@ -19,6 +19,9 @@ func on_game_event(event_type: String, data: Dictionary) -> void:
 		if data.get("enemy_id") == target_enemy_id:
 			_update_progress(1)
 
+func get_progress_text() -> String:
+	return "击败 " + target_enemy_id + " (" + str(current_amount) + "/" + str(required_amount) + ")"
+
 func _update_progress(amount: int) -> void:
 	current_amount += amount
 	print("任务进度更新: ", description, " ", current_amount, "/", required_amount)

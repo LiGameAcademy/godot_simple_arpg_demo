@@ -5,7 +5,8 @@ class_name ActionFactory
 var action_type_map: Dictionary[String, GameAction] = {
 	"debug_print": ActionDebugPrint.new(),
 	"play_sound": ActionPlaySound.new(),
-	"start_quest": ActionStartQuest.new(),  # 这个我们稍后实现
+	"start_quest": ActionStartQuest.new(),
+	"turn_in_quest": ActionTurnInQuest.new(),  # 新增：交付任务
 	"start_dialogue": ActionStartDialogue.new(),
 }
 

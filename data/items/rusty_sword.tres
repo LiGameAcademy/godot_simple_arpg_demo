@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Equip" load_steps=3 format=3 uid="uid://dc7i3ahfpm68s"]
+
+[ext_resource type="Texture2D" uid="uid://dmxcc7dn77stf" path="res://addons/simple_inventory/assets/textures/items/sword.tres" id="1_vmcnm"]
+[ext_resource type="Script" uid="uid://c05dhrbg17orj" path="res://addons/simple_inventory/src/core/equip.gd" id="2_rxses"]
+
+[resource]
+script = ExtResource("2_rxses")
+equip_type = 6
+name = "生锈的剑"
+icon = ExtResource("1_vmcnm")
+description = "看起来锈迹斑斑，勉强可以用来切菜"
+category = 2
+metadata/_custom_type_script = "uid://81t6vkwvxdxa"

@@ -18,6 +18,7 @@ var is_completed: bool = false
 # event_type: 发生了什么事？("enemy_died", "item_added", "dialogue_ended")
 # data: 详细数据 ({ "id": "skeleton", "amount": 1 })
 @abstract func on_game_event(event_type: String, data: Dictionary) -> void
+@abstract func get_progress_text() -> String
 
 # 序列化支持 (用于存档)
 func serialize() -> Dictionary:

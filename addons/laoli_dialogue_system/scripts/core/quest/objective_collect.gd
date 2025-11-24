@@ -19,6 +19,9 @@ func on_game_event(event_type: String, data: Dictionary) -> void:
 			# 为了演示简单，我们先做增量累加
 			_update_progress(amount)
 
+func get_progress_text() -> String:
+	return "收集 " + target_item_id + " (" + str(current_amount) + "/" + str(required_amount) + ")"
+
 func _update_progress(amount: int) -> void:
 	current_amount += amount
 	updated.emit(current_amount, required_amount)

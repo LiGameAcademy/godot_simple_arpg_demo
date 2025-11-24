@@ -1,9 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://30orglekea3b"]
+[gd_scene load_steps=27 format=3 uid="uid://30orglekea3b"]
 
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
 [ext_resource type="Script" uid="uid://bw4a3qea7fktc" path="res://addons/laoli_dialogue_system/scripts/core/quest/quest.gd" id="2_choun"]
-[ext_resource type="PackedScene" uid="uid://bhnc0qrow402l" path="res://prefabs/Player.tscn" id="2_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://dgle1b2vb0agh" path="res://prefabs/player.tscn" id="2_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://b1t1sf3ftqb3f" path="res://prefabs/Teleporter.tscn" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://5u5shejmnm2d" path="res://scenes/room_dungeon.tscn" id="3_tefeu"]
 [ext_resource type="Script" uid="uid://c3ecw04xqk861" path="res://addons/laoli_dialogue_system/scripts/core/quest/quest_objective.gd" id="3_trceg"]
@@ -12,8 +12,11 @@
 [ext_resource type="Script" uid="uid://bifopecxyouao" path="res://addons/laoli_dialogue_system/scripts/core/quest/objective_collect.gd" id="5_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://cgv4kbrho80c8" path="res://addons/simple_inventory/src/widgets/inventory.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://c7jbvgjqg3w8h" path="res://addons/laoli_dialogue_system/ui/dialogue_ui.tscn" id="8_85g3d"]
-[ext_resource type="PackedScene" uid="uid://viljtp7cx1pd" path="res://prefabs/npc.tscn" id="9_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://ck0v10cu8d6ke" path="res://ui/quest_log_ui.tscn" id="9_choun"]
+[ext_resource type="Script" uid="uid://cuacmob0vopu8" path="res://addons/laoli_dialogue_system/scripts/core/conditions/game_condition.gd" id="9_muem4"]
+[ext_resource type="Script" uid="uid://dq8sympe46jux" path="res://addons/laoli_dialogue_system/scripts/core/conditions/condition_quest_status.gd" id="10_dp3eg"]
+[ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://addons/laoli_dialogue_system/scripts/core/actions/game_action.gd" id="11_0ld40"]
+[ext_resource type="Script" uid="uid://r0lyfuvxjbca" path="res://scripts/core/actions/action_teleporter.gd" id="12_gqmmt"]
 
 [sub_resource type="Resource" id="Resource_jbj1t"]
 script = ExtResource("4_a8y0u")
@@ -28,9 +31,9 @@ metadata/_custom_type_script = "uid://bifopecxyouao"
 
 [sub_resource type="Resource" id="Resource_dp3eg"]
 script = ExtResource("2_choun")
-id = "test"
-title = "测试任务"
-description = "测试任务"
+id = "chief_forest_quest"
+title = "调查地穴"
+description = "调查地穴，最近那里不太平"
 objectives = Array[ExtResource("3_trceg")]([SubResource("Resource_jbj1t"), SubResource("Resource_muem4")])
 metadata/_custom_type_script = "uid://bw4a3qea7fktc"
 
@@ -49,6 +52,22 @@ tonemap_mode = 2
 glow_enabled = true
 glow_strength = 0.8
 glow_bloom = 0.2
+
+[sub_resource type="Resource" id="Resource_yc10j"]
+script = ExtResource("10_dp3eg")
+quest_id = "chief_forest_quest"
+required_status = 1
+metadata/_custom_type_script = "uid://dq8sympe46jux"
+
+[sub_resource type="Resource" id="Resource_6d140"]
+script = ExtResource("12_gqmmt")
+metadata/_custom_type_script = "uid://r0lyfuvxjbca"
+
+[sub_resource type="Resource" id="Resource_0ld40"]
+script = ExtResource("10_dp3eg")
+quest_id = "chief_forest_quest"
+required_status = 2
+metadata/_custom_type_script = "uid://dq8sympe46jux"
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_tefeu")
@@ -70,8 +89,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, 1.060358)
 target_room = NodePath("../../RoomDungeon")
 target_marker = NodePath("../../RoomDungeon/Teleporter")
 
-[node name="NPC" parent="RoomLobby" instance=ExtResource("9_a8y0u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 10)
+[node name="InteractionComponent" parent="RoomLobby/Teleporter" index="2"]
+conditions = Array[ExtResource("9_muem4")]([SubResource("Resource_yc10j")])
+actions = Array[ExtResource("11_0ld40")]([SubResource("Resource_6d140")])
 
 [node name="RoomDungeon" parent="." instance=ExtResource("3_tefeu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
@@ -80,6 +100,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, 19.060358)
 target_room = NodePath("../../RoomLobby")
 target_marker = NodePath("../../RoomLobby/Teleporter")
+
+[node name="InteractionComponent" parent="RoomDungeon/Teleporter" index="2"]
+conditions = Array[ExtResource("9_muem4")]([SubResource("Resource_0ld40")])
+actions = Array[ExtResource("11_0ld40")]([SubResource("Resource_6d140")])
 
 [node name="RoomBoss" parent="." instance=ExtResource("4_o6xl0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
@@ -109,3 +133,6 @@ grow_vertical = 0
 [node name="DialogueUI" parent="." instance=ExtResource("8_85g3d")]
 
 [node name="QuestLogUI" parent="." instance=ExtResource("9_choun")]
+
+[editable path="RoomLobby/Teleporter"]
+[editable path="RoomDungeon/Teleporter"]

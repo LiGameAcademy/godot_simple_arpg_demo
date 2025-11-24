@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://viljtp7cx1pd"]
+[gd_scene load_steps=9 format=3 uid="uid://viljtp7cx1pd"]
 
 [ext_resource type="PackedScene" uid="uid://bqqk3c0rfeqjk" path="res://assets/scenes/mage.tscn" id="1_tnah1"]
 [ext_resource type="Script" uid="uid://t0fmrjfr7nfv" path="res://scripts/components/interaction_component.gd" id="2_1ov3m"]
 [ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://addons/laoli_dialogue_system/scripts/core/actions/game_action.gd" id="3_cuwdc"]
 [ext_resource type="Script" uid="uid://bg0bhe5cam1cx" path="res://addons/laoli_dialogue_system/scripts/core/actions/action_start_dialogue.gd" id="4_2m1cq"]
+[ext_resource type="PackedScene" uid="uid://btc8mmlu7nhru" path="res://ui/quest_icon.tscn" id="5_h87kd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1ov3m"]
 
@@ -41,8 +42,12 @@ shape = SubResource("CapsuleShape3D_cuwdc")
 debug_color = Color(0.6368245, 0.5205771, 0.2305724, 0.41960785)
 
 [node name="InteractionLabel" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 1)
 pixel_size = 0.01
 billboard = 1
 text = "交互"
 font_size = 55
+
+[node name="QuestIcon" parent="." instance=ExtResource("5_h87kd")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -1, 3, 1)
+associated_quests = Array[String](["chief_forest_quest"])

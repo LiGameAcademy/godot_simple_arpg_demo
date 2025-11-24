@@ -17,6 +17,8 @@ var animation_state_machine: AnimationNodeStateMachinePlayback
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready() -> void:
+	DialogueManager.dialogue_started.connect(_on_dialogue_started)
+	DialogueManager.dialogue_finished.connect(_on_dialogue_finished)
 	animation_state_machine = animation_tree.get("parameters/StateMachine/playback")
 	animation_state_machine.travel("movement")
 	# 【测试福利】送 3 瓶药水
@@ -105,3 +107,11 @@ func _update_interaction_focus() -> void:
 		
 		# 3. 更新记录
 		current_interactable = new_interactable
+
+func _on_dialogue_started() -> void:
+	set_physics_process(false)
+	velocity = Vector3.ZERO
+
+func _on_dialogue_finished() -> void:
+	# 恢复控制
+	set_physics_process(true)

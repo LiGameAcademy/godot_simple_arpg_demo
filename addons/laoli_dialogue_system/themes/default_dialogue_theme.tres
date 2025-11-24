@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="DialogueTheme" load_steps=5 format=3 uid="uid://bfsucmvlx1set"]
+
+[ext_resource type="Script" uid="uid://ttg0d36pumyy" path="res://addons/laoli_dialogue_system/scripts/core/dialogue/dialogue_theme.gd" id="1_dstwa"]
+[ext_resource type="AudioStream" uid="uid://dgsdna7h8jl7h" path="res://assets/sfx/typing.mp3" id="2_nvtbu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nvtbu"]
+bg_color = Color(0.09393943, 0.18481377, 0.41044867, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dstwa"]
+bg_color = Color(0.7411765, 0.7294118, 0.59607846, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.09366938, 0.09366939, 0.09366929, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.106236584, 0.10623657, 0.10623657, 0.6)
+shadow_size = 5
+shadow_offset = Vector2(1, 1)
+
+[resource]
+script = ExtResource("1_dstwa")
+panel_style = SubResource("StyleBoxFlat_dstwa")
+choice_button_style = SubResource("StyleBoxFlat_nvtbu")
+typing_sound = ExtResource("2_nvtbu")
+metadata/_custom_type_script = "uid://ttg0d36pumyy"
