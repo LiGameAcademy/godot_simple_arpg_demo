@@ -56,6 +56,13 @@ func _unhandled_input(event) -> void:
 			text_label.visible_characters = text_label.get_total_character_count()
 			get_viewport().set_input_as_handled()
 
+## 设置对话主题
+## [param new_theme] DialogueTheme 资源实例
+func set_theme(new_theme: DialogueTheme) -> void:
+	theme = new_theme
+	if theme:
+		theme.apply_to_ui(self)
+
 ## 设置打字速度
 ## [param speed] 每秒字符数
 func set_typing_speed(speed: float) -> void:

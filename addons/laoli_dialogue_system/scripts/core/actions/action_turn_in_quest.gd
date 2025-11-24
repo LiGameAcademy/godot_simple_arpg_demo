@@ -14,4 +14,3 @@ func execute(_initiator: Node, _target: Node) -> void:
 	
 	QuestManager.turn_in_quest(quest_id)
 	print("任务交付：", quest_id)
-
