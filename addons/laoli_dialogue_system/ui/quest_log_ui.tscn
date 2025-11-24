@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ck0v10cu8d6ke"]
 
-[ext_resource type="Script" uid="uid://odqpcc3gb1ld" path="res://ui/quest_log_ui.gd" id="1_imfox"]
+[ext_resource type="Script" uid="uid://odqpcc3gb1ld" path="res://addons/laoli_dialogue_system/ui/quest_log_ui.gd" id="1_imfox"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0uau"]
 bg_color = Color(0.7411765, 0.7294118, 0.59607846, 1)

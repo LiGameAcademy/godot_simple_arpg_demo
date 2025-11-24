@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://btc8mmlu7nhru"]
 
 [ext_resource type="Texture2D" uid="uid://cbcdvlrys34b4" path="res://assets/textures/available_quest.svg" id="1_xv02g"]
-[ext_resource type="Script" uid="uid://b71ckhrmpcahl" path="res://ui/quest_icon.gd" id="2_40ixc"]
+[ext_resource type="Script" uid="uid://b71ckhrmpcahl" path="res://addons/laoli_dialogue_system/ui/quest_icon.gd" id="2_40ixc"]
 
 [node name="QuestIcon" type="Sprite3D"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

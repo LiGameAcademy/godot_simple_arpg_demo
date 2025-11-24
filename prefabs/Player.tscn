@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dgle1b2vb0agh"]
+[gd_scene load_steps=31 format=3 uid="uid://b7c5mn8pda80g"]
 
 [ext_resource type="PackedScene" uid="uid://bi2kodwwmc3c3" path="res://assets/scenes/barbarian.tscn" id="1_fjjwp"]
 [ext_resource type="Script" uid="uid://cwaron85itarw" path="res://prefabs/player.gd" id="1_glu7e"]
