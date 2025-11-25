@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7jbvgjqg3w8h"]
+[gd_scene load_steps=7 format=3 uid="uid://c7jbvgjqg3w8h"]
 
 [ext_resource type="Script" uid="uid://bxu70q5yqc70" path="res://addons/laoli_dialogue_system/ui/dialogue_ui.gd" id="1_25t1q"]
 [ext_resource type="AudioStream" uid="uid://dgsdna7h8jl7h" path="res://assets/sfx/typing.mp3" id="2_2x5cq"]
 [ext_resource type="Script" uid="uid://2hdvi1pkbdl5" path="res://addons/laoli_dialogue_system/scripts/rich_text_effects/text_shake_effect.gd" id="2_683g5"]
 [ext_resource type="Resource" uid="uid://bfsucmvlx1set" path="res://addons/laoli_dialogue_system/themes/default_dialogue_theme.tres" id="2_x5l3f"]
+[ext_resource type="FontFile" uid="uid://bj4wlflwm0lq7" path="res://addons/simple_inventory/assets/fonts/SourceHanSansSC-Regular-2.otf" id="3_7ivnh"]
 
 [sub_resource type="RichTextEffect" id="RichTextEffect_r5kn6"]
 script = ExtResource("2_683g5")
@@ -47,6 +48,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_7ivnh")
 theme_override_font_sizes/font_size = 22
 text = "角色名"
 horizontal_alignment = 1
@@ -61,6 +63,7 @@ custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_7ivnh")
 bbcode_enabled = true
 text = "文本内容描述"
 custom_effects = [SubResource("RichTextEffect_r5kn6")]

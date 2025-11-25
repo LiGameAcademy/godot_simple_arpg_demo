@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ck0v10cu8d6ke"]
+[gd_scene load_steps=4 format=3 uid="uid://ck0v10cu8d6ke"]
 
 [ext_resource type="Script" uid="uid://odqpcc3gb1ld" path="res://addons/laoli_dialogue_system/ui/quest_log_ui.gd" id="1_imfox"]
+[ext_resource type="FontFile" uid="uid://bj4wlflwm0lq7" path="res://addons/simple_inventory/assets/fonts/SourceHanSansSC-Regular-2.otf" id="2_ejxnl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0uau"]
 bg_color = Color(0.7411765, 0.7294118, 0.59607846, 1)
@@ -44,6 +45,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_ejxnl")
 theme_override_font_sizes/font_size = 22
 text = "任务日志"
 horizontal_alignment = 1
