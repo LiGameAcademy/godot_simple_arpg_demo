@@ -1,0 +1,3 @@
+[submodule "addons/godot_gameplay_abilities"]
+	path = addons/godot_gameplay_abilities
+	url = https://gitee.com/Giab/godot_gameplay_abilities.git
