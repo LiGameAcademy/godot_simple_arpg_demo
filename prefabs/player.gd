@@ -1,4 +1,7 @@
 extends CharacterBody3D
+class_name Player
+
+@export var player_data : PlayerData = null
 
 @export_group("Movement")
 @export var speed: float = 5.0
@@ -10,12 +13,19 @@ extends CharacterBody3D
 @onready var interaction_area: Area3D = $Visuals/InteractionArea
 @onready var inventory_component: C_Inventory = $InventoryComponent
 
+@onready var attribute_component: GameplayAttributeComponent = %GameplayAttributeComponent
+
 var animation_state_machine: AnimationNodeStateMachinePlayback
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+## 属性点数管理器
+var attribute_points_manager: AttributePointsManager = AttributePointsManager.new(10)
 
 func _ready() -> void:
 	animation_state_machine = animation_tree.get("parameters/StateMachine/playback")
 	animation_state_machine.travel("movement")
+
+	_init_components()
+
 	# 【测试福利】送 3 瓶药水
 	var potion = load("res://data/items/potion_health_small.tres")
 	if potion:
@@ -55,6 +65,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("attack"):
 		_play_anim("attack")
 
+#func get_gameplay_attribute_component() -> GameplayAttributeComponent:
+	#return attribute_component
+
 func get_inventory() -> C_Inventory:
 	return inventory_component
 
@@ -76,3 +89,10 @@ func _try_interact() -> void:
 		# 检查目标是否有 interact 方法
 		if target.has_method("interact"):
 			target.interact()
+
+## 组件初始化
+func _init_components() -> void:
+	if not is_instance_valid(player_data):
+		push_error("PlayerData is not set")
+		return
+	attribute_component.initialize(player_data.attribute_sets, player_data.vitals)

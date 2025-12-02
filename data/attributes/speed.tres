@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://csgd4q7liset6"]
+
+[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute.gd" id="1_4v4pk"]
+
+[resource]
+script = ExtResource("1_4v4pk")
+attribute_id = &"speed"
+attribute_display_name = "移动速度"
+attribute_description = "提升移动速度"
+metadata/_custom_type_script = "uid://lm7wlbrgn7bt"

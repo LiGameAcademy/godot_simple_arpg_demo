@@ -1,12 +1,32 @@
-[gd_scene load_steps=11 format=3 uid="uid://30orglekea3b"]
+[gd_scene load_steps=27 format=3 uid="uid://30orglekea3b"]
 
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
-[ext_resource type="PackedScene" uid="uid://cwod0ct36wlgo" path="res://prefabs/player.tscn" id="2_tbgi4"]
+[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute.gd" id="2_gqmmt"]
+[ext_resource type="PackedScene" uid="uid://vf0i84fp8dp8" path="res://prefabs/player.tscn" id="2_tbgi4"]
+[ext_resource type="Script" uid="uid://448qdsu8i3o" path="res://scripts/data/game_data.gd" id="3_choun"]
 [ext_resource type="PackedScene" uid="uid://b1t1sf3ftqb3f" path="res://prefabs/Teleporter.tscn" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://5u5shejmnm2d" path="res://scenes/room_dungeon.tscn" id="3_tefeu"]
+[ext_resource type="Resource" uid="uid://coemk5gg52d7w" path="res://data/attributes/attack.tres" id="3_yc10j"]
+[ext_resource type="Resource" uid="uid://cghwegq2anq8g" path="res://data/attributes/attack_speed.tres" id="4_jscy8"]
 [ext_resource type="PackedScene" uid="uid://b3e2ofxe5aiji" path="res://scenes/room_boss.tscn" id="4_o6xl0"]
+[ext_resource type="Resource" uid="uid://s0enk0k8apaf" path="res://data/attributes/defense.tres" id="5_pm3ni"]
+[ext_resource type="Resource" uid="uid://cnl60y2fr7q1b" path="res://data/attributes/health.tres" id="6_y6deb"]
 [ext_resource type="PackedScene" uid="uid://cgv4kbrho80c8" path="res://addons/simple_inventory/src/widgets/inventory.tscn" id="7_o6xl0"]
+[ext_resource type="Resource" uid="uid://b3le1qgha4wy6" path="res://data/attributes/intelligence.tres" id="7_og1vs"]
+[ext_resource type="Resource" uid="uid://dst2dgwqc6l0q" path="res://data/attributes/magic_intensity.tres" id="8_2wyq8"]
+[ext_resource type="Resource" uid="uid://b1y1a837w5u6w" path="res://data/attributes/magic_resistance.tres" id="9_vxglm"]
+[ext_resource type="Resource" uid="uid://d0xcabsvdyo50" path="res://data/attributes/mana.tres" id="10_2f3dj"]
+[ext_resource type="Resource" uid="uid://csgd4q7liset6" path="res://data/attributes/speed.tres" id="11_yq6so"]
+[ext_resource type="Resource" uid="uid://4whsfl0n6my5" path="res://data/attributes/strength.tres" id="12_fv21b"]
+[ext_resource type="Resource" uid="uid://c2yg48kmsw702" path="res://data/attributes/vitality.tres" id="13_tel4y"]
+[ext_resource type="PackedScene" uid="uid://cy0dcmicruxib" path="res://ui/attribute_dashboard.tscn" id="21_yc10j"]
+[ext_resource type="PackedScene" uid="uid://dqwcrgpax3tr5" path="res://ui/attribute_row.tscn" id="22_jscy8"]
+
+[sub_resource type="Resource" id="Resource_ya4ey"]
+script = ExtResource("3_choun")
+attributes = Array[ExtResource("2_gqmmt")]([ExtResource("3_yc10j"), ExtResource("4_jscy8"), ExtResource("5_pm3ni"), ExtResource("6_y6deb"), ExtResource("7_og1vs"), ExtResource("8_2wyq8"), ExtResource("9_vxglm"), ExtResource("10_2f3dj"), ExtResource("11_yq6so"), ExtResource("12_fv21b"), ExtResource("13_tel4y")])
+metadata/_custom_type_script = "uid://448qdsu8i3o"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ubp1v"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -26,6 +46,7 @@ glow_bloom = 0.2
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_tefeu")
+game_data = SubResource("Resource_ya4ey")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fpimf")
@@ -37,6 +58,36 @@ transform = Transform3D(1, 0, 0, 0, 0.17364822, 0.9848077, 0, -0.9848077, 0.1736
 
 [node name="Player" parent="RoomLobby" instance=ExtResource("2_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.606604, 0.09957409, 5.87055)
+
+[node name="Skeleton3D" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium" index="0"]
+bones/1/position = Vector3(3.974789e-18, 0.43114075, 9.476635e-25)
+bones/1/rotation = Quaternion(0.10251531, -1.1858121e-07, 1.22207755e-08, 0.9947314)
+bones/2/rotation = Quaternion(0.04207546, -0.077049926, -0.033487, 0.9955761)
+bones/3/rotation = Quaternion(1.426762e-08, -3.5827437e-09, -5.429551e-09, 1)
+bones/4/position = Vector3(0.21200736, 0.1391269, 0.025695436)
+bones/4/rotation = Quaternion(-0.77179223, -0.06798581, -0.5496532, 0.31240377)
+bones/5/rotation = Quaternion(-3.7152173e-08, -7.348445e-08, -0.68110454, 0.73218626)
+bones/7/rotation = Quaternion(-0.101326354, -0.24411434, -0.18268561, 0.946978)
+bones/8/rotation = Quaternion(-0.049325496, 0.022886325, -0.620305, 0.7824736)
+bones/9/rotation = Quaternion(-0.09515813, 0.06673146, -0.0037347283, 0.99321604)
+bones/10/position = Vector3(-0.21200737, 0.12913759, -0.02569524)
+bones/10/rotation = Quaternion(-0.66671515, 0.048321236, 0.68468255, 0.290458)
+bones/11/rotation = Quaternion(1.8023517e-08, 6.402092e-08, 0.13533123, 0.9908005)
+bones/13/rotation = Quaternion(-0.25843638, 0.04587429, 0.38793764, 0.8835218)
+bones/14/rotation = Quaternion(-0.026618803, 0.024267582, 0.5719421, 0.8195027)
+bones/15/position = Vector3(0.17094505, 0.099555045, -0.09087527)
+bones/15/rotation = Quaternion(0.9819884, -7.313686e-08, -1.9673422e-08, -0.1889413)
+bones/16/rotation = Quaternion(0.19707325, 6.768883e-08, -1.3686049e-07, 0.98038876)
+bones/17/rotation = Quaternion(-0.34962583, -1.6958984e-08, 5.0012265e-08, 0.9368894)
+bones/18/rotation = Quaternion(4.443445e-08, 0.92006725, -0.39176074, 6.443592e-08)
+bones/19/position = Vector3(-0.17094508, 0.11358722, 0.09225668)
+bones/19/rotation = Quaternion(0.79747695, 2.4285316e-07, -8.1215205e-08, 0.60334957)
+bones/20/rotation = Quaternion(0.5990077, -5.5285508e-08, 4.159901e-07, 0.8007433)
+bones/21/rotation = Quaternion(-0.5723891, 1.8741241e-07, -2.4317575e-07, 0.81998223)
+bones/22/rotation = Quaternion(-8.885077e-09, 0.9202201, -0.3914016, 7.8803104e-08)
+
+[node name="BoneAttachment3D" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium/Skeleton3D" index="7"]
+transform = Transform3D(0.06916866, 0.015562031, -0.9974829, -0.99757767, 0.008347986, -0.06904458, 0.007252694, 0.9998435, 0.0161019, -0.39343885, 0.6215933, -0.10742274)
 
 [node name="Teleporter" parent="RoomLobby" node_paths=PackedStringArray("target_room", "target") instance=ExtResource("3_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, 1.060358)
@@ -75,3 +126,12 @@ anchor_bottom = 1.0
 offset_top = -436.0
 offset_right = 577.0
 grow_vertical = 0
+
+[node name="AttributeDashboard" parent="UILayer/HUD" instance=ExtResource("21_yc10j")]
+layout_mode = 1
+offset_right = -1192.0
+offset_bottom = -607.0
+row_prefab = ExtResource("22_jscy8")
+
+[editable path="RoomLobby/Player"]
+[editable path="RoomLobby/Player/Visuals/Barbarian"]

@@ -1,0 +1,61 @@
+[gd_resource type="Resource" script_class="PlayerData" load_steps=25 format=3 uid="uid://cg4anfcgfpik4"]
+
+[ext_resource type="Script" uid="uid://ccgjxcr56jc2h" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute_set.gd" id="1_41usi"]
+[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute.gd" id="2_nkcd8"]
+[ext_resource type="Script" uid="uid://d373ug5yg4v21" path="res://scripts/data/attribute_set/secondary_attribute_set.gd" id="3_ed0ic"]
+[ext_resource type="Resource" uid="uid://4whsfl0n6my5" path="res://data/attributes/strength.tres" id="3_vwojj"]
+[ext_resource type="Resource" uid="uid://b3le1qgha4wy6" path="res://data/attributes/intelligence.tres" id="4_c7yfu"]
+[ext_resource type="Script" uid="uid://coyhetiyc4y1" path="res://scripts/data/player_data.gd" id="4_x6008"]
+[ext_resource type="Resource" uid="uid://c2yg48kmsw702" path="res://data/attributes/vitality.tres" id="5_bjrym"]
+[ext_resource type="Resource" uid="uid://coemk5gg52d7w" path="res://data/attributes/attack.tres" id="6_j0hhi"]
+[ext_resource type="Resource" uid="uid://c7um4ug20u3qv" path="res://data/attributes/agility.tres" id="6_vwojj"]
+[ext_resource type="Resource" uid="uid://cghwegq2anq8g" path="res://data/attributes/attack_speed.tres" id="7_wucg8"]
+[ext_resource type="Resource" uid="uid://s0enk0k8apaf" path="res://data/attributes/defense.tres" id="8_wmkhh"]
+[ext_resource type="Resource" uid="uid://cnl60y2fr7q1b" path="res://data/attributes/health.tres" id="9_pwhx8"]
+[ext_resource type="Resource" uid="uid://dst2dgwqc6l0q" path="res://data/attributes/magic_intensity.tres" id="10_oorid"]
+[ext_resource type="Resource" uid="uid://b1y1a837w5u6w" path="res://data/attributes/magic_resistance.tres" id="11_sssar"]
+[ext_resource type="Resource" uid="uid://d0xcabsvdyo50" path="res://data/attributes/mana.tres" id="12_lpmmf"]
+[ext_resource type="Resource" uid="uid://csgd4q7liset6" path="res://data/attributes/speed.tres" id="13_8s7k1"]
+[ext_resource type="Resource" uid="uid://cuhypfwss4p8b" path="res://data/attributes/crit_rate.tres" id="15_wucg8"]
+[ext_resource type="Script" uid="uid://cq12vx17wqaxl" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/gameplay_vital.gd" id="17_c7yfu"]
+[ext_resource type="Script" uid="uid://c6bk65loe1kkq" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/health_vital.gd" id="18_j0hhi"]
+[ext_resource type="Script" uid="uid://bqu07lnijvw87" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/mana_vital.gd" id="19_wucg8"]
+
+[sub_resource type="Resource" id="Resource_0tg7o"]
+script = ExtResource("1_41usi")
+attributes = Dictionary[ExtResource("2_nkcd8"), float]({
+ExtResource("3_vwojj"): 10.0,
+ExtResource("4_c7yfu"): 5.0,
+ExtResource("5_bjrym"): 15.0,
+ExtResource("6_vwojj"): 8.0
+})
+metadata/_custom_type_script = "uid://ccgjxcr56jc2h"
+
+[sub_resource type="Resource" id="Resource_dwbmn"]
+script = ExtResource("3_ed0ic")
+attributes = Dictionary[ExtResource("2_nkcd8"), float]({
+ExtResource("6_j0hhi"): 0.0,
+ExtResource("7_wucg8"): 0.0,
+ExtResource("8_wmkhh"): 0.0,
+ExtResource("9_pwhx8"): 0.0,
+ExtResource("10_oorid"): 0.0,
+ExtResource("11_sssar"): 0.0,
+ExtResource("12_lpmmf"): 0.0,
+ExtResource("13_8s7k1"): 0.0,
+ExtResource("15_wucg8"): 0.0
+})
+metadata/_custom_type_script = "uid://d373ug5yg4v21"
+
+[sub_resource type="Resource" id="Resource_wmkhh"]
+script = ExtResource("18_j0hhi")
+metadata/_custom_type_script = "uid://c6bk65loe1kkq"
+
+[sub_resource type="Resource" id="Resource_pwhx8"]
+script = ExtResource("19_wucg8")
+metadata/_custom_type_script = "uid://bqu07lnijvw87"
+
+[resource]
+script = ExtResource("4_x6008")
+attribute_sets = Array[ExtResource("1_41usi")]([SubResource("Resource_0tg7o"), SubResource("Resource_dwbmn")])
+vitals = Array[ExtResource("17_c7yfu")]([SubResource("Resource_wmkhh"), SubResource("Resource_pwhx8")])
+metadata/_custom_type_script = "uid://coyhetiyc4y1"

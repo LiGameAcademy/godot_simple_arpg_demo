@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://c4wnphb7jukrb"]
+
+[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute.gd" id="1_1bhl8"]
+
+[resource]
+script = ExtResource("1_1bhl8")
+attribute_id = &"strength"
+attribute_display_name = "力量"
+attribute_description = "1点力量增加10点生命值"
+metadata/_custom_type_script = "uid://lm7wlbrgn7bt"

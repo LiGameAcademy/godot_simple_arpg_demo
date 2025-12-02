@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://dst2dgwqc6l0q"]
+
+[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute.gd" id="1_hy8we"]
+
+[resource]
+script = ExtResource("1_hy8we")
+attribute_id = &"magic_intensity"
+attribute_display_name = "魔法强度"
+attribute_description = "提升魔法强度"
+metadata/_custom_type_script = "uid://lm7wlbrgn7bt"

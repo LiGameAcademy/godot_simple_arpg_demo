@@ -7,6 +7,8 @@ const TRANSITION_TIME = 1.5
 @onready var inventory_ui: MarginContainer = $UILayer/HUD/inventory
 @onready var camera: Camera3D = $Camera3D
 
+@export var game_data : GameData
+
 func _ready() -> void:
 	# 初始化：游戏开始时，把摄像机瞬间定格在第一个房间
 	var start_room = $RoomLobby
@@ -15,6 +17,9 @@ func _ready() -> void:
 	var player_inventory : C_Inventory = player.get_inventory() # 确保你在player脚本中实现了这个方法
 	inventory_ui.initialize(player_inventory)
 	
+	# 初始化属性系统
+	_init_attribute_system()
+
 func _unhandled_input(event) -> void:
 	if event.is_action_pressed("toggle_inventory"):
 		if inventory_ui.visible:
@@ -51,3 +56,7 @@ func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> v
 	
 	# 7. 恢复控制
 	player.set_physics_process(true)
+
+func _init_attribute_system() -> void:
+	# 注册属性
+	GameplayAbilitySystem.attribute_manager.register_attributes(game_data.attributes)

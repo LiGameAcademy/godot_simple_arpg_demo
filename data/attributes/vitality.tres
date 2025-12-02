@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://c2yg48kmsw702"]
+
+[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute.gd" id="1_hymh0"]
+
+[resource]
+script = ExtResource("1_hymh0")
+attribute_id = &"vitality"
+attribute_display_name = "体质"
+attribute_description = "1点体质增加10点生命值"
+metadata/_custom_type_script = "uid://lm7wlbrgn7bt"
