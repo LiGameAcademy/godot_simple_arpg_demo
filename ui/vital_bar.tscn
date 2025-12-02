@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://ryki4a6cdvv2"]
+
+[ext_resource type="Script" uid="uid://dlk2p44hqn6qw" path="res://ui/vital_bar.gd" id="1_vital"]
+[ext_resource type="Theme" uid="uid://y62q6fepg8a2" path="res://assets/theme/default_theme.tres" id="2_qqied"]
+
+[node name="VitalBar" type="MarginContainer"]
+offset_right = 184.0
+offset_bottom = 28.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+script = ExtResource("1_vital")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+value = 50.0
+show_percentage = false
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="NameLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("2_qqied")
+theme_override_font_sizes/font_size = 14
+text = "生命值"
+vertical_alignment = 1
+
+[node name="ValueLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme = ExtResource("2_qqied")
+theme_override_font_sizes/font_size = 12
+text = "100 / 100"
+horizontal_alignment = 2
+vertical_alignment = 2

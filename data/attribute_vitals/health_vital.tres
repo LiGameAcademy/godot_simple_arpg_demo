@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_2e31y")
+display_name = "生命值"
 regen_rate_attribute = &"health_regen"
 metadata/_custom_type_script = "uid://di1lkg8naxv2h"
