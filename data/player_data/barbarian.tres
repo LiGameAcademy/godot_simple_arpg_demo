@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerData" load_steps=25 format=3 uid="uid://cg4anfcgfpik4"]
+[gd_resource type="Resource" script_class="PlayerData" load_steps=27 format=3 uid="uid://cg4anfcgfpik4"]
 
 [ext_resource type="Script" uid="uid://ccgjxcr56jc2h" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute_set.gd" id="1_41usi"]
 [ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute.gd" id="2_nkcd8"]
@@ -19,7 +19,9 @@
 [ext_resource type="Resource" uid="uid://cuhypfwss4p8b" path="res://data/attributes/crit_rate.tres" id="15_wucg8"]
 [ext_resource type="Script" uid="uid://cq12vx17wqaxl" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/gameplay_vital.gd" id="17_c7yfu"]
 [ext_resource type="Script" uid="uid://c6bk65loe1kkq" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/health_vital.gd" id="18_j0hhi"]
+[ext_resource type="Resource" uid="uid://bv24ikchj5w1h" path="res://data/attribute_vitals/health_vital.tres" id="19_pwhx8"]
 [ext_resource type="Script" uid="uid://bqu07lnijvw87" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/mana_vital.gd" id="19_wucg8"]
+[ext_resource type="Resource" uid="uid://dddaclqcvm2mt" path="res://data/attribute_vitals/mana_vital.tres" id="21_pwhx8"]
 
 [sub_resource type="Resource" id="Resource_0tg7o"]
 script = ExtResource("1_41usi")
@@ -34,24 +36,26 @@ metadata/_custom_type_script = "uid://ccgjxcr56jc2h"
 [sub_resource type="Resource" id="Resource_dwbmn"]
 script = ExtResource("3_ed0ic")
 attributes = Dictionary[ExtResource("2_nkcd8"), float]({
-ExtResource("6_j0hhi"): 0.0,
+ExtResource("6_j0hhi"): 5.0,
 ExtResource("7_wucg8"): 0.0,
 ExtResource("8_wmkhh"): 0.0,
-ExtResource("9_pwhx8"): 0.0,
-ExtResource("10_oorid"): 0.0,
+ExtResource("9_pwhx8"): 100.0,
+ExtResource("10_oorid"): 5.0,
 ExtResource("11_sssar"): 0.0,
-ExtResource("12_lpmmf"): 0.0,
+ExtResource("12_lpmmf"): 50.0,
 ExtResource("13_8s7k1"): 0.0,
-ExtResource("15_wucg8"): 0.0
+ExtResource("15_wucg8"): 0.05
 })
 metadata/_custom_type_script = "uid://d373ug5yg4v21"
 
 [sub_resource type="Resource" id="Resource_wmkhh"]
 script = ExtResource("18_j0hhi")
+definition = ExtResource("19_pwhx8")
 metadata/_custom_type_script = "uid://c6bk65loe1kkq"
 
 [sub_resource type="Resource" id="Resource_pwhx8"]
 script = ExtResource("19_wucg8")
+definition = ExtResource("21_pwhx8")
 metadata/_custom_type_script = "uid://bqu07lnijvw87"
 
 [resource]

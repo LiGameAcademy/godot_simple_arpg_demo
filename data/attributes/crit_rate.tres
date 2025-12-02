@@ -6,4 +6,5 @@
 script = ExtResource("1_iqnpv")
 attribute_id = &"crit_rate"
 attribute_display_name = "暴击率"
+is_percentage = true
 metadata/_custom_type_script = "uid://lm7wlbrgn7bt"

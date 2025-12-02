@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="GameplayVitalDefinition" load_steps=2 format=3 uid="uid://bv24ikchj5w1h"]
+
+[ext_resource type="Script" uid="uid://di1lkg8naxv2h" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/gameplay_vital_definition.gd" id="1_2e31y"]
+
+[resource]
+script = ExtResource("1_2e31y")
+regen_rate_attribute = &"health_regen"
+metadata/_custom_type_script = "uid://di1lkg8naxv2h"

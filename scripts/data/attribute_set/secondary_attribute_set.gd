@@ -5,12 +5,48 @@ class_name SecondaryAttributeSet
 ## 负责维护：一级属性 -> 二级属性 的动态映射
 
 # 配置：{ 二级属性ID: { 一级属性ID: 倍率 } }
-@export var attribute_mappings: Dictionary = {
-	&"health": { &"strength": 2.0, &"vitality": 10.0 },
-	&"mana": {"intelligence": 10.0 },
-	&"attack":     { &"strength": 2.0},
-	&"defense":    { &"vitality": 1.5, &"strength": 0.5 },
-	&"crit_rate": { &"agility": 0.01 },
+@export var attribute_mappings = {
+    # --- 生存资源类 ---
+    &"max_health": {
+        &"vitality": 10.0,  # 主：血牛
+        &"strength": 2.0    # 副：强壮
+    },
+    &"max_mana": {
+        &"intelligence": 10.0 # 纯智力收益
+    },
+    &"hp_regen": {
+        &"vitality": 0.2    # 10点体质 = +2回血/秒
+    },
+    &"mana_regen": {
+        &"intelligence": 0.1 # 10点智力 = +1回蓝/秒
+    },
+
+    # --- 进攻输出类 ---
+    &"phy_attack": {
+        &"strength": 2.0,   # 主：力量加成
+        &"agility": 0.5     # 副：敏捷补正
+    },
+    &"spell_power": {       # 原 Magic Attack
+        &"intelligence": 2.0 # 纯智力收益
+    },
+
+    # --- 攻速与暴击 (百分比) ---
+    &"crit_rate": {
+        &"agility": 0.005   # 1点敏捷 = 0.5% 暴击
+    },
+    &"attack_speed": {
+        &"agility": 0.01    # 1点敏捷 = 1% 攻速 (基础是 1.0)
+    },
+
+    # --- 防御抗性类 ---
+    &"defense": {
+        &"vitality": 0.5,   # 主：皮糙肉厚
+        &"strength": 0.2    # 副：肌肉硬度
+    },
+    &"spell_resist": {
+        &"intelligence": 0.3, # 主：精神防御 (3点)
+        &"vitality": 0.2      # 副：肉体耐受 (2点)
+    }
 }
 
 # --- 性能优化：反向索引 ---

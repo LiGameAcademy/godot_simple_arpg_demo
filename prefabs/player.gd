@@ -13,7 +13,7 @@ class_name Player
 @onready var interaction_area: Area3D = $Visuals/InteractionArea
 @onready var inventory_component: C_Inventory = $InventoryComponent
 
-@onready var attribute_component: GameplayAttributeComponent = %GameplayAttributeComponent
+@onready var attribute_component: GameplayVitalAttributeComponent = %GameplayAttributeComponent
 
 var animation_state_machine: AnimationNodeStateMachinePlayback
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")

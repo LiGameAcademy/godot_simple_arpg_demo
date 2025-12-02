@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://bvbw8cphgiuv5"]
+
+[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute.gd" id="1_qjebp"]
+
+[resource]
+script = ExtResource("1_qjebp")
+attribute_id = &"health_regen"
+attribute_display_name = "生命恢复"
+attribute_description = "生命恢复速率"
+metadata/_custom_type_script = "uid://lm7wlbrgn7bt"
