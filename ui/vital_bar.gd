@@ -7,7 +7,7 @@ class_name VitalBar
 # UI 节点引用
 @onready var label_name : Label = %NameLabel
 @onready var label_value : Label = %ValueLabel
-@onready var progress_bar : Label = %ProgressBar
+@onready var progress_bar : ProgressBar = %ProgressBar
 
 # 数据
 var vital_id: StringName

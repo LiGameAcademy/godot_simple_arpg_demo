@@ -14,6 +14,7 @@ class_name Player
 @onready var inventory_component: C_Inventory = $InventoryComponent
 
 @onready var attribute_component: GameplayVitalAttributeComponent = %GameplayAttributeComponent
+@onready var ability_component: Node = $GameplayAbilityComponent
 
 var animation_state_machine: AnimationNodeStateMachinePlayback
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -63,7 +64,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		_try_interact()
 	elif event.is_action_pressed("attack"):
-		_play_anim("attack")
+		_try_attack()
 
 #func get_gameplay_attribute_component() -> GameplayAttributeComponent:
 	#return attribute_component
@@ -96,3 +97,63 @@ func _init_components() -> void:
 		push_error("PlayerData is not set")
 		return
 	attribute_component.initialize(player_data.attribute_sets, player_data.vitals)
+	
+	# 初始化能力组件（如果有普通攻击能力）
+	# 加载普通攻击能力
+	var basic_attack = load("res://data/abilities/basic_attack.tres")
+	if basic_attack:
+		ability_component.learn_ability(basic_attack)
+
+## 尝试攻击
+func _try_attack() -> void:
+	# 查找最近的敌人
+	var target = _find_nearest_enemy()
+	if not is_instance_valid(target):
+		# 没有目标，只播放动画
+		_play_anim("attack")
+		return
+	
+	# 使用能力系统进行攻击
+	var ability_id = &"basic_attack"
+	if ability_component.can_cast(ability_id, target):
+		# 提交施法（消耗资源、开始冷却）
+		if ability_component.commit_cast(ability_id):
+			# 播放攻击动画
+			_play_anim("attack")
+			# 应用技能效果
+			ability_component.apply_ability_effect(ability_id, target)
+	else:
+		# 无法施法（可能在冷却中），只播放动画
+		_play_anim("attack")
+
+## 查找最近的敌人
+func _find_nearest_enemy() -> Node:
+	var enemies = get_tree().get_nodes_in_group("Enemy")
+	if enemies.is_empty():
+		return null
+	
+	var nearest: Node = null
+	var nearest_distance: float = INF
+	
+	for enemy in enemies:
+		if not is_instance_valid(enemy):
+			continue
+		
+		# 检查敌人是否有生命值组件（使用能力系统）
+		var health_comp = GameplayAbilitySystem.get_component_by_interface(enemy, "HealthComponent")
+		if not health_comp:
+			# 尝试使用旧的接口
+			if not enemy.has_method("take_damage"):
+				continue
+		
+		# 计算距离
+		var distance = global_position.distance_to(enemy.global_position)
+		if distance < nearest_distance:
+			nearest_distance = distance
+			nearest = enemy
+	
+	# 检查是否在攻击范围内（假设攻击范围为 2.0）
+	if nearest and nearest_distance <= 2.0:
+		return nearest
+	
+	return null
