@@ -29,26 +29,33 @@ func get_visual_adapter() -> Node:
 
 #region ========== 能力系统相关 ==========
 
-## 尝试攻击（子类可重写以自定义攻击逻辑）
-## 默认实现：使用 _get_attack_ability() 获取攻击能力并施放
-func _try_attack() -> void:
+## 尝试施放技能（通用方法，替代原来的 _try_attack）
+## [param] ability_id: StringName 技能 ID
+## [param] target: Node 目标节点（可选）
+## [param] context: Dictionary 上下文信息（可选）
+func try_cast_ability(ability_id: StringName, target: Node = null, context: Dictionary = {}) -> void:
 	if not is_instance_valid(ability_component):
-		push_warning("CharacterBase: Cannot attack, ability_component is not valid")
+		push_warning("CharacterBase: Cannot cast ability, ability_component is not valid")
 		return
 	
+	if ability_component.can_cast(ability_id, target, context):
+		var ok := ability_component.commit_cast(ability_id)
+		if not ok:
+			push_warning("CharacterBase: Failed to commit cast for ability: %s" % ability_id)
+			return
+		print("CharacterBase: Ability committed cast: ", ability_id)
+	else:
+		print("CharacterBase: Ability can not cast: ", ability_id)
+
+## 尝试攻击（向后兼容，内部调用 try_cast_ability）
+## 默认实现：使用 _get_attack_ability() 获取攻击能力并施放
+func _try_attack() -> void:
 	var attack_ability = _get_attack_ability()
 	if not is_instance_valid(attack_ability):
 		push_warning("CharacterBase: Cannot attack, attack ability is not valid")
 		return
 	
-	if ability_component.can_cast(attack_ability.ability_id):
-		var ok := ability_component.commit_cast(attack_ability.ability_id)
-		if not ok:
-			push_warning("CharacterBase: Failed to commit cast for ability: %s" % attack_ability.ability_id)
-			return
-		print("CharacterBase: Attack ability committed cast: ", attack_ability.ability_id)
-	else:
-		print("CharacterBase: Attack ability can not cast: ", attack_ability.ability_id)
+	try_cast_ability(attack_ability.ability_id)
 
 ## 获取攻击能力（子类必须重写）
 ## [return] GameplayAbility 攻击能力数据，如果返回 null 则无法攻击

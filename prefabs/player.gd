@@ -15,6 +15,8 @@ class_name Player
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 ## 属性点数管理器
 var attribute_points_manager: AttributePointsManager = AttributePointsManager.new(10)
+## 技能快捷键管理器
+var shortcut_manager: AbilityShortcutManager = AbilityShortcutManager.new()
 
 func _ready() -> void:
 	super()
@@ -28,6 +30,9 @@ func _ready() -> void:
 	if potion:
 		for i in range(3):
 			inventory_component.add_item(potion.duplicate())
+	
+	# 初始化快捷键绑定（在技能学会后绑定）
+	_setup_shortcuts()
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -60,7 +65,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		_try_interact()
 	elif event.is_action_pressed("attack"):
+		# 向后兼容：仍然支持鼠标左键攻击
 		_try_attack()
+	
+	# 处理技能快捷键
+	if shortcut_manager.handle_input(event, self):
+		# 快捷键已处理，阻止进一步传播
+		get_viewport().set_input_as_handled()
 
 #func get_gameplay_attribute_component() -> GameplayAttributeComponent:
 	#return attribute_component
@@ -96,8 +107,39 @@ func _init_components() -> void:
 	var basic_attack = player_data.basic_attack_ability
 	if basic_attack:
 		ability_component.learn_ability(basic_attack)
+		# 连接技能学会信号，自动绑定快捷键
+		if not ability_component.ability_learned.is_connected(_on_ability_learned):
+			ability_component.ability_learned.connect(_on_ability_learned)
 	else:
 		push_error("BasicAttackAbility is not set")
+
+## 设置快捷键绑定
+func _setup_shortcuts() -> void:
+	if not is_instance_valid(ability_component):
+		return
+	
+	# 默认快捷键映射
+	var default_shortcuts = {
+		&"basic_attack": "1",
+	}
+	
+	# 绑定已学会的技能
+	var learned_abilities = ability_component.get_all_learned_abilities()
+	for ability_id in learned_abilities.keys():
+		var shortcut = default_shortcuts.get(ability_id, "")
+		if shortcut != "":
+			shortcut_manager.bind_shortcut(ability_id, shortcut)
+
+## 技能学会回调（自动绑定快捷键）
+func _on_ability_learned(ability_id: StringName) -> void:
+	# 默认快捷键映射
+	var default_shortcuts = {
+		&"basic_attack": "1",
+	}
+	
+	var shortcut = default_shortcuts.get(ability_id, "")
+	if shortcut != "":
+		shortcut_manager.bind_shortcut(ability_id, shortcut)
 
 ## 获取攻击能力（重写基类方法）
 func _get_attack_ability() -> GameplayAbility:

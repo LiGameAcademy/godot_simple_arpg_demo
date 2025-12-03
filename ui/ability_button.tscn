@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://drae50kni8kc5"]
+
+[ext_resource type="Script" uid="uid://bpdpco1iujshf" path="res://ui/ability_button.gd" id="1_ability_button"]
+[ext_resource type="Shader" uid="uid://dpiiee62wulwm" path="res://ui/shaders/circular_progress.gdshader" id="2_circular_progress_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e7yqb"]
+shader = ExtResource("2_circular_progress_shader")
+shader_parameter/progress = 0.0
+shader_parameter/thickness = 0.15
+shader_parameter/progress_color = Color(0.85882354, 0.2, 0.2, 0.8)
+shader_parameter/ready_color = Color(1, 1, 1, 0)
+
+[node name="AbilityButton" type="MarginContainer"]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("1_ability_button")
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+flat = true
+
+[node name="IconTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CooldownOverlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="CooldownProgress" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+fill_mode = 2
+show_percentage = false
+
+[node name="ShortcutLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CircularProgress" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_e7yqb")
+layout_mode = 2
