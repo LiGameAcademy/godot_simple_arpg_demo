@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="ActiveAbility" load_steps=15 format=3 uid="uid://op60b7h2ejrt"]
+
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="1_6issw"]
+[ext_resource type="Script" uid="uid://bcymae7pdc1s7" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue_base.gd" id="2_7iys2"]
+[ext_resource type="Script" uid="uid://c1loowqhvoix0" path="res://scripts/data/hit_detector/melee_box_hit_detector.gd" id="2_nj71f"]
+[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="2_yew1t"]
+[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/data/effects/ge_apply_damage.gd" id="3_3g35k"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_7mol0"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="3_nj71f"]
+[ext_resource type="Script" uid="uid://smkke7uw7dt2" path="res://addons/godot_gameplay_abilities/scripts/data/cues/cue_floating_text.gd" id="3_nru6w"]
+[ext_resource type="Script" uid="uid://bv8l03cfspmdk" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue.gd" id="4_pegj5"]
+
+[sub_resource type="Resource" id="Resource_558hi"]
+script = ExtResource("3_nru6w")
+attachment_point = &"head"
+offset = Vector3(0, 0.5, 0)
+metadata/_custom_type_script = "uid://smkke7uw7dt2"
+
+[sub_resource type="Resource" id="Resource_p14ky"]
+script = ExtResource("4_pegj5")
+cues = Array[ExtResource("2_7iys2")]([SubResource("Resource_558hi")])
+metadata/_custom_type_script = "uid://bv8l03cfspmdk"
+
+[sub_resource type="Resource" id="Resource_e5isf"]
+script = ExtResource("3_3g35k")
+damage_multiplier = 2.0
+cue = SubResource("Resource_p14ky")
+metadata/_custom_type_script = "uid://uhmb38g5nej3"
+
+[sub_resource type="Resource" id="Resource_7mol0"]
+script = ExtResource("2_nj71f")
+box_extents = Vector3(1.5, 1.5, 1.5)
+offset = Vector3(0, 0.75, 1.25)
+collision_mask = 4
+metadata/_custom_type_script = "uid://c1loowqhvoix0"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3g35k"]
+atlas = ExtResource("3_7mol0")
+region = Rect2(0, 96, 32, 32)
+
+[resource]
+script = ExtResource("2_yew1t")
+cooldown_duration = 0.5
+animation_name = &"jump_attack"
+hit_detector = SubResource("Resource_7mol0")
+ability_id = &"heavy_attack"
+ability_name = "重击"
+description = "对目标造成双倍物理伤害"
+icon = SubResource("AtlasTexture_3g35k")
+effects = Array[ExtResource("1_6issw")]([SubResource("Resource_e5isf")])
+metadata/_custom_type_script = "uid://cbvhifiid5vg6"

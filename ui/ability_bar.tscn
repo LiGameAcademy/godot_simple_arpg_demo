@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://ability_bar"]
+[gd_scene load_steps=2 format=3 uid="uid://dejtvj01nnaqw"]
 
-[ext_resource type="Script" path="res://ui/ability_bar.gd" id="1_ability_bar"]
+[ext_resource type="Script" uid="uid://dmwnjjvmw60ib" path="res://ui/ability_bar.gd" id="1_ability_bar"]
 
 [node name="AbilityBar" type="Control"]
 layout_mode = 3
@@ -15,6 +15,7 @@ offset_right = 200.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 script = ExtResource("1_ability_bar")
 
 [node name="ButtonContainer" type="HBoxContainer" parent="."]
@@ -26,4 +27,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
-

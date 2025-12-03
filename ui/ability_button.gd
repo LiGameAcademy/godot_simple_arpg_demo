@@ -1,4 +1,4 @@
-extends Control
+extends MarginContainer
 class_name AbilityButton
 
 ## 技能按钮 UI 组件
@@ -61,11 +61,17 @@ func initialize(comp: GameplayAbilityComponent, id: StringName, shortcut: String
 	
 	# 初始化冷却显示
 	_update_cooldown_display()
+	
+	# 设置 tooltip
+	_update_tooltip()
 
 ## 初始化环形进度条
 func _init_circular_progress() -> void:
 	if not is_instance_valid(circular_progress):
 		return
+	
+	# 确保 CircularProgress 可见
+	circular_progress.visible = true
 	
 	# 获取或创建材质
 	if circular_progress.material:
@@ -75,6 +81,11 @@ func _init_circular_progress() -> void:
 		progress_material = ShaderMaterial.new()
 		progress_material.shader = load("res://ui/shaders/circular_progress.gdshader")
 		circular_progress.material = progress_material
+	
+	# 确保材质已正确设置
+	if not is_instance_valid(progress_material):
+		push_warning("AbilityButton: Failed to create progress material")
+		return
 
 ## 更新冷却显示
 func _update_cooldown_display() -> void:
@@ -85,8 +96,10 @@ func _update_cooldown_display() -> void:
 	var is_ready = ability_component.is_cooldown_ready(ability_id)
 	
 	# 更新环形进度条（使用 shader）
-	if is_instance_valid(progress_material):
+	if is_instance_valid(progress_material) and is_instance_valid(circular_progress):
 		progress_material.set_shader_parameter("progress", progress)
+		# 确保 CircularProgress 可见
+		circular_progress.visible = true
 	
 	# 更新传统进度条（向后兼容，如果存在）
 	if cooldown_progress:
@@ -123,6 +136,45 @@ func _on_ability_cast(casted_ability_id: StringName) -> void:
 func _on_cooldown_ready(ready_ability_id: StringName) -> void:
 	if ready_ability_id == ability_id:
 		_update_cooldown_display()
+
+## 更新 Tooltip 显示
+func _update_tooltip() -> void:
+	if not is_instance_valid(ability_component):
+		return
+	
+	var ability_data = ability_component.get_ability_data(ability_id)
+	if not is_instance_valid(ability_data):
+		return
+	
+	var tooltip_lines: Array[String] = []
+	
+	# 1. 技能名称
+	if ability_data.ability_name != "":
+		tooltip_lines.append(ability_data.ability_name)
+	
+	# 2. 快捷键
+	if shortcut_key != "":
+		tooltip_lines.append("快捷键: %s" % shortcut_key)
+	
+	# 3. 普通描述
+	if ability_data.description != "":
+		tooltip_lines.append("")
+		tooltip_lines.append(ability_data.description)
+	
+	# 4. 效果描述
+	var effects_desc = ability_data.get_effects_description()
+	if effects_desc != "":
+		tooltip_lines.append("")
+		tooltip_lines.append("效果:")
+		# 处理效果描述，每行添加缩进
+		var effect_lines = effects_desc.split("\n")
+		for line in effect_lines:
+			if line.strip_edges() != "":
+				tooltip_lines.append("  • %s" % line.strip_edges())
+	
+	# 设置 tooltip_text（设置在 AbilityButton 本身，而不是 Button）
+	# 因为 MarginContainer 需要接收鼠标事件才能显示 tooltip
+	tooltip_text = "\n".join(tooltip_lines)
 
 func _process(_delta: float) -> void:
 	# 持续更新冷却显示（用于平滑的进度条动画）
