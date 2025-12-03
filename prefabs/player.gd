@@ -19,9 +19,9 @@ var attribute_points_manager: AttributePointsManager = AttributePointsManager.ne
 func _ready() -> void:
 	super()
 	
-	# 播放初始动画
-	if is_instance_valid(animation_state_machine):
-		animation_state_machine.travel("movement")
+	# 播放初始动画（通过 VisualAdapter）
+	if is_instance_valid(_visual_adapter):
+		_visual_adapter.play_animation("movement")
 	
 	# 【测试福利】送 3 瓶药水
 	var potion = load("res://data/items/potion_health_small.tres")
@@ -69,7 +69,9 @@ func get_inventory() -> C_Inventory:
 	return inventory_component
 
 func _set_movement_blend_position(blend_position: float) -> void:
-	animation_tree.set("parameters/StateMachine/movement/blend_position", blend_position)
+	# 通过 VisualAdapter 设置混合参数
+	if is_instance_valid(_visual_adapter) and _visual_adapter.has_method("set_blend_parameter"):
+		_visual_adapter.set_blend_parameter("StateMachine/movement/blend_position", blend_position)
 
 func _try_interact() -> void:
 	# 获取探测区域内所有的物体
@@ -80,10 +82,6 @@ func _try_interact() -> void:
 		# 检查目标是否有 interact 方法
 		if target.has_method("interact"):
 			target.interact()
-
-## 获取动画树路径（重写基类方法）
-func _get_animation_tree_path() -> NodePath:
-	return NodePath("Visuals/Barbarian/AnimationTree")
 
 ## 组件初始化（重写基类方法）
 func _init_components() -> void:

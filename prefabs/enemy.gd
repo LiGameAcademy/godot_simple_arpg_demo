@@ -14,7 +14,7 @@ func _ready() -> void:
 func awaken() -> void:
 	await get_tree().create_timer(randf_range(0.1, 0.5)).timeout
 	show()
-	animation_state_machine.travel("awaken")
+	_visual_adapter.play_animation("awaken")
 
 # 公开接口：受到伤害
 func take_damage(amount: int) -> void:
@@ -22,7 +22,7 @@ func take_damage(amount: int) -> void:
 	print("骷髅受到伤害！剩余HP: ", hp)
 	
 	# 受击反馈 (简单的闪白或动画，这里省略)
-	animation_state_machine.travel("hit")
+	_visual_adapter.play_animation("hit")
 	
 	if hp <= 0:
 		die()
@@ -31,7 +31,7 @@ func die() -> void:
 	# 1. 生成掉落物 (稍后实现)
 	spawn_loot()
 	# 2. 销毁自身
-	animation_state_machine.travel("death")
+	_visual_adapter.play_animation("death")
 
 func spawn_loot() -> void:
 	if not is_instance_valid(loot_scene):
@@ -58,5 +58,5 @@ func _init_components() -> void:
 	if is_instance_valid(health_vital):
 		health_vital.damage_applied.connect(
 			func(_damage_info : DamageInfo, _final_damage: float) -> void:
-				_play_anim("hit")
+				_visual_adapter.play_animation("hit")
 		)
