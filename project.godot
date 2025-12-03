@@ -22,6 +22,7 @@ DamageCalculator="*res://addons/godot_gameplay_abilities/scripts/singletons/dama
 AbilityEventBus="*res://addons/godot_gameplay_abilities/scripts/singletons/ability_event_bus.gd"
 CombatUtils="*res://addons/godot_gameplay_abilities/scripts/utils/combat_utils.gd"
 TagManager="*res://addons/godot_gameplay_abilities/scripts/singletons/gameplay_tag_manager.gd"
+GameplayCueManager="*res://addons/godot_gameplay_abilities/scripts/singletons/gameplay_cue_manager.gd"
 
 [display]
 
