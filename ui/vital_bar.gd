@@ -52,9 +52,11 @@ func _update_display() -> void:
 	
 	# 更新名称标签（如果有）
 	if label_name:
-		var def = vital.definition
-		if def:
-			label_name.text = def.display_name
+		if vital.display_name != "":
+			label_name.text = vital.display_name
+		else:
+			# 如果没有设置 display_name，使用 vital_id
+			label_name.text = str(vital.vital_id)
 
 ## Vital 值变化回调
 ## [param] id: StringName Vital ID
