@@ -11,6 +11,8 @@ class_name CharacterBase
 @export var ability_component: GameplayAbilityComponent
 ## 视觉适配器（处理动画相关逻辑，连接业务层和技能组件）
 @export var _visual_adapter: VisualAdapter = null
+## 挂点映射
+@export var _attachment_point_mapping: Dictionary[StringName, BoneAttachment3D] = {}
 
 func _ready() -> void:
 	_init_components()
@@ -78,6 +80,12 @@ func _get_facing_angle() -> float:
 	# 如果都没有，从 transform 计算
 	var forward = -global_transform.basis.z
 	return atan2(forward.x, forward.z)
+
+## 获取挂点节点（用于 Cue 系统）
+## [param] attachment_point: StringName 挂点名（如 "head", "foot", "body" 等）
+## [return] Node3D 挂点节点，如果找不到则返回 null
+func get_attachment_point(attachment_point: StringName) -> Node3D:
+	return _attachment_point_mapping.get(attachment_point, null)
 
 #endregion
 
