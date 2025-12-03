@@ -77,6 +77,7 @@ toggle_inventory={
 
 3d_physics/layer_1="Environment"
 3d_physics/layer_2="Player"
+3d_physics/layer_3="hurt_box"
 3d_physics/layer_4="Enemy"
 3d_physics/layer_8="Interaction"
 

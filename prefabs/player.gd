@@ -1,4 +1,4 @@
-extends CharacterBody3D
+extends CharacterBase
 class_name Player
 
 @export var player_data : PlayerData = null
@@ -9,22 +9,20 @@ class_name Player
 @export var rotation_speed: float = 12.0 # 转身速度
 
 @onready var visuals: Node3D = $Visuals
-@onready var animation_tree: AnimationTree = $Visuals/Barbarian/AnimationTree
 @onready var interaction_area: Area3D = $Visuals/InteractionArea
 @onready var inventory_component: C_Inventory = $InventoryComponent
 
-@onready var attribute_component: GameplayVitalAttributeComponent = %GameplayAttributeComponent
-@onready var ability_component: Node = $GameplayAbilityComponent
-
-var animation_state_machine: AnimationNodeStateMachinePlayback
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 ## 属性点数管理器
 var attribute_points_manager: AttributePointsManager = AttributePointsManager.new(10)
 
 func _ready() -> void:
-	animation_state_machine = animation_tree.get("parameters/StateMachine/playback")
-	animation_state_machine.travel("movement")
-
+	super()
+	
+	# 播放初始动画
+	if is_instance_valid(animation_state_machine):
+		animation_state_machine.travel("movement")
+	
 	_init_components()
 
 	# 【测试福利】送 3 瓶药水
@@ -72,12 +70,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func get_inventory() -> C_Inventory:
 	return inventory_component
 
-func _play_anim(anim_name: String) -> void:
-	if not is_instance_valid(animation_state_machine):
-		animation_state_machine = animation_tree.get("parameters/StateMachine/playback")
-	if not is_instance_valid(animation_state_machine): return
-	animation_state_machine.travel(anim_name)
-	
 func _set_movement_blend_position(blend_position: float) -> void:
 	animation_tree.set("parameters/StateMachine/movement/blend_position", blend_position)
 
@@ -91,8 +83,13 @@ func _try_interact() -> void:
 		if target.has_method("interact"):
 			target.interact()
 
-## 组件初始化
+## 获取动画树路径（重写基类方法）
+func _get_animation_tree_path() -> NodePath:
+	return NodePath("Visuals/Barbarian/AnimationTree")
+
+## 组件初始化（重写基类方法）
 func _init_components() -> void:
+	super()
 	if not is_instance_valid(player_data):
 		push_error("PlayerData is not set")
 		return
@@ -100,60 +97,20 @@ func _init_components() -> void:
 	
 	# 初始化能力组件（如果有普通攻击能力）
 	# 加载普通攻击能力
-	var basic_attack = load("res://data/abilities/basic_attack.tres")
+	var basic_attack = player_data.basic_attack_ability
 	if basic_attack:
 		ability_component.learn_ability(basic_attack)
-
-## 尝试攻击
-func _try_attack() -> void:
-	# 查找最近的敌人
-	var target = _find_nearest_enemy()
-	if not is_instance_valid(target):
-		# 没有目标，只播放动画
-		_play_anim("attack")
-		return
-	
-	# 使用能力系统进行攻击
-	var ability_id = &"basic_attack"
-	if ability_component.can_cast(ability_id, target):
-		# 提交施法（消耗资源、开始冷却）
-		if ability_component.commit_cast(ability_id):
-			# 播放攻击动画
-			_play_anim("attack")
-			# 应用技能效果
-			ability_component.apply_ability_effect(ability_id, target)
 	else:
-		# 无法施法（可能在冷却中），只播放动画
-		_play_anim("attack")
+		push_error("BasicAttackAbility is not set")
 
-## 查找最近的敌人
-func _find_nearest_enemy() -> Node:
-	var enemies = get_tree().get_nodes_in_group("Enemy")
-	if enemies.is_empty():
+## 获取攻击能力（重写基类方法）
+func _get_attack_ability() -> GameplayAbility:
+	if not is_instance_valid(player_data):
 		return null
-	
-	var nearest: Node = null
-	var nearest_distance: float = INF
-	
-	for enemy in enemies:
-		if not is_instance_valid(enemy):
-			continue
-		
-		# 检查敌人是否有生命值组件（使用能力系统）
-		var health_comp = GameplayAbilitySystem.get_component_by_interface(enemy, "HealthComponent")
-		if not health_comp:
-			# 尝试使用旧的接口
-			if not enemy.has_method("take_damage"):
-				continue
-		
-		# 计算距离
-		var distance = global_position.distance_to(enemy.global_position)
-		if distance < nearest_distance:
-			nearest_distance = distance
-			nearest = enemy
-	
-	# 检查是否在攻击范围内（假设攻击范围为 2.0）
-	if nearest and nearest_distance <= 2.0:
-		return nearest
-	
-	return null
+	return player_data.basic_attack_ability
+
+## 获取角色面朝角度（重写基类方法，使用 visuals 节点）
+func _get_facing_angle() -> float:
+	if is_instance_valid(visuals) and visuals is Node3D:
+		return visuals.rotation.y
+	return super._get_facing_angle()

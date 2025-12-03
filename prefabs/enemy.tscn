@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c8pswujmax0c7"]
+[gd_scene load_steps=23 format=3 uid="uid://c8pswujmax0c7"]
 
 [ext_resource type="PackedScene" uid="uid://chxbrq7xxhfka" path="res://assets/scenes/skeleton_warrior.tscn" id="1_6n8dw"]
 [ext_resource type="Script" uid="uid://bc4abtmpomeeh" path="res://prefabs/enemy.gd" id="1_yfjof"]
@@ -9,6 +9,13 @@
 [ext_resource type="Animation" uid="uid://0m2p24c586id" path="res://assets/animations/Skeletons_Death_Resurrect.res" id="7_xkwav"]
 [ext_resource type="Animation" uid="uid://c3wbrswbjovf8" path="res://assets/animations/Skeletons_Idle.res" id="8_8drnm"]
 [ext_resource type="Animation" uid="uid://bodpvb3io0u0d" path="res://assets/animations/Hit_A.res" id="9_hoy00"]
+[ext_resource type="Script" uid="uid://cot8b4lx60hjt" path="res://addons/godot_gameplay_abilities/scripts/components/gameplay_vital_attribute_component.gd" id="10_5n6jt"]
+[ext_resource type="Script" uid="uid://cq12vx17wqaxl" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/gameplay_vital.gd" id="11_d5xr2"]
+[ext_resource type="Script" uid="uid://di1lkg8naxv2h" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/gameplay_vital_definition.gd" id="12_uj1x0"]
+[ext_resource type="Script" uid="uid://c6bk65loe1kkq" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/health_vital.gd" id="13_2rulf"]
+[ext_resource type="Script" uid="uid://ccgjxcr56jc2h" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute_set.gd" id="14_aorgn"]
+[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute.gd" id="15_p7wsu"]
+[ext_resource type="Resource" uid="uid://cnl60y2fr7q1b" path="res://data/attributes/health.tres" id="16_d5xr2"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5n6jt"]
 resource_local_to_scene = true
@@ -26,6 +33,22 @@ _data = {
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cypye"]
 radius = 0.6665039
 
+[sub_resource type="Resource" id="Resource_1rg3v"]
+script = ExtResource("12_uj1x0")
+metadata/_custom_type_script = "uid://di1lkg8naxv2h"
+
+[sub_resource type="Resource" id="Resource_cfq72"]
+script = ExtResource("13_2rulf")
+definition = SubResource("Resource_1rg3v")
+metadata/_custom_type_script = "uid://c6bk65loe1kkq"
+
+[sub_resource type="Resource" id="Resource_6pfhn"]
+script = ExtResource("14_aorgn")
+attributes = Dictionary[ExtResource("15_p7wsu"), float]({
+ExtResource("16_d5xr2"): 100.0
+})
+metadata/_custom_type_script = "uid://ccgjxcr56jc2h"
+
 [node name="Enemy" type="CharacterBody3D"]
 collision_layer = 8
 script = ExtResource("1_yfjof")
@@ -34,27 +57,27 @@ loot_scene = ExtResource("2_cypye")
 [node name="Skeleton_Warrior" parent="." instance=ExtResource("1_6n8dw")]
 
 [node name="Skeleton3D" parent="Skeleton_Warrior/Rig_Medium" index="0"]
-bones/1/position = Vector3(7.167187e-09, 0.3035079, -0.030061364)
-bones/3/rotation = Quaternion(0.28924152, -0.008501805, 0.010572207, 0.9571601)
-bones/4/rotation = Quaternion(-0.79884183, 0.12059037, 0.4544409, 0.37522426)
-bones/5/rotation = Quaternion(1.7632678e-08, 6.744027e-08, 0.45178655, 0.89212614)
-bones/7/rotation = Quaternion(-0.3434066, 0.40543675, -0.07594718, 0.84375656)
-bones/9/rotation = Quaternion(-0.7648184, -0.1809885, -0.4994186, 0.36452332)
-bones/10/rotation = Quaternion(3.5433334e-08, -5.4763003e-08, -0.6161983, 0.78759104)
-bones/12/rotation = Quaternion(-0.122862, -0.61077553, 0.013160852, 0.78210294)
-bones/14/rotation = Quaternion(-0.27901682, 0.013959285, 0.094750375, 0.95549846)
-bones/15/rotation = Quaternion(0.92374384, 0.1367337, 0.21908492, 0.2828482)
-bones/16/rotation = Quaternion(0.6402023, 4.662401e-08, -4.5550348e-07, 0.7682065)
-bones/17/rotation = Quaternion(-0.6094861, -0.36826822, 0.19568053, 0.674251)
-bones/19/rotation = Quaternion(0.9193676, -0.23234913, 0.28540355, 0.1390037)
-bones/20/rotation = Quaternion(0.6466813, -5.596338e-08, 4.6834117e-07, 0.7627604)
-bones/21/rotation = Quaternion(-0.7324274, 0.11101241, -0.18787958, 0.6449245)
+bones/1/position = Vector3(7.167187e-09, 0.29656214, -0.030061364)
+bones/3/rotation = Quaternion(0.29115877, -0.023441084, -0.014677584, 0.956275)
+bones/4/rotation = Quaternion(-0.8024636, 0.056304574, 0.4378911, 0.40141428)
+bones/5/rotation = Quaternion(7.913373e-08, 7.389587e-08, 0.57747054, 0.81641155)
+bones/7/rotation = Quaternion(-0.33088708, 0.3437946, -0.032772128, 0.87820566)
+bones/9/rotation = Quaternion(-0.77805233, -0.16401076, -0.45347738, 0.40260816)
+bones/10/rotation = Quaternion(4.6520842e-08, -4.148654e-08, -0.6488555, 0.76091176)
+bones/12/rotation = Quaternion(-0.12722936, -0.61273056, 0.026676651, 0.77952695)
+bones/14/rotation = Quaternion(-0.27861387, 0.034825303, 0.12878218, 0.95109236)
+bones/15/rotation = Quaternion(0.9202206, 0.13927, 0.22031276, 0.2919935)
+bones/16/rotation = Quaternion(0.6612897, 5.111599e-08, -4.7127898e-07, 0.75013065)
+bones/17/rotation = Quaternion(-0.62038344, -0.3629573, 0.20646688, 0.66389596)
+bones/19/rotation = Quaternion(0.91739535, -0.2388225, 0.28355497, 0.14472778)
+bones/20/rotation = Quaternion(0.66756505, -6.086256e-08, 4.7352444e-07, 0.7445515)
+bones/21/rotation = Quaternion(-0.7441161, 0.10539639, -0.19409838, 0.6304829)
 
 [node name="head" parent="Skeleton_Warrior/Rig_Medium/Skeleton3D" index="0"]
-transform = Transform3D(0.97855574, -0.20243657, 0.03805239, 0.20532978, 0.9439795, -0.25834537, 0.016377889, 0.26061863, 0.96530294, 0.006093624, 1.0417782, 0.25666147)
+transform = Transform3D(0.9739148, -0.22268619, 0.043598253, 0.22632214, 0.9394088, -0.2574674, 0.016377829, 0.2606185, 0.96530294, 0.016785719, 1.0341593, 0.25666144)
 
 [node name="BoneAttachment3D" parent="Skeleton_Warrior/Rig_Medium/Skeleton3D" index="10"]
-transform = Transform3D(-0.14560223, -0.629964, -0.7628524, -0.969844, -0.061444137, 0.23585106, -0.1954506, 0.7741891, -0.60202104, -0.5705666, 0.5917358, -0.044487618)
+transform = Transform3D(-0.1762172, -0.40573218, -0.8968428, -0.98248583, 0.016448013, 0.18560427, -0.06055415, 0.91384345, -0.40152496, -0.5363618, 0.6210823, -0.013739783)
 
 [node name="AnimationPlayer" parent="Skeleton_Warrior" index="1"]
 libraries = {
@@ -66,12 +89,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9804727, 0)
 shape = SubResource("CapsuleShape3D_yfjof")
 
 [node name="Hurtbox" type="Area3D" parent="."]
-collision_layer = 8
+collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2657787, 0)
 shape = SubResource("CapsuleShape3D_cypye")
 debug_color = Color(0.8375216, 0.36315465, 0.35927287, 0.41960785)
+
+[node name="GameplayAttributeComponent" type="Node" parent="."]
+script = ExtResource("10_5n6jt")
+_vitals = Array[ExtResource("11_d5xr2")]([SubResource("Resource_cfq72")])
+_active_sets = Array[ExtResource("14_aorgn")]([SubResource("Resource_6pfhn")])
+metadata/_custom_type_script = "uid://cot8b4lx60hjt"
 
 [editable path="Skeleton_Warrior"]

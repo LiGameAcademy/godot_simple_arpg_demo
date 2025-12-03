@@ -1,16 +1,14 @@
-extends CharacterBody3D
-
-@onready var animation_tree: AnimationTree = $Skeleton_Warrior/AnimationTree
+extends CharacterBase
+class_name Enemy
 
 # 预留给掉落物的插槽 (稍后制作)
 @export var loot_scene: PackedScene 
 
 # 简单的生命值
 var hp: int = 3
-var animation_state_machine : AnimationNodeStateMachinePlayback
 
 func _ready() -> void:
-	animation_state_machine = animation_tree.get("parameters/StateMachine/playback")
+	super()
 	hide()
 
 func awaken() -> void:
@@ -46,3 +44,19 @@ func spawn_loot() -> void:
 	# 给它一个随机的爆炸推力！
 	var random_dir = Vector3(randf_range(-2, 2), 2, randf_range(-2, 2)).normalized()
 	loot.apply_impulse(random_dir * 5.0)
+
+## 获取动画树路径（重写基类方法）
+func _get_animation_tree_path() -> NodePath:
+	return NodePath("Skeleton_Warrior/AnimationTree")
+
+## 组件初始化（重写基类方法）
+func _init_components() -> void:
+	super()
+	
+	attribute_component.initialize()
+	var health_vital : HealthVital = attribute_component.get_vital("health")
+	if is_instance_valid(health_vital):
+		health_vital.damage_applied.connect(
+			func(_damage_info : DamageInfo, _final_damage: float) -> void:
+				_play_anim("hit")
+		)

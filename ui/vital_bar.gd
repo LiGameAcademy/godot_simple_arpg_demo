@@ -61,6 +61,6 @@ func _update_display() -> void:
 ## [param] current: float 当前值
 ## [param] max: float 最大值
 ## [param] percent: float 百分比
-func _on_vital_changed(id: StringName, current: float, max: float, percent: float) -> void:
+func _on_vital_changed(id: StringName, _current: float, _max: float, _percent: float) -> void:
 	if id == vital_id:
 		_update_display()
