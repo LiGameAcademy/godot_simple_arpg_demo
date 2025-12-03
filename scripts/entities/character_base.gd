@@ -13,7 +13,7 @@ var animation_tree: AnimationTree = null
 ## 属性组件（使用 unique_name_in_owner 时使用 %GameplayAttributeComponent）
 @onready var attribute_component: GameplayVitalAttributeComponent = %GameplayAttributeComponent
 ## 能力组件（可选，如果角色需要使用能力系统）
-@onready var ability_component: GameplayAbilityComponent = %GameplayAbilityComponent
+@export var ability_component: GameplayAbilityComponent
 
 ## 动画状态机
 var animation_state_machine: AnimationNodeStateMachinePlayback

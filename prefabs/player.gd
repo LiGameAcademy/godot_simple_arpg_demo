@@ -23,8 +23,6 @@ func _ready() -> void:
 	if is_instance_valid(animation_state_machine):
 		animation_state_machine.travel("movement")
 	
-	_init_components()
-
 	# 【测试福利】送 3 瓶药水
 	var potion = load("res://data/items/potion_health_small.tres")
 	if potion:

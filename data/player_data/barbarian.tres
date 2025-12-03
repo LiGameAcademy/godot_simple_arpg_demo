@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerData" load_steps=28 format=3 uid="uid://cg4anfcgfpik4"]
+[gd_resource type="Resource" script_class="PlayerData" load_steps=30 format=3 uid="uid://cg4anfcgfpik4"]
 
 [ext_resource type="Script" uid="uid://ccgjxcr56jc2h" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute_set.gd" id="1_41usi"]
 [ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute.gd" id="2_nkcd8"]
@@ -17,6 +17,8 @@
 [ext_resource type="Resource" uid="uid://d0xcabsvdyo50" path="res://data/attributes/mana.tres" id="12_lpmmf"]
 [ext_resource type="Resource" uid="uid://csgd4q7liset6" path="res://data/attributes/speed.tres" id="13_8s7k1"]
 [ext_resource type="Resource" uid="uid://cuhypfwss4p8b" path="res://data/attributes/crit_rate.tres" id="15_wucg8"]
+[ext_resource type="Resource" uid="uid://bvbw8cphgiuv5" path="res://data/attributes/health_regen.tres" id="16_lpmmf"]
+[ext_resource type="Resource" uid="uid://cl88e4xmld24w" path="res://data/attributes/mana_regen.tres" id="17_8s7k1"]
 [ext_resource type="Script" uid="uid://cq12vx17wqaxl" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/gameplay_vital.gd" id="17_c7yfu"]
 [ext_resource type="Resource" uid="uid://dqyj5y5ta5vje" path="res://data/abilities/basic_attack.tres" id="17_oorid"]
 [ext_resource type="Script" uid="uid://c6bk65loe1kkq" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/health_vital.gd" id="18_j0hhi"]
@@ -45,7 +47,9 @@ ExtResource("10_oorid"): 5.0,
 ExtResource("11_sssar"): 0.0,
 ExtResource("12_lpmmf"): 50.0,
 ExtResource("13_8s7k1"): 0.0,
-ExtResource("15_wucg8"): 0.05
+ExtResource("15_wucg8"): 0.05,
+ExtResource("16_lpmmf"): 0.0,
+ExtResource("17_8s7k1"): 0.0
 })
 metadata/_custom_type_script = "uid://d373ug5yg4v21"
 
