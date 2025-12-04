@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerData" load_steps=28 format=3 uid="uid://cg4anfcgfpik4"]
+[gd_resource type="Resource" script_class="PlayerData" load_steps=31 format=3 uid="uid://cg4anfcgfpik4"]
 
 [ext_resource type="Script" uid="uid://ccgjxcr56jc2h" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute_set.gd" id="1_41usi"]
 [ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute.gd" id="2_nkcd8"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://c2yg48kmsw702" path="res://data/attributes/vitality.tres" id="5_bjrym"]
 [ext_resource type="Resource" uid="uid://coemk5gg52d7w" path="res://data/attributes/attack.tres" id="6_j0hhi"]
 [ext_resource type="Resource" uid="uid://c7um4ug20u3qv" path="res://data/attributes/agility.tres" id="6_vwojj"]
+[ext_resource type="Script" uid="uid://bnmtf7f5mast7" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/scalable_value.gd" id="7_8s7k1"]
 [ext_resource type="Resource" uid="uid://cghwegq2anq8g" path="res://data/attributes/attack_speed.tres" id="7_wucg8"]
 [ext_resource type="Resource" uid="uid://s0enk0k8apaf" path="res://data/attributes/defense.tres" id="8_wmkhh"]
 [ext_resource type="Resource" uid="uid://cnl60y2fr7q1b" path="res://data/attributes/health.tres" id="9_pwhx8"]
@@ -23,6 +24,8 @@
 [ext_resource type="Resource" uid="uid://dqyj5y5ta5vje" path="res://data/abilities/basic_attack.tres" id="17_oorid"]
 [ext_resource type="Script" uid="uid://c6bk65loe1kkq" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/health_vital.gd" id="18_j0hhi"]
 [ext_resource type="Script" uid="uid://bqu07lnijvw87" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/mana_vital.gd" id="19_wucg8"]
+[ext_resource type="Resource" uid="uid://bq3236nkirgvu" path="res://data/abilities/dash.tres" id="20_dash"]
+[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="21_0tg7o"]
 
 [sub_resource type="Resource" id="Resource_0tg7o"]
 script = ExtResource("1_41usi")
@@ -70,4 +73,5 @@ script = ExtResource("4_x6008")
 attribute_sets = Array[ExtResource("1_41usi")]([SubResource("Resource_0tg7o"), SubResource("Resource_dwbmn")])
 vitals = Array[ExtResource("17_c7yfu")]([SubResource("Resource_wmkhh"), SubResource("Resource_pwhx8")])
 basic_attack_ability = ExtResource("17_oorid")
+initial_abilities = Array[ExtResource("21_0tg7o")]([ExtResource("20_dash")])
 metadata/_custom_type_script = "uid://coyhetiyc4y1"

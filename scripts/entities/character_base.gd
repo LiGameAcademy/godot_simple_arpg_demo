@@ -41,7 +41,7 @@ func try_cast_ability(ability_id: StringName, target: Node = null, context: Dict
 		return
 	
 	if ability_component.can_cast(ability_id, target, context):
-		var ok := ability_component.commit_cast(ability_id)
+		var ok := ability_component.commit_cast(ability_id, target, context)
 		if not ok:
 			push_warning("CharacterBase: Failed to commit cast for ability: %s" % ability_id)
 			return

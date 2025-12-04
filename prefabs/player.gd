@@ -102,16 +102,22 @@ func _init_components() -> void:
 		return
 	attribute_component.initialize(player_data.attribute_sets, player_data.vitals)
 	
-	# 初始化能力组件（如果有普通攻击能力）
+	# 初始化能力组件
 	# 加载普通攻击能力
 	var basic_attack = player_data.basic_attack_ability
 	if basic_attack:
 		ability_component.learn_ability(basic_attack)
-		# 连接技能学会信号，自动绑定快捷键
-		if not ability_component.ability_learned.is_connected(_on_ability_learned):
-			ability_component.ability_learned.connect(_on_ability_learned)
 	else:
 		push_error("BasicAttackAbility is not set")
+	
+	# 加载初始技能列表（如冲刺、火球等）
+	for ability in player_data.initial_abilities:
+		if is_instance_valid(ability):
+			ability_component.learn_ability(ability)
+	
+	# 连接技能学会信号，自动绑定快捷键
+	if not ability_component.ability_learned.is_connected(_on_ability_learned):
+		ability_component.ability_learned.connect(_on_ability_learned)
 
 ## 设置快捷键绑定
 func _setup_shortcuts() -> void:
@@ -121,6 +127,7 @@ func _setup_shortcuts() -> void:
 	# 默认快捷键映射
 	var default_shortcuts = {
 		&"basic_attack": "1",
+		&"dash": "2",
 	}
 	
 	# 绑定已学会的技能
@@ -135,6 +142,7 @@ func _on_ability_learned(ability_id: StringName) -> void:
 	# 默认快捷键映射
 	var default_shortcuts = {
 		&"basic_attack": "1",
+		&"dash": "2",
 	}
 	
 	var shortcut = default_shortcuts.get(ability_id, "")

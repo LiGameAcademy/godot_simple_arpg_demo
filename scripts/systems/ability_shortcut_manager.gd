@@ -123,4 +123,3 @@ func _is_shortcut_event(event: InputEvent, shortcut: String) -> bool:
 		return key_event.keycode == expected_key
 	
 	return false
-

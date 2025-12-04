@@ -161,16 +161,29 @@ func _update_tooltip() -> void:
 		tooltip_lines.append("")
 		tooltip_lines.append(ability_data.description)
 	
-	# 4. 效果描述
-	var effects_desc = ability_data.get_effects_description()
-	if effects_desc != "":
-		tooltip_lines.append("")
-		tooltip_lines.append("效果:")
-		# 处理效果描述，每行添加缩进
-		var effect_lines = effects_desc.split("\n")
-		for line in effect_lines:
-			if line.strip_edges() != "":
-				tooltip_lines.append("  • %s" % line.strip_edges())
+		# 4. 消耗描述
+		var costs_desc = ""
+		if ability_data.has_method("get_costs_description"):
+			costs_desc = ability_data.get_costs_description()
+		if costs_desc != "":
+			tooltip_lines.append("")
+			tooltip_lines.append("消耗:")
+			# 处理消耗描述，每行添加缩进
+			var cost_lines = costs_desc.split("\n")
+			for line in cost_lines:
+				if line.strip_edges() != "":
+					tooltip_lines.append("  • %s" % line.strip_edges())
+		
+		# 5. 效果描述
+		var effects_desc = ability_data.get_effects_description()
+		if effects_desc != "":
+			tooltip_lines.append("")
+			tooltip_lines.append("效果:")
+			# 处理效果描述，每行添加缩进
+			var effect_lines = effects_desc.split("\n")
+			for line in effect_lines:
+				if line.strip_edges() != "":
+					tooltip_lines.append("  • %s" % line.strip_edges())
 	
 	# 设置 tooltip_text（设置在 AbilityButton 本身，而不是 Button）
 	# 因为 MarginContainer 需要接收鼠标事件才能显示 tooltip

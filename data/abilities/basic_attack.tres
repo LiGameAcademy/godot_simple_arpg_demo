@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="CombatAbility" load_steps=10 format=3 uid="uid://dqyj5y5ta5vje"]
+[gd_resource type="Resource" script_class="CombatAbility" load_steps=11 format=3 uid="uid://dqyj5y5ta5vje"]
 
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="1_6issw"]
 [ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="2_yew1t"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_7mol0"]
 [ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="3_nj71f"]
+[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="5_7iys2"]
 [ext_resource type="Script" uid="uid://dbgy7d7syxo20" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/combat_ability.gd" id="5_combat"]
 [ext_resource type="Resource" uid="uid://1ec04wtsoes" path="res://data/abilities/attack_combo_1.tres" id="6_combo1"]
 [ext_resource type="Resource" uid="uid://60xxjx03ioa" path="res://data/abilities/attack_combo_2.tres" id="7_combo2"]
