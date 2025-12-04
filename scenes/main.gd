@@ -3,6 +3,7 @@ extends Node3D
 # 运镜时间 (秒)
 const TRANSITION_TIME = 1.5 
 const DIALOGUE_PATH = "res://data/dialogues/dialogue.json"
+const RANDOM_CHATTER_PATH = "res://data/dialogues/random_chatter.json"
 
 @onready var player: CharacterBody3D = $RoomLobby/Player
 @onready var inventory_ui: MarginContainer = $UILayer/HUD/inventory
@@ -74,3 +75,4 @@ func _register_conditions() -> void:
 
 func _init_dialogue() -> void:
 	DialogueManager.load_dialogue_file(DIALOGUE_PATH)
+	DialogueManager.load_dialogue_file(RANDOM_CHATTER_PATH)

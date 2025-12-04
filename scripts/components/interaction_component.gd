@@ -60,7 +60,11 @@ func _setup_label() -> void:
 	interaction_label.hide()
 	
 # 封装一个执行函数，复用代码
+# 支持按顺序尝试执行动作，如果某个动作返回 false（跳过），继续尝试下一个
 func _execute_actions(action_list: Array[GameAction], initiator: Node) -> void:
 	for action in action_list:
 		if action:
-			action.execute(initiator, self)
+			# 尝试执行动作，如果返回 true 表示成功执行，停止尝试后续动作
+			if action.execute(initiator, self):
+				return  # 成功执行，停止尝试后续动作
+			# 如果返回 false，继续尝试下一个动作（用于回退机制）

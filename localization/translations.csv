@@ -9,4 +9,8 @@ VILLAGE_CHIEF_ACCEPT_REPLY,"Excellent! Here are some rations for the road. Be ca
 VILLAGE_CHIEF_REFUSE_REPLY,"Alright, go and prepare then. The safety of our village rests on you.","好吧，那你先去准备一下吧，村子的安危就靠你了。"
 VILLAGE_CHIEF_IN_PROGRESS_REPLY,"Take your time, but don't delay too long.","慢慢来，但别拖太久。"
 VILLAGE_CHIEF_COMPLETE_REPLY,"Oh? I couldn't tell you were so skilled at such a young age! This is your reward.","哦？看不出来你年纪轻轻，身手却如此了得！这是给你的奖励。"
+VILLAGE_CHIEF_CHATTER_1,"The weather has been quite pleasant lately.","最近天气真不错啊。"
+VILLAGE_CHIEF_CHATTER_2,"Have you seen the new crops in the fields? They're growing well.","你看到田里的新庄稼了吗？长势不错。"
+VILLAGE_CHIEF_CHATTER_3,"The village has been peaceful these days. I hope it stays that way.","村子这些天很平静，希望一直这样下去。"
+VILLAGE_CHIEF_CHATTER_4,"If you need anything, just let me know.","如果你需要什么，尽管告诉我。"
 UI_CONDITION_PREFIX_HAS_ITEM,"(Requires [%s]) %s","(需要【%s】) %s"

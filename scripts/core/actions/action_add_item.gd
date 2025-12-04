@@ -19,8 +19,8 @@ func init_from_data(action_data: Dictionary) -> void:
 	else:
 		push_error("ActionAddItem: 找不到物品资源 '%s'" % item_id)
 
-func execute(initiator: Node, _target: Node) -> void:
-	if item == null: return
+func _execute_internal(initiator: Node, _target: Node) -> bool:
+	if item == null: return false
 	
 	# 检查发起者(玩家)身上是否有背包组件
 	# 假设我们给 Player 挂载的组件名叫 "InventoryComponent"
@@ -32,3 +32,5 @@ func execute(initiator: Node, _target: Node) -> void:
 		print("获得物品：", item.name, " x", amount)
 		
 		# 可选：在这里触发一个 UI 弹窗提示
+		return true
+	return false

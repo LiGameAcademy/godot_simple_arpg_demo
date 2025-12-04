@@ -1,0 +1,12 @@
+{
+	"village_chief_chatter": {
+		"character": "CHARACTER_VILLAGE_CHIEF",
+		"text": [
+			"VILLAGE_CHIEF_CHATTER_1",
+			"VILLAGE_CHIEF_CHATTER_2",
+			"VILLAGE_CHIEF_CHATTER_3",
+			"VILLAGE_CHIEF_CHATTER_4"
+		],
+		"next_node": "END"
+		}
+}

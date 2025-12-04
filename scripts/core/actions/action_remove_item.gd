@@ -11,12 +11,13 @@ func init_from_data(action_data: Dictionary) -> void:
 		push_error("ActionRemoveItem: item_name不能为空")
 		return
 
-func execute(initiator: Node, _target: Node) -> void:
+func _execute_internal(initiator: Node, _target: Node) -> bool:
 	if item_name.is_empty():
 		print("移除物品名称不能为空！")
-		return
+		return false
 	var inventory : C_Inventory = initiator.get_inventory() if initiator.has_method("get_inventory") else null
 	if not is_instance_valid(inventory):
 		print("交互组件没有找到背包组件！")
-		return
+		return false
 	inventory.remove_item_by_name(item_name, amount)
+	return true

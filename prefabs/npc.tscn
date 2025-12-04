@@ -1,17 +1,32 @@
-[gd_scene load_steps=10 format=3 uid="uid://viljtp7cx1pd"]
+[gd_scene load_steps=13 format=3 uid="uid://viljtp7cx1pd"]
 
 [ext_resource type="PackedScene" uid="uid://bqqk3c0rfeqjk" path="res://assets/scenes/mage.tscn" id="1_tnah1"]
 [ext_resource type="Script" uid="uid://t0fmrjfr7nfv" path="res://scripts/components/interaction_component.gd" id="2_1ov3m"]
 [ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://addons/laoli_dialogue_system/scripts/core/actions/game_action.gd" id="3_cuwdc"]
 [ext_resource type="Script" uid="uid://bg0bhe5cam1cx" path="res://addons/laoli_dialogue_system/scripts/core/actions/action_start_dialogue.gd" id="4_2m1cq"]
 [ext_resource type="FontFile" uid="uid://bj4wlflwm0lq7" path="res://addons/simple_inventory/assets/fonts/SourceHanSansSC-Regular-2.otf" id="5_0j2mh"]
+[ext_resource type="Script" uid="uid://dq8sympe46jux" path="res://addons/laoli_dialogue_system/scripts/core/conditions/condition_quest_status.gd" id="5_condition"]
 [ext_resource type="PackedScene" uid="uid://btc8mmlu7nhru" path="res://addons/laoli_dialogue_system/ui/quest_icon.tscn" id="6_0j2mh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1ov3m"]
 
-[sub_resource type="Resource" id="Resource_h87kd"]
+[sub_resource type="Resource" id="Resource_b517y"]
+script = ExtResource("5_condition")
+quest_id = "chief_forest_quest"
+required_status = 3
+metadata/_custom_type_script = "uid://dq8sympe46jux"
+
+[sub_resource type="Resource" id="Resource_chatter_dialogue"]
+script = ExtResource("4_2m1cq")
+dialogue_node_id = "village_chief_chatter"
+silent_fallback = true
+condition = SubResource("Resource_b517y")
+metadata/_custom_type_script = "uid://bg0bhe5cam1cx"
+
+[sub_resource type="Resource" id="Resource_task_dialogue"]
 script = ExtResource("4_2m1cq")
 dialogue_node_id = "village_chief_start"
+silent_fallback = true
 metadata/_custom_type_script = "uid://bg0bhe5cam1cx"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cuwdc"]
@@ -32,7 +47,7 @@ shape = SubResource("CapsuleShape3D_1ov3m")
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("2_1ov3m")
-actions = Array[ExtResource("3_cuwdc")]([SubResource("Resource_h87kd")])
+actions = Array[ExtResource("3_cuwdc")]([SubResource("Resource_chatter_dialogue"), SubResource("Resource_task_dialogue")])
 interaction_label = NodePath("../InteractionLabel")
 prompt_text = "E: 对话"
 metadata/_custom_type_script = "uid://t0fmrjfr7nfv"

@@ -16,10 +16,11 @@ func init_from_data(action_data: Dictionary) -> void:
 		push_error("ActionChangeAffinity: value为0")
 		return
 
-func execute(_initiator: Node, _target: Node) -> void:
+func _execute_internal(_initiator: Node, _target: Node) -> bool:
 	if npc_id.is_empty():
 		push_error("ActionChangeAffinity: npc_id为空")
-		return
+		return false
 	
 	GameState.change_npc_affinity(npc_id, value)
 	print("好感度变化：%s +%d" % [npc_id, value])
+	return true

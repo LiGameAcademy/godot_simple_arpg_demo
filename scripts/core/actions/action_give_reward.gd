@@ -9,11 +9,12 @@ func init_from_data(action_data: Dictionary) -> void:
 		push_error("ActionGiveReward: reward_id为空")
 		return
 
-func execute(_initiator: Node, _target: Node) -> void:
+func _execute_internal(_initiator: Node, _target: Node) -> bool:
 	if reward_id.is_empty():
 		push_error("ActionGiveReward: reward_id为空")
-		return
+		return false
 	
 	# 调用GameState的奖励处理逻辑
 	GameState.handle_give_reward_action({"id": reward_id})
 	print("获得奖励：", reward_id)
+	return true

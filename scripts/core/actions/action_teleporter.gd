@@ -4,7 +4,7 @@ class_name ActionTeleport
 func init_from_data(_data: Dictionary) -> void:
 	pass
 
-func execute(initiator: Node, target: Node) -> void:
+func _execute_internal(initiator: Node, target: Node) -> bool:
 	# 1. 获取宿主 (Owner)
 	# target 是 InteractionComponent，它的父节点通常就是 Teleporter
 	var owner_node = target.get_parent()
@@ -17,10 +17,13 @@ func execute(initiator: Node, target: Node) -> void:
 	# 3. 安全检查
 	if not room or not marker:
 		printerr("ActionTeleport: 宿主节点 [", owner_node.name, "] 缺少 target_room 或 target_marker 属性！")
-		return
+		return false
 	
 	# 4. 执行逻辑
 	var main = initiator.get_tree().current_scene
 	if main.has_method("transition_to_room"):
 		print("传送 -> ", room.name)
 		main.transition_to_room(room, marker.global_position)
+		return true
+
+	return false
