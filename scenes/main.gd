@@ -6,6 +6,7 @@ const TRANSITION_TIME = 1.5
 @onready var player: CharacterBody3D = $RoomLobby/Player
 @onready var inventory_ui: MarginContainer = $UILayer/HUD/inventory
 @onready var camera: Camera3D = $Camera3D
+var camera_controller: CameraController = null
 
 @export var game_data : GameData
 
@@ -19,6 +20,10 @@ func _ready() -> void:
 	
 	# 初始化属性系统
 	_init_attribute_system()
+	
+	# 获取相机控制器（如果存在）
+	if is_instance_valid(camera_controller):
+		camera_controller.set_base_position(camera.global_position)
 
 func _unhandled_input(event) -> void:
 	if event.is_action_pressed("toggle_inventory"):
@@ -54,7 +59,13 @@ func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> v
 	player.global_position = target_position
 	player.visible = true # 显示玩家
 	
-	# 7. 恢复控制
+	# 7. 更新相机控制器的基础位置和房间标记
+	if is_instance_valid(camera_controller) and camera_controller.has_method("set_base_position"):
+		camera_controller.set_base_position(target_room.camera_marker.global_position)
+		if camera_controller.has_method("set_room_marker"):
+			camera_controller.set_room_marker(target_room.camera_marker)
+	
+	# 8. 恢复控制
 	player.set_physics_process(true)
 
 func _init_attribute_system() -> void:

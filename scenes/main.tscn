@@ -1,10 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://30orglekea3b"]
+[gd_scene load_steps=30 format=3 uid="uid://30orglekea3b"]
 
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
 [ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute.gd" id="2_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://vf0i84fp8dp8" path="res://prefabs/player.tscn" id="2_tbgi4"]
-[ext_resource type="Script" uid="uid://448qdsu8i3o" path="res://scripts/data/game_data.gd" id="3_choun"]
+[ext_resource type="Script" path="res://scripts/data/game_data.gd" id="3_choun"]
 [ext_resource type="PackedScene" uid="uid://5u5shejmnm2d" path="res://scenes/room_dungeon.tscn" id="3_tefeu"]
 [ext_resource type="Resource" uid="uid://coemk5gg52d7w" path="res://data/attributes/attack.tres" id="3_yc10j"]
 [ext_resource type="Resource" uid="uid://cghwegq2anq8g" path="res://data/attributes/attack_speed.tres" id="4_jscy8"]
@@ -23,7 +23,8 @@
 [ext_resource type="PackedScene" uid="uid://cy0dcmicruxib" path="res://ui/attribute_dashboard.tscn" id="21_yc10j"]
 [ext_resource type="PackedScene" uid="uid://dqwcrgpax3tr5" path="res://ui/attribute_row.tscn" id="22_jscy8"]
 [ext_resource type="PackedScene" uid="uid://bsrgdmu7j2fgc" path="res://ui/vital_hud.tscn" id="23_vital"]
-[ext_resource type="PackedScene" path="res://ui/ability_bar.tscn" id="24_y6deb"]
+[ext_resource type="PackedScene" uid="uid://dejtvj01nnaqw" path="res://ui/ability_bar.tscn" id="24_y6deb"]
+[ext_resource type="Script" uid="uid://bguhd2ngg3kqx" path="res://scripts/camera/camera_controller.gd" id="25_og1vs"]
 
 [sub_resource type="Resource" id="Resource_ya4ey"]
 script = ExtResource("3_choun")
@@ -69,43 +70,35 @@ _attachment_point_mapping = {
 }
 
 [node name="Skeleton3D" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium" index="0"]
-bones/1/position = Vector3(0, 0.2987401, 0)
-bones/1/rotation = Quaternion(0.095845774, -1.1866045e-07, 1.1425705e-08, 0.9953962)
-bones/2/rotation = Quaternion(0.052620213, 0.030285075, -0.04699983, 0.99704814)
-bones/3/rotation = Quaternion(0.0775101, 1.5556627e-09, -7.3548945e-12, 0.9969916)
-bones/4/position = Vector3(0.21200736, 0.13101405, -0.01604192)
-bones/4/rotation = Quaternion(-0.71808785, 0.17054868, -0.43968958, 0.5117971)
-bones/5/rotation = Quaternion(-1.0667035e-08, -6.5124176e-08, -0.7429418, 0.66935605)
-bones/7/rotation = Quaternion(-0.22597718, -0.13263626, -0.22405571, 0.9386911)
-bones/8/rotation = Quaternion(-0.038512826, -0.035378233, -0.75094163, 0.6582946)
-bones/9/rotation = Quaternion(-0.17798057, -0.06130903, 0.0023435985, 0.98211944)
-bones/10/position = Vector3(-0.21200736, 0.13725053, 0.016042035)
-bones/10/rotation = Quaternion(-0.7899156, 0.05956123, 0.4975134, 0.35350543)
-bones/11/rotation = Quaternion(5.4293366e-08, 2.3541225e-09, 0.713367, 0.70079076)
-bones/13/rotation = Quaternion(-0.21054646, 0.33550444, 0.1943515, 0.8974043)
-bones/14/rotation = Quaternion(-0.0506323, -0.042779118, 0.555064, 0.8291625)
-bones/15/position = Vector3(0.17094506, 0.114038706, 0.016507145)
-bones/15/rotation = Quaternion(0.9066782, -2.6223302e-07, 2.1825958e-08, 0.42182308)
-bones/16/rotation = Quaternion(0.7066867, 4.8849717e-08, -4.907694e-07, 0.7075267)
-bones/17/rotation = Quaternion(-0.7735921, -1.445512e-07, 1.7373182e-07, 0.6336839)
-bones/18/rotation = Quaternion(3.8534708e-08, 0.9198452, -0.3922818, 6.187249e-08)
-bones/19/position = Vector3(-0.17094506, 0.11358728, -0.016522814)
-bones/19/rotation = Quaternion(0.99963135, 4.1631583e-07, -3.3809677e-08, -0.02715182)
-bones/20/rotation = Quaternion(0.969273, -1.6983527e-08, 6.7312584e-07, 0.2459878)
-bones/21/rotation = Quaternion(-0.83667696, 2.6056634e-07, -7.8024334e-07, 0.5476967)
-bones/22/rotation = Quaternion(-1.5684755e-08, 0.92014104, -0.3915872, 8.201848e-08)
+bones/1/position = Vector3(-6.210038e-11, 0.3899801, 0.00026046787)
+bones/3/rotation = Quaternion(0.049337134, 1.2507179e-08, 0.0042705117, 0.9987731)
+bones/4/rotation = Quaternion(-0.5570676, -0.19560377, -0.7308715, 0.34240606)
+bones/5/rotation = Quaternion(2.3754772e-08, -5.7894038e-08, -0.31215337, 0.9500317)
+bones/7/rotation = Quaternion(-0.2273778, -0.25255656, -0.13536832, 0.9306933)
+bones/9/rotation = Quaternion(0.06185433, -0.043696508, 0.04679816, 0.9960295)
+bones/10/rotation = Quaternion(-0.6279727, 0.12532036, 0.6748519, 0.36676982)
+bones/11/rotation = Quaternion(6.5629377e-09, 6.5797686e-08, 0.31821832, 0.94801754)
+bones/13/rotation = Quaternion(-0.16628669, 0.23965281, -0.07655549, 0.9534436)
+bones/15/rotation = Quaternion(0.99353194, 0.08348057, 0.07419789, 0.020493144)
+bones/16/rotation = Quaternion(0.22140184, 6.342448e-08, -1.5441252e-07, 0.97518265)
+bones/17/rotation = Quaternion(-0.53127164, -0.20870578, 0.047637753, 0.81970906)
+bones/18/rotation = Quaternion(1.5370058e-05, 0.9201706, -0.3915177, -3.3925753e-06)
+bones/19/rotation = Quaternion(0.99687237, -0.029839234, 0.03134703, 0.066124655)
+bones/20/rotation = Quaternion(0.29314074, -6.433511e-08, 2.0225413e-07, 0.95606935)
+bones/21/rotation = Quaternion(-0.5695063, 0.11438043, -0.010256495, 0.8139253)
+bones/22/rotation = Quaternion(-8.950303e-06, 0.92007023, -0.39175355, 2.6256332e-06)
 
 [node name="HandSlotAttachmentR" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium/Skeleton3D" index="7"]
-transform = Transform3D(-0.014277989, 0.13421057, -0.9908492, -0.765244, 0.63635534, 0.09722195, 0.64358056, 0.75963014, 0.093617804, -0.39449966, 0.6473079, 0.36962122)
+transform = Transform3D(-0.27507782, -0.0942326, -0.9567927, -0.95891994, 0.09862038, 0.26597792, 0.06929512, 0.99065256, -0.117489986, -0.52260095, 0.55258065, 0.06988749)
 
 [node name="HandSlotAttachmentL" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium/Skeleton3D" index="8"]
-transform = Transform3D(0.099514805, -0.004215968, 0.99502647, 0.7703885, 0.63322157, -0.07436495, -0.6297591, 0.77395815, 0.06626304, 0.39481476, 0.58241475, 0.032418445)
+transform = Transform3D(-0.06729649, -0.070646785, 0.99522865, 0.9977201, -0.009691809, 0.06677766, 0.0049282243, 0.99745375, 0.07113767, 0.51119965, 0.5866444, 0.10619203)
 
 [node name="ChestAttachment" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium/Skeleton3D" index="9"]
-transform = Transform3D(0.99374765, 0.104314215, 0.03980115, -0.07640457, 0.89530843, -0.43884513, -0.08141209, 0.4330603, 0.89768076, 0.03633986, 0.84431994, 0.14504637)
+transform = Transform3D(0.9962749, -5.5879354e-09, 0.08623534, 0.00853055, 0.9950951, -0.09855319, -0.085812375, 0.09892169, 0.9913883, -2.9196552e-09, 0.95694554, 0.00026046787)
 
 [node name="HeadAttachment" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium/Skeleton3D" index="11"]
-transform = Transform3D(0.9937827, 0.10089113, -0.04708338, -0.10465109, 0.9908061, -0.085739315, 0.038000174, 0.09013355, 0.99520445, 0.06437916, 1.0849757, 0.26145148)
+transform = Transform3D(0.9961123, -0.087989904, 0.004292175, 0.086699694, 0.9705403, -0.22479871, 0.015614286, 0.2242969, 0.97439575, -4.421673e-09, 1.2244236, 0.026850278)
 
 [node name="Teleporter" parent="RoomLobby" node_paths=PackedStringArray("target_room", "target") instance=ExtResource("17_y6deb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 2, 2)
@@ -167,7 +160,9 @@ row_prefab = ExtResource("22_jscy8")
 [node name="AbilityBar" parent="UILayer/HUD" instance=ExtResource("24_y6deb")]
 layout_mode = 1
 
-[node name="Label3D" type="Label3D" parent="."]
+[node name="CameraController" type="Node" parent="."]
+script = ExtResource("25_og1vs")
+metadata/_custom_type_script = "uid://bguhd2ngg3kqx"
 
 [editable path="RoomLobby/Player"]
 [editable path="RoomLobby/Player/Visuals/Barbarian"]

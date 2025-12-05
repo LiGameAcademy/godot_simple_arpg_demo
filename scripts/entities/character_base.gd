@@ -14,8 +14,15 @@ class_name CharacterBase
 ## 挂点映射
 @export var _attachment_point_mapping: Dictionary[StringName, BoneAttachment3D] = {}
 
+@export_group("Death Settings")
+## 死亡动画名称（如果为空，将尝试使用 "death"）
+@export var death_animation_name: StringName = &"death"
+## 是否已死亡（防止重复触发）
+var _is_dead: bool = false
+
 func _ready() -> void:
 	_init_components()
+	_setup_death_listener()
 
 ## 获取属性组件
 func get_attribute_component() -> GameplayVitalAttributeComponent:
@@ -103,3 +110,43 @@ func get_attachment_point(attachment_point: StringName) -> Node3D:
 ## 初始化组件（子类可重写）
 func _init_components() -> void:
 	pass
+
+## 设置死亡监听器
+func _setup_death_listener() -> void:
+	# 监听统一游戏事件：entity_died
+	AbilityEventBus.game_event_occurred.connect(_on_game_event_occurred)
+
+## 处理游戏事件
+func _on_game_event_occurred(event_type: StringName, context: Dictionary) -> void:
+	if event_type != &"entity_died":
+		return
+	
+	# 检查是否是自己的死亡事件
+	var entity = context.get("entity") as Node
+	if entity != self:
+		return
+	
+	# 防止重复触发
+	if _is_dead:
+		return
+	
+	# 播放死亡动画
+	_play_death_animation()
+
+## 播放死亡动画
+func _play_death_animation() -> void:
+	if _is_dead:
+		return
+	
+	_is_dead = true
+	
+	# 使用 VisualAdapter 播放死亡动画
+	if is_instance_valid(_visual_adapter):
+		var anim_name = death_animation_name
+		if anim_name.is_empty():
+			anim_name = &"death"  # 默认使用 "death"
+		
+		_visual_adapter.play_animation(anim_name)
+		print("CharacterBase: Playing death animation: %s" % anim_name)
+	else:
+		push_warning("CharacterBase: Cannot play death animation, _visual_adapter is not valid")

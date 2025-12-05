@@ -47,17 +47,37 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 18, 15)
 
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="Enemy" parent="Enemies" instance=ExtResource("4_13qsq")]
+[node name="Enemy" parent="Enemies" node_paths=PackedStringArray("_attachment_point_mapping") instance=ExtResource("4_13qsq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 7)
+_attachment_point_mapping = {
+&"hand_right": NodePath("Skeleton_Warrior/Rig_Medium/Skeleton3D/HandAttachmentR"),
+&"head": NodePath("Skeleton_Warrior/Rig_Medium/Skeleton3D/HeadAttachment")
+}
 
-[node name="Enemy2" parent="Enemies" instance=ExtResource("4_13qsq")]
+[node name="Enemy2" parent="Enemies" node_paths=PackedStringArray("_attachment_point_mapping") instance=ExtResource("4_13qsq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 7)
+_attachment_point_mapping = {
+&"hand_right": NodePath("Skeleton_Warrior/Rig_Medium/Skeleton3D/HandAttachmentR"),
+&"head": NodePath("Skeleton_Warrior/Rig_Medium/Skeleton3D/HeadAttachment")
+}
 
-[node name="Enemy3" parent="Enemies" instance=ExtResource("4_13qsq")]
+[node name="Enemy3" parent="Enemies" node_paths=PackedStringArray("_attachment_point_mapping") instance=ExtResource("4_13qsq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 7)
+_attachment_point_mapping = {
+&"hand_right": NodePath("Skeleton_Warrior/Rig_Medium/Skeleton3D/HandAttachmentR"),
+&"head": NodePath("Skeleton_Warrior/Rig_Medium/Skeleton3D/HeadAttachment")
+}
 
-[node name="Enemy4" parent="Enemies" instance=ExtResource("4_13qsq")]
+[node name="Enemy4" parent="Enemies" node_paths=PackedStringArray("_attachment_point_mapping") instance=ExtResource("4_13qsq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 12)
+_attachment_point_mapping = {
+&"hand_right": NodePath("Skeleton_Warrior/Rig_Medium/Skeleton3D/HandAttachmentR"),
+&"head": NodePath("Skeleton_Warrior/Rig_Medium/Skeleton3D/HeadAttachment")
+}
 
-[node name="Enemy5" parent="Enemies" instance=ExtResource("4_13qsq")]
+[node name="Enemy5" parent="Enemies" node_paths=PackedStringArray("_attachment_point_mapping") instance=ExtResource("4_13qsq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 12)
+_attachment_point_mapping = {
+&"hand_right": NodePath("Skeleton_Warrior/Rig_Medium/Skeleton3D/HandAttachmentR"),
+&"head": NodePath("Skeleton_Warrior/Rig_Medium/Skeleton3D/HeadAttachment")
+}

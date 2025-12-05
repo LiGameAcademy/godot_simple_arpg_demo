@@ -23,6 +23,7 @@ AbilityEventBus="*res://addons/godot_gameplay_abilities/scripts/singletons/abili
 CombatUtils="*res://addons/godot_gameplay_abilities/scripts/utils/combat_utils.gd"
 TagManager="*res://addons/godot_gameplay_abilities/scripts/singletons/gameplay_tag_manager.gd"
 GameplayCueManager="*res://addons/godot_gameplay_abilities/scripts/singletons/gameplay_cue_manager.gd"
+GameFeelManager="*res://scripts/systems/game_feel_manager.gd"
 
 [display]
 
