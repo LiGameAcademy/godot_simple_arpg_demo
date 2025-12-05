@@ -1,0 +1,117 @@
+{
+  "variable_test_start": {
+    "character": "CHARACTER_VARIABLE_TESTER",
+    "text": "VARIABLE_TESTER_GREETING",
+    "choices": [
+      {
+        "text": "VARIABLE_TESTER_CHOICE_BASIC_VARS",
+        "next_node": "test_basic_variables"
+      },
+      {
+        "text": "VARIABLE_TESTER_CHOICE_CONDITIONAL_VARS",
+        "next_node": "test_conditional_variables"
+      },
+      {
+        "text": "VARIABLE_TESTER_CHOICE_EXPRESSIONS",
+        "next_node": "test_expressions"
+      },
+      {
+        "text": "VARIABLE_TESTER_CHOICE_COMPREHENSIVE",
+        "next_node": "test_comprehensive"
+      },
+      {
+        "text": "VARIABLE_TESTER_CHOICE_EXIT",
+        "next_node": "END"
+      }
+    ]
+  },
+  "test_basic_variables": {
+    "character": "CHARACTER_VARIABLE_TESTER",
+    "text": "VARIABLE_TESTER_BASIC_VARS_DEMO",
+    "choices": [
+      {
+        "text": "VARIABLE_TESTER_CHOICE_BACK",
+        "next_node": "variable_test_start"
+      },
+      {
+        "text": "VARIABLE_TESTER_CHOICE_EXIT",
+        "next_node": "END"
+      }
+    ]
+  },
+  "test_conditional_variables": {
+    "character": "CHARACTER_VARIABLE_TESTER",
+    "text": "VARIABLE_TESTER_CONDITIONAL_VARS_DEMO",
+    "choices": [
+      {
+        "text": "VARIABLE_TESTER_CHOICE_CHECK_ITEM",
+        "next_node": "test_item_check"
+      },
+      {
+        "text": "VARIABLE_TESTER_CHOICE_CHECK_QUEST",
+        "next_node": "test_quest_check"
+      },
+      {
+        "text": "VARIABLE_TESTER_CHOICE_BACK",
+        "next_node": "variable_test_start"
+      }
+    ]
+  },
+  "test_item_check": {
+    "character": "CHARACTER_VARIABLE_TESTER",
+    "text": "VARIABLE_TESTER_ITEM_CHECK_DEMO",
+    "choices": [
+      {
+        "text": "VARIABLE_TESTER_CHOICE_BACK",
+        "next_node": "test_conditional_variables"
+      },
+      {
+        "text": "VARIABLE_TESTER_CHOICE_EXIT",
+        "next_node": "END"
+      }
+    ]
+  },
+  "test_quest_check": {
+    "character": "CHARACTER_VARIABLE_TESTER",
+    "text": "VARIABLE_TESTER_QUEST_CHECK_DEMO",
+    "choices": [
+      {
+        "text": "VARIABLE_TESTER_CHOICE_BACK",
+        "next_node": "test_conditional_variables"
+      },
+      {
+        "text": "VARIABLE_TESTER_CHOICE_EXIT",
+        "next_node": "END"
+      }
+    ]
+  },
+  "test_expressions": {
+    "character": "CHARACTER_VARIABLE_TESTER",
+    "text": "VARIABLE_TESTER_EXPRESSIONS_DEMO",
+    "choices": [
+      {
+        "text": "VARIABLE_TESTER_CHOICE_BACK",
+        "next_node": "variable_test_start"
+      },
+      {
+        "text": "VARIABLE_TESTER_CHOICE_EXIT",
+        "next_node": "END"
+      }
+    ]
+  },
+  "test_comprehensive": {
+    "character": "CHARACTER_VARIABLE_TESTER",
+    "text": "VARIABLE_TESTER_COMPREHENSIVE_DEMO",
+    "choices": [
+      {
+        "text": "VARIABLE_TESTER_CHOICE_BACK",
+        "next_node": "variable_test_start"
+      },
+      {
+        "text": "VARIABLE_TESTER_CHOICE_EXIT",
+        "next_node": "END"
+      }
+    ]
+  }
+}
+
