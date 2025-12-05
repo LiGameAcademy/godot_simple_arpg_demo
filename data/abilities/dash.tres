@@ -1,20 +1,22 @@
-[gd_resource type="Resource" script_class="ActiveAbility" load_steps=11 format=3 uid="uid://bq3236nkirgvu"]
+[gd_resource type="Resource" script_class="ActiveAbility" load_steps=12 format=3 uid="uid://bq3236nkirgvu"]
 
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="1_682wf"]
 [ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="1_active"]
 [ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="2_31wd8"]
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="2_effect"]
-[ext_resource type="Script" uid="uid://44rka78th41a" path="res://addons/godot_gameplay_abilities/scripts/data/effects/ge_teleport.gd" id="3_teleport"]
+[ext_resource type="Script" uid="uid://cr35i4cm1ubts" path="res://addons/godot_gameplay_abilities/scripts/data/effects/ge_physics_motion.gd" id="3_physics_motion"]
 [ext_resource type="Script" uid="uid://3n073v4axo0p" path="res://addons/godot_gameplay_abilities/scripts/data/costs/vital_cost.gd" id="4_vital_cost"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="5_icon"]
+[ext_resource type="Resource" uid="uid://dnhmj6ouvbi2q" path="res://data/cues/dash_trail_cue.tres" id="6_trail_cue"]
+
+[sub_resource type="Resource" id="Resource_cyb4q"]
+script = ExtResource("3_physics_motion")
+cue = ExtResource("6_trail_cue")
+metadata/_custom_type_script = "uid://cr35i4cm1ubts"
 
 [sub_resource type="Resource" id="Resource_mana_cost"]
 script = ExtResource("4_vital_cost")
 metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/data/costs/vital_cost.gd"
-
-[sub_resource type="Resource" id="Resource_teleport"]
-script = ExtResource("3_teleport")
-metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/data/effects/ge_teleport.gd"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
 atlas = ExtResource("5_icon")
@@ -28,8 +30,8 @@ costs = Array[ExtResource("1_682wf")]([SubResource("Resource_mana_cost")])
 cast_duration = 0.0
 cast_point = 0.0
 animation_name = &""
+caster_effects = Array[ExtResource("2_effect")]([SubResource("Resource_cyb4q")])
 ability_id = &"dash"
 ability_name = "冲刺"
 description = "向面朝方向快速位移，消耗魔法值"
 icon = SubResource("AtlasTexture_icon")
-effects = Array[ExtResource("2_effect")]([SubResource("Resource_teleport")])

@@ -19,6 +19,15 @@ var progress_material: ShaderMaterial = null
 var ability_id: StringName = &""
 var ability_component: GameplayAbilityComponent = null
 var shortcut_key: String = ""
+var _last_icon: Texture = null  ## 上次显示的图标（用于避免重复更新）
+
+
+func _process(_delta: float) -> void:
+	# 持续更新冷却显示（用于平滑的进度条动画）
+	_update_cooldown_display()
+	# 定期检查并更新图标（确保连击推进时图标能及时更新）
+	# 注意：_update_icon 内部会检查图标是否改变，避免重复更新
+	_update_icon()
 
 ## 初始化技能按钮
 ## [param] comp: GameplayAbilityComponent 技能组件
@@ -35,9 +44,12 @@ func initialize(comp: GameplayAbilityComponent, id: StringName, shortcut: String
 		push_warning("AbilityButton: Ability data not found for %s" % id)
 		return
 	
-	# 设置图标
-	if is_instance_valid(ability_data.icon):
-		icon_texture.texture = ability_data.icon
+	# 设置图标（初始化时使用 get_icon 方法，支持连击技能）
+	var initial_icon: Texture = ability_data.get_icon()
+	
+	if is_instance_valid(initial_icon):
+		icon_texture.texture = initial_icon
+		_last_icon = initial_icon
 	
 	# 设置快捷键标签
 	if shortcut != "":
@@ -53,6 +65,8 @@ func initialize(comp: GameplayAbilityComponent, id: StringName, shortcut: String
 	# 连接技能组件信号
 	if not comp.ability_cast.is_connected(_on_ability_cast):
 		comp.ability_cast.connect(_on_ability_cast)
+	if not comp.ability_completed.is_connected(_on_ability_completed):
+		comp.ability_completed.connect(_on_ability_completed)
 	if not comp.cooldown_ready.is_connected(_on_cooldown_ready):
 		comp.cooldown_ready.connect(_on_cooldown_ready)
 	
@@ -86,6 +100,24 @@ func _init_circular_progress() -> void:
 	if not is_instance_valid(progress_material):
 		push_warning("AbilityButton: Failed to create progress material")
 		return
+
+## 更新技能图标
+## 对于连击技能，会动态显示当前段的图标
+func _update_icon() -> void:
+	if not is_instance_valid(ability_component):
+		return
+	
+	var ability_data = ability_component.get_ability_data(ability_id)
+	if not is_instance_valid(ability_data):
+		return
+	
+	# 获取图标（连击技能会返回当前段的图标）
+	var new_icon: Texture = ability_data.get_icon()
+	
+	# 只在图标真正改变时更新（避免重复设置）
+	if new_icon != _last_icon and is_instance_valid(icon_texture):
+		icon_texture.texture = new_icon
+		_last_icon = new_icon
 
 ## 更新冷却显示
 func _update_cooldown_display() -> void:
@@ -131,6 +163,14 @@ func _on_button_pressed() -> void:
 func _on_ability_cast(casted_ability_id: StringName) -> void:
 	if casted_ability_id == ability_id:
 		_update_cooldown_display()
+		# 连击技能在施放时可能已经推进到下一段，更新图标
+		_update_icon()
+
+## 技能完成回调
+func _on_ability_completed(completed_ability_id: StringName) -> void:
+	if completed_ability_id == ability_id:
+		# 连击技能在完成时推进到下一段，更新图标
+		_update_icon()
 
 ## 冷却就绪回调
 func _on_cooldown_ready(ready_ability_id: StringName) -> void:
@@ -188,7 +228,3 @@ func _update_tooltip() -> void:
 	# 设置 tooltip_text（设置在 AbilityButton 本身，而不是 Button）
 	# 因为 MarginContainer 需要接收鼠标事件才能显示 tooltip
 	tooltip_text = "\n".join(tooltip_lines)
-
-func _process(_delta: float) -> void:
-	# 持续更新冷却显示（用于平滑的进度条动画）
-	_update_cooldown_display()

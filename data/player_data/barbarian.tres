@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://d373ug5yg4v21" path="res://scripts/data/attribute_set/secondary_attribute_set.gd" id="3_ed0ic"]
 [ext_resource type="Resource" uid="uid://4whsfl0n6my5" path="res://data/attributes/strength.tres" id="3_vwojj"]
 [ext_resource type="Resource" uid="uid://b3le1qgha4wy6" path="res://data/attributes/intelligence.tres" id="4_c7yfu"]
-[ext_resource type="Script" uid="uid://coyhetiyc4y1" path="res://scripts/data/player_data.gd" id="4_x6008"]
+[ext_resource type="Script" path="res://scripts/data/player_data.gd" id="4_x6008"]
 [ext_resource type="Resource" uid="uid://c2yg48kmsw702" path="res://data/attributes/vitality.tres" id="5_bjrym"]
 [ext_resource type="Resource" uid="uid://coemk5gg52d7w" path="res://data/attributes/attack.tres" id="6_j0hhi"]
 [ext_resource type="Resource" uid="uid://c7um4ug20u3qv" path="res://data/attributes/agility.tres" id="6_vwojj"]

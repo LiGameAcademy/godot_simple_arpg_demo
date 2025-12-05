@@ -40,6 +40,17 @@ func try_cast_ability(ability_id: StringName, target: Node = null, context: Dict
 		push_warning("CharacterBase: Cannot cast ability, ability_component is not valid")
 		return
 	
+	# 如果上下文中没有 facing_angle，则从 visual_adapter 获取面朝方向
+	if not context.has("facing_angle"):
+		var facing_angle: float = 0.0
+		if is_instance_valid(_visual_adapter) and _visual_adapter.has_method("get_facing_angle"):
+			# 优先使用 visual_adapter 获取的面朝方向
+			facing_angle = _visual_adapter.get_facing_angle()
+		else:
+			# 如果没有 visual_adapter，使用自己的方法
+			facing_angle = _get_facing_angle()
+		context["facing_angle"] = facing_angle
+	
 	if ability_component.can_cast(ability_id, target, context):
 		var ok := ability_component.commit_cast(ability_id, target, context)
 		if not ok:

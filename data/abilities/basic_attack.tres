@@ -1,24 +1,23 @@
 [gd_resource type="Resource" script_class="CombatAbility" load_steps=11 format=3 uid="uid://dqyj5y5ta5vje"]
 
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="1_6issw"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="1_e5isf"]
 [ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="2_yew1t"]
-[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_7mol0"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="3_nj71f"]
-[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="5_7iys2"]
 [ext_resource type="Script" uid="uid://dbgy7d7syxo20" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/combat_ability.gd" id="5_combat"]
+[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="6_7iys2"]
 [ext_resource type="Resource" uid="uid://1ec04wtsoes" path="res://data/abilities/attack_combo_1.tres" id="6_combo1"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="7_7iys2"]
 [ext_resource type="Resource" uid="uid://60xxjx03ioa" path="res://data/abilities/attack_combo_2.tres" id="7_combo2"]
 [ext_resource type="Resource" uid="uid://op60b7h2ejrt" path="res://data/abilities/heavy_attack.tres" id="8_heavy"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="8_nru6w"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3g35k"]
-atlas = ExtResource("3_7mol0")
-region = Rect2(0, 96, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_nru6w"]
+atlas = ExtResource("7_7iys2")
+region = Rect2(384, 96, 32, 32)
 
 [resource]
 script = ExtResource("5_combat")
 combo_abilities = Array[ExtResource("2_yew1t")]([ExtResource("6_combo1"), ExtResource("7_combo2"), ExtResource("8_heavy")])
 ability_id = &"basic_attack"
-ability_name = "连击攻击"
-description = "三段连击，第三段为重击"
-icon = SubResource("AtlasTexture_3g35k")
+ability_name = "普通攻击"
+icon = SubResource("AtlasTexture_nru6w")
 metadata/_custom_type_script = "uid://cbvhifiid5vg6"
