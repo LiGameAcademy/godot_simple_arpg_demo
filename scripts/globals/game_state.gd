@@ -32,6 +32,9 @@ func _ready() -> void:
 	
 	# 4. 注册玩家节点获取函数（可选，但推荐）
 	DialogueManager.register_player_getter(_get_player_node)
+	
+	# 5. 注册任务资源获取函数（供存档系统使用）
+	DialogueManager.register_quest_resource_getter_for_save(_get_quest_resource)
 
 func emit_game_event(type: String, data: Dictionary) -> void:
 	game_event_occurred.emit(type, data)
@@ -165,3 +168,48 @@ func _get_quest_resource(quest_id: String) -> Quest:
 ## [return] 玩家节点或 null
 func _get_player_node() -> Node:
 	return get_tree().get_first_node_in_group("Player")
+
+## 序列化背包数据（供游戏存档系统使用）
+## [return] 背包数据字典
+func _serialize_inventory() -> Dictionary:
+	var player = get_tree().get_first_node_in_group("Player")
+	if not player or not player.has_method("get_inventory"):
+		return {}
+	
+	var inventory = player.get_inventory()
+	if not inventory or not inventory.has_method("serialize"):
+		return {}
+	
+	return inventory.serialize()
+
+## 反序列化背包数据（供游戏存档系统使用）
+## [param data] 背包数据字典
+func _deserialize_inventory(data: Dictionary) -> void:
+	var player = get_tree().get_first_node_in_group("Player")
+	if not player or not player.has_method("get_inventory"):
+		push_warning("GameState: 无法获取玩家或背包，无法加载背包数据")
+		return
+	
+	var inventory = player.get_inventory()
+	if not inventory or not inventory.has_method("deserialize"):
+		push_warning("GameState: 背包没有反序列化方法，无法加载背包数据")
+		return
+	
+	inventory.deserialize(data)
+
+## 序列化游戏状态（供游戏存档系统使用）
+## [return] 游戏状态数据字典
+func _serialize_game_state() -> Dictionary:
+	return {
+		"npc_affinities": npc_affinities,
+		"gold_amount": _get_gold_amount(),
+		"player_level": _get_player_level(),
+		"player_name": _get_player_name()
+	}
+
+## 反序列化游戏状态（供游戏存档系统使用）
+## [param data] 游戏状态数据字典
+func _deserialize_game_state(data: Dictionary) -> void:
+	npc_affinities = data.get("npc_affinities", {})
+	# 注意：gold_amount、player_level、player_name 等可能需要通过其他方式恢复
+	# 这里只恢复 npc_affinities，其他数据可能需要通过玩家节点或背包系统恢复

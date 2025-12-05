@@ -21,6 +21,7 @@ GameState="*res://scripts/globals/game_state.gd"
 QuestManager="*res://addons/laoli_dialogue_system/scripts/core/quest/quest_manager.gd"
 DialogueManager="*res://addons/laoli_dialogue_system/scripts/core/dialogue/dialogue_manager.gd"
 VariableManager="*res://addons/laoli_dialogue_system/scripts/core/variable/variable_manager.gd"
+DialogueHistoryManager="*res://addons/laoli_dialogue_system/scripts/core/history/dialogue_history_manager.gd"
 
 [display]
 

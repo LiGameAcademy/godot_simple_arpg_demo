@@ -9,6 +9,7 @@ const VARIABLE_TEST_PATH = "res://data/dialogues/variable_test.json"
 @onready var player: CharacterBody3D = $RoomLobby/Player
 @onready var inventory_ui: MarginContainer = $UILayer/HUD/inventory
 @onready var camera: Camera3D = $Camera3D
+@onready var save_test_ui: Control = $UILayer/SaveTestUI
 
 @export var registered_quests: Array[Quest] = []
 
@@ -30,6 +31,13 @@ func _unhandled_input(event) -> void:
 			inventory_ui.hide()
 		else:
 			inventory_ui.open()
+	
+	# 按 F5 打开/关闭存档测试面板
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F5:
+		if save_test_ui.visible:
+			save_test_ui.hide()
+		else:
+			save_test_ui.show()
 
 func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> void:
    # 1. 冻结玩家 (禁止乱动)

@@ -1,9 +1,9 @@
-[gd_scene load_steps=27 format=3 uid="uid://30orglekea3b"]
+[gd_scene load_steps=28 format=3 uid="uid://30orglekea3b"]
 
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
 [ext_resource type="Script" uid="uid://bw4a3qea7fktc" path="res://addons/laoli_dialogue_system/scripts/core/quest/quest.gd" id="2_choun"]
-[ext_resource type="PackedScene" path="res://prefabs/player.tscn" id="2_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://b7c5mn8pda80g" path="res://prefabs/player.tscn" id="2_tbgi4"]
 [ext_resource type="PackedScene" path="res://prefabs/teleporter.tscn" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://5u5shejmnm2d" path="res://scenes/room_dungeon.tscn" id="3_tefeu"]
 [ext_resource type="Script" uid="uid://c3ecw04xqk861" path="res://addons/laoli_dialogue_system/scripts/core/quest/quest_objective.gd" id="3_trceg"]
@@ -14,9 +14,10 @@
 [ext_resource type="Script" uid="uid://cuacmob0vopu8" path="res://addons/laoli_dialogue_system/scripts/core/conditions/game_condition.gd" id="9_muem4"]
 [ext_resource type="Script" uid="uid://dq8sympe46jux" path="res://addons/laoli_dialogue_system/scripts/core/conditions/condition_quest_status.gd" id="10_dp3eg"]
 [ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://addons/laoli_dialogue_system/scripts/core/actions/game_action.gd" id="11_0ld40"]
-[ext_resource type="Script" path="res://scripts/core/actions/action_teleporter.gd" id="12_gqmmt"]
+[ext_resource type="Script" uid="uid://r0lyfuvxjbca" path="res://scripts/core/actions/action_teleporter.gd" id="12_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://c7jbvgjqg3w8h" path="res://addons/laoli_dialogue_system/ui/dialogue_ui.tscn" id="16_muem4"]
 [ext_resource type="PackedScene" uid="uid://ck0v10cu8d6ke" path="res://addons/laoli_dialogue_system/ui/quest_log_ui.tscn" id="17_dp3eg"]
+[ext_resource type="PackedScene" uid="uid://7dk8iwymevs2" path="res://scripts/ui/save_test_ui.tscn" id="18_save_test"]
 
 [sub_resource type="Resource" id="Resource_jbj1t"]
 script = ExtResource("4_a8y0u")
@@ -118,6 +119,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+
+[node name="SaveTestUI" parent="UILayer/HUD" instance=ExtResource("18_save_test")]
+layout_mode = 1
 mouse_filter = 2
 
 [node name="inventory" parent="UILayer/HUD" instance=ExtResource("7_o6xl0")]
