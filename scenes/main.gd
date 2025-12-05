@@ -9,7 +9,8 @@ const VARIABLE_TEST_PATH = "res://data/dialogues/variable_test.json"
 @onready var player: CharacterBody3D = $RoomLobby/Player
 @onready var inventory_ui: MarginContainer = $UILayer/HUD/inventory
 @onready var camera: Camera3D = $Camera3D
-@onready var save_test_ui: Control = $UILayer/SaveTestUI
+@onready var save_test_ui: Control = %SaveTestUI
+@onready var debug_panel: CanvasLayer = $UILayer/DebugPanel
 
 @export var registered_quests: Array[Quest] = []
 
@@ -25,6 +26,12 @@ func _ready() -> void:
 	var player_inventory : C_Inventory = player.get_inventory() # 确保你在player脚本中实现了这个方法
 	inventory_ui.initialize(player_inventory)
 	
+	# 验证调试面板节点
+	if not is_instance_valid(debug_panel):
+		push_error("Main: DebugPanel 节点未找到，请检查场景文件")
+	else:
+		print("Main: DebugPanel 已成功加载")
+	
 func _unhandled_input(event) -> void:
 	if event.is_action_pressed("toggle_inventory"):
 		if inventory_ui.visible:
@@ -38,6 +45,22 @@ func _unhandled_input(event) -> void:
 			save_test_ui.hide()
 		else:
 			save_test_ui.show()
+	
+	# 按 F3 打开/关闭调试面板
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F3:
+		# 如果 @onready 引用失败，尝试直接查找节点
+		if not is_instance_valid(debug_panel):
+			var debug_panel_node = get_node_or_null("UILayer/DebugPanel")
+			if is_instance_valid(debug_panel_node):
+				debug_panel = debug_panel_node
+				print("Main: 通过直接查找获取 DebugPanel")
+			else:
+				push_error("Main: DebugPanel 节点未找到，路径: UILayer/DebugPanel")
+				return
+		
+		debug_panel.toggle()
+		get_viewport().set_input_as_handled()  # 标记事件已处理
+		print("Main: F3 键已处理，调试面板状态: ", debug_panel.visible)
 
 func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> void:
    # 1. 冻结玩家 (禁止乱动)

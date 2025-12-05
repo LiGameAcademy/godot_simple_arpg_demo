@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://30orglekea3b"]
+[gd_scene load_steps=29 format=3 uid="uid://30orglekea3b"]
 
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://c7jbvgjqg3w8h" path="res://addons/laoli_dialogue_system/ui/dialogue_ui.tscn" id="16_muem4"]
 [ext_resource type="PackedScene" uid="uid://ck0v10cu8d6ke" path="res://addons/laoli_dialogue_system/ui/quest_log_ui.tscn" id="17_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://7dk8iwymevs2" path="res://scripts/ui/save_test_ui.tscn" id="18_save_test"]
+[ext_resource type="PackedScene" path="res://addons/laoli_dialogue_system/ui/debug_panel.tscn" id="19_debug"]
 
 [sub_resource type="Resource" id="Resource_jbj1t"]
 script = ExtResource("4_a8y0u")
@@ -122,6 +123,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="SaveTestUI" parent="UILayer/HUD" instance=ExtResource("18_save_test")]
+unique_name_in_owner = true
 layout_mode = 1
 mouse_filter = 2
 
@@ -138,6 +140,8 @@ grow_vertical = 0
 [node name="DialogueUI" parent="UILayer" instance=ExtResource("16_muem4")]
 
 [node name="QuestLogUI" parent="UILayer" instance=ExtResource("17_dp3eg")]
+
+[node name="DebugPanel" parent="UILayer" instance=ExtResource("19_debug")]
 
 [editable path="RoomLobby/Teleporter"]
 [editable path="RoomDungeon/Teleporter"]
