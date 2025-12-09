@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ProjectileData" load_steps=4 format=3 uid="uid://ds4wx1ltqdqp0"]
+
+[ext_resource type="Script" uid="uid://b2nxkgycmifbj" path="res://addons/godot_gameplay_abilities/scripts/data/projectile_data.gd" id="1_projectile_data"]
+[ext_resource type="Script" uid="uid://c4bbvuycoblmm" path="res://addons/godot_gameplay_abilities/scripts/entities/movement_strategies/homing_movement_strategy.gd" id="2_homing_strategy"]
+
+[sub_resource type="Resource" id="Resource_homing"]
+script = ExtResource("2_homing_strategy")
+metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/entities/movement_strategies/homing_movement_strategy.gd"
+
+[resource]
+script = ExtResource("1_projectile_data")
+speed = 10.0
+homing_acceleration = 20.0
+max_pierce_count = 0
+movement_strategy = SubResource("Resource_homing")
+metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/data/projectile_data.gd"

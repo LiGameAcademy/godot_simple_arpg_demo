@@ -1,0 +1,133 @@
+[gd_scene load_steps=23 format=3 uid="uid://dajag4lw1syt0"]
+
+[ext_resource type="Shader" uid="uid://yxwbl4pmdkgu" path="res://data/materials/arcane_core.gdshader" id="1_5p8wa"]
+[ext_resource type="Script" uid="uid://770hm2pf7n6s" path="res://addons/godot_gameplay_abilities/scripts/entities/projectile_base.gd" id="1_pife5"]
+[ext_resource type="Script" uid="uid://ca86hvsd4v4bc" path="res://prefabs/light_flicker.tres.gd" id="2_pife5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5p8wa"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_cv15r"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_l1b3q"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j5pc0"]
+noise = SubResource("FastNoiseLite_l1b3q")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j5pc0"]
+render_priority = 0
+shader = ExtResource("1_5p8wa")
+shader_parameter/core_color = Color(0, 0.8, 1, 1)
+shader_parameter/edge_color = Color(0.6, 0, 1, 1)
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_j5pc0")
+shader_parameter/scroll_speed = 2.0
+shader_parameter/flicker_speed = 10.0
+
+[sub_resource type="Gradient" id="Gradient_j5pc0"]
+offsets = PackedFloat32Array(0, 0.4149086, 1)
+colors = PackedColorArray(0, 0.86716837, 0.8880645, 1, 0.59294015, 0.05168654, 0.6132282, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ewvgx"]
+gradient = SubResource("Gradient_j5pc0")
+
+[sub_resource type="Curve" id="Curve_j5pc0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.49698192), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ewvgx"]
+curve = SubResource("Curve_j5pc0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j5pc0"]
+direction = Vector3(0, 0, 1)
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_ewvgx")
+color_ramp = SubResource("GradientTexture1D_ewvgx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ewvgx"]
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+detail_blend_mode = 1
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_j5pc0"]
+material = SubResource("StandardMaterial3D_ewvgx")
+size = Vector2(0.6, 0.6)
+
+[sub_resource type="Gradient" id="Gradient_8iboh"]
+offsets = PackedFloat32Array(0, 0.4149086, 1)
+colors = PackedColorArray(0, 0.86716837, 0.8880645, 1, 0.59294015, 0.05168654, 0.6132282, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_emf8y"]
+gradient = SubResource("Gradient_8iboh")
+
+[sub_resource type="Curve" id="Curve_1qo61"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.49698192), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vndup"]
+curve = SubResource("Curve_1qo61")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y1fv3"]
+direction = Vector3(0, 0, 1)
+spread = 30.0
+initial_velocity_min = 2.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_vndup")
+color_ramp = SubResource("GradientTexture1D_emf8y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vbqbe"]
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+detail_blend_mode = 1
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_mpe2i"]
+material = SubResource("StandardMaterial3D_vbqbe")
+size = Vector2(0.1, 0.1)
+
+[node name="ArcaneMissileBolt" type="Area3D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_pife5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_5p8wa")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="ArcaneCore" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = SubResource("SphereMesh_cv15r")
+surface_material_override/0 = SubResource("ShaderMaterial_j5pc0")
+
+[node name="TrailRibbon" type="GPUParticles3D" parent="Visuals"]
+visible = false
+amount = 80
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_j5pc0")
+draw_pass_1 = SubResource("QuadMesh_j5pc0")
+
+[node name="TrailSparks" type="GPUParticles3D" parent="Visuals"]
+amount = 30
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_y1fv3")
+draw_pass_1 = SubResource("QuadMesh_mpe2i")
+
+[node name="GlowLight" type="OmniLight3D" parent="Visuals"]
+light_color = Color(0.26666668, 0, 1, 1)
+light_energy = 3.1627073
+omni_range = 3.0
+script = ExtResource("2_pife5")
+flicker_speed = 15.0
+
+[node name="LifetimeTimer" type="Timer" parent="."]
