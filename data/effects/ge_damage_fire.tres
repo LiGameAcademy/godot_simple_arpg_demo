@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GE_ApplyDamage" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/data/effects/ge_apply_damage.gd" id="1_apply_damage"]
+
+[resource]
+script = ExtResource("1_apply_damage")
+damage_multiplier = 1.5
+vital_id = &"health"
+base_damage_attribute = &"attack"
+metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/data/effects/ge_apply_damage.gd"
+

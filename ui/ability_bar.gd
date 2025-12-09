@@ -14,10 +14,8 @@ var ability_component: GameplayAbilityComponent = null
 var ability_buttons: Dictionary[StringName, AbilityButton] = {}
 
 # 快捷键映射（技能 ID -> 快捷键）
-var shortcut_mapping: Dictionary[StringName, String] = {
-	&"basic_attack": "1",
-	# 可以在这里添加更多快捷键映射
-}
+# 注意：现在从 PlayerData 读取，此变量保留作为回退
+var shortcut_mapping: Dictionary[StringName, String] = {}
 
 func _ready() -> void:
 	var player = get_tree().get_first_node_in_group("Player")
@@ -81,8 +79,8 @@ func _add_ability_button(ability_id: StringName) -> void:
 		push_error("AbilityBar: Cannot instantiate ability button")
 		return
 	
-	# 获取快捷键
-	var shortcut = shortcut_mapping.get(ability_id, "")
+	# 获取快捷键（优先从 PlayerData 读取，回退到本地配置）
+	var shortcut = _get_shortcut_for_ability(ability_id)
 	
 	# 添加到容器
 	button_container.add_child(button)
@@ -110,3 +108,20 @@ func _on_ability_learned(_ability_id: StringName) -> void:
 ## 技能遗忘回调
 func _on_ability_forgotten(_ability_id: StringName) -> void:
 	_refresh_abilities()
+
+## 获取技能的快捷键
+## [param] ability_id: StringName 技能 ID
+## [return] String 快捷键，如果未找到则返回空字符串
+func _get_shortcut_for_ability(ability_id: StringName) -> String:
+	# 优先从 PlayerData 读取
+	var player = get_tree().get_first_node_in_group("Player")
+	if not is_instance_valid(player):
+		push_warning("AbilityBar: Player is not valid")
+		return ""
+	var player_data = player.player_data
+	if not is_instance_valid(player_data):
+		return ""
+	var shortcuts = player_data.ability_shortcuts
+	if not shortcuts.has(ability_id):
+		return ""
+	return shortcuts[ability_id]

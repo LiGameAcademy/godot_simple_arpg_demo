@@ -24,7 +24,6 @@ region = Rect2(416, 96, 32, 32)
 
 [resource]
 script = ExtResource("1_active")
-targeting_type = 0
 cooldown_duration = 2.0
 costs = Array[ExtResource("1_682wf")]([SubResource("Resource_mana_cost")])
 cast_duration = 0.0

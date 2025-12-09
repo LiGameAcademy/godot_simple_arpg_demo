@@ -1,0 +1,48 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dxoj7x61qukw7"]
+
+[sub_resource type="Shader" id="Shader_73oji"]
+code = "shader_type spatial;
+render_mode unshaded, cull_disabled; // 无光照，双面渲染
+
+// --- 颜色配置 (HDR 高亮是关键) ---
+// 注意：颜色值超过 1.0 才能触发 Glow 辉光！
+uniform vec4 color_inner : source_color = vec4(5.0, 2.0, 0.5, 1.0); // 极亮的核心黄白
+uniform vec4 color_outer : source_color = vec4(2.0, 0.5, 0.0, 1.0); // 边缘的橘红
+
+// --- 噪波配置 ---
+uniform sampler2D noise_tex; // 【重要】请在 Inspector 里拖入一个 FastNoiseLite (Seamless)
+uniform float speed = 1.0;
+uniform float displacement = 0.15; // 表面凹凸程度
+
+void vertex() {
+    // 顶点位移：制造“沸腾”的球体形状
+    float noise = texture(noise_tex, UV + vec2(0.0, TIME * speed)).r;
+    VERTEX += NORMAL * noise * displacement;
+}
+
+void fragment() {
+    // 纹理流动：制造火焰流动的纹理
+    float n1 = texture(noise_tex, UV + vec2(0.0, TIME * speed)).r;
+    float n2 = texture(noise_tex, UV + vec2(TIME * 0.5, TIME * 0.8)).r;
+    
+    // 菲涅尔效应：让边缘更红，中心更亮
+    float fresnel = pow(1.0 - dot(NORMAL, VIEW), 2.0);
+    
+    // 混合颜色
+    float mix_val = n1 * n2 + fresnel;
+    ALBEDO = mix(color_inner.rgb, color_outer.rgb, mix_val);
+}"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_c0u1s"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p6d1s"]
+noise = SubResource("FastNoiseLite_c0u1s")
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_73oji")
+shader_parameter/color_inner = Color(5, 2, 0.5, 1)
+shader_parameter/color_outer = Color(2, 0.5, 0, 1)
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_p6d1s")
+shader_parameter/speed = 1.0
+shader_parameter/displacement = 0.15

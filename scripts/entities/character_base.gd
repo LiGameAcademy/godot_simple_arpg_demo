@@ -47,15 +47,9 @@ func try_cast_ability(ability_id: StringName, target: Node = null, context: Dict
 		push_warning("CharacterBase: Cannot cast ability, ability_component is not valid")
 		return
 	
-	# 如果上下文中没有 facing_angle，则从 visual_adapter 获取面朝方向
+	# 如果上下文中没有 facing_angle，则获取面朝方向
 	if not context.has("facing_angle"):
-		var facing_angle: float = 0.0
-		if is_instance_valid(_visual_adapter) and _visual_adapter.has_method("get_facing_angle"):
-			# 优先使用 visual_adapter 获取的面朝方向
-			facing_angle = _visual_adapter.get_facing_angle()
-		else:
-			# 如果没有 visual_adapter，使用自己的方法
-			facing_angle = _get_facing_angle()
+		var facing_angle: float = _get_facing_angle()
 		context["facing_angle"] = facing_angle
 	
 	if ability_component.can_cast(ability_id, target, context):
@@ -86,18 +80,15 @@ func _get_attack_ability() -> GameplayAbility:
 ## 获取角色面朝角度（子类可重写）
 ## [return] float 面朝角度（弧度），如果返回 null 则不设置 facing_angle
 func _get_facing_angle() -> float:
-	# 默认实现：尝试从 visuals 子节点获取
-	var visuals = get_node_or_null("Visuals")
-	if is_instance_valid(visuals) and visuals is Node3D:
-		return (visuals as Node3D).rotation.y
-	
-	# 如果没有 visuals，尝试从自身获取
 	if rotation.y != 0.0:
 		return rotation.y
 	
 	# 如果都没有，从 transform 计算
+	# 注意：模型朝向 -Z（Godot 默认前方）
+	# 由于模型从 +Z 改为 -Z（旋转了 180 度），角度需要加 π
 	var forward = -global_transform.basis.z
-	return atan2(forward.x, forward.z)
+	var base_angle = atan2(forward.x, forward.z)
+	return base_angle + PI
 
 ## 获取挂点节点（用于 Cue 系统）
 ## [param] attachment_point: StringName 挂点名（如 "head", "foot", "body" 等）

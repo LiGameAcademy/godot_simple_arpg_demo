@@ -5,7 +5,7 @@
 技能栏系统提供了完整的技能 UI 和快捷键支持，包括：
 - **AbilityButton**: 单个技能按钮组件（显示图标、冷却进度、快捷键）
 - **AbilityBar**: 技能栏容器（动态绑定已学会的技能）
-- **AbilityShortcutManager**: 快捷键管理器（处理 1-9 数字键和 Q/E/R 等字母键）
+- **AbilityShortcutManager**: 快捷键管理器（处理 1-9 数字键、Q/E/R 等字母键，以及鼠标按键）
 
 ## 使用方法
 
@@ -32,33 +32,34 @@ func _ready():
 
 ### 2. 快捷键配置
 
-快捷键在 `Player` 脚本的 `_setup_shortcuts()` 方法中配置：
+快捷键在 `PlayerData` 资源文件中配置（推荐方式）：
+
+1. 打开 `data/player_data/barbarian.tres`
+2. 在 `ability_shortcuts` 字典中添加快捷键映射
 
 ```gdscript
-var default_shortcuts = {
-    &"basic_attack": "1",
-    # 可以添加更多技能
-    # &"fireball": "2",
-    # &"heal": "Q",
+ability_shortcuts = {
+    "basic_attack": "1",
+    "dash": "2",
+    "fireball": "Q",
+    "heal": "E",
+    "special_attack": "MOUSE_RIGHT"
 }
 ```
 
 ### 3. 支持的快捷键
 
-- **数字键**: 1-9（直接使用 KEY_1 到 KEY_9）
-- **字母键**: Q, E, R, T, F, Z, X, C, V
+- **数字键**: "1", "2", "3", ..., "9"
+- **字母键**: "Q", "E", "R", "T", "F", "Z", "X", "C", "V"
+- **鼠标按键**: "MOUSE_LEFT", "MOUSE_RIGHT", "MOUSE_MIDDLE", "MOUSE_X1", "MOUSE_X2"
 
-### 4. 自定义快捷键
+### 4. 错误处理
 
-在 `AbilityBar` 的 `shortcut_mapping` 字典中配置：
-
-```gdscript
-var shortcut_mapping: Dictionary[StringName, String] = {
-    &"basic_attack": "1",
-    &"fireball": "2",
-    &"heal": "Q",
-}
-```
+系统会自动处理以下错误情况：
+- ✅ 无效的快捷键格式会被拒绝并显示错误
+- ✅ 快捷键冲突会显示警告并自动替换
+- ✅ 空值检查，防止崩溃
+- ✅ 参数验证，确保数据有效性
 
 ## 功能特性
 
@@ -77,8 +78,11 @@ var shortcut_mapping: Dictionary[StringName, String] = {
 ### 快捷键系统
 - ✅ 支持数字键 1-9
 - ✅ 支持字母键 Q/E/R 等
+- ✅ 支持鼠标按键（左键、右键、中键、侧键）
 - ✅ 自动绑定到技能
 - ✅ 在 `_unhandled_input` 中处理
+- ✅ 完善的错误处理和参数验证
+- ✅ 快捷键冲突检测和警告
 
 ## 注意事项
 

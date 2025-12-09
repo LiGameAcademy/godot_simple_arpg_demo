@@ -10,7 +10,6 @@ resource_local_to_scene = true
 script = ExtResource("2_trail")
 ghost_material = ExtResource("3_material")
 target_mesh_paths = Array[NodePath]([NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/Barbarian_ArmLeft"), NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/Barbarian_ArmRight"), NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/Barbarian_BearHat"), NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/Barbarian_Body"), NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/Barbarian_Head"), NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/Barbarian_LegLeft"), NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/Barbarian_LegRight")])
-capture_skeleton_pose = true
 metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/data/cues/cue_trail.gd"
 
 [resource]

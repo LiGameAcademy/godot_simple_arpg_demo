@@ -70,35 +70,35 @@ _attachment_point_mapping = {
 }
 
 [node name="Skeleton3D" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium" index="0"]
-bones/1/position = Vector3(-6.210038e-11, 0.3899801, 0.00026046787)
-bones/3/rotation = Quaternion(0.049337134, 1.2507179e-08, 0.0042705117, 0.9987731)
-bones/4/rotation = Quaternion(-0.5570676, -0.19560377, -0.7308715, 0.34240606)
-bones/5/rotation = Quaternion(2.3754772e-08, -5.7894038e-08, -0.31215337, 0.9500317)
-bones/7/rotation = Quaternion(-0.2273778, -0.25255656, -0.13536832, 0.9306933)
-bones/9/rotation = Quaternion(0.06185433, -0.043696508, 0.04679816, 0.9960295)
-bones/10/rotation = Quaternion(-0.6279727, 0.12532036, 0.6748519, 0.36676982)
-bones/11/rotation = Quaternion(6.5629377e-09, 6.5797686e-08, 0.31821832, 0.94801754)
-bones/13/rotation = Quaternion(-0.16628669, 0.23965281, -0.07655549, 0.9534436)
-bones/15/rotation = Quaternion(0.99353194, 0.08348057, 0.07419789, 0.020493144)
-bones/16/rotation = Quaternion(0.22140184, 6.342448e-08, -1.5441252e-07, 0.97518265)
-bones/17/rotation = Quaternion(-0.53127164, -0.20870578, 0.047637753, 0.81970906)
-bones/18/rotation = Quaternion(1.5370058e-05, 0.9201706, -0.3915177, -3.3925753e-06)
-bones/19/rotation = Quaternion(0.99687237, -0.029839234, 0.03134703, 0.066124655)
-bones/20/rotation = Quaternion(0.29314074, -6.433511e-08, 2.0225413e-07, 0.95606935)
-bones/21/rotation = Quaternion(-0.5695063, 0.11438043, -0.010256495, 0.8139253)
-bones/22/rotation = Quaternion(-8.950303e-06, 0.92007023, -0.39175355, 2.6256332e-06)
+bones/1/position = Vector3(-5.5190574e-10, 0.37354493, 0.0023148607)
+bones/3/rotation = Quaternion(0.07251797, 9.175205e-09, 0.006276992, 0.99734735)
+bones/4/rotation = Quaternion(-0.5742897, -0.17687695, -0.7014763, 0.38319322)
+bones/5/rotation = Quaternion(3.2354002e-08, -4.8758924e-08, -0.39663392, 0.9179769)
+bones/7/rotation = Quaternion(-0.23069552, -0.26019606, -0.103963204, 0.93180966)
+bones/9/rotation = Quaternion(0.019316416, -0.041895796, 0.044949017, 0.9979235)
+bones/10/rotation = Quaternion(-0.6403588, 0.10171458, 0.6438699, 0.40623438)
+bones/11/rotation = Quaternion(2.2358325e-08, 6.517942e-08, 0.40225774, 0.91552645)
+bones/13/rotation = Quaternion(-0.17017198, 0.24271503, -0.10707067, 0.9490347)
+bones/15/rotation = Quaternion(0.99086374, 0.083547324, 0.07771299, 0.071899936)
+bones/16/rotation = Quaternion(0.36369294, 6.426726e-08, -2.5127713e-07, 0.9315189)
+bones/17/rotation = Quaternion(-0.6076322, -0.2024467, 0.07163223, 0.7646354)
+bones/18/rotation = Quaternion(-1.401506e-05, 0.9201451, -0.3915775, 3.224572e-06)
+bones/19/rotation = Quaternion(0.99303925, -0.032497566, 0.030202933, 0.10910937)
+bones/20/rotation = Quaternion(0.41170454, -6.033956e-08, 2.881752e-07, 0.9113174)
+bones/21/rotation = Quaternion(-0.6353363, 0.11289573, -0.02111393, 0.7636469)
+bones/22/rotation = Quaternion(-8.950303e-06, 0.92007023, -0.39175352, 2.6256332e-06)
 
 [node name="HandSlotAttachmentR" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium/Skeleton3D" index="7"]
-transform = Transform3D(-0.27507782, -0.0942326, -0.9567927, -0.95891994, 0.09862038, 0.26597792, 0.06929512, 0.99065256, -0.117489986, -0.52260095, 0.55258065, 0.06988749)
+transform = Transform3D(-0.27511308, -0.09431072, -0.9567749, -0.9604835, 0.07065331, 0.26921636, 0.042209063, 0.99303174, -0.110021524, -0.52210665, 0.55624974, 0.058290765)
 
 [node name="HandSlotAttachmentL" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium/Skeleton3D" index="8"]
-transform = Transform3D(-0.06729649, -0.070646785, 0.99522865, 0.9977201, -0.009691809, 0.06677766, 0.0049282243, 0.99745375, 0.07113767, 0.51119965, 0.5866444, 0.10619203)
+transform = Transform3D(-0.06732889, -0.070553094, 0.9952329, 0.99718183, -0.037816856, 0.06478054, 0.033066485, 0.9967904, 0.07290039, 0.5104054, 0.5895087, 0.09562747)
 
 [node name="ChestAttachment" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium/Skeleton3D" index="9"]
-transform = Transform3D(0.9962749, -5.5879354e-09, 0.08623534, 0.00853055, 0.9950951, -0.09855319, -0.085812375, 0.09892169, 0.9913883, -2.9196552e-09, 0.95694554, 0.00026046787)
+transform = Transform3D(0.9962749, -3.7252903e-09, 0.08623534, 0.0125206895, 0.98940337, -0.1446512, -0.08532154, 0.14519207, 0.98571783, -2.9196552e-09, 0.9405104, 0.0023148607)
 
 [node name="HeadAttachment" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium/Skeleton3D" index="11"]
-transform = Transform3D(0.9961123, -0.087989904, 0.004292175, 0.086699694, 0.9705403, -0.22479871, 0.015614286, 0.2242969, 0.97439575, -4.421673e-09, 1.2244236, 0.026850278)
+transform = Transform3D(0.9961123, -0.08798989, 0.00429219, 0.087238885, 0.9784916, -0.18693116, 0.012248181, 0.18657887, 0.98236364, -3.9210004e-09, 1.2064586, 0.04134199)
 
 [node name="Teleporter" parent="RoomLobby" node_paths=PackedStringArray("target_room", "target") instance=ExtResource("17_y6deb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 2, 2)
