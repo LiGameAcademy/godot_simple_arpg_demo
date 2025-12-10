@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="CueAttachedParticle" load_steps=3 format=3 uid="uid://3n0p666gie3b"]
+
+[ext_resource type="Script" uid="uid://cc0tonea2c7ay" path="res://addons/godot_gameplay_abilities/scripts/data/cues/cue_attached_particle.gd" id="1_attached_particle"]
+[ext_resource type="PackedScene" uid="uid://bm6djbp4aldlg" path="res://prefabs/fx/s_immolation_aura.tscn" id="2_aura_scene"]
+
+[resource]
+script = ExtResource("1_attached_particle")
+particle_scene = ExtResource("2_aura_scene")

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GE_VisualCue" load_steps=5 format=3 uid="uid://c6b0xfhf1icqv"]
+
+[ext_resource type="Script" uid="uid://3xerfk7enk4f" path="res://addons/godot_gameplay_abilities/scripts/data/effects/ge_visual_cue.gd" id="1_visual_cue"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="2_bl587"]
+[ext_resource type="Resource" uid="uid://bcp7gpxweokag" path="res://data/cues/sacrifice_aura_cue.tres" id="2_cue"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="3_5yspi"]
+
+[resource]
+script = ExtResource("1_visual_cue")
+cue = ExtResource("2_cue")

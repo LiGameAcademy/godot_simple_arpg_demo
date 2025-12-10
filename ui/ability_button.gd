@@ -44,8 +44,8 @@ func initialize(comp: GameplayAbilityComponent, id: StringName, shortcut: String
 		push_warning("AbilityButton: Ability data not found for %s" % id)
 		return
 	
-	# 设置图标（初始化时使用 get_icon 方法，支持连击技能）
-	var initial_icon: Texture = ability_data.get_icon()
+	# 设置图标（初始化时使用 get_icon 方法，支持连击技能和切换技能）
+	var initial_icon: Texture = ability_data.get_icon(comp)
 	
 	if is_instance_valid(initial_icon):
 		icon_texture.texture = initial_icon
@@ -111,8 +111,8 @@ func _update_icon() -> void:
 	if not is_instance_valid(ability_data):
 		return
 	
-	# 获取图标（连击技能会返回当前段的图标）
-	var new_icon: Texture = ability_data.get_icon()
+	# 获取图标（连击技能会返回当前段的图标，切换技能会根据状态返回不同图标）
+	var new_icon: Texture = ability_data.get_icon(ability_component)
 	
 	# 只在图标真正改变时更新（避免重复设置）
 	if new_icon != _last_icon and is_instance_valid(icon_texture):

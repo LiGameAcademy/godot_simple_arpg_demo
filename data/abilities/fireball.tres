@@ -52,6 +52,7 @@ projectile_data = SubResource("Resource_hsgk6")
 impact_magic_circle_ability = SubResource("Resource_hupgj")
 trigger_magic_circle_on_timeout = true
 targeting_strategy = SubResource("Resource_unit_targeting")
+cooldown_duration = 10.0
 animation_name = &""
 target_effects = Array[ExtResource("2_effect")]([ExtResource("7_fire_damage")])
 ability_id = &"fireball"

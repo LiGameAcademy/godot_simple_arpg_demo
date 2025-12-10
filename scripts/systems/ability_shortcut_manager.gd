@@ -186,6 +186,20 @@ func handle_input(event: InputEvent, player: Node) -> bool:
 		push_warning("AbilityShortcutManager: Cannot handle input, player is not valid")
 		return false
 	
+	# 处理按键释放事件（用于取消引导技能）
+	if _is_key_release_event(event):
+		var shortcut = _get_shortcut_from_event(event)
+		if not shortcut.is_empty() and shortcut_to_ability.has(shortcut):
+			var ability_id = shortcut_to_ability[shortcut]
+			# 检查是否是引导技能且正在执行
+			if _should_cancel_channeling(player, ability_id):
+				var ability_comp = _get_ability_component(player)
+				if is_instance_valid(ability_comp):
+					ability_comp.cancel_ability(ability_id)
+					return true
+		return false
+	
+	# 处理按键按下事件（用于施放技能）
 	if not player.has_method("try_cast_ability"):
 		push_warning("AbilityShortcutManager: Player does not implement try_cast_ability method")
 		return false
@@ -201,13 +215,107 @@ func handle_input(event: InputEvent, player: Node) -> bool:
 				push_error("AbilityShortcutManager: Invalid ability_id for shortcut: %s" % shortcut)
 				continue
 			
-			# 调用技能施放（添加错误处理）
+			# 直接调用技能施放，技能系统内部会处理：
+			# - 如果技能正在执行且是切换式引导，会取消引导
+			# - 如果技能正在执行且是其他类型，会返回 false（不执行）
+			# - 如果技能未在执行，正常执行技能
 			if player.has_method("try_cast_ability"):
 				player.try_cast_ability(ability_id)
 				return true
 			else:
 				push_error("AbilityShortcutManager: Player does not have try_cast_ability method")
 				return false
+	
+	return false
+
+## 检查是否是按键释放事件
+## [param] event: InputEvent 输入事件
+## [return] bool 是否是按键释放
+func _is_key_release_event(event: InputEvent) -> bool:
+	if event is InputEventKey:
+		var key_event = event as InputEventKey
+		return not key_event.pressed
+	if event is InputEventMouseButton:
+		var mouse_event = event as InputEventMouseButton
+		return not mouse_event.pressed
+	return false
+
+## 从输入事件获取快捷键字符串
+## [param] event: InputEvent 输入事件
+## [return] String 快捷键字符串，如果无法识别则返回空字符串
+func _get_shortcut_from_event(event: InputEvent) -> String:
+	if event is InputEventMouseButton:
+		var mouse_event = event as InputEventMouseButton
+		var button_map = {
+			MOUSE_BUTTON_LEFT: "MOUSE_LEFT",
+			MOUSE_BUTTON_RIGHT: "MOUSE_RIGHT",
+			MOUSE_BUTTON_MIDDLE: "MOUSE_MIDDLE",
+			MOUSE_BUTTON_XBUTTON1: "MOUSE_X1",
+			MOUSE_BUTTON_XBUTTON2: "MOUSE_X2",
+		}
+		return button_map.get(mouse_event.button_index, "")
+	
+	if event is InputEventKey:
+		var key_event = event as InputEventKey
+		# 检查数字键 1-9
+		if key_event.keycode >= KEY_1 and key_event.keycode <= KEY_9:
+			var num = key_event.keycode - KEY_1 + 1
+			return str(num)
+		
+		# 检查字母键
+		var key_map = {
+			KEY_Q: "Q",
+			KEY_E: "E",
+			KEY_R: "R",
+			KEY_T: "T",
+			KEY_F: "F",
+			KEY_Z: "Z",
+			KEY_X: "X",
+			KEY_C: "C",
+			KEY_V: "V",
+		}
+		return key_map.get(key_event.keycode, "")
+	
+	return ""
+
+## 获取技能组件（辅助方法）
+## [param] player: Node 玩家节点
+## [return] GameplayAbilityComponent 技能组件，如果无法获取则返回 null
+func _get_ability_component(player: Node) -> Node:
+	if not is_instance_valid(player):
+		return null
+	
+	if player.has_method("get_ability_component"):
+		return player.get_ability_component()
+	elif player.has("ability_component"):
+		return player.ability_component
+	
+	return null
+
+## 检查是否应该取消引导技能（按住维持式：松开按键时取消）
+## [param] player: Node 玩家节点
+## [param] ability_id: StringName 技能ID
+## [return] bool 是否应该取消
+func _should_cancel_channeling(player: Node, ability_id: StringName) -> bool:
+	# 获取技能组件
+	var ability_comp = _get_ability_component(player)
+	if not is_instance_valid(ability_comp):
+		return false
+	
+	# 检查是否是当前正在执行的技能
+	var current_ability_id = ability_comp.get_current_casting_ability_id()
+	if current_ability_id != ability_id:
+		return false
+	
+	# 检查是否是引导技能
+	var ability_data = ability_comp.get_ability_data(ability_id)
+	if not is_instance_valid(ability_data):
+		return false
+	
+	# 检查是否是 ChannelingAbility 且 stop_on_input_release 为 true（按住维持式）
+	if ability_data is ChannelingAbility:
+		var channeling_ability = ability_data as ChannelingAbility
+		return channeling_ability.stop_on_input_release
 	
 	return false
 
