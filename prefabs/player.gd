@@ -389,6 +389,7 @@ func _on_ability_completed(ability_id: StringName) -> void:
 ## 装备变化回调
 ## [param] equip_slot_name: StringName 装备槽名称
 ## [param] equip: Equip 装备实例（如果为 null，表示卸下装备）
+## 注意：实际传入的应该是 GameplayEquip 实例（业务层装备类）
 func _on_equip_changed(equip_slot_name: StringName, equip: Equip) -> void:
 	if not is_instance_valid(attribute_component):
 		push_warning("Player: Cannot apply equipment attributes, attribute_component is not valid")
@@ -409,7 +410,7 @@ func _on_equip_changed(equip_slot_name: StringName, equip: Equip) -> void:
 	_apply_equipment_model(equip, equip_slot_name)
 
 ## 应用装备的属性修改器
-## [param] equip: Equip 装备实例
+## [param] equip: Equip 装备实例（实际应为 GameplayEquip）
 ## [param] equip_slot_name: StringName 装备槽名称
 func _apply_equipment_modifiers(equip: Equip, equip_slot_name: StringName) -> void:
 	if not is_instance_valid(equip) or not is_instance_valid(attribute_component):
@@ -475,14 +476,20 @@ func _remove_equipment_modifiers(equip_slot_name: StringName) -> void:
 	_equipment_modifiers.erase(equip_slot_name)
 
 ## 应用装备模型
-## [param] equip: Equip 装备实例
+## [param] equip: Equip 装备实例（实际应为 GameplayEquip）
 ## [param] equip_slot_name: StringName 装备槽名称
 func _apply_equipment_model(equip: Equip, equip_slot_name: StringName) -> void:
-	if not is_instance_valid(equip) or not is_instance_valid(equip.equip_model_scene):
+	# 检查是否为 GameplayEquip 实例（业务层装备类）
+	if not equip is GameplayEquip:
+		# 如果不是 GameplayEquip，说明没有装备模型配置，直接返回
+		return
+	
+	var gameplay_equip = equip as GameplayEquip
+	if not is_instance_valid(gameplay_equip) or not is_instance_valid(gameplay_equip.equip_model_scene):
 		return
 	
 	# 获取装备的挂点名称（默认为 hand_right）
-	var attachment_point = equip.attachment_point
+	var attachment_point = gameplay_equip.attachment_point
 	if attachment_point == &"":
 		attachment_point = &"hand_right"
 	
@@ -505,16 +512,16 @@ func _apply_equipment_model(equip: Equip, equip_slot_name: StringName) -> void:
 		return
 	
 	# 实例化装备模型
-	var model_instance = equip.equip_model_scene.instantiate()
+	var model_instance = gameplay_equip.equip_model_scene.instantiate()
 	if not is_instance_valid(model_instance):
-		push_warning("Player: Failed to instantiate equipment model for '%s'" % equip.name)
+		push_warning("Player: Failed to instantiate equipment model for '%s'" % gameplay_equip.name)
 		return
 	
 	# 添加到挂点节点
 	attachment_node.add_child(model_instance)
 	_equipment_models[equip_slot_name] = model_instance
 	
-	print("Player: Applied equipment model '%s' to attachment point '%s'" % [equip.name, attachment_point])
+	print("Player: Applied equipment model '%s' to attachment point '%s'" % [gameplay_equip.name, attachment_point])
 
 ## 移除装备模型
 ## [param] equip_slot_name: StringName 装备槽名称

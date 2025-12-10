@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="Equip" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="GameplayEquip" load_steps=4 format=3]
 
-[ext_resource type="Script" path="res://addons/simple_inventory/src/core/equip.gd" id="1_equip"]
+[ext_resource type="Script" path="res://scripts/data/gameplay_equip.gd" id="1_equip"]
 [ext_resource type="AtlasTexture" uid="uid://denlah5iok8hf" path="res://addons/simple_inventory/assets/textures/items/wood_axe.tres" id="2_icon"]
 [ext_resource type="PackedScene" path="res://prefabs/equipment/axe_equipped.tscn" id="3_model"]
 
