@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerData" load_steps=34 format=3 uid="uid://cg4anfcgfpik4"]
+[gd_resource type="Resource" script_class="PlayerData" load_steps=31 format=3 uid="uid://cg4anfcgfpik4"]
 
 [ext_resource type="Script" uid="uid://ccgjxcr56jc2h" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute_set.gd" id="1_41usi"]
 [ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute.gd" id="2_nkcd8"]
@@ -24,10 +24,7 @@
 [ext_resource type="Resource" uid="uid://dqyj5y5ta5vje" path="res://data/abilities/basic_attack.tres" id="17_oorid"]
 [ext_resource type="Script" uid="uid://c6bk65loe1kkq" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/health_vital.gd" id="18_j0hhi"]
 [ext_resource type="Script" uid="uid://bqu07lnijvw87" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/mana_vital.gd" id="19_wucg8"]
-[ext_resource type="Resource" uid="uid://bq3236nkirgvu" path="res://data/abilities/dash.tres" id="20_dash"]
 [ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="21_0tg7o"]
-[ext_resource type="Resource" uid="uid://dot5q23nxvk0v" path="res://data/abilities/fireball.tres" id="22_fireball"]
-[ext_resource type="Resource" uid="uid://c8ewd60kjpajw" path="res://data/abilities/arcane_missiles.tres" id="24_65riy"]
 [ext_resource type="Resource" uid="uid://w3g7uxvwuul7" path="res://data/abilities/sacrifice_toggle.tres" id="25_owc0b"]
 
 [sub_resource type="Resource" id="Resource_0tg7o"]
@@ -75,8 +72,7 @@ metadata/_custom_type_script = "uid://bqu07lnijvw87"
 script = ExtResource("4_x6008")
 attribute_sets = Array[ExtResource("1_41usi")]([SubResource("Resource_0tg7o"), SubResource("Resource_dwbmn")])
 vitals = Array[ExtResource("17_c7yfu")]([SubResource("Resource_wmkhh"), SubResource("Resource_pwhx8")])
-basic_attack_ability = ExtResource("17_oorid")
-initial_abilities = Array[ExtResource("21_0tg7o")]([ExtResource("20_dash"), ExtResource("22_fireball"), ExtResource("24_65riy"), ExtResource("25_owc0b")])
+initial_abilities = Array[ExtResource("21_0tg7o")]([ExtResource("17_oorid"), ExtResource("25_owc0b")])
 ability_shortcuts = Dictionary[StringName, String]({
 &"arcane_missiles": "2",
 &"basic_attack": "MOUSE_LEFT",

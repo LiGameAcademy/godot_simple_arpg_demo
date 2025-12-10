@@ -61,22 +61,6 @@ func try_cast_ability(ability_id: StringName, target: Node = null, context: Dict
 	else:
 		print("CharacterBase: Ability can not cast: ", ability_id)
 
-## 尝试攻击（向后兼容，内部调用 try_cast_ability）
-## 默认实现：使用 _get_attack_ability() 获取攻击能力并施放
-func _try_attack() -> void:
-	var attack_ability = _get_attack_ability()
-	if not is_instance_valid(attack_ability):
-		push_warning("CharacterBase: Cannot attack, attack ability is not valid")
-		return
-	
-	try_cast_ability(attack_ability.ability_id)
-
-## 获取攻击能力（子类必须重写）
-## [return] GameplayAbility 攻击能力数据，如果返回 null 则无法攻击
-func _get_attack_ability() -> GameplayAbility:
-	push_warning("CharacterBase: _get_attack_ability() not implemented, please override in subclass")
-	return null
-
 ## 获取角色面朝角度（子类可重写）
 ## [return] float 面朝角度（弧度），如果返回 null 则不设置 facing_angle
 func _get_facing_angle() -> float:

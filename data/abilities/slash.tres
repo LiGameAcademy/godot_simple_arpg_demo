@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CombatAbility" load_steps=11 format=3 uid="uid://coyxj31d8ke6q"]
+
+[ext_resource type="Script" uid="uid://dbgy7d7syxo20" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/combat_ability.gd" id="1_combat"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="1_dfc3f"]
+[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="2_active"]
+[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="3_cost"]
+[ext_resource type="Resource" uid="uid://1ec04wtsoes" path="res://data/abilities/attack_combo_1.tres" id="4_combo1"]
+[ext_resource type="Resource" uid="uid://60xxjx03ioa" path="res://data/abilities/attack_combo_2.tres" id="5_combo2"]
+[ext_resource type="Resource" uid="uid://op60b7h2ejrt" path="res://data/abilities/heavy_attack.tres" id="6_heavy"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="7_icon"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="9_ibphf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
+atlas = ExtResource("7_icon")
+region = Rect2(384, 96, 32, 32)
+
+[resource]
+script = ExtResource("1_combat")
+combo_abilities = Array[ExtResource("2_active")]([ExtResource("4_combo1"), ExtResource("5_combo2"), ExtResource("6_heavy")])
+ability_id = &"slash"
+ability_name = "挥砍"
+icon = SubResource("AtlasTexture_icon")
+metadata/_custom_type_script = "uid://cbvhifiid5vg6"

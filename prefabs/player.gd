@@ -36,6 +36,9 @@ var _equipment_modifiers: Dictionary = {}
 ## 已显示的装备模型实例（用于卸下时移除）
 ## 格式：{装备槽名称: Node3D实例}
 var _equipment_models: Dictionary = {}
+## 已注册的装备技能（用于卸下时移除）
+## 格式：{装备槽名称: [技能ID1, 技能ID2, ...]}
+var _equipment_abilities: Dictionary = {}
 
 func _ready() -> void:
 	super()
@@ -123,11 +126,11 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		_try_interact()
-	elif event.is_action_pressed("attack"):
-		# 向后兼容：仍然支持鼠标左键攻击
-		_try_attack()
+	# 注意：已移除普通攻击概念，所有攻击都通过技能系统实现
+	# 如果需要在鼠标左键触发攻击，应该在 PlayerData 的 ability_shortcuts 中配置
+	# 例如：ability_shortcuts = {&"basic_attack": "MOUSE_LEFT"}
 	
-	# 处理技能快捷键
+	# 处理技能快捷键（包括鼠标左键攻击，如果已配置）
 	if shortcut_manager.handle_input(event, self):
 		# 快捷键已处理，阻止进一步传播
 		get_viewport().set_input_as_handled()
@@ -162,14 +165,7 @@ func _init_components() -> void:
 	attribute_component.initialize(player_data.attribute_sets, player_data.vitals)
 	
 	# 初始化能力组件
-	# 加载普通攻击能力
-	var basic_attack = player_data.basic_attack_ability
-	if basic_attack:
-		ability_component.learn_ability(basic_attack)
-	else:
-		push_error("BasicAttackAbility is not set")
-	
-	# 加载初始技能列表（如冲刺、火球等）
+	# 加载初始技能列表（所有技能都通过技能系统管理，包括攻击技能）
 	for ability in player_data.initial_abilities:
 		if is_instance_valid(ability):
 			ability_component.learn_ability(ability)
@@ -205,12 +201,6 @@ func _on_ability_learned(ability_id: StringName) -> void:
 	var shortcut = shortcuts.get(ability_id, "")
 	if shortcut != "":
 		shortcut_manager.bind_shortcut(ability_id, shortcut)
-
-## 获取攻击能力（重写基类方法）
-func _get_attack_ability() -> GameplayAbility:
-	if not is_instance_valid(player_data):
-		return null
-	return player_data.basic_attack_ability
 
 #region ========== 双流向输入处理：朝向攻击 vs 指向攻击 ==========
 
@@ -395,19 +385,22 @@ func _on_equip_changed(equip_slot_name: StringName, equip: Equip) -> void:
 		push_warning("Player: Cannot apply equipment attributes, attribute_component is not valid")
 		return
 	
-	# 如果是卸下装备（equip 为 null），移除旧装备的属性修改器和模型
+	# 如果是卸下装备（equip 为 null），移除旧装备的属性修改器、模型和技能
 	if equip == null:
 		_remove_equipment_modifiers(equip_slot_name)
 		_remove_equipment_model(equip_slot_name)
+		_remove_equipment_abilities(equip_slot_name)
 		return
 	
-	# 如果是替换装备，先移除旧装备的属性修改器和模型
+	# 如果是替换装备，先移除旧装备的属性修改器、模型和技能
 	_remove_equipment_modifiers(equip_slot_name)
 	_remove_equipment_model(equip_slot_name)
+	_remove_equipment_abilities(equip_slot_name)
 	
-	# 应用新装备的属性修改器和模型
+	# 应用新装备的属性修改器、模型和技能
 	_apply_equipment_modifiers(equip, equip_slot_name)
 	_apply_equipment_model(equip, equip_slot_name)
+	_apply_equipment_abilities(equip, equip_slot_name)
 
 ## 应用装备的属性修改器
 ## [param] equip: Equip 装备实例（实际应为 GameplayEquip）
@@ -536,5 +529,67 @@ func _remove_equipment_model(equip_slot_name: StringName) -> void:
 	
 	# 清除记录
 	_equipment_models.erase(equip_slot_name)
+
+## 应用装备技能
+## [param] equip: Equip 装备实例（实际应为 GameplayEquip）
+## [param] equip_slot_name: StringName 装备槽名称
+func _apply_equipment_abilities(equip: Equip, equip_slot_name: StringName) -> void:
+	# 检查是否为 GameplayEquip 实例
+	if not equip is GameplayEquip:
+		return
+	
+	var gameplay_equip = equip as GameplayEquip
+	if not is_instance_valid(gameplay_equip) or not is_instance_valid(ability_component):
+		return
+	
+	# 获取装备的技能列表
+	var abilities = gameplay_equip.abilities
+	if abilities.is_empty():
+		return
+	
+	# 存储该装备的所有技能ID
+	var ability_ids: Array[StringName] = []
+	
+	# 遍历装备的所有技能，注册到技能组件
+	for ability_data in abilities:
+		if not is_instance_valid(ability_data):
+			continue
+		
+		var ability_id = ability_data.ability_id
+		if ability_id == &"":
+			push_warning("Player: Equipment ability has empty ability_id, skipping")
+			continue
+		
+		# 学习技能
+		ability_component.learn_ability(ability_data)
+		ability_ids.append(ability_id)
+		
+		print("Player: Learned ability '%s' from equipment '%s'" % [ability_id, gameplay_equip.name])
+	
+	# 存储技能ID列表（用于卸下时移除）
+	if not ability_ids.is_empty():
+		_equipment_abilities[equip_slot_name] = ability_ids
+
+## 移除装备技能
+## [param] equip_slot_name: StringName 装备槽名称
+func _remove_equipment_abilities(equip_slot_name: StringName) -> void:
+	if not _equipment_abilities.has(equip_slot_name):
+		return
+	
+	if not is_instance_valid(ability_component):
+		# 如果技能组件已销毁，直接清除记录
+		_equipment_abilities.erase(equip_slot_name)
+		return
+	
+	# 获取该装备槽的所有技能ID
+	var ability_ids = _equipment_abilities[equip_slot_name]
+	
+	# 遗忘所有技能
+	for ability_id in ability_ids:
+		ability_component.forget_ability(ability_id)
+		print("Player: Forgot ability '%s' from equipment slot '%s'" % [ability_id, equip_slot_name])
+	
+	# 清除记录
+	_equipment_abilities.erase(equip_slot_name)
 
 #endregion

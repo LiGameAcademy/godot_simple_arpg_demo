@@ -3,8 +3,7 @@ class_name PlayerData
 
 @export var attribute_sets: Array[GameplayAttributeSet] ## 属性集
 @export var vitals: Array[GameplayVital]
-@export var basic_attack_ability : ActiveAbility = load("res://data/abilities/basic_attack.tres")
-@export var initial_abilities: Array[ActiveAbility] = []  ## 初始技能列表（如冲刺、火球等）
+@export var initial_abilities: Array[ActiveAbility] = []  ## 初始技能列表（所有技能都通过技能系统管理）
 
 @export_group("Shortcuts")
 ## 技能快捷键映射（技能 ID -> 快捷键字符串）
@@ -14,13 +13,10 @@ class_name PlayerData
 ## - 鼠标按键: "MOUSE_LEFT", "MOUSE_RIGHT", "MOUSE_MIDDLE", "MOUSE_X1", "MOUSE_X2"
 ## 示例：
 ## {
-##   "basic_attack": "1",
+##   "slash": "1",
 ##   "dash": "2",
 ##   "fireball": "Q",
 ##   "heal": "E",
 ##   "special_attack": "MOUSE_RIGHT"
 ## }
-@export var ability_shortcuts: Dictionary[StringName, String] = {
-	&"basic_attack": "1",
-	&"dash": "2",
-}
+@export var ability_shortcuts: Dictionary[StringName, String] = {}
