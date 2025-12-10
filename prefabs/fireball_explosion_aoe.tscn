@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bynsg0m6hv0su"]
+
+[ext_resource type="Script" uid="uid://dsk6q6c71iwlg" path="res://addons/godot_gameplay_abilities/scripts/entities/magic_circle_base.gd" id="1_snbbv"]
+[ext_resource type="PackedScene" uid="uid://c1yx7rclwsfqg" path="res://prefabs/fx/fireball_impact.tscn" id="2_dny6n"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_explosion"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dny6n"]
+albedo_color = Color(0.95421964, 0.27395758, 0.1680183, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_dny6n"]
+material = SubResource("StandardMaterial3D_dny6n")
+radius = 3.0
+height = 5.0
+
+[node name="FireballExplosionAoE" type="Area3D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_snbbv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_explosion")
+
+[node name="FireballImpact" parent="." instance=ExtResource("2_dny6n")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("SphereMesh_dny6n")

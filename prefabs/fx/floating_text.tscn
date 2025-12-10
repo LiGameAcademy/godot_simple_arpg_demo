@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://floating_text"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://prefabs/floating_text.gd" id="1_floating_text"]
+[ext_resource type="Script" uid="uid://blncdsij6s03k" path="res://prefabs/fx/floating_text.gd" id="1_floating_text"]
 
 [node name="FloatingText" type="Label3D"]
 billboard = 1

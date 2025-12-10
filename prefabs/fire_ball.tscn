@@ -1,8 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://cdct7wbaurphr"]
+[gd_scene load_steps=16 format=3 uid="uid://csynuqnu7jq4p"]
 
 [ext_resource type="Material" uid="uid://dxoj7x61qukw7" path="res://data/materials/fire_core.tres" id="1_73oji"]
 [ext_resource type="Script" uid="uid://770hm2pf7n6s" path="res://addons/godot_gameplay_abilities/scripts/entities/projectile_base.gd" id="2_projectile_base"]
-[ext_resource type="Script" uid="uid://ca86hvsd4v4bc" path="res://prefabs/light_flicker.tres.gd" id="3_qsv8u"]
+[ext_resource type="Script" uid="uid://ca86hvsd4v4bc" path="res://prefabs/fx/light_flicker.tres.gd" id="3_qsv8u"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_er1ty"]
 
@@ -60,7 +60,7 @@ draw_pass_1 = SubResource("QuadMesh_4yyi3")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_color = Color(1.6119872, 1.6119872, 0, 1)
-light_energy = 2.8565938
+light_energy = 3.2963288
 light_volumetric_fog_energy = 1.5
 shadow_enabled = true
 shadow_bias = 0.02

@@ -1,11 +1,22 @@
-[gd_resource type="Resource" script_class="GE_ApplyDamage" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="GE_ApplyDamage" load_steps=9 format=3 uid="uid://be6nbgh2maojf"]
 
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/data/effects/ge_apply_damage.gd" id="1_apply_damage"]
+[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/data/effects/ge_apply_damage.gd" id="1_apply_damage"]
+[ext_resource type="Script" uid="uid://bcymae7pdc1s7" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue_base.gd" id="1_iprcm"]
+[ext_resource type="Script" uid="uid://smkke7uw7dt2" path="res://addons/godot_gameplay_abilities/scripts/data/cues/cue_floating_text.gd" id="2_jomr0"]
+[ext_resource type="Script" uid="uid://bv8l03cfspmdk" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue.gd" id="3_jxfkm"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="4_k26dj"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="5_qgnbg"]
+
+[sub_resource type="Resource" id="Resource_cw5ri"]
+script = ExtResource("2_jomr0")
+metadata/_custom_type_script = "uid://smkke7uw7dt2"
+
+[sub_resource type="Resource" id="Resource_12onc"]
+script = ExtResource("3_jxfkm")
+cues = Array[ExtResource("1_iprcm")]([SubResource("Resource_cw5ri")])
+metadata/_custom_type_script = "uid://bv8l03cfspmdk"
 
 [resource]
 script = ExtResource("1_apply_damage")
 damage_multiplier = 1.5
-vital_id = &"health"
-base_damage_attribute = &"attack"
-metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/data/effects/ge_apply_damage.gd"
-
+cue = SubResource("Resource_12onc")

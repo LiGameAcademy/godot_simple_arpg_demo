@@ -19,7 +19,6 @@
 [ext_resource type="Script" uid="uid://bi5jbjke61sbe" path="res://addons/godot_gameplay_abilities/scripts/components/visual_adapter/visual_adapter_animation_tree.gd" id="18_aorgn"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5n6jt"]
-resource_local_to_scene = true
 _data = {
 &"Hit_A": ExtResource("9_hoy00"),
 &"Skeletons_Awaken_Floor": ExtResource("4_ikd5g"),

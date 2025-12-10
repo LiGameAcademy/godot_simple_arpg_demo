@@ -4,7 +4,6 @@
 [ext_resource type="Shader" uid="uid://dpiiee62wulwm" path="res://ui/shaders/circular_progress.gdshader" id="2_circular_progress_shader"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e7yqb"]
-resource_local_to_scene = true
 shader = ExtResource("2_circular_progress_shader")
 shader_parameter/progress = 0.50000002375
 shader_parameter/thickness = 0.15

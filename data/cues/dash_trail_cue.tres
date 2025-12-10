@@ -6,7 +6,6 @@
 [ext_resource type="Material" uid="uid://cbvutextk4n57" path="res://data/materials/ghost_trail_material.tres" id="3_material"]
 
 [sub_resource type="Resource" id="Resource_trail"]
-resource_local_to_scene = true
 script = ExtResource("2_trail")
 ghost_material = ExtResource("3_material")
 target_mesh_paths = Array[NodePath]([NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/Barbarian_ArmLeft"), NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/Barbarian_ArmRight"), NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/Barbarian_BearHat"), NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/Barbarian_Body"), NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/Barbarian_Head"), NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/Barbarian_LegLeft"), NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/Barbarian_LegRight")])

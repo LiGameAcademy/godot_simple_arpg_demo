@@ -8,4 +8,3 @@ func _ready() -> void:
 	billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	shaded = false
 	no_depth_test = true
-

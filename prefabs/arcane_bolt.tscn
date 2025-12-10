@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://yxwbl4pmdkgu" path="res://data/materials/arcane_core.gdshader" id="1_5p8wa"]
 [ext_resource type="Script" uid="uid://770hm2pf7n6s" path="res://addons/godot_gameplay_abilities/scripts/entities/projectile_base.gd" id="1_pife5"]
-[ext_resource type="Script" uid="uid://ca86hvsd4v4bc" path="res://prefabs/light_flicker.tres.gd" id="2_pife5"]
+[ext_resource type="Script" uid="uid://ca86hvsd4v4bc" path="res://prefabs/fx/light_flicker.tres.gd" id="2_pife5"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5p8wa"]
 
@@ -125,7 +125,7 @@ draw_pass_1 = SubResource("QuadMesh_mpe2i")
 
 [node name="GlowLight" type="OmniLight3D" parent="Visuals"]
 light_color = Color(0.26666668, 0, 1, 1)
-light_energy = 3.1627073
+light_energy = 3.450776
 omni_range = 3.0
 script = ExtResource("2_pife5")
 flicker_speed = 15.0
