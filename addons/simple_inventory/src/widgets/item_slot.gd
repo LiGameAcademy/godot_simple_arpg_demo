@@ -27,8 +27,10 @@ func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed() :
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			mouse_button_left_pressed.emit()
+			get_viewport().set_input_as_handled()
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			mouse_button_right_pressed.emit()
+			get_viewport().set_input_as_handled()
 
 func _item_setter(value : Item) -> void:
 	item = value
