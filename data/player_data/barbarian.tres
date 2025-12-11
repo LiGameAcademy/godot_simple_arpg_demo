@@ -74,6 +74,7 @@ vitals = Array[ExtResource("17_c7yfu")]([SubResource("Resource_wmkhh"), SubResou
 initial_abilities = Array[ExtResource("21_0tg7o")]([ExtResource("25_owc0b")])
 ability_shortcuts = Dictionary[StringName, String]({
 &"arcane_missiles": "2",
+&"attack_combo_1": "MOUSE_LEFT",
 &"basic_attack": "MOUSE_LEFT",
 &"dash": "MOUSE_RIGHT",
 &"fireball": "1",

@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="5_icon"]
 [ext_resource type="Resource" uid="uid://dnhmj6ouvbi2q" path="res://data/cues/dash_trail_cue.tres" id="6_trail_cue"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
+atlas = ExtResource("5_icon")
+region = Rect2(416, 96, 32, 32)
+
 [sub_resource type="Resource" id="Resource_cyb4q"]
 script = ExtResource("3_physics_motion")
 cue = ExtResource("6_trail_cue")
@@ -18,15 +22,10 @@ metadata/_custom_type_script = "uid://cr35i4cm1ubts"
 script = ExtResource("4_vital_cost")
 metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/data/costs/vital_cost.gd"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
-atlas = ExtResource("5_icon")
-region = Rect2(416, 96, 32, 32)
-
 [resource]
 script = ExtResource("1_active")
 cooldown_duration = 2.0
 costs = Array[ExtResource("1_682wf")]([SubResource("Resource_mana_cost")])
-cast_duration = 0.0
 cast_point = 0.0
 animation_name = &""
 caster_effects = Array[ExtResource("2_effect")]([SubResource("Resource_cyb4q")])

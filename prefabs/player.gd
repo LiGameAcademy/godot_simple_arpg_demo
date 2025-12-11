@@ -373,6 +373,7 @@ func _on_ability_completed(ability_id: StringName) -> void:
 		if is_instance_valid(ability) and is_ranged_ability(ability):
 			# 远程技能完成，清除转向标志
 			_should_face_mouse = false
+	_visual_adapter.play_animation("movement")
 
 #region ========== 装备属性系统 ==========
 

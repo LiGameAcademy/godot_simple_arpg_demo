@@ -215,25 +215,13 @@ func handle_input(event: InputEvent, player: Node) -> bool:
 				push_error("AbilityShortcutManager: Invalid ability_id for shortcut: %s" % shortcut)
 				continue
 			
-			# 如果该技能已在执行且不是可切换技能，则直接吞掉本次输入，避免重复提交
-			var ability_comp = _get_ability_component(player)
-			if is_instance_valid(ability_comp):
-				var current_id = ability_comp.get_current_casting_ability_id()
-				if current_id == ability_id:
-					var ability_data = ability_comp.get_ability_data(ability_id)
-					if is_instance_valid(ability_data) and not ability_data.is_toggleable():
-						return true
-			
-			# 直接调用技能施放，技能系统内部会处理：
+			# 直接调用技能施放，技能系统内部会处理所有逻辑：
+			# - 检查是否可以施法（冷却、消耗、是否正在执行等）
 			# - 如果技能正在执行且是切换式引导，会取消引导
 			# - 如果技能正在执行且是其他类型，会返回 false（不执行）
 			# - 如果技能未在执行，正常执行技能
-			if player.has_method("try_cast_ability"):
-				player.try_cast_ability(ability_id)
-				return true
-			else:
-				push_error("AbilityShortcutManager: Player does not have try_cast_ability method")
-				return false
+			player.try_cast_ability(ability_id)
+			return true
 	
 	return false
 
