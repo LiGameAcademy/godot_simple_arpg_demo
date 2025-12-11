@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" uid="uid://dkdx3f3hoy0un" path="res://scripts/data/gameplay_equip.gd" id="1_equip"]
 [ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="2_active"]
+[ext_resource type="Resource" uid="uid://dqyj5y5ta5vje" path="res://data/abilities/basic_attack.tres" id="2_xtbti"]
 [ext_resource type="Texture2D" uid="uid://denlah5iok8hf" path="res://addons/simple_inventory/assets/textures/items/wood_axe.tres" id="3_icon"]
 [ext_resource type="PackedScene" uid="uid://ebejpjaujsdv" path="res://prefabs/equipment/axe_equipped.tscn" id="4_model"]
-[ext_resource type="Resource" uid="uid://coyxj31d8ke6q" path="res://data/abilities/slash.tres" id="5_slash"]
 [ext_resource type="Resource" uid="uid://bq3236nkirgvu" path="res://data/abilities/dash.tres" id="6_dash"]
 
 [resource]
 script = ExtResource("1_equip")
 equip_model_scene = ExtResource("4_model")
-abilities = Array[ExtResource("2_active")]([ExtResource("5_slash"), ExtResource("6_dash")])
+abilities = Array[ExtResource("2_active")]([ExtResource("2_xtbti"), ExtResource("6_dash")])
 equip_type = 6
 name = "斧子"
 icon = ExtResource("3_icon")

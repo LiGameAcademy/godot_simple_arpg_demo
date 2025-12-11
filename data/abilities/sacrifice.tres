@@ -52,5 +52,5 @@ caster_effects = Array[ExtResource("3_effect")]([ExtResource("12_aura_visual")])
 ability_id = &"sacrifice"
 ability_name = "献祭"
 description = "持续消耗生命值，对周围敌人造成周期性火焰伤害。按住维持，移动会打断引导。"
-icon = SubResource("AtlasTexture_icon")
+_icon = SubResource("AtlasTexture_icon")
 tags = Array[StringName]([&"channeling", &"aoe"])

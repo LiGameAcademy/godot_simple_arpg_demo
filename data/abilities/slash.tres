@@ -19,5 +19,5 @@ script = ExtResource("1_combat")
 combo_abilities = Array[ExtResource("2_active")]([ExtResource("4_combo1"), ExtResource("5_combo2"), ExtResource("6_heavy")])
 ability_id = &"slash"
 ability_name = "挥砍"
-icon = SubResource("AtlasTexture_icon")
+_icon = SubResource("AtlasTexture_icon")
 metadata/_custom_type_script = "uid://cbvhifiid5vg6"

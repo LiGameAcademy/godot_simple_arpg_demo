@@ -11,6 +11,10 @@
 [ext_resource type="Script" uid="uid://smkke7uw7dt2" path="res://addons/godot_gameplay_abilities/scripts/data/cues/cue_floating_text.gd" id="4_kawta"]
 [ext_resource type="Script" uid="uid://bv8l03cfspmdk" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue.gd" id="5_lbseu"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4kma"]
+atlas = ExtResource("3_7mol0")
+region = Rect2(64, 96, 32, 32)
+
 [sub_resource type="Resource" id="Resource_cw5ri"]
 script = ExtResource("4_kawta")
 metadata/_custom_type_script = "uid://smkke7uw7dt2"
@@ -33,10 +37,6 @@ offset = Vector3(0, 0.75, 1.25)
 collision_mask = 4
 metadata/_custom_type_script = "uid://c1loowqhvoix0"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_b4kma"]
-atlas = ExtResource("3_7mol0")
-region = Rect2(64, 96, 32, 32)
-
 [resource]
 script = ExtResource("2_yew1t")
 cooldown_duration = 0.5
@@ -46,6 +46,6 @@ hit_detector = SubResource("Resource_7mol0")
 ability_id = &"heavy_attack"
 ability_name = "重击"
 description = "对目标造成双倍物理伤害"
-icon = SubResource("AtlasTexture_b4kma")
+_icon = SubResource("AtlasTexture_b4kma")
 effects = Array[ExtResource("1_6issw")]([SubResource("Resource_e5isf")])
 metadata/_custom_type_script = "uid://cbvhifiid5vg6"

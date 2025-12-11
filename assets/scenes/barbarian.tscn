@@ -24,11 +24,11 @@
 [ext_resource type="Animation" uid="uid://em4l3w6o44i5" path="res://assets/animations/Walking_B.res" id="22_g0gdt"]
 [ext_resource type="Animation" uid="uid://b62s8m87aejpa" path="res://assets/animations/Walking_C.res" id="23_2jma1"]
 [ext_resource type="Animation" uid="uid://rqarug4jh6mk" path="res://assets/animations/Melee_1H_Attack_Jump_Chop.res" id="24_elnuh"]
-[ext_resource type="Animation" uid="uid://d1bm0ah5km803" path="res://assets/animations/Ranged_Magic_Raise.res" id="25_ch4t8"]
-[ext_resource type="Animation" uid="uid://cqjv8b8qfipdv" path="res://assets/animations/Ranged_Magic_Shoot.res" id="26_un18h"]
-[ext_resource type="Animation" uid="uid://dbaewek1jqpy0" path="res://assets/animations/Ranged_Magic_Spellcasting.res" id="27_4xx7g"]
-[ext_resource type="Animation" uid="uid://d3b3u6keyhcja" path="res://assets/animations/Ranged_Magic_Spellcasting_Long.res" id="28_hlux4"]
-[ext_resource type="Animation" uid="uid://chi48yvf4vms5" path="res://assets/animations/Ranged_Magic_Summon.res" id="29_ng1qt"]
+[ext_resource type="Animation" uid="uid://dl4ewwsjsa5bh" path="res://assets/animations/Ranged_Magic_Raise.res" id="25_ch4t8"]
+[ext_resource type="Animation" uid="uid://bfqwkyvfy0lmh" path="res://assets/animations/Ranged_Magic_Shoot.res" id="26_un18h"]
+[ext_resource type="Animation" uid="uid://bpyfq27t4q2r6" path="res://assets/animations/Ranged_Magic_Spellcasting.res" id="27_4xx7g"]
+[ext_resource type="Animation" uid="uid://1ega0qe2gijh" path="res://assets/animations/Ranged_Magic_Spellcasting_Long.res" id="28_hlux4"]
+[ext_resource type="Animation" uid="uid://2yxdh1224vgn" path="res://assets/animations/Ranged_Magic_Summon.res" id="29_ng1qt"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dhpvg"]
 _data = {

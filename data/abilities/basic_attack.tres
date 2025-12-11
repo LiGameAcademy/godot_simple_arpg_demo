@@ -16,8 +16,8 @@ region = Rect2(384, 96, 32, 32)
 
 [resource]
 script = ExtResource("5_combat")
-combo_abilities = Array[ExtResource("2_yew1t")]([ExtResource("6_combo1"), ExtResource("7_combo2"), ExtResource("8_heavy")])
+_combo_abilities = Array[ExtResource("2_yew1t")]([ExtResource("6_combo1"), ExtResource("7_combo2"), ExtResource("8_heavy")])
 ability_id = &"basic_attack"
 ability_name = "普通攻击"
-icon = SubResource("AtlasTexture_nru6w")
+_icon = SubResource("AtlasTexture_nru6w")
 metadata/_custom_type_script = "uid://cbvhifiid5vg6"

@@ -33,4 +33,4 @@ caster_effects = Array[ExtResource("2_effect")]([SubResource("Resource_cyb4q")])
 ability_id = &"dash"
 ability_name = "冲刺"
 description = "向面朝方向快速位移，消耗魔法值"
-icon = SubResource("AtlasTexture_icon")
+_icon = SubResource("AtlasTexture_icon")

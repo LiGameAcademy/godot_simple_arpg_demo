@@ -58,5 +58,5 @@ target_effects = Array[ExtResource("2_effect")]([ExtResource("7_fire_damage")])
 ability_id = &"fireball"
 ability_name = "火球术1"
 description = "发射一颗火球，命中后产生爆炸，对范围内所有敌人造成火焰伤害"
-icon = SubResource("AtlasTexture_icon")
+_icon = SubResource("AtlasTexture_icon")
 tags = Array[StringName]([&"ranged"])

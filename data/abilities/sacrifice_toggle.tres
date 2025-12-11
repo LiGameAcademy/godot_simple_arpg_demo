@@ -15,13 +15,13 @@
 [ext_resource type="Resource" uid="uid://c6b0xfhf1icqv" path="res://data/effects/ge_sacrifice_aura_visual.tres" id="12_aura_visual"]
 [ext_resource type="Script" uid="uid://smkke7uw7dt2" path="res://addons/godot_gameplay_abilities/scripts/data/cues/cue_floating_text.gd" id="12_inypc"]
 
-[sub_resource type="Resource" id="Resource_jim2a"]
-script = ExtResource("2_vital_cost")
-metadata/_custom_type_script = "uid://3n073v4axo0p"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
 atlas = ExtResource("11_icon")
 region = Rect2(480, 96, 32, 32)
+
+[sub_resource type="Resource" id="Resource_jim2a"]
+script = ExtResource("2_vital_cost")
+metadata/_custom_type_script = "uid://3n073v4axo0p"
 
 [sub_resource type="Resource" id="Resource_area_detector"]
 script = ExtResource("6_area_detector")
@@ -64,5 +64,5 @@ caster_effects = Array[ExtResource("3_effect")]([ExtResource("12_aura_visual")])
 ability_id = &"sacrifice"
 ability_name = "献祭 (切换式)"
 description = "持续消耗生命值，对周围敌人造成周期性火焰伤害。按一下开启，再按一下关闭。移动会打断引导。"
-icon = SubResource("AtlasTexture_icon")
+_icon = SubResource("AtlasTexture_icon")
 tags = Array[StringName]([&"channeling", &"aoe"])
