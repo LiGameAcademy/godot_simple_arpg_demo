@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c1yx7rclwsfqg" path="res://prefabs/fx/fireball_impact.tscn" id="2_dny6n"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_explosion"]
+radius = 10.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dny6n"]
 albedo_color = Color(0.95421964, 0.27395758, 0.1680183, 1)
@@ -15,7 +16,7 @@ height = 5.0
 
 [node name="FireballExplosionAoE" type="Area3D"]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 12
 script = ExtResource("1_dny6n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

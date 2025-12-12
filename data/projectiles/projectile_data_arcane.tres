@@ -1,12 +1,28 @@
-[gd_resource type="Resource" script_class="ProjectileData" load_steps=5 format=3 uid="uid://ds4wx1ltqdqp0"]
+[gd_resource type="Resource" script_class="ProjectileData" load_steps=12 format=3 uid="uid://ds4wx1ltqdqp0"]
 
 [ext_resource type="Script" uid="uid://b2nxkgycmifbj" path="res://addons/godot_gameplay_abilities/scripts/data/projectile_data.gd" id="1_projectile_data"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/data/status/gameplay_status_data.gd" id="2_7jch6"]
 [ext_resource type="Script" uid="uid://c4bbvuycoblmm" path="res://addons/godot_gameplay_abilities/scripts/entities/movement_strategies/homing_movement_strategy.gd" id="2_homing_strategy"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="3_h81af"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="4_cc7c1"]
+[ext_resource type="Resource" uid="uid://b5k7x2m5oap4s" path="res://data/cues/hit_cue_physical_wrapper.tres" id="4_oydyv"]
+[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_apply_damage.gd" id="5_oydyv"]
+[ext_resource type="PackedScene" uid="uid://dajag4lw1syt0" path="res://prefabs/arcane_bolt.tscn" id="6_ovlgk"]
 
 [sub_resource type="Resource" id="Resource_homing"]
 script = ExtResource("2_homing_strategy")
 metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/entities/movement_strategies/homing_movement_strategy.gd"
+
+[sub_resource type="Resource" id="Resource_io0v4"]
+script = ExtResource("5_oydyv")
+damage_multiplier = 0.8
+cue = ExtResource("4_oydyv")
+metadata/_custom_type_script = "uid://uhmb38g5nej3"
+
+[sub_resource type="Resource" id="Resource_bohh2"]
+script = ExtResource("2_7jch6")
+effects = Array[ExtResource("3_h81af")]([SubResource("Resource_io0v4")])
+metadata/_custom_type_script = "uid://c068pgasfc70p"
 
 [resource]
 script = ExtResource("1_projectile_data")
@@ -14,4 +30,5 @@ speed = 10.0
 homing_acceleration = 20.0
 max_pierce_count = 0
 movement_strategy = SubResource("Resource_homing")
-metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/data/projectile_data.gd"
+projectile_scene = ExtResource("6_ovlgk")
+payload_statuses = Array[ExtResource("2_7jch6")]([SubResource("Resource_bohh2")])

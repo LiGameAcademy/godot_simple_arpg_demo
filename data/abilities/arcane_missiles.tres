@@ -34,4 +34,3 @@ ability_name = "奥术飞弹"
 description = "同时发射3发奥术飞弹，扇形散射，自动追踪目标"
 icon = SubResource("AtlasTexture_icon")
 tags = Array[StringName]([&"ranged"])
-metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/data/abilities/projectile_ability.gd"

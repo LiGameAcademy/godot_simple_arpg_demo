@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="MagicCircleAbility" load_steps=8 format=3 uid="uid://gjarby7h5bov"]
+[gd_resource type="Resource" script_class="MagicCircleAbility" load_steps=7 format=3 uid="uid://gjarby7h5bov"]
 
-[ext_resource type="Script" uid="uid://cpat86xcfjham" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/magic_circle_ability.gd" id="1_magic_circle_ability"]
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="1_pwlm6"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/magic_circle_ability.gd" id="1_magic_circle_ability"]
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="2_204px"]
 [ext_resource type="Resource" uid="uid://d0ymlnsj146i7" path="res://data/magic_circles/fireball_explosion_magic_circle_data.tres" id="2_circle_data"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_icon"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="6_bass4"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/data/status/gameplay_status_data.gd" id="5_o2yby"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
 atlas = ExtResource("3_icon")

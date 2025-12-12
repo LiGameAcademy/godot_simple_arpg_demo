@@ -33,7 +33,6 @@ status_display_name = "攻击伤害"
 status_description = "对目标造成物理伤害"
 duration = 0.0
 effects = Array[ExtResource("6_c0vht")]([SubResource("Resource_damage")])
-target_mode = 1
 
 [resource]
 script = ExtResource("2_yew1t")
