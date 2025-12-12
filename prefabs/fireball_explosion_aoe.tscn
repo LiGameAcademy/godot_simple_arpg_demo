@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bynsg0m6hv0su"]
 
-[ext_resource type="Script" uid="uid://dsk6q6c71iwlg" path="res://addons/godot_gameplay_abilities/scripts/entities/magic_circle_base.gd" id="1_snbbv"]
+[ext_resource type="Script" uid="uid://50tpqkoyk8j4" path="res://addons/godot_gameplay_abilities/scripts/entities/magic_field_base.gd" id="1_dny6n"]
 [ext_resource type="PackedScene" uid="uid://c1yx7rclwsfqg" path="res://prefabs/fx/fireball_impact.tscn" id="2_dny6n"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_explosion"]
@@ -16,7 +16,7 @@ height = 5.0
 [node name="FireballExplosionAoE" type="Area3D"]
 collision_layer = 0
 collision_mask = 4
-script = ExtResource("1_snbbv")
+script = ExtResource("1_dny6n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_explosion")

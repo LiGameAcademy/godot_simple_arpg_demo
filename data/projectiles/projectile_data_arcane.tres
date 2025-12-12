@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ProjectileData" load_steps=4 format=3 uid="uid://ds4wx1ltqdqp0"]
+[gd_resource type="Resource" script_class="ProjectileData" load_steps=5 format=3 uid="uid://ds4wx1ltqdqp0"]
 
 [ext_resource type="Script" uid="uid://b2nxkgycmifbj" path="res://addons/godot_gameplay_abilities/scripts/data/projectile_data.gd" id="1_projectile_data"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/data/status/gameplay_status_data.gd" id="2_7jch6"]
 [ext_resource type="Script" uid="uid://c4bbvuycoblmm" path="res://addons/godot_gameplay_abilities/scripts/entities/movement_strategies/homing_movement_strategy.gd" id="2_homing_strategy"]
 
 [sub_resource type="Resource" id="Resource_homing"]
