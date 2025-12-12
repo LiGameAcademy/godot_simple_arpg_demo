@@ -333,7 +333,13 @@ func try_cast_ability(ability_id: StringName, target: Node = null, context: Dict
 		push_warning("Player: Ability not found: %s" % ability_id)
 		return
 	
-	# 判断技能类型并处理朝向
+	# 【重要】先检查技能是否可以释放，如果无法释放（如CD中），不设置转向标志
+	if not ability_component.can_cast(ability_id, target, context):
+		# 无法释放，清除转向标志（如果之前设置了）
+		_should_face_mouse = false
+		return
+	
+	# 判断技能类型并处理朝向（只有在可以释放时才设置）
 	var is_ranged := is_ranged_ability(ability)
 	if is_ranged and auto_face_mouse_for_ranged:
 		# 远程技能：设置持续转向标志，在 _physics_process 中持续处理
@@ -358,7 +364,7 @@ func try_cast_ability(ability_id: StringName, target: Node = null, context: Dict
 		context["target_position"] = mouse_pos
 		context["facing_angle"] = _get_facing_angle()
 	
-	# 调用基类方法
+	# 调用基类方法（此时已经确认可以释放）
 	super(ability_id, target, context)
 
 #endregion
