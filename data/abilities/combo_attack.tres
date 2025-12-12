@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="CombatAbility" load_steps=10 format=3 uid="uid://dqyj5y5ta5vje"]
 
-[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="1_qe3at"]
+[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability.gd" id="1_qe3at"]
 [ext_resource type="Resource" uid="uid://1ec04wtsoes" path="res://data/abilities/basic_attack.tres" id="2_b1qqw"]
 [ext_resource type="Resource" uid="uid://60xxjx03ioa" path="res://data/abilities/attack_combo_2.tres" id="3_pc1gt"]
 [ext_resource type="Resource" uid="uid://op60b7h2ejrt" path="res://data/abilities/heavy_attack.tres" id="4_ufw6m"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="5_oa4id"]
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="6_5li5d"]
-[ext_resource type="Script" uid="uid://dbgy7d7syxo20" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/combat_ability.gd" id="7_ki1wn"]
+[ext_resource type="Script" uid="uid://dbgy7d7syxo20" path="res://addons/godot_gameplay_abilities/scripts/abilities/combat_ability.gd" id="7_ki1wn"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/data/status/gameplay_status_data.gd" id="8_2eavr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nru6w"]

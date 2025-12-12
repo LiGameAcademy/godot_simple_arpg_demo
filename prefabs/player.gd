@@ -47,6 +47,10 @@ var _equipment_abilities: Dictionary = {}
 func _ready() -> void:
 	super()
 	
+	# 将快捷键管理器添加到场景树，使其能够接收 _unhandled_input
+	if not shortcut_manager.is_inside_tree():
+		add_child(shortcut_manager)
+	
 	# 播放初始动画（通过 VisualAdapter）
 	if is_instance_valid(_visual_adapter):
 		_visual_adapter.play_animation("movement")
@@ -68,6 +72,9 @@ func _ready() -> void:
 	
 	# 初始化快捷键绑定（在技能学会后绑定）
 	_setup_shortcuts()
+	
+	# 连接快捷键管理器的信号到技能组件
+	_connect_shortcut_signals()
 	
 	# 监听技能完成信号，清除转向标志
 	if is_instance_valid(ability_component):
@@ -130,14 +137,6 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		_try_interact()
-	# 注意：已移除普通攻击概念，所有攻击都通过技能系统实现
-	# 如果需要在鼠标左键触发攻击，应该在 PlayerData 的 ability_shortcuts 中配置
-	# 例如：ability_shortcuts = {&"basic_attack": "MOUSE_LEFT"}
-	
-	# 处理技能快捷键（包括鼠标左键攻击，如果已配置）
-	if shortcut_manager.handle_input(event, self):
-		# 快捷键已处理，阻止进一步传播
-		get_viewport().set_input_as_handled()
 
 #func get_gameplay_attribute_component() -> GameplayAttributeComponent:
 	#return attribute_component
@@ -177,6 +176,20 @@ func _init_components() -> void:
 	# 连接技能学会信号，自动绑定快捷键
 	if not ability_component.ability_learned.is_connected(_on_ability_learned):
 		ability_component.ability_learned.connect(_on_ability_learned)
+
+## 连接快捷键管理器的信号到技能组件
+func _connect_shortcut_signals() -> void:
+	if not is_instance_valid(shortcut_manager) or not is_instance_valid(ability_component):
+		push_warning("Player: Cannot connect shortcut signals, shortcut_manager or ability_component is not valid")
+		return
+	
+	# 连接技能施放信号
+	if not shortcut_manager.cast_ability_requested.is_connected(_on_cast_ability_requested):
+		shortcut_manager.cast_ability_requested.connect(_on_cast_ability_requested)
+	
+	# 连接引导取消信号
+	if not shortcut_manager.cancel_channeling_requested.is_connected(_on_cancel_channeling_requested):
+		shortcut_manager.cancel_channeling_requested.connect(_on_cancel_channeling_requested)
 
 ## 设置快捷键绑定
 func _setup_shortcuts() -> void:
@@ -604,3 +617,32 @@ func _remove_equipment_abilities(equip_slot_name: StringName) -> void:
 	_equipment_abilities.erase(equip_slot_name)
 
 #endregion
+
+## 处理技能施放请求（信号回调）
+func _on_cast_ability_requested(ability_id: StringName, _shortcut: String, context: Dictionary) -> void:
+	if not is_instance_valid(ability_component):
+		return
+	
+	# 调用技能组件的施放方法
+	try_cast_ability(ability_id, null, context)
+
+## 处理引导取消请求（信号回调）
+func _on_cancel_channeling_requested(ability_id: StringName, _shortcut: String) -> void:
+	if not is_instance_valid(ability_component):
+		return
+	
+	# 检查是否是当前正在执行的技能
+	var current_ability_id = ability_component.get_current_casting_ability_id()
+	if current_ability_id != ability_id:
+		return
+	
+	# 检查是否是引导技能且应该取消（按住维持式）
+	var ability_data = ability_component.get_ability_data(ability_id)
+	if not is_instance_valid(ability_data):
+		return
+	
+	# 检查是否是 ChannelingAbility 且 stop_on_input_release 为 true（按住维持式）
+	if ability_data is ChannelingAbility:
+		var channeling_ability = ability_data as ChannelingAbility
+		if channeling_ability.stop_on_input_release:
+			ability_component.cancel_ability(ability_id)

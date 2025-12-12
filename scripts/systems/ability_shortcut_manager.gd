@@ -1,19 +1,77 @@
 extends Node
 class_name AbilityShortcutManager
 
-## 技能快捷键管理器
-## 处理技能快捷键绑定和输入检测
+## 技能快捷键管理器（输入映射层）
+## 职责：处理技能快捷键绑定和输入检测，通过信号通知外部系统
+##
+## 设计原则：
+## - 纯输入映射层，不持有 player 或 ability_component 的引用
+## - 通过信号系统解耦，由外部系统（如 PlayerController）连接信号到具体执行逻辑
 ##
 ## 支持的快捷键格式：
 ## - 数字键: "1", "2", "3", ..., "9"
 ## - 字母键: "Q", "E", "R", "T", "F", "Z", "X", "C", "V"
 ## - 鼠标按键: "MOUSE_LEFT", "MOUSE_RIGHT", "MOUSE_MIDDLE", "MOUSE_X1", "MOUSE_X2"
 
+## 当检测到技能施放意图时发出
+## [param] ability_id: StringName 技能 ID
+## [param] shortcut: String 触发的快捷键
+## [param] context: Dictionary 上下文信息
+signal cast_ability_requested(ability_id: StringName, shortcut: String, context: Dictionary)
+
+## 当检测到引导取消意图时发出（按键释放）
+## [param] ability_id: StringName 技能 ID
+## [param] shortcut: String 触发的快捷键
+signal cancel_channeling_requested(ability_id: StringName, shortcut: String)
+
 # 快捷键映射（快捷键字符串 -> 技能 ID）
 var shortcut_to_ability: Dictionary[String, StringName] = {}
 
 # 反向映射（技能 ID -> 快捷键字符串）
 var ability_to_shortcut: Dictionary[StringName, String] = {}
+
+## 处理未处理的输入事件（应在 _unhandled_input 中调用）
+## [param] event: InputEvent 输入事件
+## [return] bool 是否处理了输入
+func _unhandled_input(event: InputEvent) -> void:
+	if event == null:
+		return
+	
+	# 处理按键释放事件（用于取消引导技能）
+	if _is_key_release_event(event):
+		var shortcut = _get_shortcut_from_event(event)
+		if not shortcut.is_empty() and shortcut_to_ability.has(shortcut):
+			var ability_id = shortcut_to_ability[shortcut]
+			# 发出取消引导信号，由外部系统判断是否应该取消
+			cancel_channeling_requested.emit(ability_id, shortcut)
+			get_viewport().set_input_as_handled()
+		return
+	
+	# 处理按键按下事件（用于施放技能）
+	# 【关键】忽略按键重复事件（echo），避免按住按键时持续触发信号
+	# 只有第一次按下时才触发，后续的 echo 事件会被忽略
+	if event is InputEventKey:
+		var key_event = event as InputEventKey
+		if key_event.echo:
+			# 这是按键重复事件，忽略
+			return
+	
+	for shortcut in shortcut_to_ability.keys():
+		if shortcut.is_empty():
+			continue
+		
+		if _is_shortcut_event(event, shortcut):
+			var ability_id = shortcut_to_ability[shortcut]
+			if ability_id == null or ability_id == &"":
+				push_error("AbilityShortcutManager: Invalid ability_id for shortcut: %s" % shortcut)
+				continue
+			
+			# 创建 context
+			var context: Dictionary = {}
+			# 发出技能施放信号，由外部系统执行具体逻辑
+			cast_ability_requested.emit(ability_id, shortcut, context)
+			get_viewport().set_input_as_handled()
+			return
 
 ## 绑定快捷键
 ## [param] ability_id: StringName 技能 ID
@@ -173,63 +231,6 @@ func _is_mouse_button_pressed(shortcut: String) -> bool:
 		return false
 	return Input.is_mouse_button_pressed(button)
 
-## 处理输入事件（应在 _unhandled_input 中调用）
-## [param] event: InputEvent 输入事件
-## [param] player: Node 玩家节点（需要实现 try_cast_ability 方法）
-## [return] bool 是否处理了输入
-func handle_input(event: InputEvent, player: Node) -> bool:
-	# 错误处理：检查参数有效性
-	if event == null:
-		return false
-	
-	if not is_instance_valid(player):
-		push_warning("AbilityShortcutManager: Cannot handle input, player is not valid")
-		return false
-	
-	# 处理按键释放事件（用于取消引导技能）
-	if _is_key_release_event(event):
-		var shortcut = _get_shortcut_from_event(event)
-		if not shortcut.is_empty() and shortcut_to_ability.has(shortcut):
-			var ability_id = shortcut_to_ability[shortcut]
-			# 检查是否是引导技能且正在执行
-			if _should_cancel_channeling(player, ability_id):
-				var ability_comp = _get_ability_component(player)
-				if is_instance_valid(ability_comp):
-					ability_comp.cancel_ability(ability_id)
-					return true
-		return false
-	
-	# 处理按键按下事件（用于施放技能）
-	if not player.has_method("try_cast_ability"):
-		push_warning("AbilityShortcutManager: Player does not implement try_cast_ability method")
-		return false
-	
-	# 检查所有绑定的快捷键
-	for shortcut in shortcut_to_ability.keys():
-		if shortcut.is_empty():
-			continue
-		
-		if _is_shortcut_event(event, shortcut):
-			var ability_id = shortcut_to_ability[shortcut]
-			if ability_id == null or ability_id == &"":
-				push_error("AbilityShortcutManager: Invalid ability_id for shortcut: %s" % shortcut)
-				continue
-			
-			# 创建 context，包含 shortcut_checker Callable（用于引导技能检查快捷键是否按下）
-			var context: Dictionary = {}
-			# 创建一个绑定到当前 shortcut 的 Callable，用于检查快捷键是否被按下
-			context["shortcut_checker"] = is_shortcut_pressed.bind(shortcut)
-			
-			# 直接调用技能施放，技能系统内部会处理所有逻辑：
-			# - 检查是否可以施法（冷却、消耗、是否正在执行等）
-			# - 如果技能正在执行且是切换式引导，会取消引导
-			# - 如果技能正在执行且是其他类型，会返回 false（不执行）
-			# - 如果技能未在执行，正常执行技能
-			player.try_cast_ability(ability_id, null, context)
-			return true
-	
-	return false
-
 ## 检查是否是按键释放事件
 ## [param] event: InputEvent 输入事件
 ## [return] bool 是否是按键释放
@@ -280,46 +281,6 @@ func _get_shortcut_from_event(event: InputEvent) -> String:
 	
 	return ""
 
-## 获取技能组件（辅助方法）
-## [param] player: Node 玩家节点
-## [return] GameplayAbilityComponent 技能组件，如果无法获取则返回 null
-func _get_ability_component(player: Node) -> Node:
-	if not is_instance_valid(player):
-		return null
-	
-	if player.has_method("get_ability_component"):
-		return player.get_ability_component()
-	elif player.has("ability_component"):
-		return player.ability_component
-	
-	return null
-
-## 检查是否应该取消引导技能（按住维持式：松开按键时取消）
-## [param] player: Node 玩家节点
-## [param] ability_id: StringName 技能ID
-## [return] bool 是否应该取消
-func _should_cancel_channeling(player: Node, ability_id: StringName) -> bool:
-	# 获取技能组件
-	var ability_comp = _get_ability_component(player)
-	if not is_instance_valid(ability_comp):
-		return false
-	
-	# 检查是否是当前正在执行的技能
-	var current_ability_id = ability_comp.get_current_casting_ability_id()
-	if current_ability_id != ability_id:
-		return false
-	
-	# 检查是否是引导技能
-	var ability_data = ability_comp.get_ability_data(ability_id)
-	if not is_instance_valid(ability_data):
-		return false
-	
-	# 检查是否是 ChannelingAbility 且 stop_on_input_release 为 true（按住维持式）
-	if ability_data is ChannelingAbility:
-		var channeling_ability = ability_data as ChannelingAbility
-		return channeling_ability.stop_on_input_release
-	
-	return false
 
 ## 检查输入事件是否匹配快捷键
 ## [param] event: InputEvent 输入事件
