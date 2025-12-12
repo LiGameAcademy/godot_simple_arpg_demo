@@ -21,6 +21,9 @@ func _ready() -> void:
 	# 初始化属性系统
 	_init_attribute_system()
 	
+	# 初始化标签系统
+	_init_tag_system()
+	
 	# 获取相机控制器（如果存在）
 	if is_instance_valid(camera_controller):
 		camera_controller.set_base_position(camera.global_position)
@@ -71,3 +74,8 @@ func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> v
 func _init_attribute_system() -> void:
 	# 注册属性
 	GameplayAbilitySystem.attribute_manager.register_attributes(game_data.attributes)
+
+func _init_tag_system() -> void:
+	# 注册所有标签资源（从 data/tags/ 目录）
+	var tag_count = TagManager.register_tags_from_directory("res://data/tags/", true)
+	print("Main: Registered %d tags" % tag_count)

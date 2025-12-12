@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GameplayTag" format=3]
+
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/data/tags/gameplay_tag.gd" id="1_tag"]
+
+[resource]
+script = ExtResource("1_tag")
+id = &"element"
+display_name = "元素"
+description = "基础元素标签"
+category = "Element"
+

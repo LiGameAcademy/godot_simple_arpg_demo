@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GE_AttributeModifier" load_steps=6 format=3 uid="uid://cymru0mimuxac"]
+
+[ext_resource type="Script" uid="uid://d3smdh1py5iyv" path="res://addons/godot_gameplay_abilities/scripts/data/effects/ge_attribute_modifier.gd" id="1_attr_modifier"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="2_baq3a"]
+[ext_resource type="Script" uid="uid://ct224mxbkm3nx" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute_modifier.gd" id="2_modifier_script"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="4_hb3kp"]
+
+[sub_resource type="Resource" id="SubResource_speed_modifier"]
+script = ExtResource("2_modifier_script")
+attribute_id = &"speed"
+modifier_type = 2
+
+[resource]
+script = ExtResource("1_attr_modifier")
+attribute_modifier = SubResource("SubResource_speed_modifier")

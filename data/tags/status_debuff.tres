@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GameplayTag" format=3]
+
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/data/tags/gameplay_tag.gd" id="1_tag"]
+[ext_resource type="Resource" path="res://data/tags/status.tres" id="2_status"]
+
+[resource]
+script = ExtResource("1_tag")
+id = &"status.debuff"
+display_name = "负面状态"
+description = "对目标产生负面效果的状态"
+parent_tag_id = &"status"
+category = "Status"
+

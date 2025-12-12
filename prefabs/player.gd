@@ -4,7 +4,11 @@ class_name Player
 @export var player_data : PlayerData = null
 
 @export_group("Movement")
-@export var speed: float = 5.0
+@export var speed: float = 5.0:
+	get:
+		if not is_instance_valid(attribute_component):
+			return speed
+		return attribute_component.get_value("speed", speed)
 @export var acceleration: float = 20.0 # 加速度：决定起步快慢
 @export var rotation_speed: float = 12.0 # 转身速度
 

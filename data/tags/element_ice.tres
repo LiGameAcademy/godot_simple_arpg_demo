@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GameplayTag" format=3]
+
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/data/tags/gameplay_tag.gd" id="1_tag"]
+[ext_resource type="Resource" path="res://data/tags/element.tres" id="2_element"]
+
+[resource]
+script = ExtResource("1_tag")
+id = &"element.ice"
+display_name = "冰霜"
+description = "冰霜元素效果"
+parent_tag_id = &"element"
+category = "Element"
+
