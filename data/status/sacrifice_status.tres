@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=6 format=3 uid="uid://c8k7x2m5oap4z"]
+
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/data/status/gameplay_status_data.gd" id="1_status_data"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="1_effect"]
+[ext_resource type="Resource" uid="uid://c8k7x2m5oap4x" path="res://data/effects/ge_sacrifice_health_cost.tres" id="2_health_cost"]
+[ext_resource type="Resource" uid="uid://c8k7x2m5oap4y" path="res://data/effects/ge_sacrifice_area_damage.tres" id="3_area_damage"]
+[ext_resource type="Resource" uid="uid://bcp7gpxweokag" path="res://data/cues/sacrifice_aura_cue.tres" id="4_aura_cue"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="5_icon"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
+atlas = ExtResource("5_icon")
+region = Rect2(480, 96, 32, 32)
+
+[resource]
+script = ExtResource("1_status_data")
+status_id = &"sacrifice"
+status_display_name = "献祭"
+status_description = "持续消耗生命值，对周围敌人造成周期性火焰伤害"
+duration = -1
+icon = SubResource("AtlasTexture_icon")
+is_debuff = true
+tags = Array[StringName]([&"status.debuff", &"element.fire"])
+effects = Array[ExtResource("1_effect")]([ExtResource("2_health_cost"), ExtResource("3_area_damage")])
+period = 1.0
+stacking_policy = 0
+max_stacks = 1
+priority = 1
+cue = ExtResource("4_aura_cue")
+

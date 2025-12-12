@@ -1,48 +1,21 @@
-[gd_resource type="Resource" script_class="ChannelingAbility" load_steps=24 format=3 uid="uid://w3g7uxvwuul7"]
+[gd_resource type="Resource" script_class="ChannelingAbility" load_steps=7 format=3 uid="uid://w3g7uxvwuul7"]
 
 [ext_resource type="Script" uid="uid://c7ve6xeq3v1tb" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/channeling_ability.gd" id="1_channeling"]
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="2_aqtng"]
 [ext_resource type="Script" uid="uid://3n073v4axo0p" path="res://addons/godot_gameplay_abilities/scripts/data/costs/vital_cost.gd" id="2_vital_cost"]
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="3_effect"]
-[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/data/effects/ge_apply_damage.gd" id="4_apply_damage"]
-[ext_resource type="Script" uid="uid://d10midhyevy0w" path="res://addons/godot_gameplay_abilities/scripts/data/targeting/strategies/area_targeting_strategy.gd" id="5_area_targeting"]
-[ext_resource type="Script" uid="uid://c2intvx8ht0fd" path="res://addons/godot_gameplay_abilities/scripts/data/detection/area_hit_detector.gd" id="6_area_detector"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="6_jim2a"]
-[ext_resource type="Script" uid="uid://bv8l03cfspmdk" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue.gd" id="7_cue"]
-[ext_resource type="Resource" uid="uid://byg6vvxhum20q" path="res://data/costs/sacrifice_health_cost.tres" id="9_health_cost"]
-[ext_resource type="Script" uid="uid://bcymae7pdc1s7" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue_base.gd" id="9_mmj6f"]
-[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="11_icon"]
-[ext_resource type="Resource" uid="uid://c6b0xfhf1icqv" path="res://data/effects/ge_sacrifice_aura_visual.tres" id="12_aura_visual"]
-[ext_resource type="Script" uid="uid://smkke7uw7dt2" path="res://addons/godot_gameplay_abilities/scripts/data/cues/cue_floating_text.gd" id="12_inypc"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/data/status/gameplay_status_data.gd" id="3_status_data"]
+[ext_resource type="Resource" uid="uid://c8k7x2m5oap4z" path="res://data/status/sacrifice_status.tres" id="4_sacrifice_status"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="5_icon"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
-atlas = ExtResource("11_icon")
+atlas = ExtResource("5_icon")
 region = Rect2(480, 96, 32, 32)
 
-[sub_resource type="Resource" id="Resource_jim2a"]
+[sub_resource type="Resource" id="Resource_health_cost"]
 script = ExtResource("2_vital_cost")
 metadata/_custom_type_script = "uid://3n073v4axo0p"
-
-[sub_resource type="Resource" id="Resource_area_detector"]
-script = ExtResource("6_area_detector")
-max_results = 16
-
-[sub_resource type="Resource" id="Resource_area_targeting"]
-script = ExtResource("5_area_targeting")
-hit_detector = SubResource("Resource_area_detector")
-
-[sub_resource type="Resource" id="Resource_0l82v"]
-script = ExtResource("12_inypc")
-metadata/_custom_type_script = "uid://smkke7uw7dt2"
-
-[sub_resource type="Resource" id="Resource_cue"]
-script = ExtResource("7_cue")
-cues = Array[ExtResource("9_mmj6f")]([SubResource("Resource_0l82v")])
-
-[sub_resource type="Resource" id="Resource_tick_damage"]
-script = ExtResource("4_apply_damage")
-damage_multiplier = 0.8
-cue = SubResource("Resource_cue")
+vital_id = &"health"
+amount = 1.0
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pnvr8"]
 load_path = "res://.godot/imported/icons.png-3a2c064d0bba3f942d69c3204833c3d7.ctex"
@@ -53,14 +26,12 @@ region = Rect2(320, 96, 32, 32)
 
 [resource]
 script = ExtResource("1_channeling")
-costs_per_tick = Array[ExtResource("2_aqtng")]([ExtResource("9_health_cost")])
-tick_effects = Array[ExtResource("3_effect")]([SubResource("Resource_tick_damage")])
+is_mobile = true
 stop_on_input_release = false
 toggled_off_icon = SubResource("AtlasTexture_dwxqs")
-targeting_strategy = SubResource("Resource_area_targeting")
-costs = Array[ExtResource("2_aqtng")]([SubResource("Resource_jim2a")])
+channeling_status = ExtResource("4_sacrifice_status")
+costs = Array[ExtResource("2_aqtng")]([SubResource("Resource_health_cost")])
 animation_name = &""
-caster_effects = Array[ExtResource("3_effect")]([ExtResource("12_aura_visual")])
 ability_id = &"sacrifice"
 ability_name = "献祭 (切换式)"
 description = "持续消耗生命值，对周围敌人造成周期性火焰伤害。按一下开启，再按一下关闭。移动会打断引导。"

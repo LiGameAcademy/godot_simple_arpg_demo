@@ -215,12 +215,17 @@ func handle_input(event: InputEvent, player: Node) -> bool:
 				push_error("AbilityShortcutManager: Invalid ability_id for shortcut: %s" % shortcut)
 				continue
 			
+			# 创建 context，包含 shortcut_checker Callable（用于引导技能检查快捷键是否按下）
+			var context: Dictionary = {}
+			# 创建一个绑定到当前 shortcut 的 Callable，用于检查快捷键是否被按下
+			context["shortcut_checker"] = is_shortcut_pressed.bind(shortcut)
+			
 			# 直接调用技能施放，技能系统内部会处理所有逻辑：
 			# - 检查是否可以施法（冷却、消耗、是否正在执行等）
 			# - 如果技能正在执行且是切换式引导，会取消引导
 			# - 如果技能正在执行且是其他类型，会返回 false（不执行）
 			# - 如果技能未在执行，正常执行技能
-			player.try_cast_ability(ability_id)
+			player.try_cast_ability(ability_id, null, context)
 			return true
 	
 	return false

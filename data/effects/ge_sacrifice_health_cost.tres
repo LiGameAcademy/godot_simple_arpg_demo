@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GE_ApplyCost" load_steps=3 format=3 uid="uid://c8k7x2m5oap4x"]
+
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/data/effects/ge_apply_cost.gd" id="1_apply_cost"]
+[ext_resource type="Resource" uid="uid://byg6vvxhum20q" path="res://data/costs/sacrifice_health_cost.tres" id="2_health_cost"]
+
+[resource]
+script = ExtResource("1_apply_cost")
+costs = Array[ExtResource("2_vital_cost")]([ExtResource("2_health_cost")])
+
