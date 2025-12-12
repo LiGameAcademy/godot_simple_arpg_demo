@@ -28,14 +28,14 @@ func _get_targets(caster: Node3D, context: Dictionary = {}) -> Array[Node]:
 		# 从角度计算方向向量
 		# 注意：facing_angle 已包含 +PI 偏移，所以方向向量公式需要调整
 		var facing_angle = context["facing_angle"] as float
-		facing_dir = Vector3(-sin(facing_angle), 0.0, cos(facing_angle))
+		facing_dir = Vector3(sin(facing_angle), 0.0, cos(facing_angle))
 	else:
 		# 从 visuals 节点获取
 		var visuals = caster.get_node_or_null("Visuals")
 		if is_instance_valid(visuals) and visuals is Node3D:
 			var facing_angle = (visuals as Node3D).rotation.y
 			# 注意：visuals.rotation.y 已包含 +PI 偏移
-			facing_dir = Vector3(-sin(facing_angle), 0.0, cos(facing_angle))
+			facing_dir = Vector3(sin(facing_angle), 0.0, cos(facing_angle))
 		else:
 			# 使用 transform 的 -Z 轴（Godot 默认朝向）
 			facing_dir = -caster.global_transform.basis.z

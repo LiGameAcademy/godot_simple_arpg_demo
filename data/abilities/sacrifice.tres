@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://c7ve6xeq3v1tb" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/channeling_ability.gd" id="1_channeling"]
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="2_aqtng"]
 [ext_resource type="Script" uid="uid://3n073v4axo0p" path="res://addons/godot_gameplay_abilities/scripts/data/costs/vital_cost.gd" id="2_vital_cost"]
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="3_effect"]
-[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/data/effects/ge_apply_damage.gd" id="4_apply_damage"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="3_effect"]
+[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_apply_damage.gd" id="4_apply_damage"]
 [ext_resource type="Script" uid="uid://d10midhyevy0w" path="res://addons/godot_gameplay_abilities/scripts/data/targeting/strategies/area_targeting_strategy.gd" id="5_area_targeting"]
 [ext_resource type="Script" uid="uid://c2intvx8ht0fd" path="res://addons/godot_gameplay_abilities/scripts/data/detection/area_hit_detector.gd" id="6_area_detector"]
 [ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="6_jim2a"]
@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://byg6vvxhum20q" path="res://data/costs/sacrifice_health_cost.tres" id="9_health_cost"]
 [ext_resource type="Script" uid="uid://bcymae7pdc1s7" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue_base.gd" id="9_mmj6f"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="11_icon"]
-[ext_resource type="Resource" uid="uid://c6b0xfhf1icqv" path="res://data/effects/ge_sacrifice_aura_visual.tres" id="12_aura_visual"]
+[ext_resource type="Resource" uid="uid://c6b0xfhf1icqv" path="res://data/ability_effects/ge_sacrifice_aura_visual.tres" id="12_aura_visual"]
 
 [sub_resource type="Resource" id="Resource_jim2a"]
 script = ExtResource("2_vital_cost")
@@ -52,5 +52,5 @@ caster_effects = Array[ExtResource("3_effect")]([ExtResource("12_aura_visual")])
 ability_id = &"sacrifice"
 ability_name = "献祭"
 description = "持续消耗生命值，对周围敌人造成周期性火焰伤害。按住维持，移动会打断引导。"
-_icon = SubResource("AtlasTexture_icon")
+icon = SubResource("AtlasTexture_icon")
 tags = Array[StringName]([&"channeling", &"aoe"])

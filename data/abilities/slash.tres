@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="1_dfc3f"]
 [ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="2_active"]
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="3_cost"]
-[ext_resource type="Resource" uid="uid://1ec04wtsoes" path="res://data/abilities/attack_combo_1.tres" id="4_combo1"]
+[ext_resource type="Resource" uid="uid://1ec04wtsoes" path="res://data/abilities/basic_attack.tres" id="4_combo1"]
 [ext_resource type="Resource" uid="uid://60xxjx03ioa" path="res://data/abilities/attack_combo_2.tres" id="5_combo2"]
 [ext_resource type="Resource" uid="uid://op60b7h2ejrt" path="res://data/abilities/heavy_attack.tres" id="6_heavy"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="7_icon"]
@@ -19,5 +19,5 @@ script = ExtResource("1_combat")
 combo_abilities = Array[ExtResource("2_active")]([ExtResource("4_combo1"), ExtResource("5_combo2"), ExtResource("6_heavy")])
 ability_id = &"slash"
 ability_name = "挥砍"
-_icon = SubResource("AtlasTexture_icon")
+icon = SubResource("AtlasTexture_icon")
 metadata/_custom_type_script = "uid://cbvhifiid5vg6"

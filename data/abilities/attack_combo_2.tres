@@ -1,20 +1,11 @@
-[gd_resource type="Resource" script_class="ActiveAbility" load_steps=11 format=3 uid="uid://60xxjx03ioa"]
+[gd_resource type="Resource" script_class="ActiveAbility" load_steps=9 format=3 uid="uid://60xxjx03ioa"]
 
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="1_6issw"]
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="1_7iofi"]
 [ext_resource type="Script" uid="uid://c1loowqhvoix0" path="res://scripts/data/hit_detector/melee_box_hit_detector.gd" id="2_nj71f"]
 [ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="2_yew1t"]
-[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/data/effects/ge_apply_damage.gd" id="3_3g35k"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_7mol0"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="3_nj71f"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3g35k"]
-atlas = ExtResource("3_7mol0")
-region = Rect2(0, 96, 32, 32)
-
-[sub_resource type="Resource" id="Resource_e5isf"]
-script = ExtResource("3_3g35k")
-metadata/_custom_type_script = "uid://uhmb38g5nej3"
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/data/status/gameplay_status_data.gd" id="5_celuk"]
+[ext_resource type="Resource" uid="uid://cm427jpisp2qa" path="res://data/ability_status/attack_combo_1_status.tres" id="6_celuk"]
 
 [sub_resource type="Resource" id="Resource_7mol0"]
 script = ExtResource("2_nj71f")
@@ -23,15 +14,19 @@ offset = Vector3(0, 0.75, 1.25)
 collision_mask = 4
 metadata/_custom_type_script = "uid://c1loowqhvoix0"
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3g35k"]
+atlas = ExtResource("3_7mol0")
+region = Rect2(0, 96, 32, 32)
+
 [resource]
 script = ExtResource("2_yew1t")
-cooldown_duration = 0.5
+cooldown_duration = 0.6
 cast_point = 0.6
-animation_name = &"attack"
 hit_detector = SubResource("Resource_7mol0")
+animation_name = &"attack"
 ability_id = &"attack_combo_2"
 ability_name = "攻击第二段"
 description = "对目标造成物理伤害"
-_icon = SubResource("AtlasTexture_3g35k")
-effects = Array[ExtResource("1_6issw")]([SubResource("Resource_e5isf")])
+icon = SubResource("AtlasTexture_3g35k")
+statuses = Array[ExtResource("5_celuk")]([ExtResource("6_celuk")])
 metadata/_custom_type_script = "uid://cbvhifiid5vg6"

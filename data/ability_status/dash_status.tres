@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=5 format=3 uid="uid://cmyacqogly3x5"]
+
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/data/status/gameplay_status_data.gd" id="1_status_data"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="2_effect"]
+[ext_resource type="Resource" uid="uid://dk6kbpxuuiwq5" path="res://data/ability_effects/ge_dash_motion.tres" id="3_57rrq"]
+[ext_resource type="Resource" uid="uid://dnhmj6ouvbi2q" path="res://data/cues/dash_trail_cue.tres" id="4_trail_cue"]
+
+[resource]
+script = ExtResource("1_status_data")
+status_id = &"dash"
+status_display_name = "冲刺"
+status_description = "快速位移状态"
+duration = 0.5
+effects = Array[ExtResource("2_effect")]([ExtResource("3_57rrq")])
+period = 0.02
+cue = ExtResource("4_trail_cue")

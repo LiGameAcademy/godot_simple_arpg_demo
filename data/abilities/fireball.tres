@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnrbnn28ih78w" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/projectile_ability.gd" id="1_projectile_ability"]
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="2_6jlwg"]
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="2_effect"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="2_effect"]
 [ext_resource type="Script" uid="uid://f6ejv1dhcuwg" path="res://addons/godot_gameplay_abilities/scripts/entities/movement_strategies/linear_movement_strategy.gd" id="4_31md0"]
 [ext_resource type="Resource" uid="uid://d0ymlnsj146i7" path="res://data/magic_circles/fireball_explosion_magic_circle_data.tres" id="4_hsgk6"]
 [ext_resource type="Script" uid="uid://b2nxkgycmifbj" path="res://addons/godot_gameplay_abilities/scripts/data/projectile_data.gd" id="5_5m1cr"]
@@ -11,8 +11,8 @@
 [ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="6_0cy71"]
 [ext_resource type="Script" uid="uid://biqqmmq83881j" path="res://addons/godot_gameplay_abilities/scripts/data/targeting/strategies/unit_targeting_strategy.gd" id="6_unit_targeting"]
 [ext_resource type="PackedScene" uid="uid://csynuqnu7jq4p" path="res://prefabs/fire_ball.tscn" id="7_07wpr"]
-[ext_resource type="Resource" uid="uid://be6nbgh2maojf" path="res://data/effects/ge_damage_fire.tres" id="7_fire_damage"]
-[ext_resource type="Resource" uid="uid://c8k7x2m5oap4w" path="res://data/effects/ge_apply_burn_status.tres" id="8_apply_burn"]
+[ext_resource type="Resource" uid="uid://be6nbgh2maojf" path="res://data/ability_effects/ge_damage_fire.tres" id="7_fire_damage"]
+[ext_resource type="Resource" uid="uid://c8k7x2m5oap4w" path="res://data/ability_effects/ge_apply_burn_status.tres" id="8_apply_burn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
 atlas = ExtResource("5_icon")
@@ -54,5 +54,5 @@ target_effects = Array[ExtResource("2_effect")]([ExtResource("7_fire_damage"), E
 ability_id = &"fireball"
 ability_name = "火球术1"
 description = "发射一颗火球，命中后产生爆炸，对范围内所有敌人造成火焰伤害"
-_icon = SubResource("AtlasTexture_icon")
+icon = SubResource("AtlasTexture_icon")
 tags = Array[StringName]([&"ranged"])

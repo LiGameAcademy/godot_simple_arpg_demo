@@ -12,7 +12,7 @@ const STATUS_ICON_SCENE = preload("res://addons/godot_gameplay_abilities/ui/stat
 # 配置项
 @export_group("Status Resource Loading")
 ## 状态资源目录路径
-@export var status_resource_dir: String = "res://data/status/"
+@export var status_resource_dir: String = "res://data/ability_status/"
 ## 状态资源文件后缀（不包含扩展名）
 @export var status_resource_suffix: String = "_status"
 

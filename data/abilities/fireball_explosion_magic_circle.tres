@@ -17,5 +17,5 @@ magic_circle_data = ExtResource("2_circle_data")
 ability_id = &"fireball_magic_circle"
 ability_name = "火球爆炸魔法阵"
 description = "在命中点生成爆炸魔法阵，对范围内的敌人造成火焰伤害"
-_icon = SubResource("AtlasTexture_icon")
+icon = SubResource("AtlasTexture_icon")
 tags = Array[StringName]([&"aoe"])

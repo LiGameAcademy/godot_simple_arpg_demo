@@ -1,24 +1,22 @@
-[gd_resource type="Resource" script_class="ProjectileAbility" load_steps=14 format=3 uid="uid://c8ewd60kjpajw"]
+[gd_resource type="Resource" script_class="ProjectileAbility" load_steps=12 format=3 uid="uid://c8ewd60kjpajw"]
 
 [ext_resource type="Script" uid="uid://dnrbnn28ih78w" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/projectile_ability.gd" id="1_projectile_ability"]
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="2_82pxk"]
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="2_effect"]
 [ext_resource type="Script" uid="uid://3n073v4axo0p" path="res://addons/godot_gameplay_abilities/scripts/data/costs/vital_cost.gd" id="3_cd6ue"]
 [ext_resource type="Script" uid="uid://biqqmmq83881j" path="res://addons/godot_gameplay_abilities/scripts/data/targeting/strategies/unit_targeting_strategy.gd" id="4_unit_targeting"]
 [ext_resource type="Resource" uid="uid://ds4wx1ltqdqp0" path="res://data/projectiles/projectile_data_arcane.tres" id="5_projectile_data"]
-[ext_resource type="Resource" uid="uid://co7qp1adf6baj" path="res://data/effects/ge_damage_arcane.tres" id="6_arcane_damage"]
 [ext_resource type="PackedScene" uid="uid://dajag4lw1syt0" path="res://prefabs/arcane_bolt.tscn" id="6_cd6ue"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="7_icon"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="8_77e8j"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/data/status/gameplay_status_data.gd" id="7_lji7c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
+atlas = ExtResource("7_icon")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="Resource" id="Resource_77e8j"]
 script = ExtResource("3_cd6ue")
 amount = 5.0
 metadata/_custom_type_script = "uid://3n073v4axo0p"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
-atlas = ExtResource("7_icon")
-region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="Resource" id="Resource_unit_targeting"]
 script = ExtResource("4_unit_targeting")
@@ -30,13 +28,12 @@ projectile_scene = ExtResource("6_cd6ue")
 projectile_data = ExtResource("5_projectile_data")
 projectile_count = 3
 spread_angle = 45.0
-targeting_strategy = SubResource("Resource_unit_targeting")
 costs = Array[ExtResource("2_82pxk")]([SubResource("Resource_77e8j")])
+targeting_strategy = SubResource("Resource_unit_targeting")
 animation_name = &""
-target_effects = Array[ExtResource("2_effect")]([ExtResource("6_arcane_damage")])
 ability_id = &"arcane_missiles"
 ability_name = "奥术飞弹"
 description = "同时发射3发奥术飞弹，扇形散射，自动追踪目标"
-_icon = SubResource("AtlasTexture_icon")
+icon = SubResource("AtlasTexture_icon")
 tags = Array[StringName]([&"ranged"])
 metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/data/abilities/projectile_ability.gd"

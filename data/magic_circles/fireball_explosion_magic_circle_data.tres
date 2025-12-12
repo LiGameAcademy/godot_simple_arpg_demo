@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="MagicCircleData" load_steps=5 format=3 uid="uid://d0ymlnsj146i7"]
 
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/data/effects/gameplay_effect.gd" id="1_lkvdu"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="1_lkvdu"]
 [ext_resource type="Script" uid="uid://cya7holjk8yw4" path="res://addons/godot_gameplay_abilities/scripts/data/magic_circle_data.gd" id="1_magic_circle_data"]
 [ext_resource type="PackedScene" uid="uid://bynsg0m6hv0su" path="res://prefabs/fireball_explosion_aoe.tscn" id="2_fireball_circle_scene"]
-[ext_resource type="Resource" uid="uid://be6nbgh2maojf" path="res://data/effects/ge_damage_fire.tres" id="3_fire_damage"]
+[ext_resource type="Resource" uid="uid://be6nbgh2maojf" path="res://data/ability_effects/ge_damage_fire.tres" id="3_fire_damage"]
 
 [resource]
 script = ExtResource("1_magic_circle_data")

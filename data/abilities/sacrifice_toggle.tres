@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="2_aqtng"]
 [ext_resource type="Script" uid="uid://3n073v4axo0p" path="res://addons/godot_gameplay_abilities/scripts/data/costs/vital_cost.gd" id="2_vital_cost"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/data/status/gameplay_status_data.gd" id="3_status_data"]
-[ext_resource type="Resource" uid="uid://c8k7x2m5oap4z" path="res://data/status/sacrifice_status.tres" id="4_sacrifice_status"]
+[ext_resource type="Resource" uid="uid://c8k7x2m5oap40" path="res://data/ability_status/sacrifice_status.tres" id="4_sacrifice_status"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="5_icon"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
@@ -35,5 +35,5 @@ animation_name = &""
 ability_id = &"sacrifice"
 ability_name = "献祭 (切换式)"
 description = "持续消耗生命值，对周围敌人造成周期性火焰伤害。按一下开启，再按一下关闭。移动会打断引导。"
-_icon = SubResource("AtlasTexture_icon")
+icon = SubResource("AtlasTexture_icon")
 tags = Array[StringName]([&"channeling", &"aoe"])

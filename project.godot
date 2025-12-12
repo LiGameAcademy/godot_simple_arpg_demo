@@ -17,7 +17,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameFeelManager="*res://scripts/systems/game_feel_manager.gd"
 GameplayAbilitySystem="*res://addons/godot_gameplay_abilities/scripts/singletons/gameplay_ability_system.gd"
 DamageCalculator="*res://addons/godot_gameplay_abilities/scripts/singletons/damage_calculator.gd"
 AbilityEventBus="*res://addons/godot_gameplay_abilities/scripts/singletons/ability_event_bus.gd"
