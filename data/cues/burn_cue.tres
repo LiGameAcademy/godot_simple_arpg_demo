@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GameplayCue" load_steps=4 format=3 uid="uid://b8k7x2m5oap4v"]
+
+[ext_resource type="Script" uid="uid://bv8l03cfspmdk" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue.gd" id="1_cue"]
+[ext_resource type="Script" uid="uid://cc0tonea2c7ay" path="res://addons/godot_gameplay_abilities/scripts/data/cues/cue_attached_particle.gd" id="2_attached_particle"]
+[ext_resource type="PackedScene" uid="uid://b8k7x2m5oap4t" path="res://prefabs/fx/burn_particle.tscn" id="3_burn_particle"]
+
+[sub_resource type="Resource" id="Resource_burn_particle"]
+script = ExtResource("2_attached_particle")
+attachment_point = &"body"
+offset = Vector3(0, 0.5, 0)
+particle_scene = ExtResource("3_burn_particle")
+attach_to_target = true
+scale_randomness = 0.1
+
+script = ExtResource("1_cue")
+cues = Array[ExtResource("2_attached_particle")]([SubResource("Resource_burn_particle")])
