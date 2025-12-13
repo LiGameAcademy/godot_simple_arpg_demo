@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="GE_AreaDamage" load_steps=2 format=3 uid="uid://c8k7x2m5oap4y"]
-
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/data/effects/ge_area_damage.gd" id="1_area_damage"]
-
-[resource]
-script = ExtResource("1_area_damage")
-damage_multiplier = 0.8
-detection_radius = 4.0
-

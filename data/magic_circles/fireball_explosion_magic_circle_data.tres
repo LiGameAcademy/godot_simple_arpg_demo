@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="1_lkvdu"]
 [ext_resource type="PackedScene" uid="uid://bynsg0m6hv0su" path="res://prefabs/fireball_explosion_aoe.tscn" id="2_fireball_circle_scene"]
-[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/data/status/gameplay_status_data.gd" id="2_p2s5k"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="4_0dngc"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/core/ability_status/gameplay_status_data.gd" id="2_p2s5k"]
 [ext_resource type="Resource" uid="uid://b5k7x2m5oap4s" path="res://data/cues/hit_cue_physical_wrapper.tres" id="4_l6qbw"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="5_0dngc"]
 [ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_apply_damage.gd" id="5_l6qbw"]
-[ext_resource type="Script" uid="uid://c3fih0laarrcq" path="res://addons/godot_gameplay_abilities/scripts/data/magic_field_data.gd" id="6_8hovx"]
+[ext_resource type="Script" uid="uid://c3fih0laarrcq" path="res://addons/godot_gameplay_abilities/scripts/entities/data/magic_field_data.gd" id="6_8hovx"]
 
 [sub_resource type="Resource" id="Resource_xwpiv"]
 script = ExtResource("5_l6qbw")

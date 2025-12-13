@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="GameplayStatusData" load_steps=7 format=3 uid="uid://c22e6y5ag4nhm"]
 
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="1_lpcar"]
-[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/data/status/gameplay_status_data.gd" id="1_status_data"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/core/ability_status/gameplay_status_data.gd" id="1_status_data"]
 [ext_resource type="Resource" uid="uid://cymru0mimuxac" path="res://data/ability_effects/ge_freeze_speed.tres" id="2_freeze_effect"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_yic65"]
 [ext_resource type="Resource" uid="uid://b8k7x2m5oap4w" path="res://data/cues/freeze_cue.tres" id="4_freeze_cue"]

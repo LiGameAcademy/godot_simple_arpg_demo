@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="GameplayCue" load_steps=6 format=3 uid="uid://b8k7x2m5oap4w"]
 
-[ext_resource type="Script" uid="uid://bv8l03cfspmdk" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue.gd" id="1_cue"]
-[ext_resource type="Script" uid="uid://bcymae7pdc1s7" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue_base.gd" id="1_vx0c3"]
-[ext_resource type="Script" uid="uid://cc0tonea2c7ay" path="res://addons/godot_gameplay_abilities/scripts/data/cues/cue_attached_particle.gd" id="2_attached_particle"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_cue.gd" id="1_cue"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_cue_base.gd" id="1_vx0c3"]
+[ext_resource type="Script" uid="uid://cc0tonea2c7ay" path="res://addons/godot_gameplay_abilities/scripts/gameplay_cues/cue_attached_particle.gd" id="2_attached_particle"]
 [ext_resource type="PackedScene" uid="uid://bqfdk5m0dh28o" path="res://prefabs/fx/freeze_particle.tscn" id="3_freeze_particle"]
 
 [sub_resource type="Resource" id="Resource_freeze_particle"]

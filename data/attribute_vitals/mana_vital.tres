@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="GameplayVitalDefinition" load_steps=2 format=3 uid="uid://dddaclqcvm2mt"]
+[gd_resource type="Resource" script_class="ManaVital" load_steps=2 format=3 uid="uid://dddaclqcvm2mt"]
 
-[ext_resource type="Script" uid="uid://di1lkg8naxv2h" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/gameplay_vital_definition.gd" id="1_tanca"]
+[ext_resource type="Script" uid="uid://bqu07lnijvw87" path="res://addons/godot_gameplay_abilities/scripts/attribute_vitals/mana_vital.gd" id="1_tanca"]
 
 [resource]
 script = ExtResource("1_tanca")
@@ -8,4 +8,3 @@ vital_id = &"mana"
 display_name = "魔法值"
 max_value_attribute = &"mana"
 regen_rate_attribute = &"mana_regen"
-metadata/_custom_type_script = "uid://di1lkg8naxv2h"

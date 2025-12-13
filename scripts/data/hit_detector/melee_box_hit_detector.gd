@@ -25,19 +25,16 @@ func _get_targets(caster: Node3D, context: Dictionary = {}) -> Array[Node]:
 	if context.has("facing_direction"):
 		facing_dir = (context["facing_direction"] as Vector3).normalized()
 	elif context.has("facing_angle"):
-		# 从角度计算方向向量
-		# 注意：facing_angle 已包含 +PI 偏移，所以方向向量公式需要调整
-		var facing_angle = context["facing_angle"] as float
-		facing_dir = Vector3(sin(facing_angle), 0.0, cos(facing_angle))
+		# 既然你有角度，直接构建一个绕 Y 轴的旋转即可
+		# 假设 0 度是朝前 (-Z)，那么旋转该角度后的前方就是：
+		facing_dir = Basis.from_euler(Vector3(0, context["facing_angle"], 0)) * Vector3.FORWARD
 	else:
-		# 从 visuals 节点获取
 		var visuals = caster.get_node_or_null("Visuals")
 		if is_instance_valid(visuals) and visuals is Node3D:
-			var facing_angle = (visuals as Node3D).rotation.y
-			# 注意：visuals.rotation.y 已包含 +PI 偏移
-			facing_dir = Vector3(sin(facing_angle), 0.0, cos(facing_angle))
+			# 直接用 Visuals 的 Basis 变换“前方”向量
+			facing_dir = visuals.global_transform.basis * Vector3.FORWARD
 		else:
-			# 使用 transform 的 -Z 轴（Godot 默认朝向）
+			# 使用 transform 的 -Z 轴
 			facing_dir = -caster.global_transform.basis.z
 	
 	# 如果还是没有方向，使用默认方向

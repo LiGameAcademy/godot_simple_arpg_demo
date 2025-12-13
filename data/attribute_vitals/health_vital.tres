@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="GameplayVitalDefinition" load_steps=2 format=3 uid="uid://bv24ikchj5w1h"]
+[gd_resource type="Resource" script_class="HealthVital" load_steps=2 format=3 uid="uid://bv24ikchj5w1h"]
 
-[ext_resource type="Script" uid="uid://di1lkg8naxv2h" path="res://addons/godot_gameplay_abilities/scripts/data/vitals/gameplay_vital_definition.gd" id="1_2e31y"]
+[ext_resource type="Script" uid="uid://c6bk65loe1kkq" path="res://addons/godot_gameplay_abilities/scripts/attribute_vitals/health_vital.gd" id="1_2e31y"]
 
 [resource]
 script = ExtResource("1_2e31y")
+vital_id = &"health"
 display_name = "生命值"
+max_value_attribute = &"health"
 regen_rate_attribute = &"health_regen"
-metadata/_custom_type_script = "uid://di1lkg8naxv2h"

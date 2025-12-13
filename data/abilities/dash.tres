@@ -1,26 +1,37 @@
-[gd_resource type="Resource" script_class="ActiveAbility" load_steps=8 format=3 uid="uid://bq3236nkirgvu"]
+[gd_resource type="Resource" script_class="ActiveAbility" load_steps=13 format=3 uid="uid://bq3236nkirgvu"]
 
-[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="1_682wf"]
-[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="1_active"]
-[ext_resource type="Script" uid="uid://3n073v4axo0p" path="res://addons/godot_gameplay_abilities/scripts/data/costs/vital_cost.gd" id="4_vital_cost"]
-[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/data/status/gameplay_status_data.gd" id="5_31wd8"]
+[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/ability_costs/ability_cost_base.gd" id="1_682wf"]
+[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability.gd" id="1_active"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="3_mm0k8"]
+[ext_resource type="Script" uid="uid://3n073v4axo0p" path="res://addons/godot_gameplay_abilities/scripts/ability_costs/vital_cost.gd" id="4_vital_cost"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/core/ability_status/gameplay_status_data.gd" id="5_31wd8"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="5_icon"]
+[ext_resource type="Resource" uid="uid://cmyacqogly3x5" path="res://data/ability_status/dash_status.tres" id="6_682wf"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="8_jok7k"]
+[ext_resource type="Script" uid="uid://bj10701f03s5k" path="res://addons/godot_gameplay_abilities/scripts/ability_targeting/strategies/self_targeting_strategy.gd" id="9_o4sc8"]
+
+[sub_resource type="Resource" id="Resource_mana_cost"]
+script = ExtResource("4_vital_cost")
+amount = 5.0
+metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/data/costs/vital_cost.gd"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
 atlas = ExtResource("5_icon")
 region = Rect2(416, 96, 32, 32)
 
-[sub_resource type="Resource" id="Resource_mana_cost"]
-script = ExtResource("4_vital_cost")
-metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/data/costs/vital_cost.gd"
+[sub_resource type="Resource" id="Resource_uxwy0"]
+script = ExtResource("9_o4sc8")
+metadata/_custom_type_script = "uid://bj10701f03s5k"
 
 [resource]
 script = ExtResource("1_active")
 cooldown_duration = 2.0
 costs = Array[ExtResource("1_682wf")]([SubResource("Resource_mana_cost")])
 cast_point = 0.0
+targeting_strategy = SubResource("Resource_uxwy0")
 animation_name = &""
 ability_id = &"dash"
 ability_name = "冲刺"
 description = "向面朝方向快速位移，消耗魔法值"
 icon = SubResource("AtlasTexture_icon")
+statuses = Array[ExtResource("5_31wd8")]([ExtResource("6_682wf")])

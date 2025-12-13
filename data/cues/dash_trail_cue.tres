@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="GameplayCue" load_steps=6 format=3 uid="uid://dnhmj6ouvbi2q"]
 
-[ext_resource type="Script" uid="uid://bv8l03cfspmdk" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue.gd" id="1_cue"]
-[ext_resource type="Script" uid="uid://bcymae7pdc1s7" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue_base.gd" id="1_hj631"]
-[ext_resource type="Script" uid="uid://ix0yq7idm5m1" path="res://addons/godot_gameplay_abilities/scripts/data/cues/cue_trail.gd" id="2_trail"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_cue.gd" id="1_cue"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_cue_base.gd" id="1_hj631"]
+[ext_resource type="Script" uid="uid://ix0yq7idm5m1" path="res://addons/godot_gameplay_abilities/scripts/gameplay_cues/cue_trail.gd" id="2_trail"]
 [ext_resource type="Material" uid="uid://cbvutextk4n57" path="res://data/materials/ghost_trail_material.tres" id="3_material"]
 
 [sub_resource type="Resource" id="Resource_trail"]

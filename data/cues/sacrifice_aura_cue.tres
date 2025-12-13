@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="GameplayCue" load_steps=4 format=3 uid="uid://bcp7gpxweokag"]
 
-[ext_resource type="Script" uid="uid://bv8l03cfspmdk" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue.gd" id="1_cue"]
-[ext_resource type="Script" uid="uid://bcymae7pdc1s7" path="res://addons/godot_gameplay_abilities/scripts/data/cues/gameplay_cue_base.gd" id="2_cue_base"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_cue_base.gd" id="1_3d4rm"]
 [ext_resource type="Resource" uid="uid://3n0p666gie3b" path="res://data/cues/sacrifice_aura_cue_attached_particle.tres" id="3_attached_particle"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_cue.gd" id="3_jnf1l"]
 
 [resource]
-script = ExtResource("1_cue")
-cues = Array[ExtResource("2_cue_base")]([ExtResource("3_attached_particle")])
+script = ExtResource("3_jnf1l")
+cues = Array[ExtResource("1_3d4rm")]([ExtResource("3_attached_particle")])
