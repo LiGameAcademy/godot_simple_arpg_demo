@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MultiCastModifier" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/modifiers/multi_cast_modifier.gd" id="1_multicast"]
+
+[resource]
+script = ExtResource("1_multicast")
+extra_projectiles = 2
+only_projectile_abilities = true
+affected_ability_ids = Array[StringName]([&"fireball"])
+source = "talent.arcane_mastery"
+

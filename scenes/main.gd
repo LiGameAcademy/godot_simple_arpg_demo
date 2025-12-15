@@ -34,6 +34,13 @@ func _unhandled_input(event) -> void:
 			inventory_ui.hide()
 		else:
 			inventory_ui.open()
+	
+	# 【测试功能】按 P 键添加 1 个天赋点数
+	if event is InputEventKey and event.pressed and event.keycode == KEY_P:
+		if Engine.has_singleton("TalentManager"):
+			var mgr: TalentManager = Engine.get_singleton("TalentManager")
+			mgr.add_points(1)
+			print("Main: Added 1 talent point (total: %d)" % mgr.available_points)
 
 func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> void:
    # 1. 冻结玩家 (禁止乱动)

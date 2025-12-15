@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TalentData" load_steps=4 format=3 uid="uid://dc05n730gw37d"]
+
+[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/core/modifiers/gameplay_ability_modifier.gd" id="1_f7vka"]
+[ext_resource type="Script" uid="uid://douxicmi8r2jr" path="res://scripts/talent/talent_data.gd" id="1_talent_data"]
+[ext_resource type="Resource" uid="uid://36kjse1wywxi" path="res://data/modifiers/mod_damage_boost.tres" id="2_damage_mod"]
+
+[resource]
+script = ExtResource("1_talent_data")
+talent_id = &"damage_boost"
+display_name = "伤害强化"
+description = "所有技能伤害增加 50%"
+cost = 2
+ability_modifiers = Array[ExtResource("1_f7vka")]([ExtResource("2_damage_mod")])

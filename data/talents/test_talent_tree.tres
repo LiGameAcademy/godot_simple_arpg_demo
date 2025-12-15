@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TalentTreeData" load_steps=7 format=3 uid="uid://7mjb5xu6rh5"]
+
+[ext_resource type="Script" uid="uid://b82j5o1o31hu1" path="res://scripts/talent/talent_tree_data.gd" id="1_talent_tree"]
+[ext_resource type="Script" uid="uid://douxicmi8r2jr" path="res://scripts/talent/talent_data.gd" id="2_57cxx"]
+[ext_resource type="Resource" path="res://data/talents/talent_fireball_multicast.tres" id="2_fireball_multicast"]
+[ext_resource type="Resource" path="res://data/talents/talent_damage_boost.tres" id="3_damage_boost"]
+[ext_resource type="Resource" path="res://data/talents/talent_cooldown_reduction.tres" id="4_cooldown_reduction"]
+[ext_resource type="Resource" path="res://data/talents/talent_arcane_mastery.tres" id="5_arcane_mastery"]
+
+[resource]
+script = ExtResource("1_talent_tree")
+talents = Array[ExtResource("2_57cxx")]([ExtResource("2_fireball_multicast"), ExtResource("3_damage_boost"), ExtResource("4_cooldown_reduction"), ExtResource("5_arcane_mastery")])
+grid_positions = Dictionary[StringName, Vector2i]({
+&"fireball_multicast": Vector2i(0, 0),
+&"damage_boost": Vector2i(1, 0),
+&"cooldown_reduction": Vector2i(1, 1),
+&"arcane_mastery": Vector2i(2, 0)
+})
+metadata/_custom_type_script = "uid://b82j5o1o31hu1"

@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvoh1c8wh5vrc"]
+
+[ext_resource type="Script" uid="uid://c5yqksj5gl37l" path="res://ui/talent_tree.gd" id="1_talent_tree"]
+
+[node name="TalentTree" type="MarginContainer"]
+anchors_preset = -1
+anchor_right = 0.33400002
+anchor_bottom = 0.41000003
+offset_right = 0.7199707
+offset_bottom = 0.19998169
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_talent_tree")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.1, 0.1, 0.15, 0.95)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "天赋树"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PointsLabel" type="Label" parent="VBoxContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "剩余点数: 0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TalentContainer" type="GridContainer" parent="VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 4

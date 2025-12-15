@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=7 format=3 uid="uid://dvradrjclri7g"]
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=8 format=3 uid="uid://dvradrjclri7g"]
 
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="1_e820m"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/core/ability_status/gameplay_status_data.gd" id="1_status_data"]
+[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/core/modifiers/gameplay_ability_modifier.gd" id="1_wnefd"]
 [ext_resource type="Resource" uid="uid://dpwtcvsb7yse0" path="res://data/ability_effects/ge_burn_damage.tres" id="2_burn_effect"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_ktw0n"]
 [ext_resource type="Resource" uid="uid://b8k7x2m5oap4v" path="res://data/cues/burn_cue.tres" id="4_burn_cue"]

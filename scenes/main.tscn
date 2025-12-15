@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://30orglekea3b"]
+[gd_scene load_steps=33 format=3 uid="uid://30orglekea3b"]
 
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
@@ -27,6 +27,8 @@
 [ext_resource type="PackedScene" uid="uid://b8k7x2m5oap4q" path="res://ui/status_debug_panel.tscn" id="25_2wyq8"]
 [ext_resource type="Script" uid="uid://bguhd2ngg3kqx" path="res://scripts/camera/camera_controller.gd" id="25_og1vs"]
 [ext_resource type="PackedScene" uid="uid://dak7x2m5oap5r" path="res://addons/godot_gameplay_abilities/ui/tag_debug_panel.tscn" id="26_vxglm"]
+[ext_resource type="PackedScene" uid="uid://cvoh1c8wh5vrc" path="res://ui/talent_tree.tscn" id="27_talent_tree"]
+[ext_resource type="Resource" path="res://data/talents/test_talent_tree.tres" id="28_talent_tree_data"]
 
 [sub_resource type="Resource" id="Resource_ya4ey"]
 script = ExtResource("3_choun")
@@ -181,6 +183,23 @@ offset_right = 0.0
 offset_bottom = 549.0
 grow_horizontal = 0
 toggle_action = null
+
+[node name="TalentTree" parent="UILayer/HUD" instance=ExtResource("27_talent_tree")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -240.0
+offset_right = 360.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+talent_tree = ExtResource("28_talent_tree_data")
+toggle_action = "toggle_talent_tree"
+target_entity = NodePath("../../../../RoomLobby/Player")
 
 [node name="CameraController" type="Node" parent="."]
 script = ExtResource("25_og1vs")
