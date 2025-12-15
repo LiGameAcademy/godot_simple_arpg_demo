@@ -1,12 +1,9 @@
-[gd_resource type="Resource" script_class="GameplayTag" load_steps=0 format=3]
+[gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3 uid="uid://cutv8o7eik8gg"]
 
 [ext_resource type="Script" uid="uid://12dkgrpr4i3b" path="res://addons/godot_gameplay_abilities/scripts/core/tags/gameplay_tag.gd" id="1_tag"]
-
 
 [resource]
 script = ExtResource("1_tag")
 id = &"status"
 display_name = "状态"
 description = "基础状态标签"
-category = "Status"
-

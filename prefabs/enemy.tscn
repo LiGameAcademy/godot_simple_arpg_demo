@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c8pswujmax0c7"]
+[gd_scene load_steps=26 format=3 uid="uid://c8pswujmax0c7"]
 
 [ext_resource type="PackedScene" uid="uid://chxbrq7xxhfka" path="res://assets/scenes/skeleton_warrior.tscn" id="1_6n8dw"]
 [ext_resource type="Script" uid="uid://bc4abtmpomeeh" path="res://prefabs/enemy.gd" id="1_yfjof"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/core/attributes/gameplay_attribute.gd" id="15_p7wsu"]
 [ext_resource type="Script" uid="uid://bnmtf7f5mast7" path="res://addons/godot_gameplay_abilities/scripts/core/attributes/scalable_value.gd" id="16_aorgn"]
 [ext_resource type="Resource" uid="uid://cnl60y2fr7q1b" path="res://data/attributes/health.tres" id="16_d5xr2"]
+[ext_resource type="Resource" uid="uid://s0enk0k8apaf" path="res://data/attributes/defense.tres" id="16_p7wsu"]
 [ext_resource type="Script" uid="uid://deeb5kb27c70s" path="res://addons/godot_gameplay_abilities/scripts/components/gameplay_ability_component.gd" id="17_2rulf"]
 [ext_resource type="Script" uid="uid://bfscgs86ck8ao" path="res://addons/godot_gameplay_abilities/scripts/components/gameplay_status_component.gd" id="17_p7wsu"]
 [ext_resource type="Script" uid="uid://bi5jbjke61sbe" path="res://addons/godot_gameplay_abilities/scripts/components/visual_adapter/visual_adapter_animation_tree.gd" id="18_aorgn"]
@@ -42,12 +43,13 @@ metadata/_custom_type_script = "uid://c6bk65loe1kkq"
 [sub_resource type="Resource" id="Resource_6pfhn"]
 script = ExtResource("14_aorgn")
 attributes = Dictionary[ExtResource("15_p7wsu"), float]({
-ExtResource("16_d5xr2"): 100.0
+ExtResource("16_d5xr2"): 100.0,
+ExtResource("16_p7wsu"): 0.0
 })
 metadata/_custom_type_script = "uid://ccgjxcr56jc2h"
 
 [node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("ability_component", "_visual_adapter", "_attachment_point_mapping") groups=["Entities"]]
-collision_layer = 12
+collision_layer = 8
 script = ExtResource("1_yfjof")
 loot_scene = ExtResource("2_cypye")
 ability_component = NodePath("GameplayAbilityComponent")
@@ -60,66 +62,66 @@ _attachment_point_mapping = {
 [node name="Skeleton_Warrior" parent="." instance=ExtResource("1_6n8dw")]
 
 [node name="Skeleton3D" parent="Skeleton_Warrior/Rig_Medium" index="0"]
-bones/1/position = Vector3(7.167187e-09, 0.3028289, -0.030061364)
+bones/1/position = Vector3(7.167187e-09, 0.28340966, -0.030061364)
 bones/1/rotation = Quaternion(2.255949e-10, 0.17319314, 2.5649072e-09, 0.9848879)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/rotation = Quaternion(0.11676573, -0.12958969, 0.025773186, 0.98433125)
 bones/2/scale = Vector3(1, 1, 1.0000001)
-bones/3/rotation = Quaternion(0.28921732, -0.0083249565, 0.01087098, 0.9571656)
+bones/3/rotation = Quaternion(0.28979948, -0.012654492, 0.003555668, 0.9569972)
 bones/3/scale = Vector3(1, 0.99999994, 1)
 bones/4/position = Vector3(-0.21200739, 0.13413239, 2.3664171e-08)
-bones/4/rotation = Quaternion(-0.79875916, 0.11968577, 0.45419365, 0.37598872)
+bones/4/rotation = Quaternion(-0.8079954, 0.1097686, 0.41344655, 0.40516222)
 bones/4/scale = Vector3(0.9999993, 0.9999993, 0.99999976)
-bones/5/rotation = Quaternion(1.7675488e-08, 6.4447796e-08, 0.4496523, 0.89320374)
+bones/5/rotation = Quaternion(-1.4070844e-08, 2.269985e-08, 0.56856704, 0.822637)
 bones/5/scale = Vector3(1.0000002, 0.9999999, 0.99999994)
 bones/6/rotation = Quaternion(-7.297441e-09, 4.2303276e-09, -0.026658092, 0.99964464)
 bones/6/scale = Vector3(0.99999994, 0.99999994, 0.99999994)
-bones/7/rotation = Quaternion(-0.34406132, 0.40461817, -0.074878134, 0.84397817)
+bones/7/rotation = Quaternion(-0.3474517, 0.41810748, -0.13030612, 0.8291464)
 bones/7/scale = Vector3(1, 0.99999994, 0.99999994)
 bones/8/position = Vector3(-5.138423e-10, 0.096125096, -0.057500005)
 bones/8/rotation = Quaternion(-6.7158483e-09, -4.808679e-09, 0.7071068, 0.7071067)
 bones/8/scale = Vector3(0.99999994, 1, 0.99999994)
 bones/9/position = Vector3(0.21200736, 0.13413227, 8.487841e-08)
-bones/9/rotation = Quaternion(-0.76482826, -0.18021867, -0.49921867, 0.36515728)
+bones/9/rotation = Quaternion(-0.7720672, -0.15347831, -0.46903756, 0.4004503)
 bones/9/scale = Vector3(0.99999934, 0.99999934, 0.99999976)
-bones/10/rotation = Quaternion(4.463157e-08, -5.7824632e-08, -0.61624026, 0.78755826)
+bones/10/rotation = Quaternion(4.2139376e-08, -3.0660708e-08, -0.638362, 0.76973635)
 bones/10/scale = Vector3(1.0000002, 0.9999999, 0.99999994)
 bones/11/rotation = Quaternion(7.797047e-09, -1.1281024e-08, 0.026658095, 0.99964464)
 bones/11/scale = Vector3(0.99999994, 0.99999994, 0.99999994)
-bones/12/rotation = Quaternion(-0.1233996, -0.61046076, 0.013430033, 0.7822595)
+bones/12/rotation = Quaternion(-0.13881089, -0.603521, 0.02568683, 0.78475106)
 bones/12/scale = Vector3(1, 0.99999994, 0.99999994)
 bones/13/position = Vector3(5.1384585e-10, 0.09612511, -0.057500005)
 bones/13/rotation = Quaternion(-0.025259204, -0.00061355764, -0.5007622, 0.86521614)
 bones/13/scale = Vector3(0.99999994, 1, 0.99999994)
-bones/14/rotation = Quaternion(-0.27902427, 0.013026045, 0.09322557, 0.95565933)
+bones/14/rotation = Quaternion(-0.27870244, 0.031718764, 0.123722896, 0.9518464)
 bones/14/scale = Vector3(1, 1, 0.9999999)
 bones/15/position = Vector3(0.17094505, 0.11358723, 1.12356435e-08)
-bones/15/rotation = Quaternion(0.9233989, 0.13696623, 0.21920548, 0.28376722)
+bones/15/rotation = Quaternion(0.9135303, 0.1449154, 0.22261858, 0.3080634)
 bones/15/scale = Vector3(1, 0.9999998, 1.0000012)
-bones/16/rotation = Quaternion(0.64232403, 4.3606608e-08, -4.6155557e-07, 0.76643324)
+bones/16/rotation = Quaternion(0.698145, 3.728239e-08, -4.847407e-07, 0.7159564)
 bones/16/scale = Vector3(1, 1.0000005, 1.0000001)
-bones/17/rotation = Quaternion(-0.6105786, -0.36776158, 0.19674082, 0.6732298)
+bones/17/rotation = Quaternion(-0.639644, -0.35212305, 0.22665982, 0.6445854)
 bones/17/scale = Vector3(1, 1.0000008, 0.99999875)
 bones/18/rotation = Quaternion(-0.00023576771, 0.9200985, -0.391687, 5.0715622e-05)
 bones/18/scale = Vector3(1, 0.9999966, 1.0000037)
 bones/19/position = Vector3(-0.1776051, 0.1135872, 0.07694323)
-bones/19/rotation = Quaternion(0.919175, -0.23298092, 0.2852206, 0.13959432)
+bones/19/rotation = Quaternion(0.9136224, -0.25119948, 0.28015906, 0.15396099)
 bones/19/scale = Vector3(0.9999998, 0.9999999, 1.0000013)
-bones/20/rotation = Quaternion(0.64878184, -6.1507265e-08, 4.7523582e-07, 0.76097447)
+bones/20/rotation = Quaternion(0.70408994, -2.8135823e-08, 5.057005e-07, 0.7101108)
 bones/20/scale = Vector3(1, 1.0000005, 1.0000001)
-bones/21/rotation = Quaternion(-0.7335981, 0.11047422, -0.18848714, 0.64350754)
+bones/21/rotation = Quaternion(-0.7647865, 0.094089724, -0.20590569, 0.6032012)
 bones/21/scale = Vector3(1, 1.0000008, 0.99999875)
 bones/22/rotation = Quaternion(0.00029589876, 0.9201205, -0.39163563, -6.2588464e-05)
 bones/22/scale = Vector3(1, 0.9999966, 1.0000037)
 
 [node name="head" parent="Skeleton_Warrior/Rig_Medium/Skeleton3D" index="0"]
-transform = Transform3D(0.9791459, -0.19970405, 0.03730465, 0.2024972, 0.94456136, -0.25845447, 0.016377863, 0.26061863, 0.96530294, 0.005966902, 1.0411035, 0.25666147)
+transform = Transform3D(0.9665571, -0.25124118, 0.051432524, 0.2559281, 0.9321779, -0.25601754, 0.016377866, 0.26061863, 0.96530294, 0.009068487, 1.021556, 0.25666147)
 
 [node name="HandAttachmentR" parent="Skeleton_Warrior/Rig_Medium/Skeleton3D" index="10"]
-transform = Transform3D(-0.14547122, -0.63154703, -0.76156706, -0.96905184, -0.06421378, 0.2383555, -0.1994361, 0.772673, -0.60266155, -0.57064927, 0.591825, -0.047266155)
+transform = Transform3D(-0.1518451, -0.5687058, -0.8084028, -0.9795835, -0.022429261, 0.19977784, -0.13174681, 0.82223433, -0.5536896, -0.5659748, 0.60181546, 0.022843938)
 
 [node name="HeadAttachment" parent="Skeleton_Warrior/Rig_Medium/Skeleton3D" index="11"]
-transform = Transform3D(0.9791459, -0.19970405, 0.03730465, 0.2024972, 0.94456136, -0.25845447, 0.016377863, 0.26061863, 0.96530294, 0.005966902, 1.0411035, 0.25666147)
+transform = Transform3D(0.9665571, -0.25124118, 0.051432524, 0.2559281, 0.9321779, -0.25601754, 0.016377866, 0.26061863, 0.96530294, 0.009068487, 1.021556, 0.25666147)
 
 [node name="AnimationPlayer" parent="Skeleton_Warrior" index="1"]
 libraries = {

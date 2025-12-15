@@ -1,8 +1,6 @@
-[gd_resource type="Resource" script_class="GameplayTag" load_steps=0 format=3]
+[gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3 uid="uid://cesk3lyfyhfh3"]
 
 [ext_resource type="Script" uid="uid://12dkgrpr4i3b" path="res://addons/godot_gameplay_abilities/scripts/core/tags/gameplay_tag.gd" id="1_tag"]
-[ext_resource type="Resource" path="res://data/tags/element.tres" id="2_element"]
-
 
 [resource]
 script = ExtResource("1_tag")
@@ -10,5 +8,3 @@ id = &"element.fire"
 display_name = "火焰"
 description = "火焰元素效果"
 parent_tag_id = &"element"
-category = "Element"
-

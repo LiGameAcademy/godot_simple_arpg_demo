@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3 uid="uid://pn0s2hiorxk3"]
+
+[ext_resource type="Script" uid="uid://12dkgrpr4i3b" path="res://addons/godot_gameplay_abilities/scripts/core/tags/gameplay_tag.gd" id="1_tag"]
+
+[resource]
+script = ExtResource("1_tag")
+id = &"state.stunned"
+display_name = "眩晕"
+description = "无法移动、无法释放技能"

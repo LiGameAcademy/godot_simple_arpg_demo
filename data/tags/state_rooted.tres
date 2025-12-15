@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3]
+
+[ext_resource type="Script" uid="uid://12dkgrpr4i3b" path="res://addons/godot_gameplay_abilities/scripts/core/tags/gameplay_tag.gd" id="1_tag"]
+[ext_resource type="Resource" uid="uid://bq3236nkirgvu" path="res://data/tags/status_crowd_control.tres" id="2_parent"]
+
+[resource]
+script = ExtResource("1_tag")
+id = &"state.rooted"
+display_name = "定身"
+description = "无法移动"
+category = "Status"
+parent_tag_id = ExtResource("2_parent").id
+

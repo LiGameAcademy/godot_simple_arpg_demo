@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvjg0xhxb6qxt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_stun"]
+blend_mode = 1
+shading_mode = 0
+albedo_color = Color(1, 0.9, 0.2, 0.9)
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_stun"]
+material = SubResource("StandardMaterial3D_stun")
+size = Vector2(0.6, 0.6)
+
+[sub_resource type="Animation" id="Animation_rotate"]
+resource_name = "rotate"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array()
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_stun"]
+_data = {
+&"rotate": SubResource("Animation_rotate")
+}
+
+[node name="StunParticle" type="Node3D"]
+
+[node name="Star1" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_stun")
+
+[node name="Star2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+mesh = SubResource("QuadMesh_stun")
+
+[node name="Star3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
+mesh = SubResource("QuadMesh_stun")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_stun")
+}
+autoplay = "rotate"

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/core/ability_status/gameplay_status_data.gd" id="1_status_data"]
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="2_effect"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="3_krgsm"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="3_krgsm"]
 [ext_resource type="Script" uid="uid://ckfk7hyooiepk" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_single_frame_motion.gd" id="4_57rrq"]
 [ext_resource type="Resource" uid="uid://dnhmj6ouvbi2q" path="res://data/cues/dash_trail_cue.tres" id="4_trail_cue"]
 
@@ -15,8 +15,9 @@ distance = 0.2
 script = ExtResource("1_status_data")
 status_id = &"dash"
 status_display_name = "冲刺"
-status_description = "快速位移状态"
+status_description = "快速位移状态，期间免疫伤害"
 duration = 0.5
+tags = Array[StringName]([&"state.invulnerable"])
 periodic_effects = Array[ExtResource("2_effect")]([SubResource("Resource_b252k")])
 period = 0.02
 cue = ExtResource("4_trail_cue")

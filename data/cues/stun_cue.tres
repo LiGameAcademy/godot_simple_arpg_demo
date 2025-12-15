@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GameplayCue" load_steps=4 format=3 uid="uid://r5isxkmbo25x"]
+
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_cue_base.gd" id="1_3d6ax"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_cue.gd" id="1_cue"]
+[ext_resource type="Resource" uid="uid://bbsquw5qiectj" path="res://data/cues/stun_cue_attached_particle.tres" id="2_attached_particle"]
+
+[resource]
+script = ExtResource("1_cue")
+cues = Array[ExtResource("1_3d6ax")]([ExtResource("2_attached_particle")])

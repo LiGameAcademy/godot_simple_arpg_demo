@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=6 format=3 uid="uid://bo5osxxcsy4th"]
+
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/core/ability_status/gameplay_status_data.gd" id="1_status_data"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="2_bmq05"]
+[ext_resource type="Resource" uid="uid://r5isxkmbo25x" path="res://data/cues/stun_cue.tres" id="2_stun_cue"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_l05es"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5othc"]
+atlas = ExtResource("3_l05es")
+region = Rect2(352, 96, 32, 32)
+
+[resource]
+script = ExtResource("1_status_data")
+status_id = &"stunned"
+status_display_name = "眩晕"
+status_description = "无法移动、无法释放技能"
+duration = 2.0
+icon = SubResource("AtlasTexture_5othc")
+is_debuff = true
+tags = Array[StringName]([&"state.stunned"])
+cue = ExtResource("2_stun_cue")

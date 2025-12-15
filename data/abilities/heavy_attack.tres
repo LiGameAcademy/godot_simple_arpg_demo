@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ActiveAbility" load_steps=16 format=3 uid="uid://op60b7h2ejrt"]
+[gd_resource type="Resource" script_class="ActiveAbility" load_steps=17 format=3 uid="uid://op60b7h2ejrt"]
 
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/ability_costs/ability_cost_base.gd" id="1_bvqjp"]
 [ext_resource type="Script" uid="uid://c1loowqhvoix0" path="res://scripts/data/hit_detector/melee_box_hit_detector.gd" id="2_nj71f"]
@@ -18,6 +18,7 @@ region = Rect2(64, 96, 32, 32)
 [sub_resource type="Resource" id="Resource_damage"]
 script = ExtResource("9_kawta")
 damage_multiplier = 1.2
+target_blocked_tags = Array[StringName]([&"state.invulnerable"])
 cue = ExtResource("7_bvqjp")
 
 [sub_resource type="Resource" id="Resource_lbseu"]
@@ -27,6 +28,15 @@ status_display_name = "攻击伤害"
 status_description = "对目标造成物理伤害"
 duration = 0.0
 effects = Array[ExtResource("6_c0vht")]([SubResource("Resource_damage")])
+
+[sub_resource type="Resource" id="Resource_stunned"]
+script = ExtResource("5_ld5ic")
+status_id = &"stunned"
+status_display_name = "眩晕"
+status_description = "无法移动、无法释放技能"
+duration = 2.0
+is_debuff = true
+tags = Array[StringName]([&"state.stunned"])
 
 [sub_resource type="Resource" id="Resource_kawta"]
 script = ExtResource("2_nj71f")
@@ -48,7 +58,7 @@ targeting_strategy = SubResource("Resource_j6113")
 animation_name = &"jump_attack"
 ability_id = &"heavy_attack"
 ability_name = "重击"
-description = "对目标造成双倍物理伤害"
+description = "对目标造成双倍物理伤害并眩晕"
 icon = SubResource("AtlasTexture_b4kma")
-statuses = Array[ExtResource("5_ld5ic")]([SubResource("Resource_lbseu")])
+statuses = Array[ExtResource("5_ld5ic")]([SubResource("Resource_lbseu"), SubResource("Resource_stunned")])
 metadata/_custom_type_script = "uid://cbvhifiid5vg6"

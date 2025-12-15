@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CueAttachedParticle" load_steps=3 format=3 uid="uid://bbsquw5qiectj"]
+
+[ext_resource type="Script" uid="uid://cc0tonea2c7ay" path="res://addons/godot_gameplay_abilities/scripts/gameplay_cues/cue_attached_particle.gd" id="1_attached_particle"]
+[ext_resource type="PackedScene" uid="uid://bvjg0xhxb6qxt" path="res://prefabs/fx/stun_particle.tscn" id="2_stun_scene"]
+
+[resource]
+script = ExtResource("1_attached_particle")
+particle_scene = ExtResource("2_stun_scene")
+attachment_point = &"head"
+offset = Vector3(0, 1.5, 0)

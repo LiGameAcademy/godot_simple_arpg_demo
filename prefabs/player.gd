@@ -88,6 +88,15 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 		
+	# 【标签系统】检查是否被眩晕或定身（无法移动）
+	if TagManager.has_tag(self, &"state.stunned") or TagManager.has_tag(self, &"state.rooted"):
+		# 眩晕/定身状态：停止移动，但保持重力
+		velocity.x = move_toward(velocity.x, 0, acceleration * delta)
+		velocity.z = move_toward(velocity.z, 0, acceleration * delta)
+		_set_movement_blend_position(velocity.length())
+		move_and_slide()
+		return
+	
 	# 1. 获取输入 (2D向量)
 	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 

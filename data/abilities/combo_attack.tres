@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CombatAbility" load_steps=11 format=3 uid="uid://dqyj5y5ta5vje"]
+[gd_resource type="Resource" script_class="CombatAbility" load_steps=14 format=3 uid="uid://dqyj5y5ta5vje"]
 
 [ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability.gd" id="1_qe3at"]
 [ext_resource type="Resource" uid="uid://1ec04wtsoes" path="res://data/abilities/basic_attack.tres" id="2_b1qqw"]
@@ -9,15 +9,22 @@
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="6_qe3at"]
 [ext_resource type="Script" uid="uid://dbgy7d7syxo20" path="res://addons/godot_gameplay_abilities/scripts/abilities/combat_ability.gd" id="7_ki1wn"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/core/ability_status/gameplay_status_data.gd" id="8_2eavr"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="10_pc1gt"]
+[ext_resource type="Script" uid="uid://l0ydg4ja0w6h" path="res://addons/godot_gameplay_abilities/scripts/ability_targeting/strategies/no_targeting_strategy.gd" id="11_ufw6m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nru6w"]
 atlas = ExtResource("5_oa4id")
 region = Rect2(384, 96, 32, 32)
 
+[sub_resource type="Resource" id="Resource_oa4id"]
+script = ExtResource("11_ufw6m")
+metadata/_custom_type_script = "uid://l0ydg4ja0w6h"
+
 [resource]
 script = ExtResource("7_ki1wn")
 _combo_abilities = Array[ExtResource("1_qe3at")]([ExtResource("2_b1qqw"), ExtResource("3_pc1gt"), ExtResource("4_ufw6m")])
 cooldown_duration = 0.6
+targeting_strategy = SubResource("Resource_oa4id")
 animation_name = &""
 ability_id = &"basic_attack"
 ability_name = "普通攻击"
