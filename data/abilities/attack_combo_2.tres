@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_7mol0"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/core/ability_status/gameplay_status_data.gd" id="5_celuk"]
 [ext_resource type="Resource" uid="uid://cm427jpisp2qa" path="res://data/ability_status/attack_combo_1_status.tres" id="6_celuk"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="7_7iofi"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="7_7iofi"]
 [ext_resource type="Script" uid="uid://c7ywlq8qjjxps" path="res://addons/godot_gameplay_abilities/scripts/ability_targeting/strategies/hit_detector_targeting_strategy.gd" id="9_7kj7r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3g35k"]

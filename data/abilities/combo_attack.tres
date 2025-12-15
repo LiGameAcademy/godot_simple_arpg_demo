@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="6_qe3at"]
 [ext_resource type="Script" uid="uid://dbgy7d7syxo20" path="res://addons/godot_gameplay_abilities/scripts/abilities/combat_ability.gd" id="7_ki1wn"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/core/ability_status/gameplay_status_data.gd" id="8_2eavr"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="10_pc1gt"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="10_pc1gt"]
 [ext_resource type="Script" uid="uid://l0ydg4ja0w6h" path="res://addons/godot_gameplay_abilities/scripts/ability_targeting/strategies/no_targeting_strategy.gd" id="11_ufw6m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nru6w"]

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/tags/gameplay_tag.gd" id="1_tag"]
+
+[resource]
+script = ExtResource("1_tag")
+id = &"status.poison"
+display_name = "中毒"
+description = "目标处于中毒状态，可与火元素发生反应转化为燃烧"
+parent_tag_id = &"status.debuff"
+
+

@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://bcp7gpxweokag" path="res://data/cues/sacrifice_aura_cue.tres" id="1_kbhe2"]
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="2_p8m0x"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="3_kbhe2"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="3_kbhe2"]
 [ext_resource type="Script" uid="uid://c2intvx8ht0fd" path="res://addons/godot_gameplay_abilities/scripts/hit_detection/area_hit_detector.gd" id="4_pdvbd"]
 [ext_resource type="Script" uid="uid://brkaigkkglncm" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_apply_to_area_targets.gd" id="5_ha53m"]
 [ext_resource type="Resource" uid="uid://b5k7x2m5oap4s" path="res://data/cues/hit_cue_physical_wrapper.tres" id="6_05x6f"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/core/ability_status/gameplay_status_data.gd" id="1_status_data"]
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="2_effect"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="3_csbya"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="3_csbya"]
 [ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_apply_damage.gd" id="3_damage"]
 [ext_resource type="Resource" uid="uid://b5k7x2m5oap4s" path="res://data/cues/hit_cue_physical_wrapper.tres" id="5_physical_cue"]
 

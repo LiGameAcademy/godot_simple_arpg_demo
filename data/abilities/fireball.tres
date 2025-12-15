@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://biqqmmq83881j" path="res://addons/godot_gameplay_abilities/scripts/ability_targeting/strategies/unit_targeting_strategy.gd" id="6_unit_targeting"]
 [ext_resource type="PackedScene" uid="uid://csynuqnu7jq4p" path="res://prefabs/fire_ball.tscn" id="7_07wpr"]
 [ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_apply_damage.gd" id="7_hsgk6"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="8_mbewx"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="8_mbewx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
 atlas = ExtResource("5_icon")
@@ -28,9 +28,12 @@ damage_multiplier = 2.0
 cue = ExtResource("6_hsgk6")
 metadata/_custom_type_script = "uid://uhmb38g5nej3"
 
+[ext_resource type="Resource" path="res://data/ability_effects/ge_poison_to_burn.tres" id="9_poison_to_burn"]
+
 [sub_resource type="Resource" id="Resource_ivnfh"]
 script = ExtResource("4_07wpr")
-effects = Array[ExtResource("2_effect")]([SubResource("Resource_mbewx")])
+duration = 0.0
+effects = Array[ExtResource("2_effect")]([SubResource("Resource_mbewx"), ExtResource("9_poison_to_burn")])
 metadata/_custom_type_script = "uid://c068pgasfc70p"
 
 [sub_resource type="Resource" id="Resource_hsgk6"]
@@ -41,6 +44,7 @@ movement_strategy = SubResource("Resource_07wpr")
 projectile_scene = ExtResource("7_07wpr")
 payload_statuses = Array[ExtResource("4_07wpr")]([SubResource("Resource_ivnfh")])
 on_destory_magic_field_data = ExtResource("4_hsgk6")
+required_trigger_target_tags = Array[StringName]([&"status.burn"])
 metadata/_custom_type_script = "uid://b2nxkgycmifbj"
 
 [sub_resource type="Resource" id="Resource_unit_targeting"]

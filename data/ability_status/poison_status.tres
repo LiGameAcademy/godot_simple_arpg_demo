@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=7 format=3]
+
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="1_effect_base"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/core/ability_status/gameplay_status_data.gd" id="1_status_data"]
+[ext_resource type="Resource" path="res://data/ability_effects/ge_poison_damage.tres" id="2_poison_effect"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_icon"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_poison"]
+atlas = ExtResource("3_icon")
+region = Rect2(320, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_status_data")
+status_id = &"poison"
+status_display_name = "中毒"
+status_description = "持续受到毒素伤害"
+duration = 8.0
+icon = SubResource("AtlasTexture_poison")
+is_debuff = true
+tags = Array[StringName]([&"status.debuff", &"element.poison", &"status.poison"])
+periodic_effects = Array[ExtResource("1_effect_base")]([ExtResource("2_poison_effect")])
+period = 1.0
+stacking_policy = 0
+max_stacks = 5
+priority = 1
+
+

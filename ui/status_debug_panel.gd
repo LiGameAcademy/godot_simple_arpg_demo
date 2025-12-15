@@ -213,7 +213,8 @@ func _on_add_status_pressed() -> void:
 		return
 	
 	# 应用状态
-	_selected_component.apply_status(status_data, _selected_entity)
+	var player = get_tree().get_first_node_in_group("Player")
+	_selected_component.apply_status(status_data, player)
 	
 	# 更新显示
 	_update_status_display()

@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="ActiveAbility" load_steps=12 format=3]
+
+[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/ability_costs/ability_cost_base.gd" id="1_cost_base"]
+[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability.gd" id="2_active_ability"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="3_effect_base"]
+[ext_resource type="Script" uid="uid://bj10701f03s5k" path="res://addons/godot_gameplay_abilities/scripts/ability_targeting/strategies/self_targeting_strategy.gd" id="4_self_targeting"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="5_icon"]
+[ext_resource type="Resource" path="res://data/ability_effects/ge_dispel_debuffs.tres" id="6_dispel_effect"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cleanse"]
+atlas = ExtResource("5_icon")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="Resource" id="Resource_self_targeting"]
+script = ExtResource("4_self_targeting")
+
+[sub_resource type="Resource" id="Resource_dispel_status"]
+script = ExtResource("3_effect_base")
+metadata/_custom_type_script = "uid://c1b8yx546msla"
+
+[resource]
+script = ExtResource("2_active_ability")
+cooldown_duration = 8.0
+cast_point = 0.0
+targeting_strategy = SubResource("Resource_self_targeting")
+effects = Array[ExtResource("3_effect_base")]([ExtResource("6_dispel_effect")])
+animation_name = &""
+ability_id = &"cleanse"
+ability_name = "净化"
+description = "驱散自身身上所有带有 status.debuff 标签的负面状态"
+icon = SubResource("AtlasTexture_cleanse")
+
+
