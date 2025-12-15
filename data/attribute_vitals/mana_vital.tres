@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ManaVital" load_steps=2 format=3 uid="uid://dddaclqcvm2mt"]
 
-[ext_resource type="Script" uid="uid://bqu07lnijvw87" path="res://addons/godot_gameplay_abilities/scripts/attribute_vitals/mana_vital.gd" id="1_tanca"]
+[ext_resource type="Script" uid="uid://bqu07lnijvw87" path="res://addons/godot_gameplay_abilities/scripts/attributes/vitals/mana_vital.gd" id="1_tanca"]
 
 [resource]
 script = ExtResource("1_tanca")

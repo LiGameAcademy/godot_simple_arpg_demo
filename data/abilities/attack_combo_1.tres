@@ -1,9 +1,10 @@
 [gd_resource type="Resource" script_class="ActiveAbility" load_steps=5 format=3 uid="uid://bi570lo0bl567"]
 
-[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="2_yew1t"]
+[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability.gd" id="2_yew1t"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_7mol0"]
-[ext_resource type="Resource" uid="uid://c8k7x2m5oap5a" path="res://data/status/attack_combo_1_status.tres" id="4_status"]
-[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/data/costs/ability_cost_base.gd" id="1_fbpwn"]
+[ext_resource type="Resource" path="res://data/status/attack_combo_1_status.tres" id="4_status"]
+[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/costs/ability_cost_base.gd" id="1_fbpwn"]
+
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3g35k"]
 atlas = ExtResource("3_7mol0")

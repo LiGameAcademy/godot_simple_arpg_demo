@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://c7um4ug20u3qv"]
 
-[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/data/attributes/gameplay_attribute.gd" id="1_x72ht"]
+[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute.gd" id="1_x72ht"]
 
 [resource]
 script = ExtResource("1_x72ht")

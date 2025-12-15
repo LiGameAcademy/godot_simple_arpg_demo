@@ -1,16 +1,16 @@
 [gd_resource type="Resource" script_class="ActiveAbility" load_steps=18 format=3 uid="uid://op60b7h2ejrt"]
 
-[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/ability_costs/ability_cost_base.gd" id="1_bvqjp"]
+[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/costs/ability_cost_base.gd" id="1_bvqjp"]
 [ext_resource type="Script" uid="uid://c1loowqhvoix0" path="res://scripts/data/hit_detector/melee_box_hit_detector.gd" id="2_nj71f"]
 [ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability.gd" id="2_yew1t"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_7mol0"]
-[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/core/ability_status/gameplay_status_data.gd" id="5_ld5ic"]
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="6_c0vht"]
-[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/core/modifiers/gameplay_ability_modifier.gd" id="6_kawta"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="5_ld5ic"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="6_c0vht"]
+[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="6_kawta"]
 [ext_resource type="Resource" uid="uid://b5k7x2m5oap4s" path="res://data/cues/hit_cue_physical_wrapper.tres" id="7_bvqjp"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="8_c0vht"]
-[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_apply_damage.gd" id="9_kawta"]
-[ext_resource type="Script" uid="uid://c7ywlq8qjjxps" path="res://addons/godot_gameplay_abilities/scripts/ability_targeting/strategies/hit_detector_targeting_strategy.gd" id="10_bvqjp"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="8_c0vht"]
+[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_apply_damage.gd" id="9_kawta"]
+[ext_resource type="Script" uid="uid://c7ywlq8qjjxps" path="res://addons/godot_gameplay_abilities/scripts/targeting/strategies/hit_detector_targeting_strategy.gd" id="10_bvqjp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b4kma"]
 atlas = ExtResource("3_7mol0")

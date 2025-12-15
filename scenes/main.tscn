@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
-[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/core/attributes/gameplay_attribute.gd" id="2_gqmmt"]
+[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute.gd" id="2_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://vf0i84fp8dp8" path="res://prefabs/player.tscn" id="2_tbgi4"]
 [ext_resource type="Script" path="res://scripts/data/game_data.gd" id="3_choun"]
 [ext_resource type="PackedScene" uid="uid://5u5shejmnm2d" path="res://scenes/room_dungeon.tscn" id="3_tefeu"]
@@ -20,15 +20,15 @@
 [ext_resource type="Resource" uid="uid://4whsfl0n6my5" path="res://data/attributes/strength.tres" id="12_fv21b"]
 [ext_resource type="Resource" uid="uid://c2yg48kmsw702" path="res://data/attributes/vitality.tres" id="13_tel4y"]
 [ext_resource type="PackedScene" uid="uid://b1t1sf3ftqb3f" path="res://prefabs/teleporter.tscn" id="17_y6deb"]
-[ext_resource type="PackedScene" uid="uid://cy0dcmicruxib" path="res://addons/godot_gameplay_abilities/ui/attribute_dashboard.tscn" id="21_yc10j"]
-[ext_resource type="PackedScene" uid="uid://dqwcrgpax3tr5" path="res://addons/godot_gameplay_abilities/ui/attribute_row.tscn" id="22_jscy8"]
+[ext_resource type="PackedScene" path="res://addons/godot_gameplay_abilities/ui/attribute_dashboard.tscn" id="21_yc10j"]
+[ext_resource type="PackedScene" path="res://addons/godot_gameplay_abilities/ui/attribute_row.tscn" id="22_jscy8"]
 [ext_resource type="PackedScene" uid="uid://bsrgdmu7j2fgc" path="res://ui/vital_hud.tscn" id="23_vital"]
 [ext_resource type="PackedScene" uid="uid://dejtvj01nnaqw" path="res://ui/ability_bar.tscn" id="24_y6deb"]
 [ext_resource type="PackedScene" uid="uid://b8k7x2m5oap4q" path="res://ui/status_debug_panel.tscn" id="25_2wyq8"]
 [ext_resource type="Script" uid="uid://bguhd2ngg3kqx" path="res://scripts/camera/camera_controller.gd" id="25_og1vs"]
 [ext_resource type="PackedScene" uid="uid://dak7x2m5oap5r" path="res://addons/godot_gameplay_abilities/ui/tag_debug_panel.tscn" id="26_vxglm"]
 [ext_resource type="PackedScene" uid="uid://cvoh1c8wh5vrc" path="res://ui/talent_tree.tscn" id="27_talent_tree"]
-[ext_resource type="Resource" path="res://data/talents/test_talent_tree.tres" id="28_talent_tree_data"]
+[ext_resource type="Resource" uid="uid://7mjb5xu6rh5" path="res://data/talents/test_talent_tree.tres" id="28_talent_tree_data"]
 
 [sub_resource type="Resource" id="Resource_ya4ey"]
 script = ExtResource("3_choun")

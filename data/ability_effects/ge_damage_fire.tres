@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="GE_ApplyDamage" load_steps=10 format=3 uid="uid://be6nbgh2maojf"]
 
-[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_apply_damage.gd" id="1_apply_damage"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_cue_base.gd" id="1_iprcm"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/gameplay_cues/cue_attached_particle.gd" id="2_attached_particle"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_cue.gd" id="3_jxfkm"]
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="4_k26dj"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="5_qgnbg"]
-[ext_resource type="PackedScene" uid="uid://blncdsij6s03k" path="res://prefabs/fx/floating_text.tscn" id="6_floating_text_scene"]
+[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_apply_damage.gd" id="1_apply_damage"]
+[ext_resource type="Script" uid="uid://bcymae7pdc1s7" path="res://addons/godot_gameplay_abilities/scripts/cues/gameplay_cue_base.gd" id="1_iprcm"]
+[ext_resource type="Script" uid="uid://cc0tonea2c7ay" path="res://addons/godot_gameplay_abilities/scripts/cues/cue_attached_particle.gd" id="2_attached_particle"]
+[ext_resource type="Script" uid="uid://bv8l03cfspmdk" path="res://addons/godot_gameplay_abilities/scripts/cues/gameplay_cue.gd" id="3_jxfkm"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="4_k26dj"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="5_qgnbg"]
+[ext_resource type="PackedScene" uid="uid://blncdsij6s03k" path="res://prefabs/fx/floating_text.gd" id="6_floating_text_scene"]
 
 [sub_resource type="Resource" id="Resource_cw5ri"]
 script = ExtResource("2_attached_particle")

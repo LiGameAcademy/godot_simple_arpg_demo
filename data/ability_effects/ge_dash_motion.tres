@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="GE_SingleFrameMotion" load_steps=4 format=3 uid="uid://dk6kbpxuuiwq5"]
 
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/data/filters/gameplay_filter_data.gd" id="1_nj06y"]
-[ext_resource type="Script" uid="uid://ckfk7hyooiepk" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_single_frame_motion.gd" id="1_single_frame"]
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="3_5hn7j"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="1_nj06y"]
+[ext_resource type="Script" uid="uid://ckfk7hyooiepk" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_single_frame_motion.gd" id="1_single_frame"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="3_5hn7j"]
 
 [resource]
 script = ExtResource("1_single_frame")

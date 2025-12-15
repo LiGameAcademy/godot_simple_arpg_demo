@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="HealthVital" load_steps=2 format=3 uid="uid://bv24ikchj5w1h"]
 
-[ext_resource type="Script" uid="uid://c6bk65loe1kkq" path="res://addons/godot_gameplay_abilities/scripts/attribute_vitals/health_vital.gd" id="1_2e31y"]
+[ext_resource type="Script" uid="uid://c6bk65loe1kkq" path="res://addons/godot_gameplay_abilities/scripts/attributes/vitals/health_vital.gd" id="1_2e31y"]
 
 [resource]
 script = ExtResource("1_2e31y")

@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="GameplayCue" load_steps=4 format=3 uid="uid://b5k7x2m5oap4s"]
 
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_cue_base.gd" id="1_728c7"]
+[ext_resource type="Script" uid="uid://bcymae7pdc1s7" path="res://addons/godot_gameplay_abilities/scripts/cues/gameplay_cue_base.gd" id="1_728c7"]
 [ext_resource type="Resource" uid="uid://bgfj67kw1fhtp" path="res://data/cues/hit_cue_physical.tres" id="3_floating_text"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_cue.gd" id="3_gm6yh"]
+[ext_resource type="Script" uid="uid://bv8l03cfspmdk" path="res://addons/godot_gameplay_abilities/scripts/cues/gameplay_cue.gd" id="3_gm6yh"]
 
 [resource]
 script = ExtResource("3_gm6yh")

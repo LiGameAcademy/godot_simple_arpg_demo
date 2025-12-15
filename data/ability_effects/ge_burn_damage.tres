@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GE_ApplyDamage" load_steps=2 format=3 uid="uid://dpwtcvsb7yse0"]
 
-[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/data/effects/ge_apply_damage.gd" id="1_f21iu"]
+[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_apply_damage.gd" id="1_f21iu"]
 
 [resource]
 script = ExtResource("1_f21iu")

@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="GE_ApplyStatus" load_steps=5 format=3 uid="uid://c8k7x2m5oap4w"]
 
-[ext_resource type="Script" uid="uid://cpgs8bj65e1j3" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_apply_status.gd" id="1_apply_status"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="1_xuwyi"]
+[ext_resource type="Script" uid="uid://cpgs8bj65e1j3" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_apply_status.gd" id="1_apply_status"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="1_xuwyi"]
 [ext_resource type="Resource" uid="uid://dvradrjclri7g" path="res://data/ability_status/burn_status.tres" id="2_burn_status"]
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="2_effect"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="2_effect"]
 
 [resource]
 script = ExtResource("1_apply_status")

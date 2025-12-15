@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="GE_AttributeModifier" load_steps=6 format=3 uid="uid://cymru0mimuxac"]
 
-[ext_resource type="Script" uid="uid://d3smdh1py5iyv" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_attribute_modifier.gd" id="1_attr_modifier"]
-[ext_resource type="Script" uid="uid://ct224mxbkm3nx" path="res://addons/godot_gameplay_abilities/scripts/core/attributes/gameplay_attribute_modifier.gd" id="2_modifier_script"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="2_om7s5"]
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="4_hb3kp"]
+[ext_resource type="Script" uid="uid://d3smdh1py5iyv" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_attribute_modifier.gd" id="1_attr_modifier"]
+[ext_resource type="Script" uid="uid://ct224mxbkm3nx" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute_modifier.gd" id="2_modifier_script"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="2_om7s5"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="4_hb3kp"]
 
 [sub_resource type="Resource" id="SubResource_speed_modifier"]
 script = ExtResource("2_modifier_script")

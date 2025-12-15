@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CooldownReductionModifier" load_steps=2 format=3 uid="uid://c15ekby7uskku"]
 
-[ext_resource type="Script" uid="uid://c1ylwbpx8miij" path="res://addons/godot_gameplay_abilities/scripts/core/modifiers/cooldown_reduction_modifier.gd" id="1_cdr_mod"]
+[ext_resource type="Script" uid="uid://c1ylwbpx8miij" path="res://addons/godot_gameplay_abilities/scripts/modifiers/cooldown_reduction_modifier.gd" id="1_cdr_mod"]
 
 [resource]
 script = ExtResource("1_cdr_mod")
