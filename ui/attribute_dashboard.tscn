@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cy0dcmicruxib"]
 
-[ext_resource type="Script" uid="uid://cxv8s5e0pkmnp" path="res://addons/godot_gameplay_abilities/ui/attribute_dashboard.gd" id="1_va7it"]
+[ext_resource type="Script" uid="uid://cxv8s5e0pkmnp" path="res://ui/attribute_dashboard.gd" id="1_va7it"]
 
 [node name="AttributeDashboard" type="MarginContainer"]
 theme_override_constants/margin_left = 16
