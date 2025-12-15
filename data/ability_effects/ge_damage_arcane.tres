@@ -1,15 +1,20 @@
-[gd_resource type="Resource" script_class="GE_ApplyDamage" load_steps=9 format=3 uid="uid://co7qp1adf6baj"]
+[gd_resource type="Resource" script_class="GE_ApplyDamage" load_steps=10 format=3 uid="uid://co7qp1adf6baj"]
 
 [ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_apply_damage.gd" id="1_apply_damage"]
 [ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_cue_base.gd" id="1_wkxux"]
-[ext_resource type="Script" uid="uid://smkke7uw7dt2" path="res://addons/godot_gameplay_abilities/scripts/gameplay_cues/cue_floating_text.gd" id="2_21q03"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/gameplay_cues/cue_attached_particle.gd" id="2_attached_particle"]
 [ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_cue.gd" id="3_qdtaj"]
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="4_pg18v"]
 [ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_filter_data.gd" id="5_87qge"]
+[ext_resource type="PackedScene" uid="uid://blncdsij6s03k" path="res://prefabs/fx/floating_text.tscn" id="6_floating_text_scene"]
 
 [sub_resource type="Resource" id="Resource_wbx1g"]
-script = ExtResource("2_21q03")
-metadata/_custom_type_script = "uid://smkke7uw7dt2"
+script = ExtResource("2_attached_particle")
+attachment_point = &"head"
+offset = Vector3(0, 0.5, 0)
+particle_scene = ExtResource("6_floating_text_scene")
+attach_to_target = false
+allow_duplicate = true
 
 [sub_resource type="Resource" id="Resource_hn2tl"]
 script = ExtResource("3_qdtaj")

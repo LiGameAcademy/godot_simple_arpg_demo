@@ -1,9 +1,12 @@
-[gd_resource type="Resource" script_class="CueFloatingText" load_steps=2 format=3 uid="uid://bgfj67kw1fhtp"]
+[gd_resource type="Resource" script_class="CueAttachedParticle" load_steps=3 format=3 uid="uid://bgfj67kw1fhtp"]
 
-[ext_resource type="Script" uid="uid://smkke7uw7dt2" path="res://addons/godot_gameplay_abilities/scripts/data/cues/cue_floating_text.gd" id="2_floating_text"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/gameplay_cues/cue_attached_particle.gd" id="1_attached_particle"]
+[ext_resource type="PackedScene" uid="uid://blncdsij6s03k" path="res://prefabs/fx/floating_text.tscn" id="2_floating_text_scene"]
 
 [resource]
-script = ExtResource("2_floating_text")
+script = ExtResource("1_attached_particle")
 attachment_point = &"head"
 offset = Vector3(0, 0.5, 0)
-metadata/_custom_type_script = "uid://smkke7uw7dt2"
+particle_scene = ExtResource("2_floating_text_scene")
+attach_to_target = false
+allow_duplicate = true
