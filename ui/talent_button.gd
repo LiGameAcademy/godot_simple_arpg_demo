@@ -14,19 +14,12 @@ class_name TalentButton
 
 # 数据
 var talent_data: TalentData = null
-var talent_manager: TalentManager = null
 
 signal talent_button_pressed(talent: TalentData)
 
 func _ready() -> void:
-	if not Engine.has_singleton("TalentManager"):
-		push_warning("TalentButton: TalentManager singleton not found")
-		return
-	
-	talent_manager = Engine.get_singleton("TalentManager")
-	if is_instance_valid(talent_manager):
-		talent_manager.talent_points_changed.connect(_on_points_changed)
-		talent_manager.talent_learned.connect(_on_talent_learned)
+	TalentManager.talent_points_changed.connect(_on_points_changed)
+	TalentManager.talent_learned.connect(_on_talent_learned)
 	
 	# 连接按钮点击事件
 	if is_instance_valid(button):
@@ -106,15 +99,15 @@ func _build_tooltip() -> String:
 ## 获取天赋状态
 ## [return] String "learned" | "can_learn" | "locked" | "insufficient_points"
 func _get_talent_status() -> String:
-	if not is_instance_valid(talent_data) or not is_instance_valid(talent_manager):
+	if not is_instance_valid(talent_data):
 		return "locked"
 	
-	if talent_manager.is_learned(talent_data.talent_id):
+	if TalentManager.is_learned(talent_data.talent_id):
 		return "learned"
 	
-	if not talent_manager.can_learn(talent_data):
+	if not TalentManager.can_learn(talent_data):
 		# 检查是前置未满足还是点数不足
-		if talent_manager.available_points < talent_data.cost:
+		if TalentManager.available_points < talent_data.cost:
 			return "insufficient_points"
 		return "locked"
 	
@@ -122,7 +115,7 @@ func _get_talent_status() -> String:
 
 ## 更新按钮状态显示
 func _update_state() -> void:
-	if not is_instance_valid(talent_data) or not is_instance_valid(talent_manager):
+	if not is_instance_valid(talent_data):
 		return
 	
 	var status = _get_talent_status()
@@ -157,4 +150,3 @@ func _on_points_changed(_points: int) -> void:
 func _on_talent_learned(talent_id: StringName) -> void:
 	if is_instance_valid(talent_data) and talent_data.talent_id == talent_id:
 		_update_state()
-

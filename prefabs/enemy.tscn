@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c8pswujmax0c7"]
+[gd_scene load_steps=25 format=3 uid="uid://c8pswujmax0c7"]
 
 [ext_resource type="PackedScene" uid="uid://chxbrq7xxhfka" path="res://assets/scenes/skeleton_warrior.tscn" id="1_6n8dw"]
 [ext_resource type="Script" uid="uid://bc4abtmpomeeh" path="res://prefabs/enemy.gd" id="1_yfjof"]
@@ -11,12 +11,12 @@
 [ext_resource type="Animation" uid="uid://bodpvb3io0u0d" path="res://assets/animations/Hit_A.res" id="9_hoy00"]
 [ext_resource type="Script" uid="uid://cot8b4lx60hjt" path="res://addons/godot_gameplay_abilities/scripts/components/gameplay_vital_attribute_component.gd" id="10_5n6jt"]
 [ext_resource type="Script" uid="uid://cq12vx17wqaxl" path="res://addons/godot_gameplay_abilities/scripts/attributes/vitals/gameplay_vital.gd" id="11_d5xr2"]
-[ext_resource type="Script" uid="uid://c6bk65loe1kkq" path="res://addons/godot_gameplay_abilities/scripts/attributes/vitals/health_vital.gd" id="13_2rulf"]
+[ext_resource type="Resource" uid="uid://bv24ikchj5w1h" path="res://data/attribute_vitals/health_vital.tres" id="12_aorgn"]
 [ext_resource type="Script" uid="uid://ccgjxcr56jc2h" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute_set.gd" id="14_aorgn"]
 [ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute.gd" id="15_p7wsu"]
-[ext_resource type="Script" uid="uid://bnmtf7f5mast7" path="res://addons/godot_gameplay_abilities/scripts/attributes/scalable_value.gd" id="16_aorgn"]
 [ext_resource type="Resource" uid="uid://cnl60y2fr7q1b" path="res://data/attributes/health.tres" id="16_d5xr2"]
 [ext_resource type="Resource" uid="uid://s0enk0k8apaf" path="res://data/attributes/defense.tres" id="16_p7wsu"]
+[ext_resource type="Resource" uid="uid://bvbw8cphgiuv5" path="res://data/attributes/health_regen.tres" id="17_1rg3v"]
 [ext_resource type="Script" uid="uid://deeb5kb27c70s" path="res://addons/godot_gameplay_abilities/scripts/components/gameplay_ability_component.gd" id="17_2rulf"]
 [ext_resource type="Script" uid="uid://bfscgs86ck8ao" path="res://addons/godot_gameplay_abilities/scripts/components/gameplay_status_component.gd" id="17_p7wsu"]
 [ext_resource type="Script" uid="uid://bi5jbjke61sbe" path="res://addons/godot_gameplay_abilities/scripts/components/visual_adapter/visual_adapter_animation_tree.gd" id="18_aorgn"]
@@ -36,15 +36,12 @@ _data = {
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cypye"]
 radius = 0.6665039
 
-[sub_resource type="Resource" id="Resource_cfq72"]
-script = ExtResource("13_2rulf")
-metadata/_custom_type_script = "uid://c6bk65loe1kkq"
-
 [sub_resource type="Resource" id="Resource_6pfhn"]
 script = ExtResource("14_aorgn")
 attributes = Dictionary[ExtResource("15_p7wsu"), float]({
 ExtResource("16_d5xr2"): 100.0,
-ExtResource("16_p7wsu"): 0.0
+ExtResource("16_p7wsu"): 0.0,
+ExtResource("17_1rg3v"): 0.0
 })
 metadata/_custom_type_script = "uid://ccgjxcr56jc2h"
 
@@ -63,33 +60,33 @@ _attachment_point_mapping = {
 [node name="Skeleton_Warrior" parent="." instance=ExtResource("1_6n8dw")]
 
 [node name="Skeleton3D" parent="Skeleton_Warrior/Rig_Medium" index="0"]
-bones/1/position = Vector3(7.167187e-09, 0.2714843, -0.030061364)
-bones/3/rotation = Quaternion(0.28816977, -0.0008964992, 0.023418106, 0.95729256)
-bones/4/rotation = Quaternion(-0.80340683, 0.087072775, 0.41089714, 0.42204192)
-bones/5/rotation = Quaternion(3.6199253e-08, 4.025929e-08, 0.4786225, 0.87802094)
-bones/7/rotation = Quaternion(-0.36088282, 0.37990007, -0.08802194, 0.8471668)
-bones/9/rotation = Quaternion(-0.7644379, -0.14627534, -0.4884617, 0.39451644)
-bones/10/rotation = Quaternion(3.6966505e-08, -7.9257184e-08, -0.6238624, 0.7815343)
-bones/12/rotation = Quaternion(-0.14959599, -0.59436464, 0.023069568, 0.7898225)
-bones/14/rotation = Quaternion(-0.27806675, -0.037980374, 0.009534985, 0.9597632)
-bones/15/rotation = Quaternion(0.90744025, 0.15099826, 0.22469535, 0.32134676)
-bones/16/rotation = Quaternion(0.72841084, 4.8739803e-08, -5.206277e-07, 0.6851406)
-bones/17/rotation = Quaternion(-0.65568894, -0.34140486, 0.24476609, 0.62737894)
-bones/19/rotation = Quaternion(0.9101582, -0.26263216, 0.27720112, 0.16061111)
-bones/20/rotation = Quaternion(0.7341107, -2.5080062e-08, 5.3115497e-07, 0.67902976)
-bones/21/rotation = Quaternion(-0.78200555, 0.08302405, -0.21668877, 0.5784637)
+bones/1/position = Vector3(7.167187e-09, 0.30337122, -0.030061364)
+bones/3/rotation = Quaternion(0.28945658, -0.010085058, 0.007897275, 0.9571055)
+bones/4/rotation = Quaternion(-0.8006618, 0.12333003, 0.4495119, 0.37639)
+bones/5/rotation = Quaternion(1.0955363e-08, 7.110288e-08, 0.48302713, 0.87560546)
+bones/7/rotation = Quaternion(-0.3400093, 0.410313, -0.09166459, 0.84121025)
+bones/9/rotation = Quaternion(-0.76616216, -0.17992765, -0.49529344, 0.3678397)
+bones/10/rotation = Quaternion(-8.61887e-09, -2.4212804e-08, -0.61922306, 0.7852152)
+bones/12/rotation = Quaternion(-0.122701675, -0.61121017, 0.014381811, 0.781767)
+bones/14/rotation = Quaternion(-0.2789197, 0.021712761, 0.10740961, 0.9540418)
+bones/15/rotation = Quaternion(0.9236745, 0.13678053, 0.21910924, 0.28303325)
+bones/16/rotation = Quaternion(0.64062977, 4.6016638e-08, -4.5672203e-07, 0.76785004)
+bones/17/rotation = Quaternion(-0.6097062, -0.36816636, 0.19589406, 0.6740455)
+bones/19/rotation = Quaternion(0.91932887, -0.23247632, 0.28536674, 0.13912262)
+bones/20/rotation = Quaternion(0.6471045, -5.7079404e-08, 4.6972943e-07, 0.76240146)
+bones/21/rotation = Quaternion(-0.73266333, 0.1109041, -0.18800196, 0.6446395)
 
 [node name="head" parent="Skeleton_Warrior/Rig_Medium/Skeleton3D" index="0"]
-transform = Transform3D(0.9991853, -0.03987863, -0.0061859936, 0.03688279, 0.9646178, -0.2610593, 0.01637782, 0.26061857, 0.96530306, 0.0006426636, 1.0098555, 0.25666147)
+transform = Transform3D(0.9734378, -0.22465688, 0.044138405, 0.22836521, 0.93893933, -0.25737557, 0.016377904, 0.26061878, 0.9653029, 0.0072280006, 1.0416, 0.2566615)
 
 [node name="HandAttachmentR" parent="Skeleton_Warrior/Rig_Medium/Skeleton3D" index="10"]
-transform = Transform3D(-0.14615601, -0.6217335, -0.76947016, -0.9494152, -0.1303731, 0.28567788, -0.27793396, 0.7723013, -0.57122904, -0.57223916, 0.59421855, -0.077116705)
+transform = Transform3D(-0.14704114, -0.61017615, -0.77850014, -0.9749615, -0.043327544, 0.21810816, -0.16681491, 0.7910796, -0.5885278, -0.5695989, 0.59217024, -0.019119233)
 
 [node name="HeadAttachment" parent="Skeleton_Warrior/Rig_Medium/Skeleton3D" index="11"]
-transform = Transform3D(0.9991853, -0.03987863, -0.0061859936, 0.03688279, 0.9646178, -0.2610593, 0.01637782, 0.26061857, 0.96530306, 0.0006426636, 1.0098555, 0.25666147)
+transform = Transform3D(0.9734378, -0.22465688, 0.044138405, 0.22836521, 0.93893933, -0.25737557, 0.016377904, 0.26061878, 0.9653029, 0.0072280006, 1.0416, 0.2566615)
 
 [node name="BodyAttachment" parent="Skeleton_Warrior/Rig_Medium/Skeleton3D" index="12"]
-transform = Transform3D(0.9964924, 0.0023909062, 0.083649375, 0.059906106, 0.6775728, -0.7330118, -0.058431108, 0.7354519, 0.6750531, -3.7488026e-09, 0.82772624, 0.05897454)
+transform = Transform3D(0.99800694, 0.02689024, 0.057089105, 0.023833953, 0.6770431, -0.73555726, -0.0584311, 0.73545194, 0.675053, -3.7488026e-09, 0.8596132, 0.05897454)
 
 [node name="AnimationPlayer" parent="Skeleton_Warrior" index="1"]
 libraries = {
@@ -112,7 +109,7 @@ debug_color = Color(0.8375216, 0.36315465, 0.35927287, 0.41960785)
 [node name="GameplayAttributeComponent" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("10_5n6jt")
-_vitals = Array[ExtResource("11_d5xr2")]([SubResource("Resource_cfq72")])
+_vitals = Array[ExtResource("11_d5xr2")]([ExtResource("12_aorgn")])
 _active_sets = Array[ExtResource("14_aorgn")]([SubResource("Resource_6pfhn")])
 metadata/_custom_type_script = "uid://cot8b4lx60hjt"
 

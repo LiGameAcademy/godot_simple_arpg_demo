@@ -6,5 +6,5 @@
 script = ExtResource("1_2e31y")
 vital_id = &"health"
 display_name = "生命值"
-max_value_attribute = &"health"
+max_value_attribute = &"max_health"
 regen_rate_attribute = &"health_regen"

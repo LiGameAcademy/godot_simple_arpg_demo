@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="GameplayEquip" load_steps=7 format=3 uid="uid://uu5xlkda5vib"]
 
 [ext_resource type="Script" uid="uid://dkdx3f3hoy0un" path="res://scripts/data/gameplay_equip.gd" id="1_equip"]
-[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="2_active"]
+[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability.gd" id="2_active"]
 [ext_resource type="Texture2D" uid="uid://dmxcc7dn77stf" path="res://addons/simple_inventory/assets/textures/items/sword.tres" id="2_icon"]
 [ext_resource type="PackedScene" path="res://prefabs/equipment/staff_equipped.tscn" id="3_model"]
 [ext_resource type="Resource" uid="uid://dot5q23nxvk0v" path="res://data/abilities/fireball.tres" id="4_fireball"]

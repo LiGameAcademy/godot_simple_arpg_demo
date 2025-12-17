@@ -6,5 +6,5 @@
 script = ExtResource("1_tanca")
 vital_id = &"mana"
 display_name = "魔法值"
-max_value_attribute = &"mana"
+max_value_attribute = &"max_mana"
 regen_rate_attribute = &"mana_regen"

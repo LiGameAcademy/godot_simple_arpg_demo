@@ -1,5 +1,4 @@
 extends Node
-class_name TalentManager
 
 ## 简易天赋管理器（业务层单例）
 ## 职责：
@@ -92,5 +91,3 @@ func _apply_talent_to_entity(entity: Node, talent: TalentData) -> void:
 	for mod in talent.ability_modifiers:
 		if is_instance_valid(mod):
 			modifier_comp.add_modifier(mod, source_id)
-
-

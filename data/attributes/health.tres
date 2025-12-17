@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_rdlbu")
-attribute_id = &"health"
+attribute_id = &"max_health"
 attribute_display_name = "生命值"
 attribute_description = "最大生命值"
 metadata/_custom_type_script = "uid://lm7wlbrgn7bt"

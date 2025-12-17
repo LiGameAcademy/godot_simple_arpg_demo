@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerData" load_steps=29 format=3 uid="uid://cg4anfcgfpik4"]
+[gd_resource type="Resource" script_class="PlayerData" load_steps=28 format=3 uid="uid://cg4anfcgfpik4"]
 
 [ext_resource type="Script" uid="uid://ccgjxcr56jc2h" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute_set.gd" id="1_41usi"]
 [ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute.gd" id="2_nkcd8"]
@@ -9,7 +9,6 @@
 [ext_resource type="Resource" uid="uid://c2yg48kmsw702" path="res://data/attributes/vitality.tres" id="5_bjrym"]
 [ext_resource type="Resource" uid="uid://coemk5gg52d7w" path="res://data/attributes/attack.tres" id="6_j0hhi"]
 [ext_resource type="Resource" uid="uid://c7um4ug20u3qv" path="res://data/attributes/agility.tres" id="6_vwojj"]
-[ext_resource type="Script" uid="uid://bnmtf7f5mast7" path="res://addons/godot_gameplay_abilities/scripts/attributes/scalable_value.gd" id="7_8s7k1"]
 [ext_resource type="Resource" uid="uid://cghwegq2anq8g" path="res://data/attributes/attack_speed.tres" id="7_wucg8"]
 [ext_resource type="Resource" uid="uid://s0enk0k8apaf" path="res://data/attributes/defense.tres" id="8_wmkhh"]
 [ext_resource type="Resource" uid="uid://cnl60y2fr7q1b" path="res://data/attributes/health.tres" id="9_pwhx8"]

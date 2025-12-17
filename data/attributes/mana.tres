@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_unjhc")
-attribute_id = &"mana"
+attribute_id = &"max_mana"
 attribute_display_name = "魔法值"
 attribute_description = "提升魔法值"
 metadata/_custom_type_script = "uid://lm7wlbrgn7bt"

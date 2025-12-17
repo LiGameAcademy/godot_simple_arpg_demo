@@ -38,7 +38,7 @@ func _update_display() -> void:
 		return
 	
 	var current = vital.current_value
-	var max_val = vital._cached_max
+	var max_val = vital.get_max_value()  # 使用公共方法，避免直接访问私有成员
 	var percent = vital.get_percent()
 	
 	# 更新进度条
@@ -63,6 +63,7 @@ func _update_display() -> void:
 ## [param] current: float 当前值
 ## [param] max: float 最大值
 ## [param] percent: float 百分比
-func _on_vital_changed(id: StringName, _current: float, _max: float, _percent: float) -> void:
+## [param] is_regen: bool 是否为自动回复
+func _on_vital_changed(id: StringName, _current: float, _max: float, _percent: float, _is_regen: bool) -> void:
 	if id == vital_id:
 		_update_display()

@@ -14,7 +14,7 @@ class_name SecondaryAttributeSet
 	&"max_mana": {
 		&"intelligence": 10.0 # 纯智力收益
 	},
-	&"hp_regen": {
+	&"health_regen": {
 		&"vitality": 0.2    # 10点体质 = +2回血/秒
 	},
 	&"mana_regen": {
@@ -22,13 +22,13 @@ class_name SecondaryAttributeSet
 	},
 
 	# --- 进攻输出类 ---
-	&"phy_attack": {
+	&"attack": {
 		&"strength": 2.0,   # 主：力量加成
 		&"agility": 0.5     # 副：敏捷补正
 	},
-	&"spell_power": {       # 原 Magic Attack
-		&"intelligence": 2.0 # 纯智力收益
-	},
+	#&"spell_power": {       # 原 Magic Attack
+		#&"intelligence": 2.0 # 纯智力收益
+	#},
 
 	# --- 攻速与暴击 (百分比) ---
 	&"crit_rate": {
@@ -43,10 +43,10 @@ class_name SecondaryAttributeSet
 		&"vitality": 0.5,   # 主：皮糙肉厚
 		&"strength": 0.2    # 副：肌肉硬度
 	},
-	&"spell_resist": {
-		&"intelligence": 0.3, # 主：精神防御 (3点)
-		&"vitality": 0.2      # 副：肉体耐受 (2点)
-	}
+	#&"spell_resist": {
+		#&"intelligence": 0.3, # 主：精神防御 (3点)
+		#&"vitality": 0.2      # 副：肉体耐受 (2点)
+	#}
 }
 
 # --- 性能优化：反向索引 ---
