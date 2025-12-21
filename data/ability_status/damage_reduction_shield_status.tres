@@ -1,22 +1,23 @@
-[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=5 format=3]
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=7 format=3 uid="uid://b5qspeohf2qvv"]
 
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/core/gameplay_effect.gd" id="1_effect_base"]
-[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/core/ability_status/gameplay_status_data.gd" id="1_status_data"]
-[ext_resource type="Resource" path="res://data/ability_effects/ge_damage_reduction_shield.tres" id="2_shield_effect"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="1_effect_base"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="1_status_data"]
+[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="1_wuon1"]
+[ext_resource type="Script" uid="uid://ct224mxbkm3nx" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute_modifier.gd" id="2_0e8uw"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_0e8uw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d7yw"]
+atlas = ExtResource("3_0e8uw")
+region = Rect2(32, 192, 32, 32)
 
 [resource]
 script = ExtResource("1_status_data")
 status_id = &"damage_reduction_shield"
 status_display_name = "减伤护盾"
 status_description = "每次受到伤害前，将伤害减少 50%。"
-duration = -1.0
-is_debuff = false
+icon = SubResource("AtlasTexture_8d7yw")
 tags = Array[StringName]([&"status.buff", &"defense.shield"])
-effects = Array[ExtResource("1_effect_base")]([ExtResource("2_shield_effect")])
 event_to_listen = &"damage_received"
 trigger_on_events = Array[StringName]([&"damage_received"])
 stacking_policy = 0
-max_stacks = 1
 priority = 1
-
-

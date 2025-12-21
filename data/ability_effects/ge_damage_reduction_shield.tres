@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="GameplayEffect" load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_modify_incoming_damage.gd" id="1_effect"]
+[ext_resource type="Script" uid="uid://tqtwps1s4ajd" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_modify_incoming_damage.gd" id="1_effect"]
+
 
 [resource]
 script = ExtResource("1_effect")

@@ -1,13 +1,19 @@
-[gd_resource type="Resource" script_class="TalentData" load_steps=4 format=3 uid="uid://bekdc2vwedadw"]
+[gd_resource type="Resource" script_class="TalentData" load_steps=5 format=3 uid="uid://bekdc2vwedadw"]
 
 [ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="1_hbrea"]
 [ext_resource type="Script" uid="uid://douxicmi8r2jr" path="res://scripts/talent/talent_data.gd" id="1_talent_data"]
-[ext_resource type="Resource" uid="uid://c15ekby7uskku" path="res://data/modifiers/mod_cooldown_reduction.tres" id="2_cooldown_mod"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hbrea"]
+load_path = "res://.godot/imported/icons.png-3a2c064d0bba3f942d69c3204833c3d7.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_poylq"]
+atlas = SubResource("CompressedTexture2D_hbrea")
+region = Rect2(128, 64, 32, 32)
 
 [resource]
 script = ExtResource("1_talent_data")
 talent_id = &"cooldown_reduction"
 display_name = "急速冷却"
 description = "所有技能冷却时间减少 20%"
+icon = SubResource("AtlasTexture_poylq")
 cost = 2
-ability_modifiers = Array[ExtResource("1_hbrea")]([ExtResource("2_cooldown_mod")])

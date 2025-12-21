@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b82j5o1o31hu1" path="res://scripts/talent/talent_tree_data.gd" id="1_talent_tree"]
 [ext_resource type="Script" uid="uid://douxicmi8r2jr" path="res://scripts/talent/talent_data.gd" id="2_57cxx"]
-[ext_resource type="Resource" path="res://data/talents/talent_fireball_multicast.tres" id="2_fireball_multicast"]
+[ext_resource type="Resource" uid="uid://bptd4ncben601" path="res://data/talents/talent_fireball_multicast.tres" id="2_fireball_multicast"]
 [ext_resource type="Resource" uid="uid://dc05n730gw37d" path="res://data/talents/talent_damage_boost.tres" id="3_damage_boost"]
 [ext_resource type="Resource" uid="uid://bekdc2vwedadw" path="res://data/talents/talent_cooldown_reduction.tres" id="4_cooldown_reduction"]
 [ext_resource type="Resource" uid="uid://bjgo6stjvsjpg" path="res://data/talents/talent_arcane_mastery.tres" id="5_arcane_mastery"]

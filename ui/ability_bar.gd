@@ -49,7 +49,7 @@ func _refresh_abilities() -> void:
 		return
 	
 	# 获取所有已学会的技能
-	var learned_abilities = ability_component.get_all_learned_abilities()
+	var learned_abilities = ability_component.get_all_ability_instances()
 	
 	# 移除已遗忘的技能按钮
 	for ability_id in ability_buttons.keys():

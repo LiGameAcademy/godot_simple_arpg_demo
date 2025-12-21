@@ -211,7 +211,7 @@ func _setup_shortcuts() -> void:
 		return
 	
 	# 绑定已学会的技能
-	var learned_abilities = ability_component.get_all_learned_abilities()
+	var learned_abilities = ability_component.get_all_ability_instances()
 	for ability_id in learned_abilities.keys():
 		var shortcut = shortcuts.get(ability_id, "")
 		if shortcut != "":
@@ -279,38 +279,21 @@ func get_angle_to_mouse() -> float:
 	# 注意：模型朝向 -Z，所以需要计算从角色到鼠标的角度，然后加 π 以匹配 visuals.rotation.y 的角度系统
 	var base_angle = atan2(direction.x, direction.z)
 	var angle = base_angle + PI
-	
-	# 调试：输出详细信息
-	print("Player: get_angle_to_mouse - direction: %s, angle: %.2f rad (%.1f deg)" % [
-		direction,
-		angle,
-		rad_to_deg(angle)
-	])
-	
+
 	return angle
 
 ## 判断技能是否为远程技能（需要鼠标指向）
 ## 【业务层逻辑】这是业务层的判断，不应该放在框架层
-## [param] ability: GameplayAbility 技能数据
+## [param] ability_instance: GameplayAbilityInstance 技能数据
 ## [return] bool 是否为远程技能
-func is_ranged_ability(ability: GameplayAbility) -> bool:
-	if not is_instance_valid(ability):
+func is_ranged_ability(ability_instance: GameplayAbilityInstance) -> bool:
+	if not is_instance_valid(ability_instance):
 		return false
 	
 	# 方案1: 通过技能标签判断（推荐，最灵活）
 	# 如果技能有 "ranged" 标签，则认为是远程技能
-	if ability.tags.has(&"ranged"):
+	if ability_instance.get_definition().tags.has(&"ranged"):
 		return true
-	
-	# 方案2: 通过 TargetingStrategy 类型判断（备选方案）
-	# 注意：这是业务层的判断逻辑，基于策略类型
-	if ability is ActiveAbility:
-		var active_ability = ability as ActiveAbility
-		if is_instance_valid(active_ability.targeting_strategy):
-			# 根据策略类型判断：UnitTargetingStrategy 和 GroundTargetingStrategy 通常需要鼠标指向
-			var strategy = active_ability.targeting_strategy
-			if strategy is UnitTargetingStrategy or strategy is GroundTargetingStrategy:
-				return true
 	
 	# 默认返回 false（保守策略）
 	return false
@@ -324,15 +307,7 @@ func face_mouse_direction(delta: float, instant: bool = false) -> void:
 		return
 	
 	var target_angle := get_angle_to_mouse()
-	
-	# 调试：输出角度信息
-	print("Player: face_mouse_direction - target_angle: %.2f rad (%.1f deg), current: %.2f rad (%.1f deg)" % [
-		target_angle,
-		rad_to_deg(target_angle),
-		visuals.rotation.y,
-		rad_to_deg(visuals.rotation.y)
-	])
-	
+
 	if instant:
 		visuals.rotation.y = target_angle
 		print("Player: Instantly rotated to %.2f rad (%.1f deg)" % [target_angle, rad_to_deg(target_angle)])
@@ -342,27 +317,27 @@ func face_mouse_direction(delta: float, instant: bool = false) -> void:
 
 ## 重写基类的 try_cast_ability，实现双流向输入处理
 ## [param] ability_id: StringName 技能 ID
-## [param] target: Node 目标节点（可选）
 ## [param] context: Dictionary 上下文信息（可选）
-func try_cast_ability(ability_id: StringName, target: Node = null, context: Dictionary = {}) -> void:
+func try_activate_ability(ability_id: StringName, context: Dictionary = {}) -> void:
 	if not is_instance_valid(ability_component):
 		push_warning("Player: Cannot cast ability, ability_component is not valid")
 		return
 	
 	# 获取技能数据
-	var ability := ability_component.get_ability_data(ability_id)
-	if not is_instance_valid(ability):
+	var ability_instance := ability_component.get_ability_instance(ability_id)
+	if not is_instance_valid(ability_instance):
 		push_warning("Player: Ability not found: %s" % ability_id)
 		return
 	
+	context.instigator = self
 	# 【重要】先检查技能是否可以释放，如果无法释放（如CD中），不设置转向标志
-	if not ability_component.can_cast(ability_id, target, context):
+	if not ability_component.can_activate_ability(ability_id, context):
 		# 无法释放，清除转向标志（如果之前设置了）
 		_should_face_mouse = false
 		return
 	
 	# 判断技能类型并处理朝向（只有在可以释放时才设置）
-	var is_ranged := is_ranged_ability(ability)
+	var is_ranged := is_ranged_ability(ability_instance)
 	if is_ranged and auto_face_mouse_for_ranged:
 		# 远程技能：设置持续转向标志，在 _physics_process 中持续处理
 		_should_face_mouse = true
@@ -387,7 +362,7 @@ func try_cast_ability(ability_id: StringName, target: Node = null, context: Dict
 		context["facing_angle"] = _get_facing_angle()
 	
 	# 调用基类方法（此时已经确认可以释放）
-	super(ability_id, target, context)
+	super(ability_id, context)
 
 #endregion
 
@@ -401,7 +376,7 @@ func _get_facing_angle() -> float:
 func _on_ability_completed(ability_id: StringName) -> void:
 	# 检查是否是远程技能
 	if is_instance_valid(ability_component):
-		var ability = ability_component.get_ability_data(ability_id)
+		var ability = ability_component.get_ability_instance(ability_id)
 		if is_instance_valid(ability) and is_ranged_ability(ability):
 			# 远程技能完成，清除转向标志
 			_should_face_mouse = false
@@ -633,25 +608,15 @@ func _on_cast_ability_requested(ability_id: StringName, _shortcut: String, conte
 		return
 	
 	# 调用技能组件的施放方法
-	try_cast_ability(ability_id, null, context)
+	try_activate_ability(ability_id, context)
 
 ## 处理引导取消请求（信号回调）
-func _on_cancel_channeling_requested(ability_id: StringName, _shortcut: String) -> void:
+func _on_cancel_channeling_requested(_ability_id: StringName, _shortcut: String) -> void:
 	if not is_instance_valid(ability_component):
 		return
 	
-	# 检查是否是当前正在执行的技能
-	var current_ability_id = ability_component.get_current_casting_ability_id()
-	if current_ability_id != ability_id:
-		return
-	
-	# 检查是否是引导技能且应该取消（按住维持式）
-	var ability_data = ability_component.get_ability_data(ability_id)
-	if not is_instance_valid(ability_data):
-		return
-	
 	# 检查是否是 ChannelingAbility 且 stop_on_input_release 为 true（按住维持式）
-	if ability_data is ChannelingAbility:
-		var channeling_ability = ability_data as ChannelingAbility
-		if channeling_ability.stop_on_input_release:
-			ability_component.cancel_ability(ability_id)
+	# if ability_instance is ChannelingAbility:
+	# 	var channeling_ability = ability_instance as ChannelingAbility
+	# 	if channeling_ability.stop_on_input_release:
+	# 		ability_component.cancel_ability(ability_id)

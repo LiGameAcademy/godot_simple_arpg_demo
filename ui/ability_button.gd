@@ -1,230 +1,225 @@
 extends MarginContainer
 class_name AbilityButton
 
-## 技能按钮 UI 组件
-## 显示技能图标、冷却进度、快捷键等
+## 技能按钮 UI 组件 (适配 GAS Instance 架构)
+## 职责：
+## 1. 绑定特定的 GameplayAbilityInstance
+## 2. 每帧从 CooldownFeature 读取进度
+## 3. 组装 Feature 描述生成 Tooltip
 
-# UI 节点引用
+#region ========== UI 节点引用 ==========
 @onready var icon_texture: TextureRect = %IconTexture
 @onready var cooldown_overlay: ColorRect = %CooldownOverlay
-@onready var cooldown_progress: ProgressBar = %CooldownProgress
+@onready var cooldown_progress_bar: ProgressBar = %CooldownProgress
 @onready var circular_progress: ColorRect = %CircularProgress
 @onready var shortcut_label: Label = %ShortcutLabel
 @onready var button: Button = %Button
+#endregion
 
-# 环形进度条材质
-var progress_material: ShaderMaterial = null
+#region ========== 内部变量 ==========
+# 核心引用
+var _component: GameplayAbilityComponent = null
+var _instance: GameplayAbilityInstance = null
 
-# 数据
-var ability_id: StringName = &""
-var ability_component: GameplayAbilityComponent = null
-var shortcut_key: String = ""
-var _last_icon: Texture = null  ## 上次显示的图标（用于避免重复更新）
+# 缓存特性引用 (性能优化，避免每帧查找)
+var _cached_cooldown_feature: CooldownFeature = null
 
+# 状态
+var _ability_id: StringName = &""
+var _shortcut_key: String = ""
+var _progress_material: ShaderMaterial = null
+var _last_icon: Texture = null
+#endregion
+
+#region ========== 生命周期 ==========
+
+func _exit_tree() -> void:
+	# 清理信号连接
+	if is_instance_valid(_instance):
+		if _instance.ability_completed.is_connected(_on_ability_completed):
+			_instance.ability_completed.disconnect(_on_ability_completed)
+		if _instance.ability_data_changed.is_connected(_on_ability_data_changed):
+			_instance.ability_data_changed.disconnect(_on_ability_data_changed)
+			
+	if is_instance_valid(_component):
+		if _component.ability_activated.is_connected(_on_ability_activated):
+			_component.ability_activated.disconnect(_on_ability_activated)
 
 func _process(_delta: float) -> void:
-	# 持续更新冷却显示（用于平滑的进度条动画）
+	if not is_instance_valid(_instance):
+		set_process(false)
+		return
+		
+	# 持续更新冷却显示
 	_update_cooldown_display()
-	# 定期检查并更新图标（确保连击推进时图标能及时更新）
-	# 注意：_update_icon 内部会检查图标是否改变，避免重复更新
-	_update_icon()
+	
+#endregion
+
+#region ========== 初始化 ==========
 
 ## 初始化技能按钮
-## [param] comp: GameplayAbilityComponent 技能组件
-## [param] id: StringName 技能 ID
-## [param] shortcut: String 快捷键（如 "1", "Q", "E" 等）
 func initialize(comp: GameplayAbilityComponent, id: StringName, shortcut: String = "") -> void:
-	ability_component = comp
-	ability_id = id
-	shortcut_key = shortcut
+	_component = comp
+	_ability_id = id
+	_shortcut_key = shortcut
 	
-	# 获取技能数据
-	var ability_data = comp.get_ability_data(id)
-	if not is_instance_valid(ability_data):
-		push_warning("AbilityButton: Ability data not found for %s" % id)
+	# 1. 获取技能实例
+	_instance = comp.get_ability_instance(id) # 以前是 get_ability_data
+	
+	if not is_instance_valid(_instance):
+		push_warning("AbilityButton: Ability Instance not found for %s" % id)
+		visible = false # 或者显示一个禁用状态
+		set_process(false)
 		return
 	
-	# 设置图标（初始化时使用 get_icon 方法，支持连击技能和切换技能）
-	var initial_icon: Texture = ability_data.icon
+	# 2. 缓存关键特性 (查找名为 "CooldownFeature" 的特性)
+	# 如果你的特性改名了，这里需要同步，或者遍历查找类型为 CooldownFeature 的特性
+	if _instance.has_feature("CooldownFeature"):
+		_cached_cooldown_feature = _instance.get_feature("CooldownFeature") as CooldownFeature
 	
-	if is_instance_valid(initial_icon):
-		icon_texture.texture = initial_icon
-		_last_icon = initial_icon
+	# 3. 初始化 UI 状态
+	_update_icon(true) # 强制更新一次
+	_init_shortcut_label()
+	_init_circular_progress()
+	_update_cooldown_display()
+	_update_tooltip() # 生成动态 Tooltip
 	
-	# 设置快捷键标签
-	if shortcut != "":
-		shortcut_label.text = shortcut
+	# 4. 连接信号
+	button.pressed.connect(_on_button_pressed)
+	
+	# 监听 Component 的激活信号 (用于立即响应按键反馈)
+	if not comp.ability_activated.is_connected(_on_ability_activated):
+		comp.ability_activated.connect(_on_ability_activated)
+	
+	# 监听 Instance 的完成信号 (用于刷新连击图标)
+	if not _instance.ability_completed.is_connected(_on_ability_completed):
+		_instance.ability_completed.connect(_on_ability_completed)
+	
+	# 监听 Instance 的数据改变信号 (用于更新连击图标)
+	if not _instance.ability_data_changed.is_connected(_on_ability_data_changed):
+		_instance.ability_data_changed.connect(_on_ability_data_changed)
+	
+	set_process(true)
+
+func _init_shortcut_label() -> void:
+	if _shortcut_key != "":
+		shortcut_label.text = _shortcut_key
 		shortcut_label.visible = true
 	else:
 		shortcut_label.visible = false
-	
-	# 连接按钮点击事件
-	if not button.pressed.is_connected(_on_button_pressed):
-		button.pressed.connect(_on_button_pressed)
-	
-	# 连接技能组件信号
-	if not comp.ability_cast.is_connected(_on_ability_cast):
-		comp.ability_cast.connect(_on_ability_cast)
-	if not comp.ability_completed.is_connected(_on_ability_completed):
-		comp.ability_completed.connect(_on_ability_completed)
-	if not comp.cooldown_ready.is_connected(_on_cooldown_ready):
-		comp.cooldown_ready.connect(_on_cooldown_ready)
-	
-	# 初始化环形进度条
-	_init_circular_progress()
-	
-	# 初始化冷却显示
-	_update_cooldown_display()
-	
-	# 设置 tooltip
-	_update_tooltip()
 
-## 初始化环形进度条
 func _init_circular_progress() -> void:
-	if not is_instance_valid(circular_progress):
-		return
+	if not is_instance_valid(circular_progress): return
 	
-	# 确保 CircularProgress 可见
 	circular_progress.visible = true
-	
-	# 获取或创建材质
 	if circular_progress.material:
-		progress_material = circular_progress.material as ShaderMaterial
+		_progress_material = circular_progress.material as ShaderMaterial
 	else:
-		# 如果没有材质，创建一个
-		progress_material = ShaderMaterial.new()
-		progress_material.shader = load("res://ui/shaders/circular_progress.gdshader")
-		circular_progress.material = progress_material
-	
-	# 确保材质已正确设置
-	if not is_instance_valid(progress_material):
-		push_warning("AbilityButton: Failed to create progress material")
-		return
+		_progress_material = ShaderMaterial.new()
+		# 确保这个 shader 路径是正确的
+		_progress_material.shader = load("res://ui/shaders/circular_progress.gdshader")
+		circular_progress.material = _progress_material
 
-## 更新技能图标
-## 对于连击技能，会动态显示当前段的图标
-func _update_icon() -> void:
-	if not is_instance_valid(ability_component):
-		return
-	
-	var ability_data = ability_component.get_ability_data(ability_id)
-	if not is_instance_valid(ability_data):
-		return
-	
-	# 获取图标（连击技能会返回当前段的图标，切换技能会根据状态返回不同图标）
-	var new_icon: Texture = ability_data.icon
-	
-	# 只在图标真正改变时更新（避免重复设置）
-	if new_icon != _last_icon and is_instance_valid(icon_texture):
-		icon_texture.texture = new_icon
-		_last_icon = new_icon
+#endregion
 
-## 更新冷却显示
+#region ========== 状态更新 ==========
+
+func _update_icon(force: bool = false) -> void:
+	# 优先从 Definition 获取基础图标
+	var current_icon = _instance.get_current_icon()
+	
+	if force or current_icon != _last_icon:
+		if is_instance_valid(icon_texture):
+			icon_texture.texture = current_icon
+		_last_icon = current_icon
+
 func _update_cooldown_display() -> void:
-	if not is_instance_valid(ability_component):
-		return
+	var progress = 0.0
+	var is_ready = true
 	
-	var progress = ability_component.get_cooldown_progress(ability_id)
-	var is_ready = ability_component.is_cooldown_ready(ability_id)
+	# 从缓存的 CooldownFeature 读取状态
+	# 注意：必须传入 _instance，因为 Feature 是无状态的享元
+	if is_instance_valid(_cached_cooldown_feature):
+		progress = _cached_cooldown_feature.get_cooldown_progress(_instance)
+		is_ready = _cached_cooldown_feature.is_cooldown_ready(_instance)
 	
-	# 更新环形进度条（使用 shader）
-	if is_instance_valid(progress_material) and is_instance_valid(circular_progress):
-		progress_material.set_shader_parameter("progress", progress)
-		# 确保 CircularProgress 可见
-		circular_progress.visible = true
+	# 更新 Shader
+	if is_instance_valid(_progress_material):
+		_progress_material.set_shader_parameter("progress", progress)
 	
-	# 更新传统进度条（向后兼容，如果存在）
-	if cooldown_progress:
-		cooldown_progress.value = (1.0 - progress) * 100.0
+	# 更新传统进度条
+	if cooldown_progress_bar:
+		cooldown_progress_bar.value = (1.0 - progress) * 100.0
 	
-	# 更新冷却遮罩（可选，如果使用环形进度条可以隐藏）
+	# 更新遮罩和按钮状态
 	if cooldown_overlay:
-		if is_ready:
-			cooldown_overlay.color.a = 0.0
-		else:
-			# 如果使用环形进度条，可以降低遮罩透明度或隐藏
-			cooldown_overlay.color.a = 0.3
-	
-	# 更新按钮状态
+		cooldown_overlay.visible = not is_ready
+		
 	if button:
-		button.disabled = not is_ready
+		# 只有当不可用且未激活时才禁用 (防止打断连击手感)
+		# 也可以选择永远不 disabled，只变灰，让 try_activate 反馈失败
+		# button.disabled = not is_ready 
+		pass
 
-## 按钮点击事件
-func _on_button_pressed() -> void:
-	if not is_instance_valid(ability_component):
-		return
-	
-	# 尝试施放技能（通过能力组件获取父节点）
-	var entity = ability_component.get_parent()
-	if is_instance_valid(entity) and entity.has_method("try_cast_ability"):
-		entity.try_cast_ability(ability_id)
-
-## 技能施放回调
-func _on_ability_cast(casted_ability_id: StringName) -> void:
-	if casted_ability_id == ability_id:
-		_update_cooldown_display()
-		# 连击技能在施放时可能已经推进到下一段，更新图标
-		_update_icon()
-
-## 技能完成回调
-func _on_ability_completed(completed_ability_id: StringName) -> void:
-	if completed_ability_id == ability_id:
-		# 连击技能在完成时推进到下一段，更新图标
-		_update_icon()
-
-## 冷却就绪回调
-func _on_cooldown_ready(ready_ability_id: StringName) -> void:
-	if ready_ability_id == ability_id:
-		_update_cooldown_display()
-
-## 更新 Tooltip 显示
 func _update_tooltip() -> void:
-	if not is_instance_valid(ability_component):
-		return
+	if not is_instance_valid(_instance): return
 	
-	var ability_data = ability_component.get_ability_data(ability_id)
-	if not is_instance_valid(ability_data):
-		return
+	var def = _instance.get_definition()
+	var lines: Array[String] = []
 	
-	var tooltip_lines: Array[String] = []
-	
-	# 1. 技能名称
-	if ability_data.ability_name != "":
-		tooltip_lines.append(ability_data.ability_name)
+	# 1. 标题
+	lines.append(def.display_name if "display_name" in def else _ability_id)
 	
 	# 2. 快捷键
-	if shortcut_key != "":
-		tooltip_lines.append("快捷键: %s" % shortcut_key)
+	if _shortcut_key != "":
+		lines.append("[color=yellow]快捷键: %s[/color]" % _shortcut_key)
 	
-	# 3. 普通描述
-	if ability_data.description != "":
-		tooltip_lines.append("")
-		tooltip_lines.append(ability_data.description)
+	# 3. 描述
+	if def.description != "":
+		lines.append("")
+		lines.append(def.description)
 	
-		# 4. 消耗描述
-		var costs_desc = ""
-		if ability_data.has_method("get_costs_description"):
-			costs_desc = ability_data.get_costs_description()
-		if costs_desc != "":
-			tooltip_lines.append("")
-			tooltip_lines.append("消耗:")
-			# 处理消耗描述，每行添加缩进
-			var cost_lines = costs_desc.split("\n")
-			for line in cost_lines:
-				if line.strip_edges() != "":
-					tooltip_lines.append("  • %s" % line.strip_edges())
+	# 4. 遍历特性获取详细描述 (动态生成)
+	# 需要 Feature 基类实现 get_description()
+	var features_desc: Array[String] = []
+	for feature in _instance.get_all_features().values():
+		if not is_instance_valid(feature): continue
 		
-		# 5. 效果描述
-		var effects_desc = ability_data.get_effects_description()
-		if effects_desc != "":
-			tooltip_lines.append("")
-			tooltip_lines.append("效果:")
-			# 处理效果描述，每行添加缩进
-			var effect_lines = effects_desc.split("\n")
-			for line in effect_lines:
-				if line.strip_edges() != "":
-					tooltip_lines.append("  • %s" % line.strip_edges())
+		# 过滤掉空的描述
+		var f_desc = feature.get_description()
+		if f_desc != "":
+			features_desc.append(f_desc)
 	
-	# 设置 tooltip_text（设置在 AbilityButton 本身，而不是 Button）
-	# 因为 MarginContainer 需要接收鼠标事件才能显示 tooltip
-	tooltip_text = "\n".join(tooltip_lines)
+	if not features_desc.is_empty():
+		lines.append("")
+		lines.append("[color=gray]详细属性:[/color]")
+		for desc in features_desc:
+			lines.append(" • %s" % desc)
+			
+	tooltip_text = "\n".join(lines)
+
+#endregion
+
+#region ========== 交互回调 ==========
+
+func _on_button_pressed() -> void:
+	if not is_instance_valid(_component): return
+	
+	# 使用新的 Component API
+	_component.try_activate_ability(_ability_id)
+
+func _on_ability_activated(ability_inst: GameplayAbilityInstance) -> void:
+	if ability_inst == _instance:
+		_update_cooldown_display()
+		# 这里可以播放一个点击动画，比如缩放一下
+
+func _on_ability_completed(ability_inst: GameplayAbilityInstance) -> void:
+	if ability_inst == _instance:
+		_update_icon() # 连击结束可能重置图标
+
+func _on_ability_data_changed(ability_inst: GameplayAbilityInstance) -> void:
+	if ability_inst == _instance:
+		_update_tooltip()
+		_update_icon()
+
+#endregion

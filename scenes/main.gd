@@ -6,6 +6,7 @@ const TRANSITION_TIME = 1.5
 @onready var player: CharacterBody3D = $RoomLobby/Player
 @onready var inventory_ui: MarginContainer = $UILayer/HUD/inventory
 @onready var camera: Camera3D = $Camera3D
+@onready var bt_debug_panel: BTDebugPanel = $BTDebugPanel
 var camera_controller: CameraController = null
 
 @export var game_data : GameData
@@ -35,12 +36,16 @@ func _unhandled_input(event) -> void:
 		else:
 			inventory_ui.open()
 	
+	# 行为树调试面板快捷键
+	if event.is_action_pressed("toggle_bt_debug"):
+		if is_instance_valid(bt_debug_panel):
+			bt_debug_panel.toggle_visibility()
+		get_viewport().set_input_as_handled()
+	
 	# 【测试功能】按 P 键添加 1 个天赋点数
 	if event is InputEventKey and event.pressed and event.keycode == KEY_P:
-		if Engine.has_singleton("TalentManager"):
-			var mgr: TalentManager = Engine.get_singleton("TalentManager")
-			mgr.add_points(1)
-			print("Main: Added 1 talent point (total: %d)" % mgr.available_points)
+		TalentManager.add_points(1)
+		print("Main: Added 1 talent point (total: %d)" % TalentManager.available_points)
 
 func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> void:
    # 1. 冻结玩家 (禁止乱动)

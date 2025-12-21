@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="TalentData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="TalentData" load_steps=5 format=3 uid="uid://bptd4ncben601"]
 
-[ext_resource type="Script" path="res://scripts/talent/talent_data.gd" id="1_talent_data"]
-[ext_resource type="Resource" uid="uid://hg1sxnwtd36d" path="res://data/modifiers/mod_fireball_multicast.tres" id="2_modifier"]
+[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="1_scyqd"]
+[ext_resource type="Script" uid="uid://douxicmi8r2jr" path="res://scripts/talent/talent_data.gd" id="1_talent_data"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="2_jkskd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l03ey"]
+atlas = ExtResource("2_jkskd")
+region = Rect2(32, 0, 32, 32)
 
 [resource]
 script = ExtResource("1_talent_data")
 talent_id = &"fireball_multicast"
 display_name = "多重火球"
 description = "火球术额外发射 2 个投射物"
-cost = 1
-prerequisites = Array[StringName]([])
-ability_modifiers = Array[ExtResource("2_modifier")]([ExtResource("2_modifier")])
-
+icon = SubResource("AtlasTexture_l03ey")

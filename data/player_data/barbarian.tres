@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerData" load_steps=28 format=3 uid="uid://cg4anfcgfpik4"]
+[gd_resource type="Resource" script_class="PlayerData" load_steps=29 format=3 uid="uid://cg4anfcgfpik4"]
 
 [ext_resource type="Script" uid="uid://ccgjxcr56jc2h" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute_set.gd" id="1_41usi"]
 [ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute.gd" id="2_nkcd8"]
@@ -20,8 +20,9 @@
 [ext_resource type="Resource" uid="uid://bvbw8cphgiuv5" path="res://data/attributes/health_regen.tres" id="16_lpmmf"]
 [ext_resource type="Resource" uid="uid://cl88e4xmld24w" path="res://data/attributes/mana_regen.tres" id="17_8s7k1"]
 [ext_resource type="Script" uid="uid://c6bk65loe1kkq" path="res://addons/godot_gameplay_abilities/scripts/attributes/vitals/health_vital.gd" id="18_j0hhi"]
+[ext_resource type="Script" uid="uid://myeh0phiojr0" path="res://addons/godot_gameplay_abilities/scripts/abilities/gameplay_ability_definition.gd" id="19_sssar"]
 [ext_resource type="Script" uid="uid://bqu07lnijvw87" path="res://addons/godot_gameplay_abilities/scripts/attributes/vitals/mana_vital.gd" id="19_wucg8"]
-[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability.gd" id="20_lpmmf"]
+[ext_resource type="Resource" uid="uid://dqyj5y5ta5vje" path="res://data/abilities/combo_attack.tres" id="20_sssar"]
 [ext_resource type="Script" uid="uid://cq12vx17wqaxl" path="res://addons/godot_gameplay_abilities/scripts/attributes/vitals/gameplay_vital.gd" id="24_8s7k1"]
 
 [sub_resource type="Resource" id="Resource_0tg7o"]
@@ -55,24 +56,28 @@ metadata/_custom_type_script = "uid://d373ug5yg4v21"
 script = ExtResource("18_j0hhi")
 vital_id = &"health"
 display_name = "生命值"
-max_value_attribute = &"health"
+max_value_attribute = &"max_health"
+regen_rate_attribute = &"health_regen"
 metadata/_custom_type_script = "uid://c6bk65loe1kkq"
 
 [sub_resource type="Resource" id="Resource_pwhx8"]
 script = ExtResource("19_wucg8")
 vital_id = &"mana"
 display_name = "魔法值"
-max_value_attribute = &"mana"
+max_value_attribute = &"max_mana"
+regen_rate_attribute = &"mana_regen"
 metadata/_custom_type_script = "uid://bqu07lnijvw87"
 
 [resource]
 script = ExtResource("4_x6008")
 attribute_sets = Array[ExtResource("1_41usi")]([SubResource("Resource_0tg7o"), SubResource("Resource_dwbmn")])
 vitals = Array[ExtResource("24_8s7k1")]([SubResource("Resource_wmkhh"), SubResource("Resource_pwhx8")])
+initial_abilities = Array[ExtResource("19_sssar")]([ExtResource("20_sssar")])
 ability_shortcuts = Dictionary[StringName, String]({
 &"arcane_missiles": "2",
 &"attack_combo_1": "MOUSE_LEFT",
 &"basic_attack": "MOUSE_LEFT",
+&"combo_attack": "MOUSE_LEFT",
 &"dash": "MOUSE_RIGHT",
 &"fireball": "1",
 &"sacrifice": "3"

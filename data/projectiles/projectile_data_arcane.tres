@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="ProjectileData" load_steps=13 format=3 uid="uid://ds4wx1ltqdqp0"]
+[gd_resource type="Resource" script_class="ProjectileData" load_steps=14 format=3 uid="uid://ds4wx1ltqdqp0"]
 
 [ext_resource type="Script" uid="uid://b2nxkgycmifbj" path="res://addons/godot_gameplay_abilities/scripts/entities/data/projectile_data.gd" id="1_projectile_data"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="2_7jch6"]
 [ext_resource type="Script" uid="uid://c4bbvuycoblmm" path="res://addons/godot_gameplay_abilities/scripts/entities/movement_strategies/homing_movement_strategy.gd" id="2_homing_strategy"]
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="3_h81af"]
 [ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="3_oydyv"]
+[ext_resource type="Script" uid="uid://ct224mxbkm3nx" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute_modifier.gd" id="4_ovlgk"]
 [ext_resource type="Resource" uid="uid://b5k7x2m5oap4s" path="res://data/cues/hit_cue_physical_wrapper.tres" id="4_oydyv"]
 [ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="5_cc7c1"]
 [ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_apply_damage.gd" id="5_oydyv"]

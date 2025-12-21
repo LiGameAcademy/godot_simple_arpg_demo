@@ -51,14 +51,7 @@ func setup_from_context(context: Dictionary) -> void:
 
 ## 播放飘字动画
 func _play_animation() -> void:
-	# 使用全局单例 GameplayCueManager 创建 Tween
-	var manager = GameplayCueManager
-	if not is_instance_valid(manager):
-		push_warning("FloatingText: Cannot create tween, GameplayCueManager not found")
-		queue_free()
-		return
-	
-	var tween = manager.create_tween()
+	var tween = create_tween()
 	tween.set_parallel(true)
 	
 	# 向上移动

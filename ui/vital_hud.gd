@@ -23,7 +23,7 @@ func _initialize_from_player() -> void:
 		return
 	
 	# 获取 Vital 组件
-	var comp = GameplayAbilitySystem.get_component_by_interface(player, "GameplayVitalAttributeComponent")
+	var comp = GameplayAbilitySystem.get_component_by_interface(player, "GameplayAttributeComponent")
 	if not is_instance_valid(comp) or not comp is GameplayVitalAttributeComponent:
 		push_warning("VitalHUD: GameplayVitalAttributeComponent not found")
 		return

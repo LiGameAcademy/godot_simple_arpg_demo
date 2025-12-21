@@ -49,7 +49,7 @@ func _get_targets(caster: Node3D, context: Dictionary = {}) -> Array[Node]:
 	if right.length_squared() < 0.01:
 		right = Vector3.RIGHT
 	up = right.cross(facing_dir).normalized()
-	var rotation_basis = Basis(right, up, -facing_dir)
+	var rotation_basis = Basis(right, up, facing_dir)
 	
 	# 5. 计算攻击盒的位置和旋转
 	# 将 offset 从局部空间转换到世界空间（应用角色朝向）

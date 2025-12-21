@@ -1,12 +1,10 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://dd4rw7h0bphf2"]
 
 [ext_resource type="Script" uid="uid://blncdsij6s03k" path="res://prefabs/fx/floating_text.gd" id="1_floating_text"]
 
 [node name="FloatingText" type="Label3D"]
+pixel_size = 0.01
 billboard = 1
-shaded = false
 no_depth_test = true
 text = "-100"
-font_size = 24
 script = ExtResource("1_floating_text")
-

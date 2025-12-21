@@ -21,7 +21,6 @@ layout_mode = 2
 
 [node name="Header" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 0
 
 [node name="TitleLabel" type="Label" parent="VBoxContainer/Header"]
@@ -32,9 +31,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PointsLabel" type="Label" parent="VBoxContainer/Header"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
-text = "剩余点数: 0"
+text = "剩余点数: ?"
 horizontal_alignment = 2
 vertical_alignment = 1
 

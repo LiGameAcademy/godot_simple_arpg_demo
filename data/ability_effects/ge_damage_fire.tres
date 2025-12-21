@@ -6,15 +6,15 @@
 [ext_resource type="Script" uid="uid://bv8l03cfspmdk" path="res://addons/godot_gameplay_abilities/scripts/cues/gameplay_cue.gd" id="3_jxfkm"]
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="4_k26dj"]
 [ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="5_qgnbg"]
-[ext_resource type="PackedScene" uid="uid://blncdsij6s03k" path="res://prefabs/fx/floating_text.gd" id="6_floating_text_scene"]
+[ext_resource type="Script" uid="uid://blncdsij6s03k" path="res://prefabs/fx/floating_text.gd" id="6_floating_text_scene"]
 
 [sub_resource type="Resource" id="Resource_cw5ri"]
 script = ExtResource("2_attached_particle")
-attachment_point = &"head"
-offset = Vector3(0, 0.5, 0)
 particle_scene = ExtResource("6_floating_text_scene")
 attach_to_target = false
 allow_duplicate = true
+attachment_point = &"head"
+offset = Vector3(0, 0.5, 0)
 
 [sub_resource type="Resource" id="Resource_12onc"]
 script = ExtResource("3_jxfkm")

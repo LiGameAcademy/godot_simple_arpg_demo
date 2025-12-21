@@ -6,7 +6,7 @@ class_name AttributeDashboard
 
 # 配置：哪些是一级，哪些是二级
 const PRIMARY_ATTRS = [&"strength", &"agility", &"intelligence", &"vitality"]
-const SECONDARY_ATTRS = [&"health", &"mana", &"attack", &"defense", &"speed", &"crit_rate"]
+const SECONDARY_ATTRS = [&"max_health", &"max_mana", &"attack", &"defense", &"speed", &"crit_rate"]
 
 # UI 节点引用
 @onready var header_container = %HeaderContainer

@@ -1,50 +1,43 @@
-[gd_resource type="Resource" script_class="ActiveAbility" load_steps=18 format=3 uid="uid://1ec04wtsoes"]
+[gd_resource type="Resource" script_class="ActiveAbilityDefinition" load_steps=14 format=3 uid="uid://1ec04wtsoes"]
 
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="2_7mol0"]
-[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability.gd" id="2_yew1t"]
-[ext_resource type="Script" uid="uid://c1loowqhvoix0" path="res://scripts/data/hit_detector/melee_box_hit_detector.gd" id="3_7mol0"]
-[ext_resource type="Script" uid="uid://bcymae7pdc1s7" path="res://addons/godot_gameplay_abilities/scripts/cues/gameplay_cue_base.gd" id="3_nru6w"]
-[ext_resource type="Resource" uid="uid://bgfj67kw1fhtp" path="res://data/cues/hit_cue_physical.tres" id="4_pegj5"]
-[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="5_3g35k"]
-[ext_resource type="Script" uid="uid://bv8l03cfspmdk" path="res://addons/godot_gameplay_abilities/scripts/cues/gameplay_cue.gd" id="5_558hi"]
-[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/costs/ability_cost_base.gd" id="6_7iys2"]
+[ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/gameplay_ability_feature.gd" id="1_e5isf"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="1_nj71f"]
+[ext_resource type="Resource" uid="uid://b5k7x2m5oap4s" path="res://data/cues/hit_cue_physical_wrapper.tres" id="2_7iys2"]
+[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_apply_damage.gd" id="3_7mol0"]
+[ext_resource type="Script" uid="uid://dce6ftpfn6k5n" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability_definition.gd" id="5_3g35k"]
 [ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="6_p14ky"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="7_7iys2"]
-[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_apply_damage.gd" id="7_or682"]
+[ext_resource type="Script" uid="uid://c1loowqhvoix0" path="res://scripts/data/hit_detector/melee_box_hit_detector.gd" id="7_e5isf"]
 [ext_resource type="Script" uid="uid://c7ywlq8qjjxps" path="res://addons/godot_gameplay_abilities/scripts/targeting/strategies/hit_detector_targeting_strategy.gd" id="12_558hi"]
 
-[sub_resource type="Resource" id="Resource_ck2gy"]
-script = ExtResource("5_558hi")
-cues = Array[ExtResource("3_nru6w")]([ExtResource("4_pegj5")])
-
-[sub_resource type="Resource" id="Resource_410up"]
-script = ExtResource("7_or682")
-cue = SubResource("Resource_ck2gy")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3g35k"]
-atlas = ExtResource("7_7iys2")
-region = Rect2(0, 96, 32, 32)
-
-[sub_resource type="Resource" id="Resource_p14ky"]
+[sub_resource type="Resource" id="Resource_e5isf"]
 script = ExtResource("3_7mol0")
+cue = ExtResource("2_7iys2")
+metadata/_custom_type_script = "uid://uhmb38g5nej3"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mol0"]
+atlas = ExtResource("7_7iys2")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="Resource" id="Resource_7iys2"]
+script = ExtResource("7_e5isf")
 box_extents = Vector3(1.5, 1.5, 1.5)
-offset = Vector3(0, 0.7578491, -0.73497486)
+offset = Vector3(0, 0, 1.5)
 collision_mask = 4
 metadata/_custom_type_script = "uid://c1loowqhvoix0"
 
-[sub_resource type="Resource" id="Resource_or682"]
+[sub_resource type="Resource" id="Resource_nru6w"]
 script = ExtResource("12_558hi")
-hit_detector = SubResource("Resource_p14ky")
+hit_detector = SubResource("Resource_7iys2")
 metadata/_custom_type_script = "uid://c7ywlq8qjjxps"
 
 [resource]
-script = ExtResource("2_yew1t")
-cooldown_duration = 0.6
-targeting_strategy = SubResource("Resource_or682")
+script = ExtResource("5_3g35k")
 animation_name = &"attack"
-effects = Array[ExtResource("2_7mol0")]([SubResource("Resource_410up")])
+pre_cast_delay = 0.5
+cooldown_duration = 0.5
+effects = Array[ExtResource("1_nj71f")]([SubResource("Resource_e5isf")])
+targeting_strategy = SubResource("Resource_nru6w")
 ability_id = &"basic_attack"
-ability_name = "攻击"
-description = "对目标造成物理伤害"
-icon = SubResource("AtlasTexture_3g35k")
-metadata/_custom_type_script = "uid://cbvhifiid5vg6"
+ability_name = "普通攻击"
+icon = SubResource("AtlasTexture_7mol0")

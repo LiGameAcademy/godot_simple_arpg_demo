@@ -50,7 +50,7 @@ func initialize(talent: TalentData) -> void:
 	tooltip_text = _build_tooltip()
 	
 	# 更新状态显示
-	_update_state()
+	update_state()
 
 ## 构建 Tooltip 文本
 func _build_tooltip() -> String:
@@ -114,7 +114,7 @@ func _get_talent_status() -> String:
 	return "can_learn"
 
 ## 更新按钮状态显示
-func _update_state() -> void:
+func update_state() -> void:
 	if not is_instance_valid(talent_data):
 		return
 	
@@ -144,9 +144,9 @@ func _on_button_pressed() -> void:
 
 ## 点数变更回调
 func _on_points_changed(_points: int) -> void:
-	_update_state()
+	update_state()
 
 ## 天赋学会回调
 func _on_talent_learned(talent_id: StringName) -> void:
 	if is_instance_valid(talent_data) and talent_data.talent_id == talent_id:
-		_update_state()
+		update_state()

@@ -1,13 +1,19 @@
-[gd_resource type="Resource" script_class="TalentData" load_steps=4 format=3 uid="uid://dc05n730gw37d"]
+[gd_resource type="Resource" script_class="TalentData" load_steps=5 format=3 uid="uid://dc05n730gw37d"]
 
 [ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="1_f7vka"]
 [ext_resource type="Script" uid="uid://douxicmi8r2jr" path="res://scripts/talent/talent_data.gd" id="1_talent_data"]
-[ext_resource type="Resource" uid="uid://36kjse1wywxi" path="res://data/modifiers/mod_damage_boost.tres" id="2_damage_mod"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f7vka"]
+load_path = "res://.godot/imported/icons.png-3a2c064d0bba3f942d69c3204833c3d7.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtkwe"]
+atlas = SubResource("CompressedTexture2D_f7vka")
+region = Rect2(256, 0, 32, 32)
 
 [resource]
 script = ExtResource("1_talent_data")
 talent_id = &"damage_boost"
 display_name = "伤害强化"
 description = "所有技能伤害增加 50%"
+icon = SubResource("AtlasTexture_wtkwe")
 cost = 2
-ability_modifiers = Array[ExtResource("1_f7vka")]([ExtResource("2_damage_mod")])

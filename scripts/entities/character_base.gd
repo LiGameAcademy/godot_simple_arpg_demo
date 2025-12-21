@@ -42,7 +42,7 @@ func get_visual_adapter() -> Node:
 ## [param] ability_id: StringName 技能 ID
 ## [param] target: Node 目标节点（可选）
 ## [param] context: Dictionary 上下文信息（可选）
-func try_cast_ability(ability_id: StringName, target: Node = null, context: Dictionary = {}) -> void:
+func try_activate_ability(ability_id: StringName, context: Dictionary = {}) -> void:
 	if not is_instance_valid(ability_component):
 		push_warning("CharacterBase: Cannot cast ability, ability_component is not valid")
 		return
@@ -52,14 +52,17 @@ func try_cast_ability(ability_id: StringName, target: Node = null, context: Dict
 		var facing_angle: float = _get_facing_angle()
 		context["facing_angle"] = facing_angle
 	
-	if ability_component.can_cast(ability_id, target, context):
-		var ok := ability_component.commit_cast(ability_id, target, context)
+	if ability_component.can_activate_ability(ability_id, context):
+		var ok := ability_component.try_activate_ability(ability_id, context)
 		if not ok:
 			print("CharacterBase: Failed to commit cast for ability: %s" % ability_id)
 			return
 		print("CharacterBase: Ability committed cast: ", ability_id)
 	else:
 		print("CharacterBase: Ability can not cast: ", ability_id)
+
+func play_animation(animation_name : StringName, speed : float = 1.0) -> void:
+	_visual_adapter.play_animation(animation_name, speed)
 
 ## 获取角色面朝角度（子类可重写）
 ## [return] float 面朝角度（弧度），如果返回 null 则不设置 facing_angle

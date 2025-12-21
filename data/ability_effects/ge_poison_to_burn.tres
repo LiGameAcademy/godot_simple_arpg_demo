@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="GameplayEffect" load_steps=4 format=3]
 
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/ability_effects/ge_status_transform.gd" id="1_effect"]
-[ext_resource type="Resource" path="res://data/ability_status/burn_status.tres" id="2_burn_status"]
+[ext_resource type="Script" uid="uid://uum4tll8q71n" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_status_transform.gd" id="1_effect"]
+[ext_resource type="Resource" uid="uid://dvradrjclri7g" path="res://data/ability_status/burn_status.tres" id="2_burn_status"]
+
 
 [resource]
 script = ExtResource("1_effect")

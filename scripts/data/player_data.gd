@@ -3,7 +3,7 @@ class_name PlayerData
 
 @export var attribute_sets: Array[GameplayAttributeSet] ## 属性集
 @export var vitals: Array[GameplayVital]
-@export var initial_abilities: Array[ActiveAbility] = []  ## 初始技能列表（所有技能都通过技能系统管理）
+@export var initial_abilities: Array[GameplayAbilityDefinition] = []  ## 初始技能列表（所有技能都通过技能系统管理）
 
 @export_group("Shortcuts")
 ## 技能快捷键映射（技能 ID -> 快捷键字符串）

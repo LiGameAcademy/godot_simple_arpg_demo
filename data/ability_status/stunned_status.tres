@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=6 format=3 uid="uid://bo5osxxcsy4th"]
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=7 format=3 uid="uid://bo5osxxcsy4th"]
 
+[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="1_5othc"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="1_status_data"]
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="2_bmq05"]
 [ext_resource type="Resource" uid="uid://r5isxkmbo25x" path="res://data/cues/stun_cue.tres" id="2_stun_cue"]

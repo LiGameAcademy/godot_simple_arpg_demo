@@ -1,65 +1,18 @@
-[gd_resource type="Resource" script_class="ActiveAbility" load_steps=18 format=3 uid="uid://op60b7h2ejrt"]
+[gd_resource type="Resource" script_class="ActiveAbilityDefinition" load_steps=6 format=3 uid="uid://op60b7h2ejrt"]
 
-[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/costs/ability_cost_base.gd" id="1_bvqjp"]
-[ext_resource type="Script" uid="uid://c1loowqhvoix0" path="res://scripts/data/hit_detector/melee_box_hit_detector.gd" id="2_nj71f"]
-[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability.gd" id="2_yew1t"]
+[ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/gameplay_ability_feature.gd" id="2_eawei"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_7mol0"]
-[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="5_ld5ic"]
+[ext_resource type="Script" uid="uid://dce6ftpfn6k5n" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability_definition.gd" id="3_lsrl3"]
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="6_c0vht"]
-[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="6_kawta"]
-[ext_resource type="Resource" uid="uid://b5k7x2m5oap4s" path="res://data/cues/hit_cue_physical_wrapper.tres" id="7_bvqjp"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="8_c0vht"]
-[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_apply_damage.gd" id="9_kawta"]
-[ext_resource type="Script" uid="uid://c7ywlq8qjjxps" path="res://addons/godot_gameplay_abilities/scripts/targeting/strategies/hit_detector_targeting_strategy.gd" id="10_bvqjp"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_b4kma"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsrl3"]
 atlas = ExtResource("3_7mol0")
-region = Rect2(64, 96, 32, 32)
-
-[sub_resource type="Resource" id="Resource_damage"]
-script = ExtResource("9_kawta")
-damage_multiplier = 1.2
-target_blocked_tags = Array[StringName]([&"state.invulnerable"])
-cue = ExtResource("7_bvqjp")
-
-[sub_resource type="Resource" id="Resource_lbseu"]
-script = ExtResource("5_ld5ic")
-status_id = &"attack_combo_1"
-status_display_name = "攻击伤害"
-status_description = "对目标造成物理伤害"
-duration = 0.0
-effects = Array[ExtResource("6_c0vht")]([SubResource("Resource_damage")])
-
-[sub_resource type="Resource" id="Resource_stunned"]
-script = ExtResource("5_ld5ic")
-status_id = &"stunned"
-status_display_name = "眩晕"
-status_description = "无法移动、无法释放技能"
-duration = 2.0
-is_debuff = true
-tags = Array[StringName]([&"state.stunned"])
-
-[sub_resource type="Resource" id="Resource_kawta"]
-script = ExtResource("2_nj71f")
-box_extents = Vector3(1.5, 1.5, 1.5)
-offset = Vector3(0, 0.7578491, -0.73497486)
-collision_mask = 4
-metadata/_custom_type_script = "uid://c1loowqhvoix0"
-
-[sub_resource type="Resource" id="Resource_j6113"]
-script = ExtResource("10_bvqjp")
-hit_detector = SubResource("Resource_kawta")
-metadata/_custom_type_script = "uid://c7ywlq8qjjxps"
+region = Rect2(64, 160, 32, 32)
 
 [resource]
-script = ExtResource("2_yew1t")
-cooldown_duration = 0.6
-cast_point = 0.6
-targeting_strategy = SubResource("Resource_j6113")
+script = ExtResource("3_lsrl3")
 animation_name = &"jump_attack"
+pre_cast_delay = 0.5
 ability_id = &"heavy_attack"
 ability_name = "重击"
-description = "对目标造成双倍物理伤害并眩晕"
-icon = SubResource("AtlasTexture_b4kma")
-statuses = Array[ExtResource("5_ld5ic")]([SubResource("Resource_lbseu"), SubResource("Resource_stunned")])
-metadata/_custom_type_script = "uid://cbvhifiid5vg6"
+icon = SubResource("AtlasTexture_lsrl3")

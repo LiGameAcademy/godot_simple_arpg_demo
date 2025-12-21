@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=16 format=3 uid="uid://c8k7x2m5oap40"]
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=17 format=3 uid="uid://c8k7x2m5oap40"]
 
 [ext_resource type="Resource" uid="uid://bcp7gpxweokag" path="res://data/cues/sacrifice_aura_cue.tres" id="1_kbhe2"]
 [ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="1_p8m0x"]
+[ext_resource type="Script" uid="uid://ct224mxbkm3nx" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute_modifier.gd" id="2_npu2x"]
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="2_p8m0x"]
 [ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="3_kbhe2"]
 [ext_resource type="Script" uid="uid://c2intvx8ht0fd" path="res://addons/godot_gameplay_abilities/scripts/hit_detection/area_hit_detector.gd" id="4_pdvbd"]

@@ -11,5 +11,4 @@ class_name GameplayEquip
 ## 常见值：&"hand_right", &"hand_left", &"head", &"chest" 等
 @export var attachment_point: StringName = &"hand_right"
 ## 装备携带的技能列表（装备时自动学会，卸下时自动遗忘）
-@export var abilities: Array[ActiveAbility] = []
-
+@export var abilities: Array[GameplayAbilityDefinition] = []

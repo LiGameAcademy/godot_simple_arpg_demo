@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3 uid="uid://c7wyfjp10q1tf"]
+
+[ext_resource type="Script" uid="uid://12dkgrpr4i3b" path="res://addons/godot_gameplay_abilities/scripts/tags/gameplay_tag.gd" id="1_tag"]
+
+[resource]
+script = ExtResource("1_tag")
+id = &"defense.shield"
+display_name = "护盾"
+description = ""

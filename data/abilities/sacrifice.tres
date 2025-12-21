@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="ChannelingAbility" load_steps=16 format=3 uid="uid://dv881tgsi371p"]
+[gd_resource type="Resource" script_class="ChannelingAbility" load_steps=17 format=3 uid="uid://dv881tgsi371p"]
 
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/costs/ability_cost_base.gd" id="1_qx6w0"]
 [ext_resource type="Script" uid="uid://b020omvwxvw2i" path="res://addons/godot_gameplay_abilities/scripts/abilities/channeling_ability.gd" id="2_r5oxu"]
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="2_w6leb"]
+[ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/ability_feature.gd" id="4_gcxoj"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="4_w6leb"]
 [ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="7_aaoph"]
 [ext_resource type="Resource" uid="uid://c8k7x2m5oap40" path="res://data/ability_status/sacrifice_status.tres" id="7_e5mj2"]

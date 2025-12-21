@@ -1,32 +1,28 @@
-[gd_resource type="Resource" script_class="ComboAbility" load_steps=14 format=3 uid="uid://dqyj5y5ta5vje"]
+[gd_resource type="Resource" script_class="ComboAbilityDefinition" load_steps=11 format=3 uid="uid://dqyj5y5ta5vje"]
 
-[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability.gd" id="1_qe3at"]
+[ext_resource type="Script" uid="uid://dce6ftpfn6k5n" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability_definition.gd" id="1_kryxh"]
 [ext_resource type="Resource" uid="uid://1ec04wtsoes" path="res://data/abilities/basic_attack.tres" id="2_b1qqw"]
-[ext_resource type="Resource" uid="uid://60xxjx03ioa" path="res://data/abilities/attack_combo_2.tres" id="3_pc1gt"]
+[ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/gameplay_ability_feature.gd" id="3_uisbl"]
+[ext_resource type="Script" uid="uid://cj4h1fnurw1lv" path="res://addons/godot_gameplay_abilities/scripts/abilities/combo_ability_definition.gd" id="4_7mimf"]
+[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/costs/ability_cost_base.gd" id="4_qe3at"]
 [ext_resource type="Resource" uid="uid://op60b7h2ejrt" path="res://data/abilities/heavy_attack.tres" id="4_ufw6m"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="5_oa4id"]
-[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/costs/ability_cost_base.gd" id="6_5li5d"]
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="6_qe3at"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/abilities/combo_ability.gd" id="7_ki1wn"]
-[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="8_2eavr"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="10_pc1gt"]
-[ext_resource type="Script" uid="uid://l0ydg4ja0w6h" path="res://addons/godot_gameplay_abilities/scripts/targeting/strategies/no_targeting_strategy.gd" id="11_ufw6m"]
+[ext_resource type="Script" uid="uid://3n073v4axo0p" path="res://addons/godot_gameplay_abilities/scripts/costs/vital_cost.gd" id="5_qe3at"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nru6w"]
+[sub_resource type="Resource" id="Resource_b1qqw"]
+script = ExtResource("5_qe3at")
+metadata/_custom_type_script = "uid://3n073v4axo0p"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qe3at"]
 atlas = ExtResource("5_oa4id")
-region = Rect2(384, 96, 32, 32)
-
-[sub_resource type="Resource" id="Resource_oa4id"]
-script = ExtResource("11_ufw6m")
-metadata/_custom_type_script = "uid://l0ydg4ja0w6h"
+region = Rect2(32, 160, 32, 32)
 
 [resource]
-script = ExtResource("7_ki1wn")
-_combo_abilities = Array[ExtResource("1_qe3at")]([ExtResource("2_b1qqw"), ExtResource("3_pc1gt"), ExtResource("4_ufw6m")])
-cooldown_duration = 0.6
-targeting_strategy = SubResource("Resource_oa4id")
-animation_name = &""
-ability_id = &"basic_attack"
-ability_name = "普通攻击"
-icon = SubResource("AtlasTexture_nru6w")
-metadata/_custom_type_script = "uid://cbvhifiid5vg6"
+script = ExtResource("4_7mimf")
+combo_steps = Array[ExtResource("1_kryxh")]([ExtResource("2_b1qqw"), ExtResource("2_b1qqw"), ExtResource("4_ufw6m")])
+window_duration = 1.0
+costs = Array[ExtResource("4_qe3at")]([SubResource("Resource_b1qqw")])
+cooldown_duration = 1.0
+ability_id = &"combo_attack"
+ability_name = "三连击"
+icon = SubResource("AtlasTexture_qe3at")

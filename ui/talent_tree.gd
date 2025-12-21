@@ -6,6 +6,11 @@ class_name TalentTree
 ## - 展示一棵天赋树（基于 TalentTreeData）
 ## - 响应玩家点击，调用 TalentManager.learn_talent
 
+const TALENT_BUTTON_SCENE = preload("res://ui/talent_button.tscn")
+
+@onready var points_label: Label = %PointsLabel
+@onready var talent_container: GridContainer = %TalentContainer
+
 @export_group("Configuration")
 @export var talent_tree: TalentTreeData
 @export var target_entity: NodePath  ## 一般指向 Player 节点
@@ -27,13 +32,11 @@ func _ready() -> void:
 	_build_tree_ui()
 	
 	# 监听天赋点数变更，刷新 UI 显示
-	if Engine.has_singleton("TalentManager"):
-		var mgr: TalentManager = Engine.get_singleton("TalentManager")
-		mgr.talent_points_changed.connect(_on_points_changed)
-		mgr.talent_learned.connect(_on_talent_learned)
-		
-		# 初始化点数显示
-		_on_points_changed(mgr.available_points)
+	TalentManager.talent_points_changed.connect(_on_points_changed)
+	TalentManager.talent_learned.connect(_on_talent_learned)
+	
+	# 初始化点数显示
+	_on_points_changed(TalentManager.available_points)
 
 ## 处理未处理的输入事件（用于快捷键）
 func _unhandled_input(event: InputEvent) -> void:
@@ -71,18 +74,12 @@ func _build_tree_ui() -> void:
 		container.remove_child(child)
 		child.queue_free()
 	
-	# 加载天赋按钮场景
-	var button_scene = load("res://ui/talent_button.tscn")
-	if not is_instance_valid(button_scene):
-		push_error("TalentTree: Cannot load talent_button.tscn")
-		return
-	
 	# 创建按钮
 	for talent in talent_tree.talents:
 		if not is_instance_valid(talent):
 			continue
 		
-		var button = button_scene.instantiate()
+		var button = TALENT_BUTTON_SCENE.instantiate()
 		if not is_instance_valid(button):
 			push_error("TalentTree: Cannot instantiate talent button")
 			continue
@@ -98,13 +95,9 @@ func _build_tree_ui() -> void:
 
 func _on_talent_button_pressed(talent: TalentData) -> void:
 	if not is_instance_valid(_entity):
-		_entity = get_tree().get_first_node_in_group("player")
+		_entity = get_tree().get_first_node_in_group("Player")
 	
-	if not Engine.has_singleton("TalentManager"):
-		return
-	var mgr: TalentManager = Engine.get_singleton("TalentManager")
-	
-	if mgr.learn_talent(_entity, talent):
+	if not TalentManager.learn_talent(_entity, talent):
 		# 学习成功，刷新 UI
 		_refresh_ui()
 	else:
@@ -113,7 +106,6 @@ func _on_talent_button_pressed(talent: TalentData) -> void:
 
 func _on_points_changed(points: int) -> void:
 	# 更新点数显示
-	var points_label: Label = get_node_or_null("%PointsLabel")
 	if is_instance_valid(points_label):
 		points_label.text = "剩余点数: %d" % points
 	
@@ -128,17 +120,13 @@ func _on_talent_learned(_talent_id: StringName) -> void:
 func _refresh_ui() -> void:
 	_build_tree_ui()
 	# 更新点数显示
-	if Engine.has_singleton("TalentManager"):
-		var mgr: TalentManager = Engine.get_singleton("TalentManager")
-		if is_instance_valid(mgr):
-			_on_points_changed(mgr.available_points)
+	_on_points_changed(TalentManager.available_points)
 
 ## 更新所有按钮状态（不重建，只更新状态）
 func _update_all_buttons() -> void:
-	var container: Container = get_node_or_null("%TalentContainer")
-	if not is_instance_valid(container):
+	if not is_instance_valid(talent_container):
 		return
 	
-	for child in container.get_children():
-		if child.has_method("_update_state"):
-			child._update_state()
+	for child in talent_container.get_children():
+		if child.has_method("update_state"):
+			child.update_state()
