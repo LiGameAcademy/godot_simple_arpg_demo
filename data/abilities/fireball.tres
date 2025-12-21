@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="ProjectileAbility" load_steps=21 format=3 uid="uid://dot5q23nxvk0v"]
+[gd_resource type="Resource" script_class="ProjectileAbilityDefinition" load_steps=22 format=3 uid="uid://dot5q23nxvk0v"]
 
-[ext_resource type="Script" uid="uid://dnrbnn28ih78w" path="res://addons/godot_gameplay_abilities/scripts/abilities/projectile_ability.gd" id="1_projectile_ability"]
-[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/costs/ability_cost_base.gd" id="2_6jlwg"]
+[ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/gameplay_ability_feature.gd" id="1_hupgj"]
+[ext_resource type="Script" uid="uid://bxrr6ngbc4t80" path="res://addons/godot_gameplay_abilities/scripts/abilities/projectile_ability_definition.gd" id="1_projectile_def"]
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="2_effect"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="4_07wpr"]
 [ext_resource type="Script" uid="uid://f6ejv1dhcuwg" path="res://addons/godot_gameplay_abilities/scripts/entities/movement_strategies/linear_movement_strategy.gd" id="4_31md0"]
@@ -9,10 +9,11 @@
 [ext_resource type="Script" uid="uid://b2nxkgycmifbj" path="res://addons/godot_gameplay_abilities/scripts/entities/data/projectile_data.gd" id="5_5m1cr"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="5_icon"]
 [ext_resource type="Resource" uid="uid://b5k7x2m5oap4s" path="res://data/cues/hit_cue_physical_wrapper.tres" id="6_hsgk6"]
+[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="6_tdsxl"]
 [ext_resource type="Script" uid="uid://biqqmmq83881j" path="res://addons/godot_gameplay_abilities/scripts/targeting/strategies/unit_targeting_strategy.gd" id="6_unit_targeting"]
 [ext_resource type="PackedScene" uid="uid://csynuqnu7jq4p" path="res://prefabs/fire_ball.tscn" id="7_07wpr"]
+[ext_resource type="Script" uid="uid://ct224mxbkm3nx" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute_modifier.gd" id="7_f4jxu"]
 [ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_apply_damage.gd" id="7_hsgk6"]
-[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="7_ivnfh"]
 [ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="8_mbewx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
@@ -42,7 +43,6 @@ max_lifetime = 3.0
 movement_strategy = SubResource("Resource_07wpr")
 projectile_scene = ExtResource("7_07wpr")
 payload_statuses = Array[ExtResource("4_07wpr")]([SubResource("Resource_ivnfh")])
-on_destory_magic_field_data = ExtResource("4_hsgk6")
 required_trigger_target_tags = Array[StringName]([&"status.burn"])
 metadata/_custom_type_script = "uid://b2nxkgycmifbj"
 
@@ -51,11 +51,11 @@ script = ExtResource("6_unit_targeting")
 metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/data/targeting/strategies/unit_targeting_strategy.gd"
 
 [resource]
-script = ExtResource("1_projectile_ability")
-projectile_data = SubResource("Resource_hsgk6")
+script = ExtResource("1_projectile_def")
 cooldown_duration = 5.0
+projectile_data = SubResource("Resource_hsgk6")
 targeting_strategy = SubResource("Resource_unit_targeting")
-animation_name = &""
+impact_magic_field_data = ExtResource("4_hsgk6")
 ability_id = &"fireball"
 ability_name = "火球术"
 description = "发射一颗火球，命中后产生爆炸，对范围内所有敌人造成火焰伤害"

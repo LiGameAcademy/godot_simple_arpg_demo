@@ -1,20 +1,24 @@
-[gd_resource type="Resource" script_class="ProjectileAbility" load_steps=14 format=3 uid="uid://c8ewd60kjpajw"]
+[gd_resource type="Resource" script_class="ProjectileAbilityDefinition" load_steps=14 format=3 uid="uid://c8ewd60kjpajw"]
 
-[ext_resource type="Script" uid="uid://dnrbnn28ih78w" path="res://addons/godot_gameplay_abilities/scripts/abilities/projectile_ability.gd" id="1_projectile_ability"]
+[ext_resource type="Script" uid="uid://bxrr6ngbc4t80" path="res://addons/godot_gameplay_abilities/scripts/abilities/projectile_ability_definition.gd" id="1_projectile_def"]
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/costs/ability_cost_base.gd" id="2_82pxk"]
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="3_82pxk"]
 [ext_resource type="Script" uid="uid://3n073v4axo0p" path="res://addons/godot_gameplay_abilities/scripts/costs/vital_cost.gd" id="3_cd6ue"]
-[ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/ability_feature.gd" id="4_cd6ue"]
+[ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/gameplay_ability_feature.gd" id="4_cd6ue"]
 [ext_resource type="Script" uid="uid://biqqmmq83881j" path="res://addons/godot_gameplay_abilities/scripts/targeting/strategies/unit_targeting_strategy.gd" id="4_unit_targeting"]
 [ext_resource type="Resource" uid="uid://ds4wx1ltqdqp0" path="res://data/projectiles/projectile_data_arcane.tres" id="5_projectile_data"]
+[ext_resource type="Script" uid="uid://bub2shiljqxwy" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/cost_feature.gd" id="5_q0cdq"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="7_icon"]
-[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="7_lji7c"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="8_cd6ue"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="8_82pxk"]
 
 [sub_resource type="Resource" id="Resource_77e8j"]
 script = ExtResource("3_cd6ue")
 amount = 5.0
 metadata/_custom_type_script = "uid://3n073v4axo0p"
+
+[sub_resource type="Resource" id="Resource_5dv7h"]
+script = ExtResource("5_q0cdq")
+costs = Array[ExtResource("2_82pxk")]([SubResource("Resource_77e8j")])
+metadata/_custom_type_script = "uid://bub2shiljqxwy"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
 atlas = ExtResource("7_icon")
@@ -25,15 +29,14 @@ script = ExtResource("4_unit_targeting")
 metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/data/targeting/strategies/unit_targeting_strategy.gd"
 
 [resource]
-script = ExtResource("1_projectile_ability")
+script = ExtResource("1_projectile_def")
 projectile_data = ExtResource("5_projectile_data")
 projectile_count = 3
 spread_angle = 45.0
-costs = Array[ExtResource("2_82pxk")]([SubResource("Resource_77e8j")])
 targeting_strategy = SubResource("Resource_unit_targeting")
-animation_name = &""
 ability_id = &"arcane_missiles"
 ability_name = "奥术飞弹"
 description = "同时发射3发奥术飞弹，扇形散射，自动追踪目标"
 icon = SubResource("AtlasTexture_icon")
 tags = Array[StringName]([&"ranged"])
+features = Array[ExtResource("4_cd6ue")]([SubResource("Resource_5dv7h")])
