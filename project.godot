@@ -25,6 +25,12 @@ AttachmentPointUtils="*res://addons/godot_gameplay_abilities/scripts/utils/attac
 TagManager="*res://addons/godot_gameplay_abilities/scripts/singletons/gameplay_tag_manager.gd"
 GameplayCueManager="*res://addons/godot_gameplay_abilities/scripts/singletons/gameplay_cue_manager.gd"
 TalentManager="*res://scripts/singletons/talent_manager.gd"
+Panku="*res://addons/panku_console/console.tscn"
+DDD="*res://addons/zylann.debug_draw/debug_draw.gd"
+
+[debug_draw_3d]
+
+settings/addon_root_folder="res://addons/debug_draw_3d"
 
 [display]
 
@@ -37,7 +43,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_gameplay_abilities/plugin.cfg", "res://addons/simple_inventory/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_gameplay_abilities/plugin.cfg", "res://addons/panku_console/plugin.cfg", "res://addons/simple_inventory/plugin.cfg")
 
 [global_group]
 
