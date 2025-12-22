@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="PassiveAbility" load_steps=7 format=3 uid="uid://xgqry4bvw7f6"]
+[gd_resource type="Resource" script_class="ActiveAbilityDefinition" load_steps=8 format=3 uid="uid://xgqry4bvw7f6"]
 
-[ext_resource type="Script" uid="uid://c472nghuky2ep" path="res://addons/godot_gameplay_abilities/scripts/abilities/passive_ability.gd" id="1_passive_ability"]
-[ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/ability_feature.gd" id="1_yujue"]
+[ext_resource type="Script" uid="uid://dce6ftpfn6k5n" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability_definition.gd" id="1_active_def"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="1_e1rth"]
+[ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/gameplay_ability_feature.gd" id="2_64x7n"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="2_status_data"]
 [ext_resource type="Resource" uid="uid://b5qspeohf2qvv" path="res://data/ability_status/damage_reduction_shield_status.tres" id="3_shield_status"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="4_icon"]
@@ -11,10 +12,10 @@ atlas = ExtResource("4_icon")
 region = Rect2(32, 192, 32, 32)
 
 [resource]
-script = ExtResource("1_passive_ability")
+script = ExtResource("1_active_def")
+statuses = Array[ExtResource("2_status_data")]([ExtResource("3_shield_status")])
 ability_id = &"damage_reduction_shield"
 ability_name = "减伤护盾"
 description = "被动：获得一个减伤护盾，每次受到伤害前，将伤害减少 50%。"
 icon = SubResource("AtlasTexture_shield")
 tags = Array[StringName]([&"passive", &"defense"])
-statuses = Array[ExtResource("2_status_data")]([ExtResource("3_shield_status")])

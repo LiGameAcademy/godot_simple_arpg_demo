@@ -1,53 +1,46 @@
-[gd_resource type="Resource" script_class="ChannelingAbility" load_steps=17 format=3 uid="uid://dv881tgsi371p"]
+[gd_resource type="Resource" script_class="SacrificeAbilityDefinition" load_steps=18 format=3 uid="uid://dv881tgsi371p"]
 
-[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/costs/ability_cost_base.gd" id="1_qx6w0"]
-[ext_resource type="Script" uid="uid://b020omvwxvw2i" path="res://addons/godot_gameplay_abilities/scripts/abilities/channeling_ability.gd" id="2_r5oxu"]
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="2_w6leb"]
-[ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/ability_feature.gd" id="4_gcxoj"]
-[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="4_w6leb"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="7_aaoph"]
-[ext_resource type="Resource" uid="uid://c8k7x2m5oap40" path="res://data/ability_status/sacrifice_status.tres" id="7_e5mj2"]
-[ext_resource type="Script" uid="uid://3n073v4axo0p" path="res://addons/godot_gameplay_abilities/scripts/costs/vital_cost.gd" id="7_g3see"]
-[ext_resource type="Script" uid="uid://bj10701f03s5k" path="res://addons/godot_gameplay_abilities/scripts/targeting/strategies/self_targeting_strategy.gd" id="8_gcxoj"]
-[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="11_icon"]
+[ext_resource type="Script" uid="uid://c8k7x2m5oap4g" path="res://addons/godot_gameplay_abilities/scripts/abilities/sacrifice_ability_definition.gd" id="1_sacrifice_def"]
+[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/costs/ability_cost_base.gd" id="2_cost_base"]
+[ext_resource type="Script" uid="uid://bj10701f03s5k" path="res://addons/godot_gameplay_abilities/scripts/targeting/strategies/self_targeting_strategy.gd" id="3_self_targeting"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="4_status_data"]
+[ext_resource type="Script" uid="uid://3n073v4axo0p" path="res://addons/godot_gameplay_abilities/scripts/costs/vital_cost.gd" id="5_vital_cost"]
+[ext_resource type="Script" uid="uid://bub2shiljqxwy" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/cost_feature.gd" id="6_cost_feature"]
+[ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/gameplay_ability_feature.gd" id="7_feature_base"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="7_gcxoj"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="9_icon"]
+[ext_resource type="Resource" uid="uid://b18fu3bld8xcc" path="res://data/targeting/area_targeting_sacrifice.tres" id="11_area_targeting_strategy"]
+[ext_resource type="Resource" uid="uid://bcp7gpxweokag" path="res://data/cues/sacrifice_aura_cue.tres" id="11_jim2a"]
+[ext_resource type="Resource" uid="uid://dg18d2pq24yve" path="res://data/ability_effects/ge_sacrifice_periodic_damage.tres" id="13_periodic_damage_effect"]
 
-[sub_resource type="Resource" id="Resource_gcxoj"]
-script = ExtResource("7_g3see")
-metadata/_custom_type_script = "uid://3n073v4axo0p"
+[sub_resource type="Resource" id="Resource_initial_cost"]
+script = ExtResource("5_vital_cost")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_aqtng"]
-atlas = ExtResource("11_icon")
+[sub_resource type="Resource" id="Resource_cost_feature"]
+script = ExtResource("6_cost_feature")
+costs = Array[ExtResource("2_cost_base")]([SubResource("Resource_initial_cost")])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
+atlas = ExtResource("9_icon")
 region = Rect2(288, 96, 32, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jim2a"]
-load_path = "res://.godot/imported/icons.png-3a2c064d0bba3f942d69c3204833c3d7.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mmj6f"]
-atlas = SubResource("CompressedTexture2D_jim2a")
+[sub_resource type="AtlasTexture" id="AtlasTexture_icon_active"]
+atlas = ExtResource("9_icon")
 region = Rect2(320, 96, 32, 32)
 
-[sub_resource type="Resource" id="Resource_aqtng"]
-script = ExtResource("8_gcxoj")
-metadata/_custom_type_script = "uid://bj10701f03s5k"
-
-[sub_resource type="Resource" id="Resource_aaoph"]
-script = ExtResource("7_g3see")
-vital_id = &"health"
-amount = 1.0
-metadata/_custom_type_script = "uid://3n073v4axo0p"
+[sub_resource type="Resource" id="Resource_self_targeting"]
+script = ExtResource("3_self_targeting")
 
 [resource]
-script = ExtResource("2_r5oxu")
-channeling_mode = 1
-max_duration = -1.0
-tick_costs = Array[ExtResource("1_qx6w0")]([SubResource("Resource_aaoph")])
-interrupt_tags = Array[StringName]([&"State.Stunned"])
-icon_when_active = SubResource("AtlasTexture_mmj6f")
+script = ExtResource("1_sacrifice_def")
+area_targeting_strategy = ExtResource("11_area_targeting_strategy")
+periodic_damage_effect = ExtResource("13_periodic_damage_effect")
+toggle_cue = ExtResource("11_jim2a")
 cooldown_duration = 5.0
-costs = Array[ExtResource("1_qx6w0")]([SubResource("Resource_gcxoj")])
-targeting_strategy = SubResource("Resource_aqtng")
-animation_name = &""
+targeting_strategy = SubResource("Resource_self_targeting")
+icon_when_active = SubResource("AtlasTexture_icon_active")
 ability_id = &"sacrifice"
 ability_name = "献祭"
-icon = SubResource("AtlasTexture_aqtng")
-statuses = Array[ExtResource("4_w6leb")]([ExtResource("7_e5mj2")])
+description = "切换献祭状态：开启时持续消耗生命值，对周围敌人造成伤害"
+icon = SubResource("AtlasTexture_icon")
+features = Array[ExtResource("7_feature_base")]([SubResource("Resource_cost_feature")])
