@@ -524,12 +524,23 @@ func _on_cast_ability_requested(ability_id: StringName, _shortcut: String, conte
 	try_activate_ability(ability_id, context)
 
 ## 处理引导取消请求（信号回调）
-func _on_cancel_channeling_requested(_ability_id: StringName, _shortcut: String) -> void:
+## 当按键释放时，通知引导技能停止
+func _on_cancel_channeling_requested(ability_id: StringName, _shortcut: String) -> void:
 	if not is_instance_valid(ability_component):
 		return
 	
-	# 检查是否是 ChannelingAbility 且 stop_on_input_release 为 true（按住维持式）
-	# if ability_instance is ChannelingAbility:
-	# 	var channeling_ability = ability_instance as ChannelingAbility
-	# 	if channeling_ability.stop_on_input_release:
-	# 		ability_component.cancel_ability(ability_id)
+	# 获取技能实例
+	var ability_instance = ability_component.get_ability_instance(ability_id)
+	if not is_instance_valid(ability_instance):
+		return
+	
+	# 检查技能是否处于激活状态（正在引导）
+	if not ability_instance.is_active:
+		return
+	
+	# 设置黑板变量，通知行为树按键已释放
+	# 引导技能的行为树会通过 BTWaitSignal 监听这个信号
+	var blackboard = ability_instance.get_blackboard()
+	if is_instance_valid(blackboard):
+		# 设置信号，触发行为树中的 BTWaitSignal
+		blackboard.set_var("event_input_released", true)

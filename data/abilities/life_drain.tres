@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="ChannelingAbilityDefinition" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/abilities/channeling_ability_definition.gd" id="1_channeling_def"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/targeting/strategies/unit_targeting_strategy.gd" id="2_unit_targeting"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_icon"]
+[ext_resource type="Resource" path="res://data/ability_effects/ge_life_drain_damage.tres" id="4_damage_effect"]
+[ext_resource type="Resource" path="res://data/ability_effects/ge_life_drain_healing.tres" id="5_healing_effect"]
+[ext_resource type="Resource" path="res://data/cues/life_drain_beam_cue.tres" id="6_beam_cue"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
+atlas = ExtResource("3_icon")
+region = Rect2(256, 96, 32, 32)
+
+[sub_resource type="Resource" id="Resource_unit_targeting"]
+script = ExtResource("2_unit_targeting")
+
+[resource]
+script = ExtResource("1_channeling_def")
+animation_name = &""
+pre_cast_delay = 0.0
+post_cast_delay = 0.0
+cooldown_duration = 2.0
+max_duration = 0.0
+tick_interval = 0.5
+tick_effects = Array[ExtResource("4_damage_effect")]([ExtResource("4_damage_effect")])
+tick_self_effects = Array[ExtResource("5_healing_effect")]([ExtResource("5_healing_effect")])
+channeling_cue = ExtResource("6_beam_cue")
+is_mobile = false
+targeting_strategy = SubResource("Resource_unit_targeting")
+target_key = "targets"
+interrupt_tags = Array[StringName]([&"state.stunned", &"state.silenced"])
+ability_id = &"life_drain"
+ability_name = "生命吸取"
+description = "按住按键持续引导，每 0.5 秒对目标造成伤害并恢复自身生命值。松开按键停止引导。"
+icon = SubResource("AtlasTexture_icon")
+

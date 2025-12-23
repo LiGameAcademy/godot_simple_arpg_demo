@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://life_drain_beam"]
+
+[ext_resource type="Script" path="res://prefabs/effects/life_drain_beam.gd" id="1_script"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_beam"]
+height = 1.0
+top_radius = 0.05
+bottom_radius = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_beam"]
+albedo_color = Color(1, 0.2, 0.2, 0.8)
+transparency = 1
+shading_mode = 0
+flags_unshaded = true
+flags_use_point_size = false
+
+[node name="LifeDrainBeam" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="BeamMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_beam")
+surface_material_override/0 = SubResource("StandardMaterial3D_beam")
+
+[node name="Particles" type="GPUParticles3D" parent="."]
+emitting = true
+amount = 100
+lifetime = 0.5
+emission_shape = 1
+emission_sphere_radius = 0.1
+process_material = null
+
