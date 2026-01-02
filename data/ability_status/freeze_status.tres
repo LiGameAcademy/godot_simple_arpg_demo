@@ -1,11 +1,24 @@
-[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=8 format=3 uid="uid://c22e6y5ag4nhm"]
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=12 format=3 uid="uid://c22e6y5ag4nhm"]
 
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="1_lpcar"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="1_status_data"]
-[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="1_w6gfx"]
-[ext_resource type="Resource" uid="uid://cymru0mimuxac" path="res://data/ability_effects/ge_freeze_speed.tres" id="2_freeze_effect"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="2_tenvq"]
+[ext_resource type="Script" uid="uid://ct224mxbkm3nx" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute_modifier.gd" id="3_ks1xf"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_yic65"]
-[ext_resource type="Resource" uid="uid://b8k7x2m5oap4w" path="res://data/cues/freeze_cue.tres" id="4_freeze_cue"]
+[ext_resource type="Script" uid="uid://c0qsmmiapnmu7" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_attribute_modifier.gd" id="4_0q610"]
+[ext_resource type="Script" uid="uid://b8k7x2m5oap4w" path="res://scripts/systems/test_manager.gd" id="4_freeze_cue"]
+[ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/godot_gameplay_abilities/scripts/status/features/status_feature.gd" id="6_egm0p"]
+
+[sub_resource type="Resource" id="Resource_e3py3"]
+script = ExtResource("3_ks1xf")
+attribute_id = &"speed"
+modifier_type = 2
+metadata/_custom_type_script = "uid://ct224mxbkm3nx"
+
+[sub_resource type="Resource" id="Resource_biqed"]
+script = ExtResource("4_0q610")
+modifiers = Array[ExtResource("3_ks1xf")]([SubResource("Resource_e3py3")])
+metadata/_custom_type_script = "uid://c0qsmmiapnmu7"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vtshu"]
 atlas = ExtResource("3_yic65")
@@ -18,8 +31,7 @@ status_display_name = "冰冻"
 status_description = "无法移动"
 duration = 3.0
 icon = SubResource("AtlasTexture_vtshu")
-is_debuff = true
 tags = Array[StringName]([&"status.debuff", &"element.ice", &"status.crowd_control"])
-effects = Array[ExtResource("1_lpcar")]([ExtResource("2_freeze_effect")])
+apply_effects = Array[ExtResource("1_lpcar")]([SubResource("Resource_biqed")])
 priority = 2
 cue = ExtResource("4_freeze_cue")

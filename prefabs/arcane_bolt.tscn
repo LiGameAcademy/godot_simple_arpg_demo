@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://dajag4lw1syt0"]
 
-[ext_resource type="Shader" uid="uid://yxwbl4pmdkgu" path="res://data/materials/arcane_core.gdshader" id="1_5p8wa"]
+[ext_resource type="Shader" uid="uid://yxwbl4pmdkgu" path="res://assets/materials/arcane_core.gdshader" id="1_5p8wa"]
 [ext_resource type="Script" uid="uid://770hm2pf7n6s" path="res://addons/godot_gameplay_abilities/scripts/entities/projectile_base.gd" id="1_pife5"]
 [ext_resource type="Script" uid="uid://ca86hvsd4v4bc" path="res://prefabs/fx/light_flicker.tres.gd" id="2_pife5"]
 

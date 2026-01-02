@@ -1,17 +1,14 @@
-[gd_resource type="Resource" script_class="GameplayCue" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="GameplayCue" load_steps=6 format=3 uid="uid://c41r86mws2p2f"]
 
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/cues/gameplay_cue.gd" id="1_cue"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/cues/cue_life_drain_beam.gd" id="2_beam_cue"]
+[ext_resource type="Script" uid="uid://bcymae7pdc1s7" path="res://addons/godot_gameplay_abilities/scripts/cues/gameplay_cue_base.gd" id="1_62qeu"]
+[ext_resource type="Script" uid="uid://bv8l03cfspmdk" path="res://addons/godot_gameplay_abilities/scripts/cues/gameplay_cue.gd" id="1_cue"]
+[ext_resource type="Script" uid="uid://d3efp5udpvr5s" path="res://addons/godot_gameplay_abilities/scripts/cues/cue_life_drain_beam.gd" id="2_beam_cue"]
 [ext_resource type="PackedScene" path="res://prefabs/effects/life_drain_beam.tscn" id="3_beam_scene"]
 
 [sub_resource type="Resource" id="Resource_beam_cue"]
 script = ExtResource("2_beam_cue")
 beam_scene = ExtResource("3_beam_scene")
-instigator_attachment_point = &"body"
-target_attachment_point = &"body"
-allow_duplicate = false
 
 [resource]
 script = ExtResource("1_cue")
-cues = Array[ExtResource("2_beam_cue")]([SubResource("Resource_beam_cue")])
-
+cues = Array[ExtResource("1_62qeu")]([SubResource("Resource_beam_cue")])

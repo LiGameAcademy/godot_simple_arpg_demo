@@ -1,29 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://bw7gqjtrmrkp1"]
+[gd_scene load_steps=7 format=3 uid="uid://c2j7kiect024q"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_burn"]
+[ext_resource type="Script" uid="uid://cd0idvbfberfy" path="res://prefabs/fx/burn_particle.gd" id="1_ejb2r"]
+
+[sub_resource type="Gradient" id="Gradient_akrt7"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0.58383155, 0, 1, 1, 0.7977378, 0.48565158, 0.8, 1, 0.48452926, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejb2r"]
+gradient = SubResource("Gradient_akrt7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_akrt7"]
+emission_shape = 1
+emission_sphere_radius = 0.3
 direction = Vector3(0, 1, 0)
-initial_velocity_min = 0.3
-initial_velocity_max = 1.0
-gravity = Vector3(0, -0.3, 0)
-scale_min = 0.2
-scale_max = 0.5
-color = Color(1, 0.5, 0, 1)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.5
+gravity = Vector3(0, -2, 0)
+scale_min = 0.29999998
+scale_max = 0.59999996
+color_ramp = SubResource("GradientTexture1D_ejb2r")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_burn"]
-blend_mode = 1
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_akrt7"]
+transparency = 1
 shading_mode = 0
-albedo_color = Color(1, 0.4, 0, 0.8)
+vertex_color_use_as_albedo = true
 billboard_mode = 3
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="QuadMesh" id="QuadMesh_burn"]
-material = SubResource("StandardMaterial3D_burn")
-size = Vector2(0.5, 0.5)
+[sub_resource type="QuadMesh" id="QuadMesh_ejb2r"]
+material = SubResource("StandardMaterial3D_akrt7")
 
-[node name="BurnParticle" type="GPUParticles3D"]
+[node name="BurnParticle" type="Node3D"]
+script = ExtResource("1_ejb2r")
+
+[node name="FireParticles" type="GPUParticles3D" parent="."]
 amount = 50
-lifetime = 1.5
-process_material = SubResource("ParticleProcessMaterial_burn")
-draw_pass_1 = SubResource("QuadMesh_burn")
+process_material = SubResource("ParticleProcessMaterial_akrt7")
+draw_pass_1 = SubResource("QuadMesh_ejb2r")

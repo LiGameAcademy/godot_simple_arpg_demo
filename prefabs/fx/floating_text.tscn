@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dd4rw7h0bphf2"]
+[gd_scene load_steps=2 format=3 uid="uid://cusw2tta4h5r5"]
 
-[ext_resource type="Script" uid="uid://blncdsij6s03k" path="res://prefabs/fx/floating_text.gd" id="1_floating_text"]
+[ext_resource type="Script" uid="uid://ds6qka81vkvsg" path="res://prefabs/fx/floating_text.gd" id="1_bx671"]
 
 [node name="FloatingText" type="Label3D"]
 pixel_size = 0.01
 billboard = 1
 no_depth_test = true
-text = "-100"
-script = ExtResource("1_floating_text")
+text = "测试飘字"
+script = ExtResource("1_bx671")

@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="GameplayStatusData" load_steps=12 format=3 uid="uid://bn5vcaouea28f"]
 
-[ext_resource type="Script" uid="uid://cb3e3wuphyka3" path="res://addons/gameplay_abiltiy_system/scripts/effects/gameplay_effect.gd" id="1_r1j4p"]
-[ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/gameplay_abiltiy_system/scripts/status/features/status_feature.gd" id="2_0e8uw"]
-[ext_resource type="Script" uid="uid://8u46anns2vhm" path="res://addons/gameplay_abiltiy_system/scripts/status/gameplay_status_data.gd" id="2_hl5q6"]
-[ext_resource type="Script" uid="uid://cm2md6dyr4e7g" path="res://addons/gameplay_abiltiy_system/scripts/effects/ge_modify_incoming_damage.gd" id="3_8d7yw"]
-[ext_resource type="Script" uid="uid://bh8lykstg57tm" path="res://addons/gameplay_abiltiy_system/scripts/filters/gameplay_filter.gd" id="3_oo0kp"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="1_r1j4p"]
+[ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/godot_gameplay_abilities/scripts/status/features/status_feature.gd" id="2_0e8uw"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="2_hl5q6"]
+[ext_resource type="Script" uid="uid://tqtwps1s4ajd" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_modify_incoming_damage.gd" id="3_8d7yw"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="3_oo0kp"]
 [ext_resource type="Texture2D" uid="uid://cieo4b66xwpa5" path="res://assets/textures/damage_reduction_shield.tres" id="4_h64hi"]
-[ext_resource type="Script" uid="uid://dc022ooby3n5j" path="res://addons/gameplay_abiltiy_system/scripts/status/stacking/stacking_refresh_duration.gd" id="5_8d7yw"]
-[ext_resource type="Script" uid="uid://cx8rx62srat4v" path="res://addons/gameplay_abiltiy_system/scripts/status/features/feature_event_listener.gd" id="5_j32lm"]
+[ext_resource type="Script" uid="uid://dc022ooby3n5j" path="res://addons/godot_gameplay_abilities/scripts/status/stacking/stacking_refresh_duration.gd" id="5_8d7yw"]
+[ext_resource type="Script" uid="uid://cx8rx62srat4v" path="res://addons/godot_gameplay_abilities/scripts/status/features/feature_event_listener.gd" id="5_j32lm"]
 
 [sub_resource type="Resource" id="Resource_lcp86"]
 script = ExtResource("3_8d7yw")
@@ -34,4 +34,3 @@ tags = Array[StringName]([&"status.buff", &"defense.shield"])
 features = Array[ExtResource("2_0e8uw")]([SubResource("Resource_oo0kp")])
 stacking_policy = SubResource("Resource_h64hi")
 priority = 1
-metadata/_custom_type_script = "uid://8u46anns2vhm"

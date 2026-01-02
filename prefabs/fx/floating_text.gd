@@ -20,8 +20,7 @@ func _ready() -> void:
 	billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	shaded = false
 	no_depth_test = true
-	
-	# 设置字体大小（Label3D 直接使用 font_size 属性）
+	# 设置字体大小
 	font_size = text_font_size
 
 ## 从上下文设置飘字内容（由 CueAttachedParticle 调用）
@@ -42,7 +41,7 @@ func setup_from_context(context: Dictionary) -> void:
 		text_content = context["text"]
 	else:
 		text_content = text_format.replace("{value}", "")
-	
+
 	text = text_content
 	modulate = text_color
 	
@@ -53,17 +52,17 @@ func setup_from_context(context: Dictionary) -> void:
 func _play_animation() -> void:
 	var tween = create_tween()
 	tween.set_parallel(true)
-	
+
 	# 向上移动
 	var target_pos = global_position + Vector3(0, text_float_distance, 0)
 	tween.tween_property(self, "global_position", target_pos, text_duration)
-	
+
 	# 淡出
 	tween.tween_property(self, "modulate:a", 0.0, text_duration)
 	
 	# 添加轻微的随机偏移，避免重叠
 	var random_offset = Vector3(randf_range(-0.5, 0.5), 0, randf_range(-0.5, 0.5))
 	tween.tween_property(self, "global_position", target_pos + random_offset, text_duration)
-	
+
 	# 动画完成后销毁
 	tween.tween_callback(queue_free).set_delay(text_duration)

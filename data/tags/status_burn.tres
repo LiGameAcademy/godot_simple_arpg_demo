@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3 uid="uid://dxvp836gg2lph"]
 
-[ext_resource type="Script" uid="uid://0287xxc5l2rf" path="res://addons/gameplay_abiltiy_system/scripts/tags/gameplay_tag.gd" id="1_y0c4a"]
+[ext_resource type="Script" uid="uid://12dkgrpr4i3b" path="res://addons/godot_gameplay_abilities/scripts/tags/gameplay_tag.gd" id="1_y0c4a"]
 
 [resource]
 script = ExtResource("1_y0c4a")

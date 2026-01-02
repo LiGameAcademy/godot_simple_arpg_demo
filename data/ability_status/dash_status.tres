@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="GameplayStatusData" load_steps=13 format=3 uid="uid://wi5hl2sjew3n"]
 
-[ext_resource type="Script" uid="uid://cb3e3wuphyka3" path="res://addons/gameplay_abiltiy_system/scripts/effects/gameplay_effect.gd" id="1_xhymi"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="1_xhymi"]
 [ext_resource type="Resource" uid="uid://7epxb5iuexp6" path="res://data/cues/dash_trail_cue.tres" id="2_57rrq"]
 [ext_resource type="Texture2D" uid="uid://c6vnemnbp05ir" path="res://assets/textures/dash.tres" id="2_qh8jn"]
-[ext_resource type="Script" uid="uid://8u46anns2vhm" path="res://addons/gameplay_abiltiy_system/scripts/status/gameplay_status_data.gd" id="2_unrqj"]
-[ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/gameplay_abiltiy_system/scripts/status/features/status_feature.gd" id="3_57rrq"]
-[ext_resource type="Script" uid="uid://bh8lykstg57tm" path="res://addons/gameplay_abiltiy_system/scripts/filters/gameplay_filter.gd" id="3_krgsm"]
-[ext_resource type="Script" uid="uid://cn1mq510mporv" path="res://addons/gameplay_abiltiy_system/scripts/effects/ge_single_frame_motion.gd" id="4_57rrq"]
-[ext_resource type="Script" uid="uid://pk38rnciw0o5" path="res://addons/gameplay_abiltiy_system/scripts/status/features/feature_periodic_effects.gd" id="4_b252k"]
-[ext_resource type="Script" uid="uid://5pdk6d4nh02q" path="res://addons/gameplay_abiltiy_system/scripts/status/stacking/stacking_accumulate_duration.gd" id="6_b252k"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="2_unrqj"]
+[ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/godot_gameplay_abilities/scripts/status/features/status_feature.gd" id="3_57rrq"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="3_krgsm"]
+[ext_resource type="Script" uid="uid://ckfk7hyooiepk" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_single_frame_motion.gd" id="4_57rrq"]
+[ext_resource type="Script" uid="uid://pk38rnciw0o5" path="res://addons/godot_gameplay_abilities/scripts/status/features/feature_periodic_effects.gd" id="4_b252k"]
+[ext_resource type="Script" uid="uid://5pdk6d4nh02q" path="res://addons/godot_gameplay_abilities/scripts/status/stacking/stacking_accumulate_duration.gd" id="6_b252k"]
 
 [sub_resource type="Resource" id="Resource_b0kjh"]
 script = ExtResource("4_57rrq")
@@ -36,4 +36,3 @@ tags = Array[StringName]([&"state.invulnerable", &"state.rooted"])
 features = Array[ExtResource("3_57rrq")]([SubResource("Resource_efe8t")])
 stacking_policy = SubResource("Resource_mx23h")
 cue = ExtResource("2_57rrq")
-metadata/_custom_type_script = "uid://8u46anns2vhm"

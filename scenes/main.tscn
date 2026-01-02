@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://30orglekea3b"]
+[gd_scene load_steps=25 format=3 uid="uid://30orglekea3b"]
 
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
@@ -6,19 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://vf0i84fp8dp8" path="res://prefabs/player.tscn" id="2_tbgi4"]
 [ext_resource type="Script" path="res://scripts/data/game_data.gd" id="3_choun"]
 [ext_resource type="PackedScene" uid="uid://5u5shejmnm2d" path="res://scenes/room_dungeon.tscn" id="3_tefeu"]
-[ext_resource type="Resource" uid="uid://coemk5gg52d7w" path="res://data/attributes/attack.tres" id="3_yc10j"]
-[ext_resource type="Resource" uid="uid://cghwegq2anq8g" path="res://data/attributes/attack_speed.tres" id="4_jscy8"]
 [ext_resource type="PackedScene" uid="uid://b3e2ofxe5aiji" path="res://scenes/room_boss.tscn" id="4_o6xl0"]
-[ext_resource type="Resource" uid="uid://s0enk0k8apaf" path="res://data/attributes/defense.tres" id="5_pm3ni"]
-[ext_resource type="Resource" uid="uid://cnl60y2fr7q1b" path="res://data/attributes/health.tres" id="6_y6deb"]
 [ext_resource type="PackedScene" uid="uid://cgv4kbrho80c8" path="res://addons/simple_inventory/src/widgets/inventory.tscn" id="7_o6xl0"]
-[ext_resource type="Resource" uid="uid://b3le1qgha4wy6" path="res://data/attributes/intelligence.tres" id="7_og1vs"]
-[ext_resource type="Resource" uid="uid://dst2dgwqc6l0q" path="res://data/attributes/magic_intensity.tres" id="8_2wyq8"]
-[ext_resource type="Resource" uid="uid://b1y1a837w5u6w" path="res://data/attributes/magic_resistance.tres" id="9_vxglm"]
-[ext_resource type="Resource" uid="uid://d0xcabsvdyo50" path="res://data/attributes/mana.tres" id="10_2f3dj"]
-[ext_resource type="Resource" uid="uid://csgd4q7liset6" path="res://data/attributes/speed.tres" id="11_yq6so"]
-[ext_resource type="Resource" uid="uid://4whsfl0n6my5" path="res://data/attributes/strength.tres" id="12_fv21b"]
-[ext_resource type="Resource" uid="uid://c2yg48kmsw702" path="res://data/attributes/vitality.tres" id="13_tel4y"]
 [ext_resource type="PackedScene" uid="uid://b1t1sf3ftqb3f" path="res://prefabs/teleporter.tscn" id="17_y6deb"]
 [ext_resource type="PackedScene" path="res://ui/attribute_dashboard.tscn" id="21_yc10j"]
 [ext_resource type="PackedScene" path="res://ui/attribute_row.tscn" id="22_jscy8"]
@@ -26,14 +15,13 @@
 [ext_resource type="PackedScene" uid="uid://dejtvj01nnaqw" path="res://ui/ability_bar.tscn" id="24_y6deb"]
 [ext_resource type="PackedScene" uid="uid://b8k7x2m5oap4q" path="res://ui/status_debug_panel.tscn" id="25_2wyq8"]
 [ext_resource type="Script" uid="uid://bguhd2ngg3kqx" path="res://scripts/camera/camera_controller.gd" id="25_og1vs"]
-[ext_resource type="PackedScene" uid="uid://dak7x2m5oap5r" path="res://addons/godot_gameplay_abilities/ui/tag_debug_panel.tscn" id="26_vxglm"]
+[ext_resource type="PackedScene" uid="uid://b4qtmgalki1a8" path="res://addons/godot_gameplay_abilities/ui/tag_debug_panel.tscn" id="26_vxglm"]
 [ext_resource type="PackedScene" uid="uid://cvoh1c8wh5vrc" path="res://ui/talent_tree.tscn" id="27_talent_tree"]
 [ext_resource type="Resource" uid="uid://7mjb5xu6rh5" path="res://data/talents/test_talent_tree.tres" id="28_talent_tree_data"]
 [ext_resource type="PackedScene" uid="uid://8cm7of0bkv8r" path="res://addons/godot_gameplay_abilities/ui/bt_debug_panel.tscn" id="29_fv21b"]
 
 [sub_resource type="Resource" id="Resource_ya4ey"]
 script = ExtResource("3_choun")
-attributes = Array[ExtResource("2_gqmmt")]([ExtResource("3_yc10j"), ExtResource("4_jscy8"), ExtResource("5_pm3ni"), ExtResource("6_y6deb"), ExtResource("7_og1vs"), ExtResource("8_2wyq8"), ExtResource("9_vxglm"), ExtResource("10_2f3dj"), ExtResource("11_yq6so"), ExtResource("12_fv21b"), ExtResource("13_tel4y")])
 metadata/_custom_type_script = "uid://448qdsu8i3o"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ubp1v"]
@@ -67,39 +55,46 @@ transform = Transform3D(1, 0, 0, 0, 0.17364822, 0.9848077, 0, -0.9848077, 0.1736
 
 [node name="RoomLobby" parent="." instance=ExtResource("1_jyhfs")]
 
-[node name="Player" parent="RoomLobby" instance=ExtResource("2_tbgi4")]
+[node name="Player" parent="RoomLobby" node_paths=PackedStringArray("_attachment_point_mapping") instance=ExtResource("2_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.606604, 0.09957409, 5.87055)
+_attachment_point_mapping = {
+&"chest": NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/ChestAttachment"),
+&"hand_l": NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/HandSlotAttachmentL"),
+&"hand_r": NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/HandSlotAttachmentR"),
+&"head": NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/HeadAttachment"),
+&"root": NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/RootAttachment")
+}
 
 [node name="Skeleton3D" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium" index="0"]
-bones/1/position = Vector3(-1.1192182e-09, 0.35450912, 0.0046943417)
-bones/3/rotation = Quaternion(0.0993348, 1.15677405e-08, 0.008598195, 0.99501693)
-bones/4/rotation = Quaternion(-0.5923653, -0.15947565, -0.6683639, 0.42066696)
-bones/5/rotation = Quaternion(2.2547287e-08, -4.933484e-08, -0.46910536, 0.8831422)
-bones/7/rotation = Quaternion(-0.23830648, -0.26616582, -0.080814704, 0.9305024)
-bones/9/rotation = Quaternion(-0.030102216, -0.03971008, 0.04270012, 0.9978446)
-bones/10/rotation = Quaternion(-0.6532306, 0.07979959, 0.6091268, 0.4425907)
-bones/11/rotation = Quaternion(3.2410536e-08, 6.8404844e-08, 0.47395524, 0.8805491)
-bones/13/rotation = Quaternion(-0.17849459, 0.24411944, -0.12859605, 0.94446206)
-bones/15/rotation = Quaternion(0.98707956, 0.085785516, 0.0800784, 0.1090975)
-bones/16/rotation = Quaternion(0.47272512, 5.8404616e-08, -3.2208087e-07, 0.88120997)
-bones/17/rotation = Quaternion(-0.6678317, -0.19456019, 0.0931178, 0.7123736)
-bones/18/rotation = Quaternion(-1.3972619e-05, 0.9201451, -0.39157754, 3.1867926e-06)
-bones/19/rotation = Quaternion(0.9886067, -0.035253935, 0.029224994, 0.14338763)
-bones/20/rotation = Quaternion(0.5112082, -5.5928393e-08, 3.5869098e-07, 0.859457)
-bones/21/rotation = Quaternion(-0.692231, 0.11052399, -0.031431455, 0.71246946)
-bones/22/rotation = Quaternion(4.4180924e-06, 0.9200458, -0.39181107, -2.7986766e-07)
+bones/1/position = Vector3(-1.16161886e-10, 0.3881661, 0.00048721832)
+bones/3/rotation = Quaternion(0.05189579, 8.2501055e-09, 0.0044919834, 0.99864244)
+bones/4/rotation = Quaternion(-0.55909616, -0.19326253, -0.7275547, 0.34745538)
+bones/5/rotation = Quaternion(4.5033612e-08, -6.541086e-08, -0.32288793, 0.9464373)
+bones/7/rotation = Quaternion(-0.22755979, -0.25355014, -0.1312222, 0.9309725)
+bones/9/rotation = Quaternion(0.057172347, -0.043501973, 0.04659857, 0.99632704)
+bones/10/rotation = Quaternion(-0.6294425, 0.122376725, 0.6713445, 0.3716487)
+bones/11/rotation = Quaternion(1.9108056e-08, 5.0751144e-08, 0.32892045, 0.94435763)
+bones/13/rotation = Quaternion(-0.16652644, 0.24010128, -0.08063932, 0.952952)
+bones/15/rotation = Quaternion(0.9933248, 0.0833521, 0.07472076, 0.027839214)
+bones/16/rotation = Quaternion(0.2413596, 6.4093236e-08, -1.669396e-07, 0.9704358)
+bones/17/rotation = Quaternion(-0.54190326, -0.20802826, 0.050796025, 0.8127022)
+bones/18/rotation = Quaternion(1.534403e-05, 0.9201706, -0.39151764, -3.3884635e-06)
+bones/19/rotation = Quaternion(0.9964727, -0.030158425, 0.031199086, 0.07182824)
+bones/20/rotation = Quaternion(0.3086562, -6.3020565e-08, 2.1391409e-07, 0.9511737)
+bones/21/rotation = Quaternion(-0.57802296, 0.11425331, -0.01160114, 0.8078992)
+bones/22/rotation = Quaternion(-8.950303e-06, 0.92007023, -0.39175355, 2.6256332e-06)
 
 [node name="HandSlotAttachmentR" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium/Skeleton3D" index="7"]
-transform = Transform3D(-0.27505818, -0.09426636, -0.95679504, -0.96136373, 0.038331848, 0.27259636, 0.010978681, 0.994808, -0.101168, -0.52231324, 0.5605732, 0.04298433)
+transform = Transform3D(-0.2750712, -0.094246306, -0.9567933, -0.95913213, 0.095549755, 0.26633304, 0.066320226, 0.99095213, -0.116677634, -0.5225121, 0.55297154, 0.06870848)
 
 [node name="HandSlotAttachmentL" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium/Skeleton3D" index="8"]
-transform = Transform3D(-0.06727103, -0.0706159, 0.9952322, 0.9955845, -0.070189066, 0.06231533, 0.065454386, 0.9950304, 0.07502584, 0.5103217, 0.592811, 0.0815508)
+transform = Transform3D(-0.06728687, -0.07063437, 0.99522996, 0.99770045, -0.01278101, 0.0665475, 0.008019856, 0.9974199, 0.0713319, 0.51107556, 0.5869502, 0.105126664)
 
 [node name="ChestAttachment" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium/Skeleton3D" index="9"]
-transform = Transform3D(0.9962748, -1.8626451e-09, 0.08623534, 0.017110707, 0.9801172, -0.19767961, -0.08452074, 0.19841874, 0.9764663, -2.9196552e-09, 0.9214746, 0.0046943417)
+transform = Transform3D(0.99627495, -5.5879354e-09, 0.08623533, 0.008971776, 0.9945732, -0.10365066, -0.08576736, 0.104038216, 0.9908684, -2.9196552e-09, 0.95513153, 0.00048721832)
 
 [node name="HeadAttachment" parent="RoomLobby/Player/Visuals/Barbarian/Rig_Medium/Skeleton3D" index="11"]
-transform = Transform3D(0.9961123, -0.087989904, 0.0042921826, 0.08770164, 0.9858956, -0.14254153, 0.008310579, 0.14236373, 0.98977953, -3.4203278e-09, 1.1849267, 0.058028616)
+transform = Transform3D(0.9961124, -0.08798991, 0.0042921677, 0.08676538, 0.9714862, -0.22064936, 0.015245125, 0.22016394, 0.9753437, -4.421673e-09, 1.2224693, 0.028452333)
 
 [node name="Teleporter" parent="RoomLobby" node_paths=PackedStringArray("target_room", "target") instance=ExtResource("17_y6deb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 2, 2)
@@ -174,12 +169,16 @@ grow_vertical = 0
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
+anchor_top = 0.0
 anchor_right = 1.0
+anchor_bottom = 0.0
 offset_left = -396.0
+offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 549.0
 grow_horizontal = 0
-toggle_action = null
+grow_vertical = 1
+script = null
 
 [node name="TalentTree" parent="UILayer/HUD" instance=ExtResource("27_talent_tree")]
 layout_mode = 1

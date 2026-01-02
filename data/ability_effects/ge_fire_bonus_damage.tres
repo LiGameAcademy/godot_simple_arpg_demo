@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="GE_ApplyDamage" load_steps=4 format=3 uid="uid://dyydp185gs3ah"]
 
-[ext_resource type="Script" uid="uid://bh8lykstg57tm" path="res://addons/gameplay_abiltiy_system/scripts/filters/gameplay_filter.gd" id="1_mfuyr"]
-[ext_resource type="Script" uid="uid://cra1yv70jj5sn" path="res://addons/gameplay_abiltiy_system/scripts/effects/ge_apply_damage.gd" id="2_frnyu"]
-[ext_resource type="Script" uid="uid://cb3e3wuphyka3" path="res://addons/gameplay_abiltiy_system/scripts/effects/gameplay_effect.gd" id="3_8w3r5"]
+[ext_resource type="Script" path="res://addons/gameplay_abiltiy_system/scripts/filters/gameplay_filter.gd" id="1_mfuyr"]
+[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_apply_damage.gd" id="2_frnyu"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="3_8w3r5"]
 
 [resource]
 script = ExtResource("2_frnyu")
