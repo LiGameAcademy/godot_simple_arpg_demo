@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CueAttachedParticle" load_steps=3 format=3 uid="uid://caa0nf257oe8n"]
+
+[ext_resource type="Script" uid="uid://mop1sgag2ypw" path="res://addons/gameplay_abiltiy_system/scripts/cues/cue_attached_particle.gd" id="1_0r6gn"]
+[ext_resource type="PackedScene" uid="uid://dlynb4rjh583q" path="res://prefabs/fx/poison_particle.tscn" id="1_fpbm8"]
+
+[resource]
+script = ExtResource("1_0r6gn")
+particle_scene = ExtResource("1_fpbm8")
+attachment_point = &"body"
+offset = Vector3(0, 0.2, 0)
+metadata/_custom_type_script = "uid://mop1sgag2ypw"

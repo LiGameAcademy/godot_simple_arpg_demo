@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="GameplayEffect" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="GE_StatusTransform" load_steps=6 format=3 uid="uid://bq3t57js8l8dd"]
 
-[ext_resource type="Script" uid="uid://uum4tll8q71n" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_status_transform.gd" id="1_effect"]
-[ext_resource type="Resource" uid="uid://dvradrjclri7g" path="res://data/ability_status/burn_status.tres" id="2_burn_status"]
-
+[ext_resource type="Script" uid="uid://bh8lykstg57tm" path="res://addons/gameplay_abiltiy_system/scripts/filters/gameplay_filter.gd" id="1_swivq"]
+[ext_resource type="Script" uid="uid://dsbbvbc125ete" path="res://addons/gameplay_abiltiy_system/scripts/effects/ge_status_transform.gd" id="2_hdnec"]
+[ext_resource type="Script" uid="uid://8u46anns2vhm" path="res://addons/gameplay_abiltiy_system/scripts/status/gameplay_status_data.gd" id="3_s2snw"]
+[ext_resource type="Script" uid="uid://cb3e3wuphyka3" path="res://addons/gameplay_abiltiy_system/scripts/effects/gameplay_effect.gd" id="4_0wg3a"]
+[ext_resource type="Resource" uid="uid://c7bgognybjafi" path="res://data/ability_status/burn_status.tres" id="4_hdnec"]
 
 [resource]
-script = ExtResource("1_effect")
+script = ExtResource("2_hdnec")
 match_tags = Array[StringName]([&"status.poison"])
-require_all_tags = false
-remove_matched_statuses = true
-statuses_to_apply = Array[ExtResource("2_burn_status")]([ExtResource("2_burn_status")])
-
-
+statuses_to_apply = Dictionary[ExtResource("3_s2snw"), int]({
+ExtResource("4_hdnec"): 2
+})
+metadata/_custom_type_script = "uid://dsbbvbc125ete"

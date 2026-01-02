@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://cbh07kartsnwe"]
+
+[ext_resource type="Script" uid="uid://dj0iwc88r8noi" path="res://addons/gameplay_abiltiy_system/scripts/attributes/gameplay_attribute.gd" id="1_deo3i"]
+
+[resource]
+script = ExtResource("1_deo3i")
+attribute_id = &"max_health"
+attribute_display_name = "生命值"
+min_value = 0.0
+max_value = 999.0
+metadata/_custom_type_script = "uid://dj0iwc88r8noi"

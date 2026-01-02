@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://cghwegq2anq8g"]
+[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://dfptvmbcw16mx"]
 
-[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute.gd" id="1_1mewr"]
+[ext_resource type="Script" uid="uid://dj0iwc88r8noi" path="res://addons/gameplay_abiltiy_system/scripts/attributes/gameplay_attribute.gd" id="1_1mewr"]
 
 [resource]
 script = ExtResource("1_1mewr")
 attribute_id = &"attack_speed"
 attribute_display_name = "攻击速度"
-attribute_description = "提升攻击速度"
-metadata/_custom_type_script = "uid://lm7wlbrgn7bt"
+min_value = 0.0
+max_value = 999.0
+is_percentage = true
+metadata/_custom_type_script = "uid://dj0iwc88r8noi"

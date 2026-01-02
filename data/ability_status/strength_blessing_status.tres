@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=12 format=3 uid="uid://dpvdld4xekrrm"]
+
+[ext_resource type="Script" uid="uid://cb3e3wuphyka3" path="res://addons/gameplay_abiltiy_system/scripts/effects/gameplay_effect.gd" id="1_2d45f"]
+[ext_resource type="Script" uid="uid://bh8lykstg57tm" path="res://addons/gameplay_abiltiy_system/scripts/filters/gameplay_filter.gd" id="2_mupqp"]
+[ext_resource type="Texture2D" uid="uid://bbqhoh5imhwol" path="res://assets/textures/strength_blessing.tres" id="2_ptg7i"]
+[ext_resource type="Script" uid="uid://8u46anns2vhm" path="res://addons/gameplay_abiltiy_system/scripts/status/gameplay_status_data.gd" id="2_vmbcj"]
+[ext_resource type="Script" uid="uid://bj8wgemc4twgi" path="res://addons/gameplay_abiltiy_system/scripts/attributes/gameplay_attribute_modifier.gd" id="3_32t1i"]
+[ext_resource type="Script" uid="uid://cbqxhqtnqudcb" path="res://addons/gameplay_abiltiy_system/scripts/effects/ge_attribute_modifier.gd" id="4_btt7w"]
+[ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/gameplay_abiltiy_system/scripts/status/features/status_feature.gd" id="5_32t1i"]
+[ext_resource type="Script" uid="uid://dc022ooby3n5j" path="res://addons/gameplay_abiltiy_system/scripts/status/stacking/stacking_refresh_duration.gd" id="8_btt7w"]
+
+[sub_resource type="Resource" id="Resource_iq4yh"]
+script = ExtResource("3_32t1i")
+attribute_id = &"strength"
+value = 10.0
+metadata/_custom_type_script = "uid://bj8wgemc4twgi"
+
+[sub_resource type="Resource" id="Resource_56jew"]
+script = ExtResource("4_btt7w")
+modifiers = Array[ExtResource("3_32t1i")]([SubResource("Resource_iq4yh")])
+metadata/_custom_type_script = "uid://cbqxhqtnqudcb"
+
+[sub_resource type="Resource" id="Resource_me01u"]
+script = ExtResource("8_btt7w")
+metadata/_custom_type_script = "uid://dc022ooby3n5j"
+
+[resource]
+script = ExtResource("2_vmbcj")
+status_id = &"strength_blessing"
+status_display_name = "力量祝福"
+duration = 30.0
+icon = ExtResource("2_ptg7i")
+apply_effects = Array[ExtResource("1_2d45f")]([SubResource("Resource_56jew")])
+stacking_policy = SubResource("Resource_me01u")
+metadata/_custom_type_script = "uid://8u46anns2vhm"

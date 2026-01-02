@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://4whsfl0n6my5"]
+[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://c44fw6py48hhq"]
 
-[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute.gd" id="1_1cwsw"]
+[ext_resource type="Script" uid="uid://dj0iwc88r8noi" path="res://addons/gameplay_abiltiy_system/scripts/attributes/gameplay_attribute.gd" id="1_1cwsw"]
 
 [resource]
 script = ExtResource("1_1cwsw")
 attribute_id = &"strength"
 attribute_display_name = "力量"
-attribute_description = "1点力量增加10点生命值"
-metadata/_custom_type_script = "uid://lm7wlbrgn7bt"
+attribute_description = "影响物理攻击力和生命值上限"
+min_value = 0.0
+max_value = 999.0
+metadata/_custom_type_script = "uid://dj0iwc88r8noi"

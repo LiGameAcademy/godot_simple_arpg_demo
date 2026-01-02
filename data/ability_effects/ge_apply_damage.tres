@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GE_ApplyDamage" load_steps=5 format=3 uid="uid://bfbgxveoaa0te"]
+
+[ext_resource type="Script" uid="uid://bh8lykstg57tm" path="res://addons/gameplay_abiltiy_system/scripts/filters/gameplay_filter.gd" id="1_w21ql"]
+[ext_resource type="Resource" uid="uid://bh40t4m117cg5" path="res://data/cues/damage_cue.tres" id="1_x6x2j"]
+[ext_resource type="Script" uid="uid://cra1yv70jj5sn" path="res://addons/gameplay_abiltiy_system/scripts/effects/ge_apply_damage.gd" id="2_08a2o"]
+[ext_resource type="Script" uid="uid://cb3e3wuphyka3" path="res://addons/gameplay_abiltiy_system/scripts/effects/gameplay_effect.gd" id="3_x6x2j"]
+
+[resource]
+script = ExtResource("2_08a2o")
+cue = ExtResource("1_x6x2j")
+metadata/_custom_type_script = "uid://cra1yv70jj5sn"

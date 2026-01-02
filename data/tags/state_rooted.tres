@@ -1,14 +1,10 @@
-[gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3 uid="uid://dlxp5c3kuiywk"]
 
-[ext_resource type="Script" uid="uid://12dkgrpr4i3b" path="res://addons/godot_gameplay_abilities/scripts/tags/gameplay_tag.gd" id="1_tag"]
-[ext_resource type="Resource" uid="uid://bq3236nkirgvu" path="res://data/abilities/dash.tres" id="2_parent"]
-
+[ext_resource type="Script" uid="uid://0287xxc5l2rf" path="res://addons/gameplay_abiltiy_system/scripts/tags/gameplay_tag.gd" id="1_fww6a"]
 
 [resource]
-script = ExtResource("1_tag")
+script = ExtResource("1_fww6a")
 id = &"state.rooted"
-display_name = "定身"
+display_name = "禁锢"
 description = "无法移动"
-category = "Status"
-parent_tag_id = ExtResource("2_parent").id
-
+metadata/_custom_type_script = "uid://0287xxc5l2rf"

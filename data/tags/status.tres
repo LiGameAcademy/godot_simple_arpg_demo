@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3 uid="uid://cutv8o7eik8gg"]
+[gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3 uid="uid://c26khkiow3xw2"]
 
-[ext_resource type="Script" uid="uid://12dkgrpr4i3b" path="res://addons/godot_gameplay_abilities/scripts/tags/gameplay_tag.gd" id="1_tag"]
+[ext_resource type="Script" uid="uid://0287xxc5l2rf" path="res://addons/gameplay_abiltiy_system/scripts/tags/gameplay_tag.gd" id="1_3ghn8"]
 
 [resource]
-script = ExtResource("1_tag")
+script = ExtResource("1_3ghn8")
 id = &"status"
 display_name = "状态"
 description = "基础状态标签"
+metadata/_custom_type_script = "uid://0287xxc5l2rf"

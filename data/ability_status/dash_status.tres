@@ -1,30 +1,39 @@
-[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=11 format=3 uid="uid://cmyacqogly3x5"]
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=13 format=3 uid="uid://wi5hl2sjew3n"]
 
-[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="1_57rrq"]
-[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="1_status_data"]
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="2_effect"]
-[ext_resource type="Script" uid="uid://ct224mxbkm3nx" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute_modifier.gd" id="2_mx23h"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="3_krgsm"]
-[ext_resource type="Script" uid="uid://ckfk7hyooiepk" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_single_frame_motion.gd" id="4_57rrq"]
-[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="4_b252k"]
-[ext_resource type="Resource" uid="uid://dnhmj6ouvbi2q" path="res://data/cues/dash_trail_cue.tres" id="4_trail_cue"]
+[ext_resource type="Script" uid="uid://cb3e3wuphyka3" path="res://addons/gameplay_abiltiy_system/scripts/effects/gameplay_effect.gd" id="1_xhymi"]
+[ext_resource type="Resource" uid="uid://7epxb5iuexp6" path="res://data/cues/dash_trail_cue.tres" id="2_57rrq"]
+[ext_resource type="Texture2D" uid="uid://c6vnemnbp05ir" path="res://assets/textures/dash.tres" id="2_qh8jn"]
+[ext_resource type="Script" uid="uid://8u46anns2vhm" path="res://addons/gameplay_abiltiy_system/scripts/status/gameplay_status_data.gd" id="2_unrqj"]
+[ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/gameplay_abiltiy_system/scripts/status/features/status_feature.gd" id="3_57rrq"]
+[ext_resource type="Script" uid="uid://bh8lykstg57tm" path="res://addons/gameplay_abiltiy_system/scripts/filters/gameplay_filter.gd" id="3_krgsm"]
+[ext_resource type="Script" uid="uid://cn1mq510mporv" path="res://addons/gameplay_abiltiy_system/scripts/effects/ge_single_frame_motion.gd" id="4_57rrq"]
+[ext_resource type="Script" uid="uid://pk38rnciw0o5" path="res://addons/gameplay_abiltiy_system/scripts/status/features/feature_periodic_effects.gd" id="4_b252k"]
+[ext_resource type="Script" uid="uid://5pdk6d4nh02q" path="res://addons/gameplay_abiltiy_system/scripts/status/stacking/stacking_accumulate_duration.gd" id="6_b252k"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mx23h"]
-atlas = ExtResource("4_b252k")
-region = Rect2(128, 64, 32, 32)
-
-[sub_resource type="Resource" id="Resource_b252k"]
+[sub_resource type="Resource" id="Resource_b0kjh"]
 script = ExtResource("4_57rrq")
-distance = 0.2
+distance = 0.1
+metadata/_custom_type_script = "uid://cn1mq510mporv"
+
+[sub_resource type="Resource" id="Resource_efe8t"]
+script = ExtResource("4_b252k")
+period = 0.01
+periodic_effects = Array[ExtResource("1_xhymi")]([SubResource("Resource_b0kjh")])
+metadata/_custom_type_script = "uid://pk38rnciw0o5"
+
+[sub_resource type="Resource" id="Resource_mx23h"]
+script = ExtResource("6_b252k")
+metadata/_custom_type_script = "uid://5pdk6d4nh02q"
 
 [resource]
-script = ExtResource("1_status_data")
+script = ExtResource("2_unrqj")
 status_id = &"dash"
 status_display_name = "冲刺"
 status_description = "快速位移状态，期间免疫伤害"
 duration = 0.5
-icon = SubResource("AtlasTexture_mx23h")
+icon = ExtResource("2_qh8jn")
 tags = Array[StringName]([&"state.invulnerable", &"state.rooted"])
-periodic_effects = Array[ExtResource("2_effect")]([SubResource("Resource_b252k")])
-period = 0.02
-cue = ExtResource("4_trail_cue")
+features = Array[ExtResource("3_57rrq")]([SubResource("Resource_efe8t")])
+stacking_policy = SubResource("Resource_mx23h")
+cue = ExtResource("2_57rrq")
+metadata/_custom_type_script = "uid://8u46anns2vhm"

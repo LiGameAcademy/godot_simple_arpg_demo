@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://cl88e4xmld24w"]
+[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://crupun7k0dfq6"]
 
-[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute.gd" id="1_gp70o"]
+[ext_resource type="Script" uid="uid://dj0iwc88r8noi" path="res://addons/gameplay_abiltiy_system/scripts/attributes/gameplay_attribute.gd" id="1_gp70o"]
 
 [resource]
 script = ExtResource("1_gp70o")
 attribute_id = &"mana_regen"
 attribute_display_name = "魔法恢复"
-attribute_description = "魔法恢复速率"
-metadata/_custom_type_script = "uid://lm7wlbrgn7bt"
+min_value = 0.0
+max_value = 999.0
+metadata/_custom_type_script = "uid://dj0iwc88r8noi"

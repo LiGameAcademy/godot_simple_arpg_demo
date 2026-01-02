@@ -1,30 +1,37 @@
-[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=10 format=3 uid="uid://b5qspeohf2qvv"]
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=12 format=3 uid="uid://bn5vcaouea28f"]
 
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="1_effect_base"]
-[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="1_status_data"]
-[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="1_wuon1"]
-[ext_resource type="Script" uid="uid://ct224mxbkm3nx" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute_modifier.gd" id="2_0e8uw"]
-[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_0e8uw"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="4_h64hi"]
-[ext_resource type="Script" uid="uid://tqtwps1s4ajd" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_modify_incoming_damage.gd" id="5_oo0kp"]
+[ext_resource type="Script" uid="uid://cb3e3wuphyka3" path="res://addons/gameplay_abiltiy_system/scripts/effects/gameplay_effect.gd" id="1_r1j4p"]
+[ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/gameplay_abiltiy_system/scripts/status/features/status_feature.gd" id="2_0e8uw"]
+[ext_resource type="Script" uid="uid://8u46anns2vhm" path="res://addons/gameplay_abiltiy_system/scripts/status/gameplay_status_data.gd" id="2_hl5q6"]
+[ext_resource type="Script" uid="uid://cm2md6dyr4e7g" path="res://addons/gameplay_abiltiy_system/scripts/effects/ge_modify_incoming_damage.gd" id="3_8d7yw"]
+[ext_resource type="Script" uid="uid://bh8lykstg57tm" path="res://addons/gameplay_abiltiy_system/scripts/filters/gameplay_filter.gd" id="3_oo0kp"]
+[ext_resource type="Texture2D" uid="uid://cieo4b66xwpa5" path="res://assets/textures/damage_reduction_shield.tres" id="4_h64hi"]
+[ext_resource type="Script" uid="uid://dc022ooby3n5j" path="res://addons/gameplay_abiltiy_system/scripts/status/stacking/stacking_refresh_duration.gd" id="5_8d7yw"]
+[ext_resource type="Script" uid="uid://cx8rx62srat4v" path="res://addons/gameplay_abiltiy_system/scripts/status/features/feature_event_listener.gd" id="5_j32lm"]
 
-[sub_resource type="Resource" id="Resource_j32lm"]
-script = ExtResource("5_oo0kp")
-metadata/_custom_type_script = "uid://tqtwps1s4ajd"
+[sub_resource type="Resource" id="Resource_lcp86"]
+script = ExtResource("3_8d7yw")
+metadata/_custom_type_script = "uid://cm2md6dyr4e7g"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8d7yw"]
-atlas = ExtResource("3_0e8uw")
-region = Rect2(32, 192, 32, 32)
+[sub_resource type="Resource" id="Resource_oo0kp"]
+script = ExtResource("5_j32lm")
+trigger_on_events = Array[StringName]([&"damage_received"])
+event_triggered_effects = Array[ExtResource("1_r1j4p")]([SubResource("Resource_lcp86")])
+metadata/_custom_type_script = "uid://cx8rx62srat4v"
+
+[sub_resource type="Resource" id="Resource_h64hi"]
+script = ExtResource("5_8d7yw")
+metadata/_custom_type_script = "uid://dc022ooby3n5j"
 
 [resource]
-script = ExtResource("1_status_data")
+script = ExtResource("2_hl5q6")
 status_id = &"damage_reduction_shield"
 status_display_name = "减伤护盾"
 status_description = "每次受到伤害前，将伤害减少 50%。"
-icon = SubResource("AtlasTexture_8d7yw")
+duration = 30.0
+icon = ExtResource("4_h64hi")
 tags = Array[StringName]([&"status.buff", &"defense.shield"])
-effects = Array[ExtResource("1_effect_base")]([SubResource("Resource_j32lm")])
-event_to_listen = &"damage_received"
-trigger_on_events = Array[StringName]([&"damage_received"])
-stacking_policy = 0
+features = Array[ExtResource("2_0e8uw")]([SubResource("Resource_oo0kp")])
+stacking_policy = SubResource("Resource_h64hi")
 priority = 1
+metadata/_custom_type_script = "uid://8u46anns2vhm"

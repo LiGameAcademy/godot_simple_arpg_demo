@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CueAttachedParticle" load_steps=3 format=3 uid="uid://fi58rsghlecm"]
+
+[ext_resource type="Script" uid="uid://mop1sgag2ypw" path="res://addons/gameplay_abiltiy_system/scripts/cues/cue_attached_particle.gd" id="1_6wtk3"]
+[ext_resource type="PackedScene" uid="uid://c2j7kiect024q" path="res://prefabs/fx/burn_particle.tscn" id="1_se8j4"]
+
+[resource]
+script = ExtResource("1_6wtk3")
+particle_scene = ExtResource("1_se8j4")
+attachment_point = &"body"
+metadata/_custom_type_script = "uid://mop1sgag2ypw"

@@ -1,13 +1,11 @@
-[gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3 uid="uid://fnn5ppy7i5uh"]
 
-[ext_resource type="Script" uid="uid://12dkgrpr4i3b" path="res://addons/godot_gameplay_abilities/scripts/tags/gameplay_tag.gd" id="1_tag"]
-
+[ext_resource type="Script" uid="uid://0287xxc5l2rf" path="res://addons/gameplay_abiltiy_system/scripts/tags/gameplay_tag.gd" id="1_rd1ym"]
 
 [resource]
-script = ExtResource("1_tag")
+script = ExtResource("1_rd1ym")
 id = &"status.poison"
 display_name = "中毒"
-description = "目标处于中毒状态，可与火元素发生反应转化为燃烧"
+description = ""
 parent_tag_id = &"status.debuff"
-
-
+metadata/_custom_type_script = "uid://0287xxc5l2rf"

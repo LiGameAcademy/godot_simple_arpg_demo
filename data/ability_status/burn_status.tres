@@ -1,28 +1,58 @@
-[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=8 format=3 uid="uid://dvradrjclri7g"]
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=19 format=3 uid="uid://c7bgognybjafi"]
 
-[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="1_e820m"]
-[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="1_status_data"]
-[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="1_wnefd"]
-[ext_resource type="Resource" uid="uid://dpwtcvsb7yse0" path="res://data/ability_effects/ge_burn_damage.tres" id="2_burn_effect"]
-[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_ktw0n"]
-[ext_resource type="Resource" uid="uid://b8k7x2m5oap4v" path="res://data/cues/burn_cue.tres" id="4_burn_cue"]
+[ext_resource type="Script" uid="uid://cb3e3wuphyka3" path="res://addons/gameplay_abiltiy_system/scripts/effects/gameplay_effect.gd" id="1_ijd54"]
+[ext_resource type="Script" uid="uid://8u46anns2vhm" path="res://addons/gameplay_abiltiy_system/scripts/status/gameplay_status_data.gd" id="2_dmsam"]
+[ext_resource type="Texture2D" uid="uid://ckarr4gl6dpbp" path="res://assets/textures/burn.tres" id="2_oddyf"]
+[ext_resource type="Script" uid="uid://cr1357dotaqah" path="res://scripts/data/damage/arpg_damage_logic.gd" id="2_wnefd"]
+[ext_resource type="Script" uid="uid://bh8lykstg57tm" path="res://addons/gameplay_abiltiy_system/scripts/filters/gameplay_filter.gd" id="3_dpf23"]
+[ext_resource type="Script" uid="uid://cra1yv70jj5sn" path="res://addons/gameplay_abiltiy_system/scripts/effects/ge_apply_damage.gd" id="4_rjume"]
+[ext_resource type="Script" uid="uid://cyc24nfkwkmo1" path="res://addons/gameplay_abiltiy_system/scripts/cues/gameplay_cue_base.gd" id="5_hf3f3"]
+[ext_resource type="Resource" uid="uid://fi58rsghlecm" path="res://data/cues/burn_particle_cue.tres" id="6_46klo"]
+[ext_resource type="Script" uid="uid://6mcxpdojhh7u" path="res://addons/gameplay_abiltiy_system/scripts/cues/gameplay_cue.gd" id="7_27t8s"]
+[ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/gameplay_abiltiy_system/scripts/status/features/status_feature.gd" id="8_46klo"]
+[ext_resource type="Script" uid="uid://pk38rnciw0o5" path="res://addons/gameplay_abiltiy_system/scripts/status/features/feature_periodic_effects.gd" id="9_rvxbd"]
+[ext_resource type="Script" uid="uid://dwtrlt75hktyr" path="res://addons/gameplay_abiltiy_system/scripts/status/stacking/stacking_intensity.gd" id="11_27t8s"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vr2ec"]
-atlas = ExtResource("3_ktw0n")
-region = Rect2(288, 0, 32, 32)
+[sub_resource type="Resource" id="Resource_hf3f3"]
+script = ExtResource("2_wnefd")
+metadata/_custom_type_script = "uid://cr1357dotaqah"
+
+[sub_resource type="Resource" id="Resource_46klo"]
+script = ExtResource("4_rjume")
+damage_strategy = SubResource("Resource_hf3f3")
+metadata/_custom_type_script = "uid://cra1yv70jj5sn"
+
+[sub_resource type="Resource" id="Resource_hns5h"]
+script = ExtResource("7_27t8s")
+cues = Array[ExtResource("5_hf3f3")]([ExtResource("6_46klo")])
+metadata/_custom_type_script = "uid://6mcxpdojhh7u"
+
+[sub_resource type="Resource" id="Resource_0lhk2"]
+script = ExtResource("4_rjume")
+damage_multiplier = 0.1
+metadata/_custom_type_script = "uid://cra1yv70jj5sn"
+
+[sub_resource type="Resource" id="Resource_bi2ov"]
+script = ExtResource("9_rvxbd")
+periodic_effects = Array[ExtResource("1_ijd54")]([SubResource("Resource_0lhk2")])
+metadata/_custom_type_script = "uid://pk38rnciw0o5"
+
+[sub_resource type="Resource" id="Resource_rvxbd"]
+script = ExtResource("11_27t8s")
+metadata/_custom_type_script = "uid://dwtrlt75hktyr"
 
 [resource]
-script = ExtResource("1_status_data")
+script = ExtResource("2_dmsam")
 status_id = &"burn"
 status_display_name = "燃烧"
 status_description = "持续受到火焰伤害"
 duration = 10.0
-icon = SubResource("AtlasTexture_vr2ec")
-is_debuff = true
-tags = Array[StringName]([&"status.debuff", &"element.fire", &"status.burn"])
-periodic_effects = Array[ExtResource("1_e820m")]([ExtResource("2_burn_effect")])
-period = 1.0
-stacking_policy = 0
+icon = ExtResource("2_oddyf")
+tags = Array[StringName]([&"element.fire", &"status.burn", &"status.debuff"])
+apply_effects = Array[ExtResource("1_ijd54")]([SubResource("Resource_46klo")])
+features = Array[ExtResource("8_46klo")]([SubResource("Resource_bi2ov")])
+stacking_policy = SubResource("Resource_rvxbd")
 max_stacks = 5
 priority = 1
-cue = ExtResource("4_burn_cue")
+cue = SubResource("Resource_hns5h")
+metadata/_custom_type_script = "uid://8u46anns2vhm"

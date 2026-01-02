@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://s0enk0k8apaf"]
+[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://dubf86p0rhi87"]
 
-[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute.gd" id="1_yxfv7"]
+[ext_resource type="Script" uid="uid://dj0iwc88r8noi" path="res://addons/gameplay_abiltiy_system/scripts/attributes/gameplay_attribute.gd" id="1_yxfv7"]
 
 [resource]
 script = ExtResource("1_yxfv7")
 attribute_id = &"defense"
 attribute_display_name = "防御力"
-attribute_description = "提升防御力"
-metadata/_custom_type_script = "uid://lm7wlbrgn7bt"
+min_value = 0.0
+max_value = 999.0
+metadata/_custom_type_script = "uid://dj0iwc88r8noi"

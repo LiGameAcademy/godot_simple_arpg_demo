@@ -1,13 +1,12 @@
-[gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="GameplayTag" load_steps=2 format=3 uid="uid://dxvp836gg2lph"]
 
-[ext_resource type="Script" uid="uid://12dkgrpr4i3b" path="res://addons/godot_gameplay_abilities/scripts/tags/gameplay_tag.gd" id="1_tag"]
-
+[ext_resource type="Script" uid="uid://0287xxc5l2rf" path="res://addons/gameplay_abiltiy_system/scripts/tags/gameplay_tag.gd" id="1_y0c4a"]
 
 [resource]
-script = ExtResource("1_tag")
+script = ExtResource("1_y0c4a")
 id = &"status.burn"
 display_name = "燃烧"
 description = "目标处于燃烧状态，可与火球术发生元素反应引发爆炸"
 parent_tag_id = &"status.debuff"
-
-
+mutually_exclusive_tags = Array[StringName]([&"status.freeze"])
+metadata/_custom_type_script = "uid://0287xxc5l2rf"
