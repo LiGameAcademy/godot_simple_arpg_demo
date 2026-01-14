@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="7_7iys2"]
 [ext_resource type="Script" uid="uid://c1loowqhvoix0" path="res://scripts/data/hit_detector/melee_box_hit_detector.gd" id="7_e5isf"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="8_nru6w"]
-[ext_resource type="Script" uid="uid://c7ywlq8qjjxps" path="res://addons/godot_gameplay_abilities/scripts/targeting/strategies/hit_detector_targeting_strategy.gd" id="12_558hi"]
+[ext_resource type="Script" uid="uid://c7ywlq8qjjxps" path="res://addons/godot_gameplay_abilities/scripts/abilities/targeting/strategies/hit_detector_targeting_strategy.gd" id="12_558hi"]
 
 [sub_resource type="Resource" id="Resource_e5isf"]
 script = ExtResource("3_7mol0")

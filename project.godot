@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameplayAbilitySystem="*res://addons/godot_gameplay_abilities/scripts/singletons/gameplay_ability_system.gd"
-DamageCalculator="*res://addons/godot_gameplay_abilities/scripts/singletons/damage_calculator.gd"
 AbilityEventBus="*res://addons/godot_gameplay_abilities/scripts/singletons/ability_event_bus.gd"
 CombatUtils="*res://addons/godot_gameplay_abilities/scripts/utils/combat_utils.gd"
 AttachmentPointUtils="*res://addons/godot_gameplay_abilities/scripts/utils/attachment_point_utils.gd"
