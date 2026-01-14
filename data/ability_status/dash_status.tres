@@ -1,21 +1,14 @@
-[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=11 format=3 uid="uid://cmyacqogly3x5"]
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=7 format=3 uid="uid://cmyacqogly3x5"]
 
-[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="1_57rrq"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="1_status_data"]
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="2_effect"]
-[ext_resource type="Script" uid="uid://ct224mxbkm3nx" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute_modifier.gd" id="2_mx23h"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="3_krgsm"]
-[ext_resource type="Script" uid="uid://ckfk7hyooiepk" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_single_frame_motion.gd" id="4_57rrq"]
+[ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/godot_gameplay_abilities/scripts/status/features/status_feature.gd" id="3_krgsm"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="4_b252k"]
 [ext_resource type="Resource" uid="uid://dnhmj6ouvbi2q" path="res://data/cues/dash_trail_cue.tres" id="4_trail_cue"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mx23h"]
 atlas = ExtResource("4_b252k")
 region = Rect2(128, 64, 32, 32)
-
-[sub_resource type="Resource" id="Resource_b252k"]
-script = ExtResource("4_57rrq")
-distance = 0.2
 
 [resource]
 script = ExtResource("1_status_data")
@@ -25,6 +18,4 @@ status_description = "快速位移状态，期间免疫伤害"
 duration = 0.5
 icon = SubResource("AtlasTexture_mx23h")
 tags = Array[StringName]([&"state.invulnerable", &"state.rooted"])
-periodic_effects = Array[ExtResource("2_effect")]([SubResource("Resource_b252k")])
-period = 0.02
 cue = ExtResource("4_trail_cue")
