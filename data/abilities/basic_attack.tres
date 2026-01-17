@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="1_nj71f"]
 [ext_resource type="Resource" uid="uid://b5k7x2m5oap4s" path="res://data/cues/hit_cue_physical_wrapper.tres" id="2_7iys2"]
 [ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_apply_damage.gd" id="3_7mol0"]
-[ext_resource type="Script" uid="uid://dce6ftpfn6k5n" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability_definition.gd" id="5_3g35k"]
+[ext_resource type="Script" uid="uid://dce6ftpfn6k5n" path="res://addons/godot_gameplay_abilities/scripts/abilities/definitions/active_ability_definition.gd" id="5_3g35k"]
 [ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="6_p14ky"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="7_7iys2"]
 [ext_resource type="Script" uid="uid://c1loowqhvoix0" path="res://scripts/data/hit_detector/melee_box_hit_detector.gd" id="7_e5isf"]

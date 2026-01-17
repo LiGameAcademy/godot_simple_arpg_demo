@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SacrificeAbilityDefinition" load_steps=18 format=3 uid="uid://dv881tgsi371p"]
 
-[ext_resource type="Script" uid="uid://c8k7x2m5oap4g" path="res://addons/godot_gameplay_abilities/scripts/abilities/sacrifice_ability_definition.gd" id="1_sacrifice_def"]
+[ext_resource type="Script" uid="uid://c8k7x2m5oap4g" path="res://addons/godot_gameplay_abilities/scripts/abilities/definitions/sacrifice_ability_definition.gd" id="1_sacrifice_def"]
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/abilities/costs/ability_cost_base.gd" id="2_cost_base"]
 [ext_resource type="Script" uid="uid://bj10701f03s5k" path="res://addons/godot_gameplay_abilities/scripts/abilities/targeting/strategies/self_targeting_strategy.gd" id="3_self_targeting"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="4_status_data"]

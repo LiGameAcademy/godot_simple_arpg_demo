@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ProjectileAbilityDefinition" load_steps=14 format=3 uid="uid://c8ewd60kjpajw"]
 
-[ext_resource type="Script" uid="uid://bxrr6ngbc4t80" path="res://addons/godot_gameplay_abilities/scripts/abilities/projectile_ability_definition.gd" id="1_projectile_def"]
+[ext_resource type="Script" uid="uid://bxrr6ngbc4t80" path="res://addons/godot_gameplay_abilities/scripts/abilities/definitions/projectile_ability_definition.gd" id="1_projectile_def"]
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/abilities/costs/ability_cost_base.gd" id="2_82pxk"]
 [ext_resource type="Script" uid="uid://3n073v4axo0p" path="res://addons/godot_gameplay_abilities/scripts/abilities/costs/vital_cost.gd" id="3_cd6ue"]
 [ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/gameplay_ability_feature.gd" id="4_cd6ue"]

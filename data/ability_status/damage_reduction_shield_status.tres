@@ -1,22 +1,17 @@
-[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=12 format=3 uid="uid://bn5vcaouea28f"]
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=9 format=3 uid="uid://bn5vcaouea28f"]
 
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="1_r1j4p"]
 [ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/godot_gameplay_abilities/scripts/status/features/status_feature.gd" id="2_0e8uw"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="2_hl5q6"]
-[ext_resource type="Script" uid="uid://tqtwps1s4ajd" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_modify_incoming_damage.gd" id="3_8d7yw"]
-[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="3_oo0kp"]
+[ext_resource type="Resource" path="res://data/ability_effects/ge_modify_incoming_damage.tres" id="3_ge_modify"]
 [ext_resource type="Texture2D" uid="uid://cieo4b66xwpa5" path="res://assets/textures/damage_reduction_shield.tres" id="4_h64hi"]
 [ext_resource type="Script" uid="uid://dc022ooby3n5j" path="res://addons/godot_gameplay_abilities/scripts/status/stacking/stacking_refresh_duration.gd" id="5_8d7yw"]
 [ext_resource type="Script" uid="uid://cx8rx62srat4v" path="res://addons/godot_gameplay_abilities/scripts/status/features/feature_event_listener.gd" id="5_j32lm"]
 
-[sub_resource type="Resource" id="Resource_lcp86"]
-script = ExtResource("3_8d7yw")
-metadata/_custom_type_script = "uid://cm2md6dyr4e7g"
-
 [sub_resource type="Resource" id="Resource_oo0kp"]
 script = ExtResource("5_j32lm")
 trigger_on_events = Array[StringName]([&"damage_received"])
-event_triggered_effects = Array[ExtResource("1_r1j4p")]([SubResource("Resource_lcp86")])
+event_triggered_effects = Array[ExtResource("1_r1j4p")]([ExtResource("3_ge_modify")])
 metadata/_custom_type_script = "uid://cx8rx62srat4v"
 
 [sub_resource type="Resource" id="Resource_h64hi"]
@@ -28,7 +23,7 @@ script = ExtResource("2_hl5q6")
 status_id = &"damage_reduction_shield"
 status_display_name = "减伤护盾"
 status_description = "每次受到伤害前，将伤害减少 50%。"
-duration = 30.0
+duration = -1.0
 icon = ExtResource("4_h64hi")
 tags = Array[StringName]([&"status.buff", &"defense.shield"])
 features = Array[ExtResource("2_0e8uw")]([SubResource("Resource_oo0kp")])

@@ -1,0 +1,3 @@
+[gd_resource type="Resource" script_class="ChannelingAbilityDefinition" load_steps=12 format=3 uid="uid://bwbjr7evd6rl2"]
+
+[ext_resource type="Script" uid="uid://n5apc0cau1lk" path="res://addons/godot_gameplay_abilities/scripts/abilities/definitions/channeling_ability_definition.gd" id="1_channeling_def"]

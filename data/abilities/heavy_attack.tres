@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/gameplay_ability_feature.gd" id="2_eawei"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_7mol0"]
-[ext_resource type="Script" uid="uid://dce6ftpfn6k5n" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability_definition.gd" id="3_lsrl3"]
+[ext_resource type="Script" uid="uid://dce6ftpfn6k5n" path="res://addons/godot_gameplay_abilities/scripts/abilities/definitions/active_ability_definition.gd" id="3_lsrl3"]
 [ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="5_sd8r2"]
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="6_c0vht"]
 

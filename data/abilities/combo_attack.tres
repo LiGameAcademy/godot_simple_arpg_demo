@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="ComboAbilityDefinition" load_steps=11 format=3 uid="uid://dqyj5y5ta5vje"]
 
-[ext_resource type="Script" uid="uid://dce6ftpfn6k5n" path="res://addons/godot_gameplay_abilities/scripts/abilities/active_ability_definition.gd" id="1_kryxh"]
+[ext_resource type="Script" uid="uid://dce6ftpfn6k5n" path="res://addons/godot_gameplay_abilities/scripts/abilities/definitions/active_ability_definition.gd" id="1_kryxh"]
 [ext_resource type="Resource" uid="uid://1ec04wtsoes" path="res://data/abilities/basic_attack.tres" id="2_b1qqw"]
 [ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/gameplay_ability_feature.gd" id="3_uisbl"]
-[ext_resource type="Script" uid="uid://cj4h1fnurw1lv" path="res://addons/godot_gameplay_abilities/scripts/abilities/combo_ability_definition.gd" id="4_7mimf"]
+[ext_resource type="Script" uid="uid://cj4h1fnurw1lv" path="res://addons/godot_gameplay_abilities/scripts/abilities/definitions/combo_ability_definition.gd" id="4_7mimf"]
 [ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/abilities/costs/ability_cost_base.gd" id="4_qe3at"]
 [ext_resource type="Resource" uid="uid://op60b7h2ejrt" path="res://data/abilities/heavy_attack.tres" id="4_ufw6m"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="5_oa4id"]

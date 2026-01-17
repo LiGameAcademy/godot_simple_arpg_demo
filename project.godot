@@ -19,14 +19,11 @@ config/icon="res://icon.svg"
 
 GameplayAbilitySystem="*res://addons/godot_gameplay_abilities/scripts/singletons/gameplay_ability_system.gd"
 AbilityEventBus="*res://addons/godot_gameplay_abilities/scripts/singletons/ability_event_bus.gd"
-CombatUtils="*res://addons/godot_gameplay_abilities/scripts/utils/combat_utils.gd"
-AttachmentPointUtils="*res://addons/godot_gameplay_abilities/scripts/utils/attachment_point_utils.gd"
 TagManager="*res://addons/godot_gameplay_abilities/scripts/singletons/gameplay_tag_manager.gd"
 GameplayCueManager="*res://addons/godot_gameplay_abilities/scripts/singletons/gameplay_cue_manager.gd"
 TalentManager="*res://scripts/singletons/talent_manager.gd"
 Panku="*res://addons/panku_console/console.tscn"
 DDD="*res://addons/zylann.debug_draw/debug_draw.gd"
-DamageCalculator="*res://addons/godot_gameplay_abilities/scripts/singletons/damage_calculator.gd"
 
 [debug_draw_3d]
 
