@@ -1,6 +1,10 @@
 [gd_resource type="Resource" script_class="TalentData" load_steps=6 format=3 uid="uid://bjgo6stjvsjpg"]
 
+<<<<<<< HEAD
 [ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="1_ri1jf"]
+=======
+[ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="1_evl1c"]
+>>>>>>> 1940d3cdd8bf9b8c7402275105ab678cdab47cce
 [ext_resource type="Script" uid="uid://douxicmi8r2jr" path="res://scripts/talent/talent_data.gd" id="1_talent_data"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_evl1c"]
 [ext_resource type="Resource" uid="uid://bbkd0hxk7bhth" path="res://data/modifiers/mod_arcane_mastery.tres" id="4_arcane_mod"]
@@ -17,4 +21,8 @@ description = "火球术和奥术飞弹伤害翻倍"
 icon = SubResource("AtlasTexture_tv3mf")
 cost = 3
 prerequisites = Array[StringName]([&"fireball_multicast"])
+<<<<<<< HEAD
 ability_modifiers = Array[ExtResource("1_ri1jf")]([ExtResource("4_arcane_mod")])
+=======
+ability_modifiers = Array[ExtResource("1_evl1c")]([ExtResource("4_arcane_mod")])
+>>>>>>> 1940d3cdd8bf9b8c7402275105ab678cdab47cce

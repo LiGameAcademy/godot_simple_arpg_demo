@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="AreaTargetingStrategy" load_steps=5 format=3 uid="uid://b18fu3bld8xcc"]
 
-[ext_resource type="Script" uid="uid://d10midhyevy0w" path="res://addons/godot_gameplay_abilities/scripts/targeting/strategies/area_targeting_strategy.gd" id="1_area_targeting"]
+[ext_resource type="Script" uid="uid://d10midhyevy0w" path="res://addons/godot_gameplay_abilities/scripts/abilities/targeting/strategies/area_targeting_strategy.gd" id="1_area_targeting"]
 [ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="1_k7yu0"]
-[ext_resource type="Script" uid="uid://c2intvx8ht0fd" path="res://addons/godot_gameplay_abilities/scripts/hit_detection/area_hit_detector.gd" id="2_area_hit_detector"]
+[ext_resource type="Script" uid="uid://c2intvx8ht0fd" path="res://addons/godot_gameplay_abilities/scripts/abilities/targeting/strategies/hit_detection/area_hit_detector.gd" id="2_area_hit_detector"]
 
 [sub_resource type="Resource" id="AreaHitDetector_sacrifice"]
 script = ExtResource("2_area_hit_detector")

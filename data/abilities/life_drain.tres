@@ -1,8 +1,12 @@
 [gd_resource type="Resource" script_class="ChannelingAbilityDefinition" load_steps=12 format=3 uid="uid://bwbjr7evd6rl2"]
 
 [ext_resource type="Script" uid="uid://n5apc0cau1lk" path="res://addons/godot_gameplay_abilities/scripts/abilities/channeling_ability_definition.gd" id="1_channeling_def"]
+<<<<<<< HEAD
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="2_2udw6"]
 [ext_resource type="Script" uid="uid://biqqmmq83881j" path="res://addons/godot_gameplay_abilities/scripts/targeting/strategies/unit_targeting_strategy.gd" id="2_unit_targeting"]
+=======
+[ext_resource type="Script" uid="uid://biqqmmq83881j" path="res://addons/godot_gameplay_abilities/scripts/abilities/targeting/strategies/unit_targeting_strategy.gd" id="2_unit_targeting"]
+>>>>>>> 1940d3cdd8bf9b8c7402275105ab678cdab47cce
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_icon"]
 [ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/gameplay_ability_feature.gd" id="3_jhco6"]
 [ext_resource type="Resource" path="res://data/ability_effects/ge_life_drain_damage.tres" id="4_damage_effect"]

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [gd_resource type="Resource" script_class="GameplayStatusData" load_steps=13 format=3 uid="uid://wi5hl2sjew3n"]
 
 [ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="1_xhymi"]
@@ -24,6 +25,19 @@ metadata/_custom_type_script = "uid://pk38rnciw0o5"
 [sub_resource type="Resource" id="Resource_mx23h"]
 script = ExtResource("6_b252k")
 metadata/_custom_type_script = "uid://5pdk6d4nh02q"
+=======
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=7 format=3 uid="uid://cmyacqogly3x5"]
+
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="1_status_data"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="2_effect"]
+[ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/godot_gameplay_abilities/scripts/status/features/status_feature.gd" id="3_krgsm"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="4_b252k"]
+[ext_resource type="Resource" uid="uid://dnhmj6ouvbi2q" path="res://data/cues/dash_trail_cue.tres" id="4_trail_cue"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mx23h"]
+atlas = ExtResource("4_b252k")
+region = Rect2(128, 64, 32, 32)
+>>>>>>> 1940d3cdd8bf9b8c7402275105ab678cdab47cce
 
 [resource]
 script = ExtResource("2_unrqj")
@@ -33,6 +47,10 @@ status_description = "快速位移状态，期间免疫伤害"
 duration = 0.5
 icon = ExtResource("2_qh8jn")
 tags = Array[StringName]([&"state.invulnerable", &"state.rooted"])
+<<<<<<< HEAD
 features = Array[ExtResource("3_57rrq")]([SubResource("Resource_efe8t")])
 stacking_policy = SubResource("Resource_mx23h")
 cue = ExtResource("2_57rrq")
+=======
+cue = ExtResource("4_trail_cue")
+>>>>>>> 1940d3cdd8bf9b8c7402275105ab678cdab47cce
