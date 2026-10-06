@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="GameplayEquip" load_steps=7 format=3 uid="uid://cnemwy6alr5bx"]
+[gd_resource type="Resource" script_class="ArpgEquip" load_steps=7 format=3 uid="uid://cnemwy6alr5bx"]
 
 [ext_resource type="Script" uid="uid://dkdx3f3hoy0un" path="res://scripts/data/gameplay_equip.gd" id="1_equip"]
-[ext_resource type="Script" uid="uid://cbvhifiid5vg6" path="res://addons/godot_gameplay_abilities/scripts/data/abilities/active_ability.gd" id="2_active"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/abilities/gameplay_ability_definition.gd" id="2_active"]
 [ext_resource type="Resource" uid="uid://dqyj5y5ta5vje" path="res://data/abilities/combo_attack.tres" id="2_xtbti"]
 [ext_resource type="Texture2D" uid="uid://denlah5iok8hf" path="res://addons/simple_inventory/assets/textures/items/wood_axe.tres" id="3_icon"]
 [ext_resource type="PackedScene" uid="uid://ebejpjaujsdv" path="res://prefabs/equipment/axe_equipped.tscn" id="4_model"]
@@ -11,11 +11,12 @@
 script = ExtResource("1_equip")
 equip_model_scene = ExtResource("4_model")
 abilities = Array[ExtResource("2_active")]([ExtResource("2_xtbti"), ExtResource("6_dash")])
-equip_type = 6
-name = "斧子"
+equip_type_id = &"weapon"
+item_id = &"axe"
+item_type_id = &"equip"
+display_name = "斧子"
 icon = ExtResource("3_icon")
 description = "一把锋利的斧子，适合近战战斗。"
-category = 2
 attributes = Dictionary[String, float]({
 "attack": 20.0,
 "strength": 15.0

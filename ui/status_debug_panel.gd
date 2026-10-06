@@ -1,10 +1,10 @@
 extends Control
-class_name StatusDebugPanel
+class_name ArpgStatusDebugPanel
 
 ## 状态调试面板
 ## 用于调试和管理实体的状态系统
 
-const STATUS_ENTITIES_GROUP_NAME := GameplayStatusComponent.GROUP_NAME
+const STATUS_ENTITIES_GROUP_NAME: StringName = &"Entities"
 
 # 状态图标预制体
 const STATUS_ICON_SCENE = preload("res://addons/godot_gameplay_abilities/ui/status_icon.tscn")
@@ -74,20 +74,20 @@ func _scan_entities() -> void:
 	entity_list.clear()
 	
 	# 使用 Group 机制获取所有状态实体
-	var entities = get_tree().get_nodes_in_group(STATUS_ENTITIES_GROUP_NAME)
+	var entities: Array[Node] = get_tree().get_nodes_in_group(STATUS_ENTITIES_GROUP_NAME)
 	
 	# 遍历实体，查找对应的 GameplayStatusComponent
-	for entity in entities:
+	for entity: Node in entities:
 		if not is_instance_valid(entity):
 			continue
 		
 		# 获取状态组件
-		var status_comp = GameplayAbilitySystem.get_component_by_interface(entity, "GameplayStatusComponent")
+		var status_comp: Node = GameplayAbilitySystem.get_component_by_interface(entity, "GameplayStatusComponent")
 		if not is_instance_valid(status_comp) or not status_comp is GameplayStatusComponent:
 			continue
 		
 		# 生成实体名称
-		var entity_name = entity.name if entity.name != "" else str(entity.get_path())
+		var entity_name: String = entity.name if entity.name != "" else str(entity.get_path())
 		# 如果名称重复，添加路径信息
 		if _entities.has(entity_name):
 			entity_name = str(entity.get_path())
@@ -98,9 +98,9 @@ func _scan_entities() -> void:
 		}
 	
 	# 更新列表显示
-	for entity_name in _entities.keys():
-		var entity_data = _entities[entity_name]
-		var display_name = "%s (%s)" % [entity_name, entity_data.node.get_class()]
+	for entity_name: String in _entities.keys():
+		var entity_data: Dictionary = _entities[entity_name]
+		var display_name: String = "%s (%s)" % [entity_name, entity_data.node.get_class()]
 		entity_list.add_item(display_name)
 
 ## 实体选择回调
@@ -117,8 +117,8 @@ func _on_entity_selected(index: int) -> void:
 		if _selected_component.status_stacked.is_connected(_on_status_stacked):
 			_selected_component.status_stacked.disconnect(_on_status_stacked)
 	
-	var entity_name = _entities.keys()[index]
-	var entity_data = _entities[entity_name]
+	var entity_name: String = _entities.keys()[index]
+	var entity_data: Dictionary = _entities[entity_name]
 	_selected_entity = entity_data.node
 	_selected_component = entity_data.component
 	
@@ -146,14 +146,14 @@ func _on_status_removed(_status_id: StringName) -> void:
 func _on_status_stacked(_status_id: StringName, _new_stacks: int) -> void:
 	# 更新对应图标的层数显示
 	if _status_icons.has(_status_id):
-		var icon = _status_icons[_status_id]
+		var icon: Control = _status_icons[_status_id]
 		if is_instance_valid(icon) and icon.has_method("update_stack_display"):
 			icon.update_stack_display()
 
 ## 更新状态显示
 func _update_status_display() -> void:
 	# 清除旧的状态图标
-	for icon in _status_icons.values():
+	for icon: Control in _status_icons.values():
 		if is_instance_valid(icon):
 			icon.queue_free()
 	_status_icons.clear()
@@ -162,15 +162,15 @@ func _update_status_display() -> void:
 		return
 	
 	# 获取所有激活的状态
-	var active_statuses = _selected_component.get_active_statuses()
+	var active_statuses: Array[GameplayStatusInstance] = _selected_component.get_active_statuses()
 	
 	# 为每个状态创建图标
-	for status_instance in active_statuses:
+	for status_instance: GameplayStatusInstance in active_statuses:
 		if not is_instance_valid(status_instance) or not is_instance_valid(status_instance.status_data):
 			continue
 		
 		# 创建状态图标
-		var icon_container = _create_status_icon(status_instance)
+		var icon_container: Control = _create_status_icon(status_instance)
 		status_container.add_child(icon_container)
 
 ## 创建状态图标
@@ -178,11 +178,11 @@ func _create_status_icon(status_instance: GameplayStatusInstance) -> Control:
 	if not is_instance_valid(status_instance) or not is_instance_valid(status_instance.status_data):
 		return null
 	
-	var status_data = status_instance.status_data
-	var status_id = status_data.status_id
+	var status_data: GameplayStatusData = status_instance.status_data
+	var status_id: StringName = status_data.status_id
 	
 	# 实例化状态图标场景
-	var icon = STATUS_ICON_SCENE.instantiate()
+	var icon: Control = STATUS_ICON_SCENE.instantiate()
 	if not is_instance_valid(icon) or not icon.has_method("setup"):
 		push_warning("StatusDebugPanel: Failed to instantiate status icon")
 		return null
@@ -199,21 +199,21 @@ func _on_add_status_pressed() -> void:
 		push_warning("StatusDebugPanel: No entity selected")
 		return
 	
-	var status_id_str = status_id_input.text.strip_edges()
+	var status_id_str: String = status_id_input.text.strip_edges()
 	if status_id_str.is_empty():
 		push_warning("StatusDebugPanel: Status ID is empty")
 		return
 	
-	var status_id = StringName(status_id_str)
+	var status_id: StringName = StringName(status_id_str)
 	
 	# 尝试加载状态资源
-	var status_data = _load_status_resource(status_id)
+	var status_data: GameplayStatusData = _load_status_resource(status_id)
 	if not is_instance_valid(status_data):
 		push_warning("StatusDebugPanel: Failed to load status resource: %s" % status_id_str)
 		return
 	
 	# 应用状态
-	var player = get_tree().get_first_node_in_group("Player")
+	var player: Node = get_tree().get_first_node_in_group("Player")
 	_selected_component.apply_status(status_data, player)
 	
 	# 更新显示
@@ -228,12 +228,12 @@ func _on_remove_status_pressed() -> void:
 		push_warning("StatusDebugPanel: No entity selected")
 		return
 	
-	var status_id_str = status_id_input.text.strip_edges()
+	var status_id_str: String = status_id_input.text.strip_edges()
 	if status_id_str.is_empty():
 		push_warning("StatusDebugPanel: Status ID is empty")
 		return
 	
-	var status_id = StringName(status_id_str)
+	var status_id: StringName = StringName(status_id_str)
 	
 	# 移除状态
 	_selected_component.remove_status(status_id)
@@ -249,8 +249,8 @@ func _on_refresh_pressed() -> void:
 	_scan_entities()
 	if is_instance_valid(_selected_entity):
 		# 尝试重新选择当前实体
-		for i in range(entity_list.item_count):
-			var item_text = entity_list.get_item_text(i)
+		for i: int in range(entity_list.item_count):
+			var item_text: String = entity_list.get_item_text(i)
 			if _selected_entity.name in item_text or str(_selected_entity.get_path()) in item_text:
 				entity_list.select(i)
 				_on_entity_selected(i)
@@ -260,26 +260,26 @@ func _on_refresh_pressed() -> void:
 ## 尝试从配置的目录加载状态资源
 func _load_status_resource(status_id: StringName) -> GameplayStatusData:
 	# 确保路径以 / 结尾
-	var dir_path = status_resource_dir
+	var dir_path: String = status_resource_dir
 	if not dir_path.ends_with("/"):
 		dir_path += "/"
 	
 	# 方法1: 尝试直接加载资源文件（使用配置的后缀）
-	var resource_path = "%s%s%s.tres" % [dir_path, status_id, status_resource_suffix]
+	var resource_path: String = "%s%s%s.tres" % [dir_path, status_id, status_resource_suffix]
 	if ResourceLoader.exists(resource_path):
-		var resource = load(resource_path) as GameplayStatusData
+		var resource: GameplayStatusData = load(resource_path) as GameplayStatusData
 		if is_instance_valid(resource) and resource.status_id == status_id:
 			return resource
 	
 	# 方法2: 扫描配置的目录
-	var dir = DirAccess.open(dir_path)
+	var dir: DirAccess = DirAccess.open(dir_path)
 	if is_instance_valid(dir):
 		dir.list_dir_begin()
-		var file_name = dir.get_next()
+		var file_name: String = dir.get_next()
 		while file_name != "":
 			if file_name.ends_with(".tres"):
-				var full_path = dir_path + file_name
-				var resource = load(full_path) as GameplayStatusData
+				var full_path: String = dir_path + file_name
+				var resource: GameplayStatusData = load(full_path) as GameplayStatusData
 				if is_instance_valid(resource) and resource.status_id == status_id:
 					return resource
 			file_name = dir.get_next()

@@ -126,7 +126,7 @@ func _init_circular_progress() -> void:
 
 func _update_icon(force: bool = false) -> void:
 	# 优先从 Definition 获取基础图标
-	var current_icon = _instance.get_current_icon()
+	var current_icon: Texture2D = _instance.get_current_icon()
 	
 	if force or current_icon != _last_icon:
 		if is_instance_valid(icon_texture):
@@ -134,14 +134,14 @@ func _update_icon(force: bool = false) -> void:
 		_last_icon = current_icon
 
 func _update_cooldown_display() -> void:
-	var progress = 0.0
-	var is_ready = true
+	var progress: float = 0.0
+	var is_ready: bool = true
 	
 	# 从缓存的 CooldownFeature 读取状态
 	# 注意：必须传入 _instance，因为 Feature 是无状态的享元
 	if is_instance_valid(_cached_cooldown_feature):
 		progress = _cached_cooldown_feature.get_cooldown_progress(_instance)
-		is_ready = _cached_cooldown_feature.is_cooldown_ready(_instance)
+		is_ready = _cached_cooldown_feature.get_cooldown_remaining(_instance) <= 0.0
 	
 	# 更新 Shader
 	if is_instance_valid(_progress_material):
@@ -164,7 +164,7 @@ func _update_cooldown_display() -> void:
 func _update_tooltip() -> void:
 	if not is_instance_valid(_instance): return
 	
-	var def = _instance.get_definition()
+	var def: GameplayAbilityDefinition = _instance.get_definition()
 	var lines: Array[String] = []
 	
 	# 1. 标题
@@ -182,18 +182,18 @@ func _update_tooltip() -> void:
 	# 4. 遍历特性获取详细描述 (动态生成)
 	# 需要 Feature 基类实现 get_description()
 	var features_desc: Array[String] = []
-	for feature in _instance.get_all_features().values():
+	for feature: GameplayAbilityFeature in _instance.get_all_features().values():
 		if not is_instance_valid(feature): continue
 		
 		# 过滤掉空的描述
-		var f_desc = feature.get_description()
+		var f_desc: String = feature.get_description()
 		if f_desc != "":
 			features_desc.append(f_desc)
 	
 	if not features_desc.is_empty():
 		lines.append("")
 		lines.append("[color=gray]详细属性:[/color]")
-		for desc in features_desc:
+		for desc: String in features_desc:
 			lines.append(" • %s" % desc)
 			
 	tooltip_text = "\n".join(lines)

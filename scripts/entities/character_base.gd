@@ -21,8 +21,20 @@ class_name CharacterBase
 var _is_dead: bool = false
 
 func _ready() -> void:
+	var colliders: Array[Node] = []
+	_collect_combat_colliders(self, colliders)
+	CombatUtils.register_entity(self, colliders)
 	_init_components()
 	_setup_death_listener()
+
+func _exit_tree() -> void:
+	CombatUtils.unregister_entity(self)
+
+func _collect_combat_colliders(node: Node, colliders: Array[Node]) -> void:
+	if node is CollisionObject3D:
+		colliders.append(node)
+	for child: Node in node.get_children():
+		_collect_combat_colliders(child, colliders)
 
 ## 获取属性组件
 func get_attribute_component() -> GameplayVitalAttributeComponent:
@@ -53,7 +65,7 @@ func try_activate_ability(ability_id: StringName, context: Dictionary = {}) -> v
 		context["facing_angle"] = facing_angle
 	
 	if ability_component.can_activate_ability(ability_id, context):
-		var ok := ability_component.try_activate_ability(ability_id, context)
+		var ok: bool = ability_component.try_activate_ability(ability_id, context)
 		if not ok:
 			print("CharacterBase: Failed to commit cast for ability: %s" % ability_id)
 			return
@@ -73,8 +85,8 @@ func _get_facing_angle() -> float:
 	# 如果都没有，从 transform 计算
 	# 注意：模型朝向 -Z（Godot 默认前方）
 	# 由于模型从 +Z 改为 -Z（旋转了 180 度），角度需要加 π
-	var forward = -global_transform.basis.z
-	var base_angle = atan2(forward.x, forward.z)
+	var forward: Vector3 = -global_transform.basis.z
+	var base_angle: float = atan2(forward.x, forward.z)
 	return base_angle + PI
 
 ## 获取挂点节点（用于 Cue 系统）
@@ -100,7 +112,7 @@ func _on_game_event_occurred(event_type: StringName, context: Dictionary) -> voi
 		return
 	
 	# 检查是否是自己的死亡事件
-	var entity = context.get("entity") as Node
+	var entity: Node = context.get("entity") as Node
 	if entity != self:
 		return
 	
@@ -120,7 +132,7 @@ func _play_death_animation() -> void:
 	
 	# 使用 VisualAdapter 播放死亡动画
 	if is_instance_valid(_visual_adapter):
-		var anim_name = death_animation_name
+		var anim_name: StringName = death_animation_name
 		if anim_name.is_empty():
 			anim_name = &"death"  # 默认使用 "death"
 		

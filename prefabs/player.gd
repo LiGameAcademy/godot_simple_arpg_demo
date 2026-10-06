@@ -16,27 +16,21 @@ class_name Player
 
 @onready var visuals: Node3D = $Visuals
 @onready var interaction_area: Area3D = $Visuals/InteractionArea
-@onready var inventory_component: C_Inventory = $InventoryComponent
+@onready var inventory_component: InventoryComponent = $InventoryComponent
+@onready var equipment_component: EquipmentComponent = $EquipmentComponent
+@onready var equipment_handler: PlayerEquipment = $PlayerEquipment
+@onready var inventory_binding: PlayerInventory = $PlayerInventory
 
 @onready var hand_slot_attachment_r: BoneAttachment3D = $Visuals/Barbarian/Rig_Medium/Skeleton3D/HandSlotAttachmentR
 @onready var hand_slot_attachment_l: BoneAttachment3D = $Visuals/Barbarian/Rig_Medium/Skeleton3D/HandSlotAttachmentL
 
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 ## 属性点数管理器
 var attribute_points_manager: AttributePointsManager = AttributePointsManager.new(10)
 ## 技能快捷键管理器
 var shortcut_manager: AbilityShortcutManager = AbilityShortcutManager.new()
 ## 最后移动方向（用于近战技能朝向）
 var _last_movement_direction: Vector2 = Vector2(0, 1)
-## 已应用的装备属性修改器（用于卸下时移除）
-## 格式：{装备槽名称: [修改器1, 修改器2, ...]}
-var _equipment_modifiers: Dictionary = {}
-## 已显示的装备模型实例（用于卸下时移除）
-## 格式：{装备槽名称: Node3D实例}
-var _equipment_models: Dictionary = {}
-## 已注册的装备技能（用于卸下时移除）
-## 格式：{装备槽名称: [技能ID1, 技能ID2, ...]}
-var _equipment_abilities: Dictionary = {}
 
 func _ready() -> void:
 	super()
@@ -49,21 +43,12 @@ func _ready() -> void:
 	if is_instance_valid(_visual_adapter):
 		_visual_adapter.play_animation("movement")
 	
-	# 【测试福利】送 3 瓶药水
-	var potion = load("res://data/items/potion_health_small.tres")
-	if potion:
-		for i in range(3):
-			inventory_component.add_item(potion.duplicate())
-	
-	# 【测试福利】添加武器：斧子和法杖
-	var axe = load("res://data/items/axe.tres")
-	if axe:
-		inventory_component.add_item(axe.duplicate())
-	
-	var staff = load("res://data/items/staff.tres")
-	if staff:
-		inventory_component.add_item(staff.duplicate())
-	
+	var attachments: Dictionary[StringName, BoneAttachment3D] = _attachment_point_mapping.duplicate()
+	attachments[&"hand_right"] = hand_slot_attachment_r
+	attachments[&"hand_left"] = hand_slot_attachment_l
+	equipment_handler.initialize(attribute_component, ability_component, self, attachments)
+	equipment_component.equip_changed.connect(equipment_handler.apply_equipment)
+	inventory_binding.initialize(inventory_component, equipment_component, self)
 	# 初始化快捷键绑定（在技能学会后绑定）
 	_setup_shortcuts()
 	
@@ -74,9 +59,6 @@ func _ready() -> void:
 	if is_instance_valid(ability_component):
 		ability_component.ability_completed.connect(_on_ability_completed)
 	
-	# 监听装备变化信号，应用/移除属性修改器
-	if is_instance_valid(inventory_component):
-		inventory_component.equip_changed.connect(_on_equip_changed)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -92,7 +74,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	# 1. 获取输入 (2D向量)
-	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
 	# 2. 转换为 3D 方向 (X/Z 平面)
 	# 注意：模型朝向 -Z（Godot 默认前方）
@@ -100,7 +82,7 @@ func _physics_process(delta: float) -> void:
 	# - input_dir.y 是前后（对应 3D 的 Z 轴，正值为前，但在 2D 输入映射中是 Y）
 	# 当 input_dir.y = 1（向上键，向前）时，应该朝向 -Z
 	# 所以需要取反：Vector3(input_dir.x, 0, -input_dir.y)
-	var direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
+	var direction: Vector3 = Vector3(input_dir.x, 0, input_dir.y).normalized()
 	
 	if direction:
 		# 3. 移动逻辑：利用 move_toward 实现平滑加速
@@ -113,8 +95,8 @@ func _physics_process(delta: float) -> void:
 		# - input_dir.y 是前后（对应 3D 的 Z 轴，正值为前，但在 2D 输入映射中是 Y）
 		# 当 input_dir.y = 1（向上键，向前）时，应该朝向 -Z
 		# 由于模型从 +Z 改为 -Z（旋转了 180 度），角度需要加 π
-		var base_angle = atan2(input_dir.x, input_dir.y)
-		var target_angle = base_angle + PI
+		var base_angle: float = atan2(input_dir.x, input_dir.y)
+		var target_angle: float = base_angle + PI
 		visuals.rotation.y = lerp_angle(visuals.rotation.y, target_angle, rotation_speed * delta)
 		
 		# 保存最后移动方向（用于近战技能朝向）
@@ -135,7 +117,7 @@ func _unhandled_input(event: InputEvent) -> void:
 #func get_gameplay_attribute_component() -> GameplayAttributeComponent:
 	#return attribute_component
 
-func get_inventory() -> C_Inventory:
+func get_inventory() -> InventoryComponent:
 	return inventory_component
 
 func _set_movement_blend_position(blend_position: float) -> void:
@@ -145,10 +127,10 @@ func _set_movement_blend_position(blend_position: float) -> void:
 
 func _try_interact() -> void:
 	# 获取探测区域内所有的物体
-	var bodies = interaction_area.get_overlapping_areas() # 假设交互物也是Area3D
+	var bodies: Array[Area3D] = interaction_area.get_overlapping_areas() # 假设交互物也是Area3D
 	if bodies.size() > 0:
 		# 找到最近的一个 (简单处理：取第一个)
-		var target = bodies[0]
+		var target: Area3D = bodies[0]
 		# 检查目标是否有 interact 方法
 		if target.has_method("interact"):
 			target.interact()
@@ -163,7 +145,7 @@ func _init_components() -> void:
 	
 	# 初始化能力组件
 	# 加载初始技能列表（所有技能都通过技能系统管理，包括攻击技能）
-	for ability in player_data.initial_abilities:
+	for ability: GameplayAbilityDefinition in player_data.initial_abilities:
 		if is_instance_valid(ability):
 			ability_component.learn_ability(ability)
 	
@@ -191,14 +173,14 @@ func _setup_shortcuts() -> void:
 		return
 	
 	# 从 PlayerData 读取快捷键配置
-	var shortcuts = player_data.ability_shortcuts
+	var shortcuts: Dictionary = player_data.ability_shortcuts
 	if shortcuts.is_empty():
 		return
 	
 	# 绑定已学会的技能
-	var learned_abilities = ability_component.get_all_ability_instances()
-	for ability_id in learned_abilities.keys():
-		var shortcut = shortcuts.get(ability_id, "")
+	var learned_abilities: Dictionary = ability_component.get_all_ability_instances()
+	for ability_id: StringName in learned_abilities.keys():
+		var shortcut: String = shortcuts.get(ability_id, "")
 		if shortcut != "":
 			shortcut_manager.bind_shortcut(ability_id, shortcut)
 
@@ -208,8 +190,8 @@ func _on_ability_learned(ability_id: StringName) -> void:
 		return
 	
 	# 从 PlayerData 读取快捷键配置
-	var shortcuts = player_data.ability_shortcuts
-	var shortcut = shortcuts.get(ability_id, "")
+	var shortcuts: Dictionary = player_data.ability_shortcuts
+	var shortcut: String = shortcuts.get(ability_id, "")
 	if shortcut != "":
 		shortcut_manager.bind_shortcut(ability_id, shortcut)
 
@@ -218,25 +200,25 @@ func _on_ability_learned(ability_id: StringName) -> void:
 ## 获取鼠标在世界空间中的位置（通过射线检测）
 ## [return] Vector3 鼠标指向的世界位置，如果检测失败则返回角色前方位置
 func get_mouse_world_position() -> Vector3:
-	var camera := get_viewport().get_camera_3d()
+	var camera: Camera3D = get_viewport().get_camera_3d()
 	if not is_instance_valid(camera):
 		# 如果没有摄像机，返回角色前方位置
 		return global_position + -global_transform.basis.z * 5.0
 	
-	var mouse_pos := get_viewport().get_mouse_position()
-	var ray_origin := camera.project_ray_origin(mouse_pos)
-	var ray_direction := camera.project_ray_normal(mouse_pos)
-	var ray_end := ray_origin + ray_direction * 2000.0
+	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+	var ray_origin: Vector3 = camera.project_ray_origin(mouse_pos)
+	var ray_direction: Vector3 = camera.project_ray_normal(mouse_pos)
+	var ray_end: Vector3 = ray_origin + ray_direction * 2000.0
 	
-	var query := PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
-	var result := get_world_3d().direct_space_state.intersect_ray(query)
+	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+	var result: Dictionary = get_world_3d().direct_space_state.intersect_ray(query)
 	
 	if result:
 		return result.position
 	else:
 		# 如果射线没有命中任何物体，计算射线与地面（Y=0）的交点
 		# 或者返回角色前方一定距离的位置
-		var t := -ray_origin.y / ray_direction.y if ray_direction.y != 0 else 10.0
+		var t: float = -ray_origin.y / ray_direction.y if ray_direction.y != 0 else 10.0
 		return ray_origin + ray_direction * t
 
 ## 判断技能是否为远程技能（需要鼠标指向）
@@ -264,7 +246,7 @@ func try_activate_ability(ability_id: StringName, context: Dictionary = {}) -> v
 		return
 	
 	# 获取技能数据
-	var ability_instance := ability_component.get_ability_instance(ability_id)
+	var ability_instance: GameplayAbilityInstance = ability_component.get_ability_instance(ability_id)
 	if not is_instance_valid(ability_instance):
 		push_warning("Player: Ability not found: %s" % ability_id)
 		return
@@ -277,7 +259,7 @@ func try_activate_ability(ability_id: StringName, context: Dictionary = {}) -> v
 	
 	# 将鼠标位置传入 context（用于目标选择等）
 	# 转向逻辑已移至行为树节点（AbilityNodeFaceTarget）
-	var mouse_pos = get_mouse_world_position()
+	var mouse_pos: Vector3 = get_mouse_world_position()
 	context["target_position"] = mouse_pos
 	
 	# 调用基类方法
@@ -295,225 +277,6 @@ func _get_facing_angle() -> float:
 func _on_ability_completed(_ability_id: StringName) -> void:
 	_visual_adapter.play_animation("movement")
 
-#region ========== 装备属性系统 ==========
-
-## 装备变化回调
-## [param] equip_slot_name: StringName 装备槽名称
-## [param] equip: Equip 装备实例（如果为 null，表示卸下装备）
-## 注意：实际传入的应该是 GameplayEquip 实例（业务层装备类）
-func _on_equip_changed(equip_slot_name: StringName, equip: Equip) -> void:
-	if not is_instance_valid(attribute_component):
-		push_warning("Player: Cannot apply equipment attributes, attribute_component is not valid")
-		return
-	
-	# 如果是卸下装备（equip 为 null），移除旧装备的属性修改器、模型和技能
-	if equip == null:
-		_remove_equipment_modifiers(equip_slot_name)
-		_remove_equipment_model(equip_slot_name)
-		_remove_equipment_abilities(equip_slot_name)
-		return
-	
-	# 如果是替换装备，先移除旧装备的属性修改器、模型和技能
-	_remove_equipment_modifiers(equip_slot_name)
-	_remove_equipment_model(equip_slot_name)
-	_remove_equipment_abilities(equip_slot_name)
-	
-	# 应用新装备的属性修改器、模型和技能
-	_apply_equipment_modifiers(equip, equip_slot_name)
-	_apply_equipment_model(equip, equip_slot_name)
-	_apply_equipment_abilities(equip, equip_slot_name)
-
-## 应用装备的属性修改器
-## [param] equip: Equip 装备实例（实际应为 GameplayEquip）
-## [param] equip_slot_name: StringName 装备槽名称
-func _apply_equipment_modifiers(equip: Equip, equip_slot_name: StringName) -> void:
-	if not is_instance_valid(equip) or not is_instance_valid(attribute_component):
-		return
-	
-	# 获取装备的属性字典
-	var attributes = equip.attributes
-	if attributes.is_empty():
-		return
-	
-	# 存储该装备的所有修改器
-	var modifiers: Array[GameplayAttributeModifier] = []
-	
-	# 遍历装备的所有属性，创建修改器
-	for attr_name in attributes.keys():
-		var attr_value = attributes[attr_name]
-		if attr_value == 0.0:
-			continue
-		
-		# 创建属性修改器（使用 ADD 类型，直接加到基础值上）
-		var modifier = GameplayAttributeModifier.new()
-		modifier.attribute_id = StringName(attr_name)
-		modifier.value = attr_value
-		modifier.modifier_type = GameplayAttributeModifier.ModifierType.ADD
-		modifier.source = self
-		
-		# 检查属性是否存在
-		if not attribute_component.has_attribute(modifier.attribute_id):
-			push_warning("Player: Attribute '%s' not found in attribute_component, skipping equipment modifier" % attr_name)
-			continue
-		
-		# 应用修改器
-		attribute_component.add_modifier(modifier)
-		modifiers.append(modifier)
-		
-		print("Player: Applied equipment modifier - %s: +%.1f (from %s)" % [attr_name, attr_value, equip.name])
-	
-	# 存储修改器（使用装备槽名称作为键，因为同一槽位只能有一个装备）
-	if not modifiers.is_empty():
-		_equipment_modifiers[equip_slot_name] = modifiers
-
-## 移除装备的属性修改器
-## [param] equip_slot_name: StringName 装备槽名称
-func _remove_equipment_modifiers(equip_slot_name: StringName) -> void:
-	if not _equipment_modifiers.has(equip_slot_name):
-		return
-	
-	if not is_instance_valid(attribute_component):
-		# 如果属性组件已销毁，直接清除记录
-		_equipment_modifiers.erase(equip_slot_name)
-		return
-	
-	# 获取该装备槽的所有修改器
-	var modifiers = _equipment_modifiers[equip_slot_name]
-	
-	# 移除所有修改器
-	for modifier in modifiers:
-		if is_instance_valid(modifier):
-			attribute_component.remove_modifier(modifier)
-			print("Player: Removed equipment modifier - %s: %.1f" % [modifier.attribute_id, modifier.value])
-	
-	# 清除记录
-	_equipment_modifiers.erase(equip_slot_name)
-
-## 应用装备模型
-## [param] equip: Equip 装备实例（实际应为 GameplayEquip）
-## [param] equip_slot_name: StringName 装备槽名称
-func _apply_equipment_model(equip: Equip, equip_slot_name: StringName) -> void:
-	# 检查是否为 GameplayEquip 实例（业务层装备类）
-	if not equip is GameplayEquip:
-		# 如果不是 GameplayEquip，说明没有装备模型配置，直接返回
-		return
-	
-	var gameplay_equip = equip as GameplayEquip
-	if not is_instance_valid(gameplay_equip) or not is_instance_valid(gameplay_equip.equip_model_scene):
-		return
-	
-	# 获取装备的挂点名称（默认为 hand_right）
-	var attachment_point = gameplay_equip.attachment_point
-	if attachment_point == &"":
-		attachment_point = &"hand_right"
-	
-	# 根据挂点名称获取对应的 BoneAttachment3D 节点
-	var attachment_node: BoneAttachment3D = null
-	match attachment_point:
-		&"hand_right":
-			attachment_node = hand_slot_attachment_r
-		&"hand_left":
-			attachment_node = hand_slot_attachment_l
-		_:
-			# 尝试从 _attachment_point_mapping 中查找（如果基类有的话）
-			if has_method("get_attachment_point"):
-				var point = get_attachment_point(attachment_point)
-				if is_instance_valid(point) and point is BoneAttachment3D:
-					attachment_node = point as BoneAttachment3D
-	
-	if not is_instance_valid(attachment_node):
-		push_warning("Player: Attachment point '%s' not found for equipment '%s'" % [attachment_point, equip.name])
-		return
-	
-	# 实例化装备模型
-	var model_instance = gameplay_equip.equip_model_scene.instantiate()
-	if not is_instance_valid(model_instance):
-		push_warning("Player: Failed to instantiate equipment model for '%s'" % gameplay_equip.name)
-		return
-	
-	# 添加到挂点节点
-	attachment_node.add_child(model_instance)
-	_equipment_models[equip_slot_name] = model_instance
-	
-	print("Player: Applied equipment model '%s' to attachment point '%s'" % [gameplay_equip.name, attachment_point])
-
-## 移除装备模型
-## [param] equip_slot_name: StringName 装备槽名称
-func _remove_equipment_model(equip_slot_name: StringName) -> void:
-	if not _equipment_models.has(equip_slot_name):
-		return
-	
-	var model_instance = _equipment_models[equip_slot_name]
-	if is_instance_valid(model_instance):
-		model_instance.queue_free()
-		print("Player: Removed equipment model from slot '%s'" % equip_slot_name)
-	
-	# 清除记录
-	_equipment_models.erase(equip_slot_name)
-
-## 应用装备技能
-## [param] equip: Equip 装备实例（实际应为 GameplayEquip）
-## [param] equip_slot_name: StringName 装备槽名称
-func _apply_equipment_abilities(equip: Equip, equip_slot_name: StringName) -> void:
-	# 检查是否为 GameplayEquip 实例
-	if not equip is GameplayEquip:
-		return
-	
-	var gameplay_equip = equip as GameplayEquip
-	if not is_instance_valid(gameplay_equip) or not is_instance_valid(ability_component):
-		return
-	
-	# 获取装备的技能列表
-	var abilities = gameplay_equip.abilities
-	if abilities.is_empty():
-		return
-	
-	# 存储该装备的所有技能ID
-	var ability_ids: Array[StringName] = []
-	
-	# 遍历装备的所有技能，注册到技能组件
-	for ability_data in abilities:
-		if not is_instance_valid(ability_data):
-			continue
-		
-		var ability_id = ability_data.ability_id
-		if ability_id == &"":
-			push_warning("Player: Equipment ability has empty ability_id, skipping")
-			continue
-		
-		# 学习技能
-		ability_component.learn_ability(ability_data)
-		ability_ids.append(ability_id)
-		
-		print("Player: Learned ability '%s' from equipment '%s'" % [ability_id, gameplay_equip.name])
-	
-	# 存储技能ID列表（用于卸下时移除）
-	if not ability_ids.is_empty():
-		_equipment_abilities[equip_slot_name] = ability_ids
-
-## 移除装备技能
-## [param] equip_slot_name: StringName 装备槽名称
-func _remove_equipment_abilities(equip_slot_name: StringName) -> void:
-	if not _equipment_abilities.has(equip_slot_name):
-		return
-	
-	if not is_instance_valid(ability_component):
-		# 如果技能组件已销毁，直接清除记录
-		_equipment_abilities.erase(equip_slot_name)
-		return
-	
-	# 获取该装备槽的所有技能ID
-	var ability_ids = _equipment_abilities[equip_slot_name]
-	
-	# 遗忘所有技能
-	for ability_id in ability_ids:
-		ability_component.forget_ability(ability_id)
-		print("Player: Forgot ability '%s' from equipment slot '%s'" % [ability_id, equip_slot_name])
-	
-	# 清除记录
-	_equipment_abilities.erase(equip_slot_name)
-
-#endregion
 
 ## 处理技能施放请求（信号回调）
 func _on_cast_ability_requested(ability_id: StringName, _shortcut: String, context: Dictionary) -> void:
@@ -530,7 +293,7 @@ func _on_cancel_channeling_requested(ability_id: StringName, _shortcut: String) 
 		return
 	
 	# 获取技能实例
-	var ability_instance = ability_component.get_ability_instance(ability_id)
+	var ability_instance: GameplayAbilityInstance = ability_component.get_ability_instance(ability_id)
 	if not is_instance_valid(ability_instance):
 		return
 	
@@ -540,7 +303,7 @@ func _on_cancel_channeling_requested(ability_id: StringName, _shortcut: String) 
 	
 	# 设置黑板变量，通知行为树按键已释放
 	# 引导技能的行为树会通过 BTWaitSignal 监听这个信号
-	var blackboard = ability_instance.get_blackboard()
+	var blackboard: BTBlackboard = ability_instance.get_blackboard()
 	if is_instance_valid(blackboard):
 		# 设置信号，触发行为树中的 BTWaitSignal
 		blackboard.set_var("event_input_released", true)

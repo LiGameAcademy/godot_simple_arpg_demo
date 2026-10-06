@@ -1,10 +1,10 @@
 extends Node3D
 
 # 运镜时间 (秒)
-const TRANSITION_TIME = 1.5 
+const TRANSITION_TIME: float = 1.5
 
-@onready var player: CharacterBody3D = $RoomLobby/Player
-@onready var inventory_ui: MarginContainer = $UILayer/HUD/inventory
+@onready var player: Player = $RoomLobby/Player
+@onready var inventory_ui: InventoryPanel = $UILayer/HUD/inventory
 @onready var camera: Camera3D = $Camera3D
 @onready var bt_debug_panel: BTDebugPanel = $BTDebugPanel
 var camera_controller: CameraController = null
@@ -13,14 +13,10 @@ var camera_controller: CameraController = null
 
 func _ready() -> void:
 	# 初始化：游戏开始时，把摄像机瞬间定格在第一个房间
-	var start_room = $RoomLobby
+	var start_room: DungeonRoom = $RoomLobby
 	camera.global_position = start_room.camera_marker.global_position
 	# 我们获取 Player 身上的组件，传给 UI
-	var player_inventory : C_Inventory = player.get_inventory() # 确保你在player脚本中实现了这个方法
-	inventory_ui.initialize(player_inventory)
-	
-	# 初始化属性系统
-	_init_attribute_system()
+	inventory_ui.initialize_components(player.get_inventory(), player.equipment_component, player)
 	
 	# 初始化标签系统
 	_init_tag_system()
@@ -29,7 +25,12 @@ func _ready() -> void:
 	if is_instance_valid(camera_controller):
 		camera_controller.set_base_position(camera.global_position)
 
-func _unhandled_input(event) -> void:
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_F5:
+			print("背包保存：", player.inventory_binding.save_state("user://arpg_inventory_pilot.json"))
+		if event.keycode == KEY_F9:
+			print("背包读取：", player.inventory_binding.load_state("user://arpg_inventory_pilot.json"))
 	if event.is_action_pressed("toggle_inventory"):
 		if inventory_ui.visible:
 			inventory_ui.hide()
@@ -56,7 +57,7 @@ func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> v
 	player.visible = false
 	
 	# 3. 创建运镜 Tween
-	var tween = create_tween()
+	var tween: Tween = create_tween()
 	# 设置缓动曲线：Cubic In/Out 会让起步和刹车非常平滑，很有电影感
 	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 	
@@ -83,11 +84,7 @@ func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> v
 	# 8. 恢复控制
 	player.set_physics_process(true)
 
-func _init_attribute_system() -> void:
-	# 注册属性
-	GameplayAbilitySystem.attribute_manager.register_attributes(game_data.attributes)
-
 func _init_tag_system() -> void:
 	# 注册所有标签资源（从 data/tags/ 目录）
-	var tag_count = TagManager.register_tags_from_directory("res://data/tags/", true)
+	var tag_count: int = TagManager.register_tags_from_directory("res://data/tags/", true)
 	print("Main: Registered %d tags" % tag_count)

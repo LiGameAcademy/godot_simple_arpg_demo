@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://vf0i84fp8dp8"]
+[gd_scene load_steps=42 format=3 uid="uid://vf0i84fp8dp8"]
 
 [ext_resource type="PackedScene" uid="uid://bi2kodwwmc3c3" path="res://assets/scenes/barbarian.tscn" id="1_fjjwp"]
 [ext_resource type="Script" uid="uid://cwaron85itarw" path="res://prefabs/player.gd" id="1_glu7e"]
@@ -26,7 +26,11 @@
 [ext_resource type="Animation" uid="uid://b62s8m87aejpa" path="res://assets/animations/Walking_C.res" id="23_ko3tw"]
 [ext_resource type="Script" path="res://prefabs/sword_hitbox.gd" id="24_tuhnq"]
 [ext_resource type="Animation" uid="uid://rqarug4jh6mk" path="res://assets/animations/Melee_1H_Attack_Jump_Chop.res" id="25_8jxos"]
-[ext_resource type="Script" uid="uid://cpxaj0hrrf8q0" path="res://addons/simple_inventory/src/core/C_Inventory.gd" id="25_g56qp"]
+[ext_resource type="Script" path="res://addons/simple_inventory/scripts/components/inventory_component.gd" id="25_g56qp"]
+[ext_resource type="Script" path="res://addons/simple_inventory/scripts/components/equipment_component.gd" id="pilot_equipment"]
+[ext_resource type="PackedScene" path="res://prefabs/player_equipment/player_equipment.tscn" id="pilot_effects"]
+[ext_resource type="PackedScene" path="res://prefabs/player_inventory/player_inventory.tscn" id="pilot_inventory"]
+[ext_resource type="Resource" path="res://addons/simple_inventory/assets/data/equip_slots/weapon_equip_slot.tres" id="pilot_weapon"]
 [ext_resource type="Script" uid="uid://cot8b4lx60hjt" path="res://addons/godot_gameplay_abilities/scripts/components/gameplay_vital_attribute_component.gd" id="27_ay5dx"]
 [ext_resource type="Script" uid="uid://deeb5kb27c70s" path="res://addons/godot_gameplay_abilities/scripts/components/gameplay_ability_component.gd" id="28_ability"]
 [ext_resource type="Script" uid="uid://bi5jbjke61sbe" path="res://addons/godot_gameplay_abilities/scripts/components/visual_adapter/visual_adapter_animation_tree.gd" id="29_sh7kr"]
@@ -203,6 +207,14 @@ omni_range = 4.0
 [node name="InventoryComponent" type="Node" parent="."]
 script = ExtResource("25_g56qp")
 metadata/_custom_type_script = "uid://cpxaj0hrrf8q0"
+
+[node name="PlayerEquipment" parent="." instance=ExtResource("pilot_effects")]
+
+[node name="PlayerInventory" parent="." instance=ExtResource("pilot_inventory")]
+
+[node name="EquipmentComponent" type="Node" parent="."]
+script = ExtResource("pilot_equipment")
+equip_slot_configs_array = [ExtResource("pilot_weapon")]
 
 [node name="GameplayAttributeComponent" type="Node" parent="."]
 unique_name_in_owner = true

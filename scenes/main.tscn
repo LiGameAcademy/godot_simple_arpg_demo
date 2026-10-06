@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://scripts/data/game_data.gd" id="3_choun"]
 [ext_resource type="PackedScene" uid="uid://5u5shejmnm2d" path="res://scenes/room_dungeon.tscn" id="3_tefeu"]
 [ext_resource type="PackedScene" uid="uid://b3e2ofxe5aiji" path="res://scenes/room_boss.tscn" id="4_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://cgv4kbrho80c8" path="res://addons/simple_inventory/src/widgets/inventory.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" path="res://addons/simple_inventory/ui/widgets/inventory_panel.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b1t1sf3ftqb3f" path="res://prefabs/teleporter.tscn" id="17_y6deb"]
 [ext_resource type="PackedScene" path="res://ui/attribute_dashboard.tscn" id="21_yc10j"]
 [ext_resource type="PackedScene" path="res://ui/attribute_row.tscn" id="22_jscy8"]

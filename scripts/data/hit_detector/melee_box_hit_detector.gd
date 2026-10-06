@@ -19,11 +19,11 @@ func _get_targets(caster: Node3D, context: Dictionary = {}) -> Array[Node]:
 	if not is_instance_valid(caster): return [] as Array[Node]
 
 	# 1. 构建查询参数
-	var space_state = caster.get_world_3d().direct_space_state
-	var query = PhysicsShapeQueryParameters3D.new()
+	var space_state: PhysicsDirectSpaceState3D = caster.get_world_3d().direct_space_state
+	var query: PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new()
 
 	# 2. 创建形状
-	var shape = BoxShape3D.new()
+	var shape: BoxShape3D = BoxShape3D.new()
 	shape.size = box_extents * 2 # BoxShape使用全长
 	query.shape = shape
 
@@ -35,17 +35,17 @@ func _get_targets(caster: Node3D, context: Dictionary = {}) -> Array[Node]:
 		push_warning("MeleeBoxHitDetector: cant found facing dir!")
 
 	# 4. 构建旋转矩阵
-	var up = Vector3.UP
-	var right = facing_dir.cross(up).normalized()
+	var up: Vector3 = Vector3.UP
+	var right: Vector3 = facing_dir.cross(up).normalized()
 	if right.length_squared() < 0.01:
 		right = Vector3.RIGHT
 	up = right.cross(facing_dir).normalized()
-	var rotation_basis = Basis(right, up, facing_dir)
+	var rotation_basis: Basis = Basis(right, up, facing_dir)
 	
 	# 5. 计算攻击盒的位置和旋转
-	var rotated_offset = rotation_basis * offset
-	var box_position = caster.global_position + rotated_offset
-	var box_transform = Transform3D(rotation_basis, box_position)
+	var rotated_offset: Vector3 = rotation_basis * offset
+	var box_position: Vector3 = caster.global_position + rotated_offset
+	var box_transform: Transform3D = Transform3D(rotation_basis, box_position)
 	query.transform = box_transform
 
 	# 6. 配置查询参数
@@ -55,16 +55,16 @@ func _get_targets(caster: Node3D, context: Dictionary = {}) -> Array[Node]:
 	query.exclude = [caster] # 排除施法者自己
 	
 	# 7. 执行查询
-	var results = space_state.intersect_shape(query)
+	var results: Array[Dictionary] = space_state.intersect_shape(query)
 	var targets: Array[Node] = []
 	
-	for data in results:
-		var collider = data.get("collider")
+	for data: Dictionary in results:
+		var collider: Node = data.get("collider")
 		if not is_instance_valid(collider):
 			continue
 			
 		# 转换为实体根节点
-		var entity = collider.get_parent()
+		var entity: Node = CombatUtils.get_entity_from_collider(collider)
 		if is_instance_valid(entity):
 			targets.append(entity)
 
@@ -82,7 +82,7 @@ func _draw_debug_info(caster: Node3D, box_transform: Transform3D, facing_dir: Ve
 	# 1. 绘制攻击盒（使用完整的 transform）
 	# 注意：draw_transformed_cube 不支持 linger_frames，所以我们使用 draw_box_aabb
 	# 计算局部空间的 8 个顶点
-	var local_corners = [
+	var local_corners: Array[Vector3] = [
 		Vector3(-box_extents.x, -box_extents.y, -box_extents.z),
 		Vector3( box_extents.x, -box_extents.y, -box_extents.z),
 		Vector3(-box_extents.x,  box_extents.y, -box_extents.z),
@@ -94,14 +94,14 @@ func _draw_debug_info(caster: Node3D, box_transform: Transform3D, facing_dir: Ve
 	]
 	# 转换到世界空间
 	var world_corners: Array[Vector3] = []
-	for corner in local_corners:
+	for corner: Vector3 in local_corners:
 		world_corners.append(box_transform * corner)
 	# 计算世界空间的 AABB
-	var min_pos = world_corners[0]
-	var max_pos = world_corners[0]
-	for corner in world_corners:
+	var min_pos: Vector3 = world_corners[0]
+	var max_pos: Vector3 = world_corners[0]
+	for corner: Vector3 in world_corners:
 		min_pos = min_pos.min(corner)
 		max_pos = max_pos.max(corner)
 
-	var world_aabb = AABB(min_pos, max_pos - min_pos)
-	DebugDraw.draw_box_aabb(world_aabb, debug_box_color, debug_linger_frames)
+	var world_aabb: AABB = AABB(min_pos, max_pos - min_pos)
+	DDD.draw_box_aabb(world_aabb, debug_box_color, debug_linger_frames)
