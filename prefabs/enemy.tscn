@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c8pswujmax0c7"]
+[gd_scene load_steps=14 format=3 uid="uid://c8pswujmax0c7"]
 
 [ext_resource type="PackedScene" uid="uid://chxbrq7xxhfka" path="res://assets/scenes/skeleton_warrior.tscn" id="1_6n8dw"]
 [ext_resource type="Script" uid="uid://bc4abtmpomeeh" path="res://prefabs/enemy.gd" id="1_yfjof"]
@@ -9,6 +9,8 @@
 [ext_resource type="Animation" uid="uid://0m2p24c586id" path="res://assets/animations/Skeletons_Death_Resurrect.res" id="7_xkwav"]
 [ext_resource type="Animation" uid="uid://c3wbrswbjovf8" path="res://assets/animations/Skeletons_Idle.res" id="8_8drnm"]
 [ext_resource type="Animation" uid="uid://bodpvb3io0u0d" path="res://assets/animations/Hit_A.res" id="9_hoy00"]
+[ext_resource type="PackedScene" path="res://story/combat/hurtbox/hurtbox.tscn" id="hurtbox"]
+
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5n6jt"]
 resource_local_to_scene = true
@@ -25,6 +27,7 @@ _data = {
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cypye"]
 radius = 0.6665039
+
 
 [node name="Enemy" type="CharacterBody3D"]
 collision_layer = 8
@@ -65,11 +68,11 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9804727, 0)
 shape = SubResource("CapsuleShape3D_yfjof")
 
-[node name="Hurtbox" type="Area3D" parent="."]
+[node name="Hurtbox" parent="." instance=ExtResource("hurtbox")]
 collision_layer = 8
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+[node name="CollisionShape3D" parent="Hurtbox" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2657787, 0)
 shape = SubResource("CapsuleShape3D_cypye")
 debug_color = Color(0.8375216, 0.36315465, 0.35927287, 0.41960785)

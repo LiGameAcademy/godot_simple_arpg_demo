@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://story/combat/combat_profile.gd" id="1"]
+[resource]
+script = ExtResource("1")
+max_health = 12
+move_speed = 2.0
+attack_range = 2.0
+attack_damage = 1
+attack_interval = 1.6
+attack_windup = 0.55

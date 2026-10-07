@@ -33,7 +33,7 @@ func _ready() -> void:
 func _on_game_event(type: String, data: Dictionary) -> void:
 	# 遍历所有活跃任务
 	# 注意：即使任务已完成，也继续处理事件（虽然通常不会触发，但为了安全）
-	for quest in active_quests:
+	for quest: Quest in active_quests:
 		# 只处理未完成的任务（已完成的任务不再需要更新进度）
 		if not quest.is_completed:
 			# 把事件传给任务，让任务自己去判断是否符合目标
@@ -48,18 +48,30 @@ func accept_quest(quest_res: Quest) -> void:
 	
 	# 2. 【关键】实例化资源 (Deep Duplicate)
 	# 资源文件在磁盘上是只读模板，我们必须复制一份独立的实例来记录进度
-	var new_quest = quest_res.duplicate(true)
+	var new_quest: Quest = quest_res.duplicate(true) as Quest
 	
 	# 3. 初始化并连接内部信号
 	new_quest.start()
 	# 监听这个新任务实例的信号，以便转发给 UI
-	new_quest.quest_updated.connect(func() -> void: quest_updated.emit(new_quest))
-	new_quest.quest_completed.connect(func(_id: String) -> void: _on_quest_completed(new_quest))
+	new_quest.quest_updated.connect(_on_quest_updated_by_id.bind(new_quest.id))
+	new_quest.quest_completed.connect(_on_quest_completed_by_id)
 	
 	# 4. 加入列表
 	active_quests.append(new_quest)
 	quest_accepted.emit(new_quest)
 	print("任务接取成功：", new_quest.title)
+
+func _on_quest_updated_by_id(quest_id: String) -> void:
+	for quest: Quest in active_quests:
+		if quest.id == quest_id:
+			quest_updated.emit(quest)
+			return
+
+func _on_quest_completed_by_id(quest_id: String) -> void:
+	for quest: Quest in active_quests:
+		if quest.id == quest_id:
+			_on_quest_completed(quest)
+			return
 
 ## 交付任务（玩家与NPC对话后选择"交任务"）
 ## [param quest_id] 任务ID
@@ -71,7 +83,7 @@ func turn_in_quest(quest_id: String) -> bool:
 	
 	# 查找任务实例
 	var quest: Quest = null
-	for q in active_quests:
+	for q: Quest in active_quests:
 		if q.id == quest_id:
 			quest = q
 			break
@@ -101,7 +113,7 @@ func turn_in_quest(quest_id: String) -> bool:
 
 # --- 辅助查询接口 ---
 func has_quest(quest_id: String) -> bool:
-	for q in active_quests:
+	for q: Quest in active_quests:
 		if q.id == quest_id:
 			return true
 	return false
@@ -121,7 +133,7 @@ func get_quest_status(quest_id: String) -> QuestStatus:
 	
 	if has_quest(quest_id):
 		# 查找任务实例，检查是否所有目标都完成
-		for q in active_quests:
+		for q: Quest in active_quests:
 			if q.id == quest_id:
 				if q.is_completed:
 					return QuestStatus.READY_TO_TURN_IN

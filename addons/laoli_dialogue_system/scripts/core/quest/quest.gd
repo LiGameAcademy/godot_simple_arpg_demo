@@ -15,19 +15,16 @@ signal quest_updated ## 任务更新信号
 # --- 初始化 ---
 # 任务接取时，我们需要激活所有目标
 func start() -> void:
-	for obj in objectives:
-		obj.completed.connect(
-			func(desc: String) -> void: 
-				print("目标完成：", desc)
-				_check_completion()
-		)
-		obj.updated.connect(
-			func(curr: int, req: int) -> void: 
-				print("目标更新：", curr, "/", req)
-				quest_updated.emit()
-		)
-			
+	for obj: QuestObjective in objectives:
+		obj.completed.connect(_on_objective_completed)
+		obj.updated.connect(_on_objective_updated)
 	print("任务开始：", title)
+
+func _on_objective_completed(_description: String) -> void:
+	_check_completion()
+
+func _on_objective_updated(_current: int, _required: int) -> void:
+	quest_updated.emit()
 
 func complete() -> void:
 	if is_completed: return
@@ -41,14 +38,14 @@ func notify_event(event_type: String, data: Dictionary) -> void:
 	if is_completed: return
 	
 	# 把事件分发给每一个小目标
-	for obj in objectives:
+	for obj: QuestObjective in objectives:
 		if not obj.is_completed:
 			obj.on_game_event(event_type, data)
 
 ## 检查任务是否完成
 func _check_completion() -> void:
 	var all_done: bool = true
-	for obj in objectives:
+	for obj: QuestObjective in objectives:
 		if not obj.is_completed:
 			all_done = false
 			break

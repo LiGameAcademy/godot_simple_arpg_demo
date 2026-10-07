@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://addons/laoli_dialogue_system/scripts/core/dialogue/dialogue_node.gd" id="1"]
+[resource]
+script = ExtResource("1")
+node_id = "clone_last_words"
+character_key = "异化回响"
+text_key = "原来……你真的能走出去。那就带着我的那一份，一起离开这里。"
+next_node_id = "END"

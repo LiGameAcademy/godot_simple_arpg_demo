@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://addons/laoli_dialogue_system/scripts/core/dialogue/dialogue_node.gd" id="1"]
+[resource]
+script = ExtResource("1")
+node_id = "intro_player"
+character_key = "玩家"
+text_key = "那个人……为什么和我一样？"
+next_node_id = "END"

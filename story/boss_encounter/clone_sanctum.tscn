@@ -1,6 +1,5 @@
 [gd_scene load_steps=9 format=3]
 
-[ext_resource type="PackedScene" path="res://story/boss_actor/boss_actor.tscn" id="1"]
 
 [sub_resource type="StandardMaterial3D" id="Stone"]
 albedo_color = Color(0.16, 0.17, 0.23, 1)
@@ -36,7 +35,16 @@ size = Vector3(0.16, 1.1, 0.16)
 radius = 3.4
 height = 0.35
 
+[sub_resource type="BoxShape3D" id="ArenaFloorShape"]
+size = Vector3(28, 0.1, 20)
+
 [node name="CloneSanctum" type="Node3D"]
+
+[node name="ArenaFloor" type="StaticBody3D" parent="."]
+position = Vector3(14, -0.08, 10)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ArenaFloor"]
+shape = SubResource("ArenaFloorShape")
 
 [node name="Dais" type="MeshInstance3D" parent="."]
 position = Vector3(14, 0.175, 8)
@@ -51,8 +59,6 @@ shape = SubResource("DaisShape")
 position = Vector3(14, 0.37, 8)
 mesh = SubResource("Ring")
 
-[node name="BossActor" parent="." instance=ExtResource("1")]
-position = Vector3(14, 0.35, 8)
 
 [node name="PlayerArrival" type="Marker3D" parent="."]
 position = Vector3(11, 0, 13)

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=7 format=3]
+[ext_resource type="Script" path="res://addons/laoli_dialogue_system/scripts/core/cutscene/cutscene_definition.gd" id="1"]
+[ext_resource type="Script" path="res://addons/laoli_dialogue_system/scripts/core/cutscene/cutscene_step.gd" id="2"]
+[sub_resource type="Resource" id="Release"]
+script = ExtResource("2")
+clip_id = &"release"
+[sub_resource type="Resource" id="Pause"]
+script = ExtResource("2")
+kind = 2
+duration_seconds = 0.25
+[sub_resource type="Resource" id="Words"]
+script = ExtResource("2")
+kind = 1
+dialogue_id = "clone_last_words"
+[sub_resource type="Resource" id="Return"]
+script = ExtResource("2")
+clip_id = &"return"
+[resource]
+script = ExtResource("1")
+cutscene_id = &"boss_resolution"
+steps = Array[ExtResource("2")]([SubResource("Release"), SubResource("Pause"), SubResource("Words"), SubResource("Return")])

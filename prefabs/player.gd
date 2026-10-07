@@ -1,4 +1,10 @@
 extends CharacterBody3D
+const Profile = preload("res://story/combat/combat_profile.gd")
+signal health_changed(current: int, maximum: int)
+signal died()
+@export var combat_profile: Profile = preload("res://story/combat/player_profile.tres")
+var health: int = 0
+var _control_locks: Array[StringName] = []
 
 @export_group("Movement")
 @export var speed: float = 5.0
@@ -14,17 +20,18 @@ extends CharacterBody3D
 var current_interactable: InteractionComponent = null
 
 var animation_state_machine: AnimationNodeStateMachinePlayback
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity: float = float( ProjectSettings.get_setting("physics/3d/default_gravity"))
 
 func _ready() -> void:
+	health = combat_profile.max_health
 	DialogueManager.dialogue_started.connect(_on_dialogue_started)
 	DialogueManager.dialogue_finished.connect(_on_dialogue_finished)
 	animation_state_machine = animation_tree.get("parameters/StateMachine/playback")
 	animation_state_machine.travel("movement")
 	# 【测试福利】送 3 瓶药水
-	var potion = load("res://data/items/potion_health_small.tres")
+	var potion: Item = load("res://data/items/potion_health_small.tres")
 	if potion:
-		for i in range(3):
+		for i: int in range(3):
 			inventory_component.add_item(potion.duplicate())
 
 func _physics_process(delta: float) -> void:
@@ -32,10 +39,10 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= gravity * delta
 		
 	# 1. 获取输入 (2D向量)
-	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down") if can_control() else Vector2.ZERO
 
 	# 2. 转换为 3D 方向 (X/Z 平面)
-	var direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
+	var direction: Vector3 = Vector3(input_dir.x, 0, input_dir.y).normalized()
 	
 	if direction:
 		# 3. 移动逻辑：利用 move_toward 实现平滑加速
@@ -43,7 +50,7 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, direction.z * speed, acceleration * delta)
 		
 		# 4. 旋转逻辑：让 Visuals 平滑转向移动方向
-		var target_angle = atan2(input_dir.x, input_dir.y)
+		var target_angle: float = atan2(input_dir.x, input_dir.y)
 		visuals.rotation.y = lerp_angle(visuals.rotation.y, target_angle, rotation_speed * delta)
 	else:
 		# 停止逻辑：利用 move_toward 实现平滑减速 (惯性停车)
@@ -53,12 +60,15 @@ func _physics_process(delta: float) -> void:
 	_set_movement_blend_position(velocity.length())
 
 	# 每帧更新交互焦点
-	_update_interaction_focus()
+	if can_control():
+		_update_interaction_focus()
 	
 	# 6. 应用移动
 	move_and_slide()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not can_control():
+		return
 	if event.is_action_pressed("interact"):
 		# 直接使用已经检测到的 current_interactable，无需再次 get_overlapping_areas
 		if is_instance_valid(current_interactable):
@@ -80,13 +90,13 @@ func _set_movement_blend_position(blend_position: float) -> void:
 
 func _update_interaction_focus() -> void:
 	# 获取探测区域内所有的 Area3D
-	var areas = interaction_area.get_overlapping_areas()
+	var areas: Array[Area3D] = interaction_area.get_overlapping_areas()
 	var new_interactable: InteractionComponent = null
 	
 	# 筛选出最近的一个 InteractionComponent
 	if areas.size() > 0:
 		# 这里简单取第一个，严谨的做法是遍历计算距离最近的那个
-		var target = areas[0]
+		var target: Area3D = areas[0]
 		if target is InteractionComponent:
 			new_interactable = target
 	else:
@@ -108,10 +118,39 @@ func _update_interaction_focus() -> void:
 		# 3. 更新记录
 		current_interactable = new_interactable
 
+func set_control_lock(owner_id: StringName, locked: bool) -> void:
+	if locked and not _control_locks.has(owner_id):
+		_control_locks.append(owner_id)
+	elif not locked:
+		_control_locks.erase(owner_id)
+	if locked:
+		velocity.x = 0.0
+		velocity.z = 0.0
+		if is_instance_valid(current_interactable):
+			current_interactable.unfocused()
+		current_interactable = null
+
+func can_control() -> bool:
+	return _control_locks.is_empty() and health > 0
+
+func is_ready_for_cutscene() -> bool:
+	return can_control() and animation_state_machine.get_current_node() == &"movement"
+
+func take_damage(amount: int) -> void:
+	if amount <= 0 or health <= 0:
+		return
+	health = maxi(health - amount, 0)
+	health_changed.emit(health, combat_profile.max_health)
+	if health == 0:
+		set_control_lock(&"death", true)
+		died.emit()
+
+func face_point(point: Vector3) -> void:
+	var offset: Vector3 = point - global_position
+	visuals.rotation.y = atan2(offset.x, offset.z)
+
 func _on_dialogue_started() -> void:
-	set_physics_process(false)
-	velocity = Vector3.ZERO
+	set_control_lock(&"dialogue", true)
 
 func _on_dialogue_finished() -> void:
-	# 恢复控制
-	set_physics_process(true)
+	set_control_lock(&"dialogue", false)

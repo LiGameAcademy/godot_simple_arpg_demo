@@ -11,6 +11,7 @@ var hp: int = 3
 var animation_state_machine : AnimationNodeStateMachinePlayback
 
 func _ready() -> void:
+	$Hurtbox.damage_requested.connect(take_damage)
 	animation_state_machine = animation_tree.get("parameters/StateMachine/playback")
 	hide()
 
@@ -21,6 +22,8 @@ func awaken() -> void:
 
 # 公开接口：受到伤害
 func take_damage(amount: int) -> void:
+	if hp <= 0 or amount <= 0:
+		return
 	hp -= amount
 	print("骷髅受到伤害！剩余HP: ", hp)
 	
@@ -40,11 +43,11 @@ func die() -> void:
 func spawn_loot() -> void:
 	if not is_instance_valid(loot_scene):
 		return
-	var loot = loot_scene.instantiate()
+	var loot: Node3D = loot_scene.instantiate()
 	# 添加到当前场景 (不要加给怪物自己，因为怪物要死)
 	get_parent().add_child(loot)
 	loot.global_position = global_position + Vector3(0, 1, 0)
 	
 	# 给它一个随机的爆炸推力！
-	var random_dir = Vector3(randf_range(-2, 2), 2, randf_range(-2, 2)).normalized()
+	var random_dir: Vector3 = Vector3(randf_range(-2, 2), 2, randf_range(-2, 2)).normalized()
 	loot.apply_impulse(random_dir * 5.0)

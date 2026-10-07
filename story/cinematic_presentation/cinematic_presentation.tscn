@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=3]
+[ext_resource type="Script" path="res://story/cinematic_presentation/cinematic_presentation.gd" id="1"]
+[ext_resource type="PackedScene" path="res://story/cutscene_overlay/cutscene_overlay.tscn" id="2"]
+[ext_resource type="Resource" path="res://story/cinematic_presentation/presentation_config.tres" id="3"]
+[node name="CinematicPresentation" type="Node3D"]
+script = ExtResource("1")
+config = ExtResource("3")
+[node name="CinematicCamera" type="Camera3D" parent="."]
+[node name="CutsceneOverlay" parent="." instance=ExtResource("2")]

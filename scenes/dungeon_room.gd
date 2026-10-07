@@ -1,5 +1,14 @@
 extends Node3D
 class_name DungeonRoom
+signal room_exit_requested(body: CharacterBody3D)
+@export var exit_trigger: Area3D
+
+func _ready() -> void:
+	if is_instance_valid(exit_trigger):
+		exit_trigger.passage_requested.connect(_on_exit_requested)
+
+func _on_exit_requested(body: CharacterBody3D) -> void:
+	room_exit_requested.emit(body)
 
 ## 摄像机在这个房间应该停在这个位置
 @export var camera_marker: Marker3D
@@ -18,7 +27,7 @@ func on_player_enter() -> void:
 
 func _awaken_all_enemies() -> void:
 	# 遍历 Enemies 节点下的所有孩子
-	for enemy in enemies_container.get_children():
+	for enemy: Node in enemies_container.get_children():
 		# 检查孩子是否有 awaken 方法 (防止你把非怪物的节点放进去了)
 		if enemy.has_method("awaken"):
 			enemy.awaken()

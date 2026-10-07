@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://30orglekea3b"]
+[gd_scene load_steps=28 format=3 uid="uid://30orglekea3b"]
 
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
@@ -17,6 +17,8 @@
 [ext_resource type="Script" uid="uid://dq8sympe46jux" path="res://addons/laoli_dialogue_system/scripts/core/conditions/condition_quest_status.gd" id="10_dp3eg"]
 [ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://addons/laoli_dialogue_system/scripts/core/actions/game_action.gd" id="11_0ld40"]
 [ext_resource type="Script" uid="uid://r0lyfuvxjbca" path="res://scripts/core/actions/action_teleporter.gd" id="12_gqmmt"]
+[ext_resource type="PackedScene" path="res://story/arpg_narrative_controller/arpg_narrative_controller.tscn" id="13_story"]
+
 
 [sub_resource type="Resource" id="Resource_jbj1t"]
 script = ExtResource("4_a8y0u")
@@ -68,6 +70,7 @@ script = ExtResource("10_dp3eg")
 quest_id = "chief_forest_quest"
 required_status = 2
 metadata/_custom_type_script = "uid://dq8sympe46jux"
+
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_tefeu")
@@ -131,8 +134,11 @@ offset_right = 577.0
 grow_vertical = 0
 
 [node name="DialogueUI" parent="." instance=ExtResource("8_85g3d")]
+layer = 160
 
 [node name="QuestLogUI" parent="." instance=ExtResource("9_choun")]
 
 [editable path="RoomLobby/Teleporter"]
 [editable path="RoomDungeon/Teleporter"]
+
+[node name="ArpgNarrativeController" parent="." instance=ExtResource("13_story")]

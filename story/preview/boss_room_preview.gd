@@ -4,6 +4,7 @@ extends Node3D
 @onready var close_camera: Camera3D = $CloseCamera
 
 func _ready() -> void:
+	$RoomBoss/BossEncounter.boss.actor.set_corruption(1.0)
 	overview_camera.look_at(Vector3(14.0, 0.7, 9.5))
 	close_camera.look_at(Vector3(14.0, 1.5, 8.0))
 	if "--capture" in OS.get_cmdline_user_args():

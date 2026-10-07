@@ -38,6 +38,17 @@ func set_corruption(amount: float) -> void:
 	for material: ShaderMaterial in _materials:
 		material.set_shader_parameter("corruption_amount", corruption_amount)
 
+func play_pose(pose: StringName) -> void:
+	if pose == &"death":
+		animation_tree.active = false
+		animation_player.play(&"hero/Death_A")
+		return
+	var playback: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/StateMachine/playback") as AnimationNodeStateMachinePlayback
+	playback.travel(pose)
+
+func set_movement_speed(speed: float) -> void:
+	animation_tree.set("parameters/StateMachine/movement/blend_position", speed)
+
 func _prepare_visual_animation() -> void:
 	animation_tree.active = false
 	# 玩家攻击素材包含命中框轨道，展示演员没有该组件。只复制并移除该轨道。

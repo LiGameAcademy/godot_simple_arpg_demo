@@ -1,0 +1,18 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="Script" path="res://story/combat/boss_combatant/boss_combatant.gd" id="1"]
+[ext_resource type="PackedScene" path="res://story/boss_actor/boss_actor.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://story/combat/hurtbox/hurtbox.tscn" id="3"]
+[ext_resource type="Resource" path="res://story/combat/boss_profile.tres" id="4"]
+[sub_resource type="CapsuleShape3D" id="Shape"]
+radius = 0.6
+height = 2.4
+[node name="BossCombatant" type="CharacterBody3D"]
+collision_layer = 8
+collision_mask = 1
+script = ExtResource("1")
+profile = ExtResource("4")
+[node name="BossActor" parent="." instance=ExtResource("2")]
+[node name="Hurtbox" parent="." instance=ExtResource("3")]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 1.2, 0)
+shape = SubResource("Shape")

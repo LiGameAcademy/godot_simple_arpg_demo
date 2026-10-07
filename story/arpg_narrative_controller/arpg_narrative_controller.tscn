@@ -1,0 +1,10 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://story/arpg_narrative_controller/arpg_narrative_controller.gd" id="1"]
+[ext_resource type="PackedScene" path="res://addons/laoli_dialogue_system/scenes/cutscene_player/cutscene_player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://story/cinematic_presentation/cinematic_presentation.tscn" id="3"]
+[ext_resource type="Resource" path="res://story/data/boss_intro.tres" id="4"]
+[node name="ArpgNarrativeController" type="Node3D"]
+script = ExtResource("1")
+definition = ExtResource("4")
+[node name="CutscenePlayer" parent="." instance=ExtResource("2")]
+[node name="CinematicPresentation" parent="." instance=ExtResource("3")]
