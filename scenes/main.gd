@@ -5,10 +5,15 @@ const Encounter = preload("res://story/boss_encounter/boss_encounter.gd")
 const Executor = preload("res://addons/laoli_dialogue_system/scenes/cutscene_player/cutscene_player.gd")
 const Definition = preload("res://addons/laoli_dialogue_system/scripts/core/cutscene/cutscene_definition.gd")
 const RESOLUTION: Definition = preload("res://story/data/boss_resolution.tres")
+const Snapshot = preload("res://story/state/story_snapshot.gd")
+const Store = preload("res://addons/laoli_dialogue_system/scripts/core/save/checkpoint_store.gd")
+const QuestCodec = preload("res://addons/laoli_dialogue_system/scripts/core/save/quest_snapshot.gd")
+const CheckpointUI = preload("res://story/checkpoint_controls/checkpoint_controls.gd")
 const TRANSITION_TIME: float = 1.5
 const DIALOGUE_PATH: String = "res://data/dialogues/dialogue.json"
 const CLONE_QUEST: Quest = preload("res://story/data/clone_quest.tres")
 const INTRO_LINES: Array[DialogueNode] = [preload("res://story/data/intro_player.tres"), preload("res://story/data/intro_clone.tres"), preload("res://story/data/intro_challenge.tres"), preload("res://story/data/clone_last_words.tres")]
+@export var checkpoint_path: String = "user://story_checkpoint.json"
 @export var registered_quests: Array[Quest] = []
 @onready var player: PlayerActor = $RoomLobby/Player
 @onready var inventory_ui: MarginContainer = $UILayer/HUD/inventory
@@ -20,6 +25,9 @@ const INTRO_LINES: Array[DialogueNode] = [preload("res://story/data/intro_player
 @onready var boss_room: DungeonRoom = $RoomBoss
 @onready var encounter: Encounter = $RoomBoss/BossEncounter
 @onready var narrative: Narrative = $ArpgNarrativeController
+@onready var checkpoint_ui: CheckpointUI = $CheckpointControls
+var checkpoint_store: Store
+var _checkpoint_loading: bool = false
 var _transitioning: bool = false
 var _room: DungeonRoom
 var _intro_seen: bool = false
@@ -33,6 +41,9 @@ var _player_visual_pose: Transform3D
 var _transition_tween: Tween
 
 func _ready() -> void:
+	checkpoint_store = Store.new(checkpoint_path)
+	checkpoint_ui.save_requested.connect(save_checkpoint)
+	checkpoint_ui.load_requested.connect(load_checkpoint)
 	if not DialogueManager.set_initiator(player):
 		push_error("对话服务仍被旧场景占用。")
 	_register_services()
@@ -56,11 +67,22 @@ func _ready() -> void:
 		call_deferred("transition_to_room", boss_room, encounter.arrival.global_position)
 
 func _process(_delta: float) -> void:
+	checkpoint_ui.set_available(_can_save_checkpoint(), not _checkpoint_loading and not _transitioning and is_instance_valid(narrative))
+	if _checkpoint_loading or not is_instance_valid(narrative):
+		return
 	if _resolution_pending and not _transitioning and _room == boss_room and not narrative.is_playing() and is_instance_valid(player) and player.is_ready_for_cutscene():
 		_resolution_pending = false
 		_begin_story(RESOLUTION)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("save_story_checkpoint"):
+		save_checkpoint()
+		get_viewport().set_input_as_handled()
+		return
+	if event.is_action_pressed("load_story_checkpoint"):
+		load_checkpoint()
+		get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed("toggle_inventory") and player.can_control() and not _transitioning:
 		if inventory_ui.visible:
 			inventory_ui.hide()
@@ -215,8 +237,10 @@ func _register_intro_dialogue() -> void:
 
 func _register_services() -> void:
 	for quest: Quest in registered_quests:
-		GameState.register_quest(quest)
-	GameState.register_quest(CLONE_QUEST)
+		if not GameState.quest_database.has(quest.id):
+			GameState.register_quest(quest)
+	if not GameState.quest_database.has(CLONE_QUEST.id):
+		GameState.register_quest(CLONE_QUEST)
 	var actions: Dictionary[String, GameAction] = {
 		"give_item": ActionAddItem.new(), "remove_item": ActionRemoveItem.new(),
 		"give_reward": ActionGiveReward.new(), "affinity_change": ActionChangeAffinity.new()
@@ -236,3 +260,87 @@ func _exit_tree() -> void:
 		DialogueManager.clear_initiator(player)
 	if _transition_tween != null and _transition_tween.is_valid():
 		_transition_tween.kill()
+
+## 只在稳定时刻保存；不会写入动画游标、瞬时生命或背包。
+func save_checkpoint() -> bool:
+	if not _can_save_checkpoint():
+		checkpoint_ui.show_message("当前无法保存，请结束对话、演出或切房后重试")
+		return false
+	var snapshot: Dictionary = {
+		"schema_version": Snapshot.VERSION,
+		"checkpoint": Snapshot.phase(_intro_seen, _boss_defeated),
+		"story": {"intro_seen": _intro_seen, "boss_defeated": _boss_defeated, "resolution_seen": _resolution_seen},
+		"quests": QuestCodec.capture(QuestManager.active_quests, QuestManager.completed_quest_ids),
+		"history": DialogueManager.transcript.entries.duplicate(true)
+	}
+	var validator: Snapshot = Snapshot.new()
+	if not validator.validate(snapshot, GameState.quest_database):
+		checkpoint_ui.show_message("保存失败：" + validator.last_error)
+		return false
+	if not checkpoint_store.save_snapshot(snapshot):
+		checkpoint_ui.show_message("保存失败：" + checkpoint_store.last_error)
+		return false
+	checkpoint_ui.show_message("叙事检查点已保存 · " + _checkpoint_label(String(snapshot["checkpoint"])))
+	return true
+
+## 先完整校验、构建任务副本，再中断当前演出并安装；坏档不改变当前局。
+func load_checkpoint() -> bool:
+	if _checkpoint_loading or _transitioning:
+		checkpoint_ui.show_message("切房或恢复中，请稍后读取检查点")
+		return false
+	if not is_instance_valid(player) or not is_instance_valid(camera) or not is_instance_valid(narrative) or not is_instance_valid(narrative.presentation) or not is_instance_valid(narrative.presentation.overlay) or not is_instance_valid(encounter.boss) or not is_instance_valid(encounter.boss.actor):
+		checkpoint_ui.show_message("场景对象已失效，请重新进入关卡")
+		return false
+	var snapshot: Dictionary = checkpoint_store.load_snapshot()
+	if snapshot.is_empty():
+		checkpoint_ui.show_message("读取失败：" + checkpoint_store.last_error)
+		return false
+	var validator: Snapshot = Snapshot.new()
+	if not validator.validate(snapshot, GameState.quest_database):
+		checkpoint_ui.show_message("读取失败：" + validator.last_error)
+		return false
+	_checkpoint_loading = true
+	narrative.cancel("读取叙事检查点")
+	DialogueManager.clear_initiator(player)
+	encounter.stop_combat()
+	player.set_control_lock(&"checkpoint", true)
+	player.reparent(boss_room)
+	player.global_position = encounter.arrival.global_position
+	player.restore_checkpoint()
+	_room = boss_room
+	camera.global_position = boss_room.camera_marker.global_position
+	camera.make_current()
+	var story: Dictionary = snapshot["story"]
+	_intro_seen = bool(story["intro_seen"])
+	_boss_defeated = bool(story["boss_defeated"])
+	_resolution_seen = bool(story["resolution_seen"])
+	_resolution_pending = _boss_defeated and not _resolution_seen
+	QuestManager.install_checkpoint(validator.quests.prepared_quests, validator.quests.prepared_completed)
+	DialogueManager.transcript.replace(snapshot["history"])
+	DialogueManager.set_initiator(player)
+	encounter.restore_checkpoint(_intro_seen, _boss_defeated, _resolution_seen)
+	player.face_point(encounter.boss.global_position)
+	player.show()
+	player.set_physics_process(true)
+	player.set_control_lock(&"checkpoint", false)
+	_checkpoint_loading = false
+	if _intro_seen and not _boss_defeated:
+		encounter.start_combat()
+	if _boss_defeated:
+		narrative.presentation.overlay.boss_health.hide()
+		narrative.presentation.overlay.show_combat_status("封印已解除" if _resolution_seen else "异化回响已击败")
+	elif not _intro_seen:
+		narrative.presentation.overlay.boss_health.hide()
+		narrative.presentation.overlay.show_combat_status("")
+	checkpoint_ui.show_message("已恢复叙事检查点 · " + _checkpoint_label(String(snapshot["checkpoint"])))
+	return true
+
+func _checkpoint_label(phase: String) -> String:
+	match phase:
+		"before_intro": return "初遇之前"
+		"before_battle": return "开战之前（双方生命重置）"
+		"after_boss": return "击败克隆体之后"
+	return "未知节点"
+
+func _can_save_checkpoint() -> bool:
+	return not _checkpoint_loading and not _transitioning and is_instance_valid(narrative) and is_instance_valid(player) and not narrative.is_playing() and not DialogueManager.is_active and player.health > 0

@@ -18,6 +18,8 @@ var completed_quest_ids: Array[String] = [] ## 已完成的任务ID
 
 # --- 信号 ---
 # UI系统会监听这些信号来更新界面
+signal quests_loaded()
+
 signal quest_accepted(quest : Quest)
 signal quest_completed(quest : Quest)  # 任务完成（所有目标达成，但未交付）
 signal quest_ready_to_turn_in(quest : Quest)  # 任务可以交付（新增）
@@ -160,3 +162,13 @@ func _on_quest_completed(quest: Quest) -> void:
 	
 	# 注意：此时任务仍在 active_quests 中，状态为 READY_TO_TURN_IN
 	# 只有当玩家交付任务后，才会移出 active_quests 并加入 completed_quest_ids
+
+## 调用者已完成所有校验和实例构建；安装不会发出接取/完成事件。
+func install_checkpoint(quests: Array[Quest], completed: Array[String]) -> void:
+	active_quests = quests.duplicate()
+	completed_quest_ids = completed.duplicate()
+	for quest: Quest in active_quests:
+		quest.start()
+		quest.quest_updated.connect(_on_quest_updated_by_id.bind(quest.id))
+		quest.quest_completed.connect(_on_quest_completed_by_id)
+	quests_loaded.emit()

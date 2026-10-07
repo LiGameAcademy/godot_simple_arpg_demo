@@ -78,3 +78,10 @@ func get_health() -> int:
 func face_point(point: Vector3) -> void:
 	var offset: Vector3 = point - global_position
 	actor.rotation.y = atan2(offset.x, offset.z)
+
+func restore_checkpoint(defeated: bool) -> void:
+	stop_combat()
+	_target = null
+	_health = 0 if defeated else profile.max_health
+	_cooldown = profile.attack_interval
+	actor.restore_checkpoint(defeated)

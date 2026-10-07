@@ -1,6 +1,6 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://br34huiprr4uh"]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://br34huiprr4uh"]
 
-[ext_resource type="Texture2D" uid="uid://2mhim6rgugkf" path="res://assets/textures/barbarian_texture.png" id="1_u217o"]
+[ext_resource type="Texture2D" uid="uid://d0sg4b1x0owgv" path="res://assets/models/characters/Barbarian_barbarian_texture.png" id="1_u217o"]
 
 [resource]
 resource_name = "barbarian"

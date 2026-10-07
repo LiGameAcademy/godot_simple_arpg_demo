@@ -13,6 +13,7 @@ var _control_locks: Array[StringName] = []
 
 @onready var visuals: Node3D = $Visuals
 @onready var animation_tree: AnimationTree = $Visuals/Barbarian/AnimationTree
+@onready var sword_hitbox: Area3D = $Visuals/SwordHitbox
 @onready var interaction_area: Area3D = $Visuals/InteractionArea
 @onready var inventory_component: C_Inventory = $InventoryComponent
 
@@ -154,3 +155,13 @@ func _on_dialogue_started() -> void:
 
 func _on_dialogue_finished() -> void:
 	set_control_lock(&"dialogue", false)
+
+## 检查点恢复标准玩家状态；checkpoint 控制锁仍由宿主持有。
+func restore_checkpoint() -> void:
+	health = combat_profile.max_health
+	velocity = Vector3.ZERO
+	set_control_lock(&"death", false)
+	animation_state_machine.start(&"movement")
+	animation_tree.set("parameters/StateMachine/movement/blend_position", 0.0)
+	sword_hitbox.monitoring = false
+	health_changed.emit(health, combat_profile.max_health)

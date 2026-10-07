@@ -62,3 +62,15 @@ func _prepare_visual_animation() -> void:
 	local_library.add_animation(&"Melee_1H_Attack_Chop", attack)
 	animation_player.remove_animation_library(&"hero")
 	animation_player.add_animation_library(&"hero", local_library)
+
+func restore_checkpoint(defeated: bool) -> void:
+	animation_player.stop()
+	animation_tree.active = not defeated
+	if defeated:
+		animation_player.play(&"hero/Death_A")
+		animation_player.seek(animation_player.get_animation(&"hero/Death_A").length, true)
+		animation_player.pause()
+	else:
+		var playback: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/StateMachine/playback") as AnimationNodeStateMachinePlayback
+		playback.start(&"movement")
+		set_movement_speed(0.0)

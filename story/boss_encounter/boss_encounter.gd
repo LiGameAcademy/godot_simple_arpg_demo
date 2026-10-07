@@ -74,3 +74,10 @@ func _on_body_exited(body: Node3D) -> void:
 func _on_defeated() -> void:
 	_pending = false
 	defeated.emit()
+
+func restore_checkpoint(intro_seen: bool, defeated: bool, resolution_seen: bool) -> void:
+	boss.restore_checkpoint(defeated)
+	boss.position = Vector3(14, 0.35, 8)
+	boss.actor.set_corruption(0.2 if resolution_seen else (1.0 if intro_seen else 0.15))
+	boss.face_point(_player.global_position)
+	_pending = not intro_seen

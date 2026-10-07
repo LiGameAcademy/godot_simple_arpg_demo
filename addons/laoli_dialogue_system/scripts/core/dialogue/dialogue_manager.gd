@@ -1,5 +1,8 @@
 extends Node
 
+const Transcript = preload("../save/dialogue_transcript.gd")
+var transcript: Transcript = Transcript.new()
+
 enum DialogueEndReason { COMPLETED, CANCELED, FAILED }
 signal dialogue_session_started(session_id: int)
 signal dialogue_session_finished(session_id: int, reason: DialogueEndReason)
@@ -85,7 +88,10 @@ func process_node(node_id: String) -> void:
 	var session_id: int = _session_id
 
 	# 发出文本更新信号
-	text_updated.emit(current_node.get_character_name(), current_node.get_text())
+	var speaker: String = current_node.get_character_name()
+	var text: String = current_node.get_text()
+	transcript.record(node_id, speaker, text)
+	text_updated.emit(speaker, text)
 	if not is_active or session_id != _session_id:
 		return
 	
