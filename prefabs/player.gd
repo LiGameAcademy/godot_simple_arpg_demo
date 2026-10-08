@@ -1,8 +1,8 @@
 extends CharacterBody3D
-const Profile = preload("res://story/combat/combat_profile.gd")
+const Profile = preload("res://scripts/core/combat_profile.gd")
 signal health_changed(current: int, maximum: int)
 signal died()
-@export var combat_profile: Profile = preload("res://story/combat/player_profile.tres")
+@export var combat_profile: Profile = preload("res://data/combat/player_profile.tres")
 var health: int = 0
 var _control_locks: Array[StringName] = []
 

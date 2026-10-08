@@ -4,7 +4,7 @@
 [ext_resource type="MeshLibrary" uid="uid://n4o6kmw6ap81" path="res://assets/grid_libraries/dungeon_tileset.tres" id="1_w4156"]
 [ext_resource type="PackedScene" uid="uid://cn7gh6vlj8af5" path="res://assets/scenes/door.tscn" id="2_oakt6"]
 [ext_resource type="PackedScene" uid="uid://c8pswujmax0c7" path="res://prefabs/enemy.tscn" id="4_13qsq"]
-[ext_resource type="PackedScene" path="res://story/room_exit/room_exit.tscn" id="exit"]
+[ext_resource type="PackedScene" path="res://prefabs/room_exit/room_exit.tscn" id="exit"]
 
 
 

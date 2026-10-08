@@ -1,18 +1,18 @@
 extends Node3D
 const PlayerActor = preload("res://prefabs/player.gd")
-const Narrative = preload("res://story/arpg_narrative_controller/arpg_narrative_controller.gd")
-const Encounter = preload("res://story/boss_encounter/boss_encounter.gd")
+const Narrative = preload("res://scenes/arpg_narrative_controller/arpg_narrative_controller.gd")
+const Encounter = preload("res://prefabs/boss_encounter/boss_encounter.gd")
 const Executor = preload("res://addons/laoli_dialogue_system/scenes/cutscene_player/cutscene_player.gd")
 const Definition = preload("res://addons/laoli_dialogue_system/scripts/core/cutscene/cutscene_definition.gd")
-const RESOLUTION: Definition = preload("res://story/data/boss_resolution.tres")
-const Snapshot = preload("res://story/state/story_snapshot.gd")
+const RESOLUTION: Definition = preload("res://data/story/boss_resolution.tres")
+const Snapshot = preload("res://scripts/core/story_snapshot.gd")
 const Store = preload("res://addons/laoli_dialogue_system/scripts/core/save/checkpoint_store.gd")
 const QuestCodec = preload("res://addons/laoli_dialogue_system/scripts/core/save/quest_snapshot.gd")
-const CheckpointUI = preload("res://story/checkpoint_controls/checkpoint_controls.gd")
+const CheckpointUI = preload("res://ui/checkpoint_controls/checkpoint_controls.gd")
 const TRANSITION_TIME: float = 1.5
 const DIALOGUE_PATH: String = "res://data/dialogues/dialogue.json"
-const CLONE_QUEST: Quest = preload("res://story/data/clone_quest.tres")
-const INTRO_LINES: Array[DialogueNode] = [preload("res://story/data/intro_player.tres"), preload("res://story/data/intro_clone.tres"), preload("res://story/data/intro_challenge.tres"), preload("res://story/data/clone_last_words.tres")]
+const CLONE_QUEST: Quest = preload("res://data/story/clone_quest.tres")
+const INTRO_LINES: Array[DialogueNode] = [preload("res://data/story/intro_player.tres"), preload("res://data/story/intro_clone.tres"), preload("res://data/story/intro_challenge.tres"), preload("res://data/story/clone_last_words.tres")]
 @export var checkpoint_path: String = "user://story_checkpoint.json"
 @export var registered_quests: Array[Quest] = []
 @onready var player: PlayerActor = $RoomLobby/Player
