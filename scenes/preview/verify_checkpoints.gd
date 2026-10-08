@@ -23,7 +23,9 @@ func _run() -> void:
 	assert(OS.get_keycode_string(InputMap.action_get_events("save_story_checkpoint")[0].physical_keycode) == "F5")
 	assert(OS.get_keycode_string(InputMap.action_get_events("load_story_checkpoint")[0].physical_keycode) == "F9")
 	assert(not _game.load_checkpoint(), "Missing file was treated as success")
-	assert(_game.save_checkpoint())
+	_press_key(KEY_F5)
+	await get_tree().process_frame
+	assert(FileAccess.file_exists(_path), "F5 did not save through input mapping")
 	var before_intro: Dictionary = _game.checkpoint_store.load_snapshot()
 	assert(before_intro["checkpoint"] == "before_intro")
 	await _game.transition_to_room(_game.boss_room, _game.encounter.arrival.global_position)
@@ -31,7 +33,8 @@ func _run() -> void:
 	var retained: String = FileAccess.get_file_as_string(_path)
 	assert(not _game.save_checkpoint(), "Saved during intro")
 	assert(FileAccess.get_file_as_string(_path) == retained)
-	assert(_game.load_checkpoint(), "Could not interrupt intro to restore")
+	_game.checkpoint_ui.load_button.pressed.emit()
+	assert(_game.checkpoint_ui.feedback.text.begins_with("已恢复"), "Load button did not restore")
 	assert(not _game._intro_seen and not _game.encounter.boss.is_combat_active())
 	assert(QuestManager.get_quest_status("defeat_clone") == QuestManager.QuestStatus.CAN_ACCEPT)
 	assert(not DialogueManager.is_active)
@@ -136,3 +139,12 @@ func _wait_intro() -> void:
 func _on_accepted(quest: Quest) -> void:
 	if quest.id == "defeat_clone":
 		_accepted += 1
+
+func _press_key(key: Key) -> void:
+	var event: InputEventKey = InputEventKey.new()
+	event.physical_keycode = key
+	event.pressed = true
+	Input.parse_input_event(event)
+	var release: InputEventKey = InputEventKey.new()
+	release.physical_keycode = key
+	Input.parse_input_event(release)
