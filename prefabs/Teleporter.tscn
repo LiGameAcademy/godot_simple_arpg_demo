@@ -1,12 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://b1t1sf3ftqb3f"]
+[gd_scene format=3 uid="uid://b1t1sf3ftqb3f"]
 
 [ext_resource type="Script" uid="uid://63ghh1b1n7wj" path="res://prefabs/teleporter.gd" id="1_dnrpo"]
 [ext_resource type="Script" uid="uid://t0fmrjfr7nfv" path="res://scripts/components/interaction_component.gd" id="2_5e6f3"]
-[ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://addons/laoli_dialogue_system/scripts/core/interaction/game_action.gd" id="2_ayalb"]
-[ext_resource type="Script" uid="uid://r0lyfuvxjbca" path="res://addons/laoli_dialogue_system/scripts/core/interaction/action_teleporter.gd" id="3_5e6f3"]
-[ext_resource type="Script" uid="uid://cuacmob0vopu8" path="res://addons/laoli_dialogue_system/scripts/core/interaction/game_condition.gd" id="3_g1m3v"]
-[ext_resource type="Script" uid="uid://cll42kf3h1bdw" path="res://addons/laoli_dialogue_system/scripts/core/interaction/condition_has_item.gd" id="4_6pr02"]
-[ext_resource type="Script" uid="uid://b34y0od56o80a" path="res://addons/laoli_dialogue_system/scripts/core/interaction/action_remove_item.gd" id="7_20kps"]
+[ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://addons/laoli_dialogue_system/scripts/core/actions/game_action.gd" id="2_ayalb"]
+[ext_resource type="Script" uid="uid://r0lyfuvxjbca" path="res://scripts/core/actions/action_teleporter.gd" id="3_5e6f3"]
+[ext_resource type="Script" uid="uid://cuacmob0vopu8" path="res://addons/laoli_dialogue_system/scripts/core/conditions/game_condition.gd" id="3_g1m3v"]
+[ext_resource type="Script" uid="uid://cll42kf3h1bdw" path="res://scripts/core/conditions/condition_has_item.gd" id="4_6pr02"]
+[ext_resource type="Script" uid="uid://b34y0od56o80a" path="res://scripts/core/actions/action_remove_item.gd" id="7_20kps"]
 
 [sub_resource type="Curve" id="Curve_dnrpo"]
 _limits = [-360.0, 360.0, 0.0, 1.0]
@@ -73,10 +73,10 @@ metadata/_custom_type_script = "uid://b34y0od56o80a"
 [sub_resource type="BoxShape3D" id="BoxShape3D_v7e6t"]
 size = Vector3(2, 2, 2)
 
-[node name="Teleporter" type="Node3D"]
+[node name="Teleporter" type="Node3D" unique_id=567322110]
 script = ExtResource("1_dnrpo")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1782059578]
 amount = 100
 lifetime = 2.0
 speed_scale = 0.5
@@ -84,12 +84,12 @@ local_coords = true
 process_material = SubResource("ParticleProcessMaterial_dnrpo")
 draw_pass_1 = SubResource("QuadMesh_dnrpo")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1918583726]
 light_color = Color(1, 0, 1, 1)
 light_energy = 2.0
 omni_range = 1.5
 
-[node name="InteractionComponent" type="Area3D" parent="." node_paths=PackedStringArray("interaction_label")]
+[node name="InteractionComponent" type="Area3D" parent="." unique_id=425434295 node_paths=PackedStringArray("interaction_label")]
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("2_5e6f3")
@@ -98,11 +98,11 @@ actions = Array[ExtResource("2_ayalb")]([SubResource("Resource_6d140"), SubResou
 interaction_label = NodePath("../InteractionLabel")
 metadata/_custom_type_script = "uid://t0fmrjfr7nfv"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionComponent"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionComponent" unique_id=917423012]
 shape = SubResource("BoxShape3D_v7e6t")
 debug_color = Color(0.15686275, 0.36862746, 0.06666667, 0.9019608)
 
-[node name="InteractionLabel" type="Label3D" parent="."]
+[node name="InteractionLabel" type="Label3D" parent="." unique_id=1158484474]
 pixel_size = 0.01
 billboard = 1
 text = "交互"

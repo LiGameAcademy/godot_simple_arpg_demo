@@ -1,6 +1,6 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://chpylqn0jwp7c"]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://chpylqn0jwp7c"]
 
-[ext_resource type="Texture2D" uid="uid://xtyrawmpjkdu" path="res://assets/textures/mage_texture.png" id="1_onnan"]
+[ext_resource type="Texture2D" uid="uid://db2lthygauygw" path="res://assets/models/characters/Mage_mage_texture.png" id="1_onnan"]
 
 [resource]
 resource_name = "mage"
