@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://y6gxffsut7co"]
+
+[ext_resource type="Script" uid="uid://io231myhtf6u" path="res://ui/cutscene_overlay/cutscene_overlay.gd" id="1_jma0b"]
+[ext_resource type="FontFile" uid="uid://bj4wlflwm0lq7" path="res://addons/simple_inventory/assets/fonts/SourceHanSansSC-Regular-2.otf" id="1_o72ff"]
+
+[node name="CutsceneOverlay" type="CanvasLayer" unique_id=1922110149]
+layer = 150
+script = ExtResource("1_jma0b")
+
+[node name="Bars" type="Control" parent="." unique_id=1890582492]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Top" type="ColorRect" parent="Bars" unique_id=1331537661]
+custom_minimum_size = Vector2(0, 98)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 98.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Bottom" type="ColorRect" parent="Bars" unique_id=1658420870]
+custom_minimum_size = Vector2(0, 98)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="." unique_id=174215609]
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.35
+anchor_right = 0.8
+anchor_bottom = 0.6
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_o72ff")
+theme_override_font_sizes/font_size = 40
+text = "异化回响\\n封印留下的另一个你"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hint" type="Label" parent="." unique_id=555668443]
+visible = false
+anchors_preset = -1
+anchor_left = 0.75
+anchor_top = 0.92
+anchor_right = 0.96
+anchor_bottom = 0.98
+offset_right = 40.0
+offset_bottom = 23.0
+text = "按住 F 跳过 · Enter 继续对白"
+horizontal_alignment = 1
+
+[node name="Progress" type="ProgressBar" parent="." unique_id=741281381]
+visible = false
+anchors_preset = -1
+anchor_left = 0.8
+anchor_top = 0.95600003
+anchor_right = 0.9620001
+anchor_bottom = 0.97
+offset_top = -0.47998047
+offset_right = 0.15979004
+offset_bottom = 0.4000244
+value = 50.0
+show_percentage = false
+
+[node name="CombatStatus" type="Label" parent="." unique_id=1659685445]
+visible = false
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = 0.03
+anchor_right = 0.75
+anchor_bottom = 0.08
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("1_o72ff")
+theme_override_font_sizes/font_size = 26
+text = "CombatStatus"
+horizontal_alignment = 1
+
+[node name="BossHealth" type="ProgressBar" parent="." unique_id=2075499995]
+visible = false
+anchors_preset = -1
+anchor_left = 0.279
+anchor_top = 0.104
+anchor_right = 0.72
+anchor_bottom = 0.135
+offset_left = 0.3199463
+offset_top = -0.3199997
+offset_right = 2.4000244
+offset_bottom = -0.19999695
+value = 50.0
+show_percentage = false

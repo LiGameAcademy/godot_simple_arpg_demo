@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cbc2u3nacbwo2"]
+
+[ext_resource type="PackedScene" uid="uid://y6gxffsut7co" path="res://ui/cutscene_overlay/cutscene_overlay.tscn" id="1_lxiv0"]
+[ext_resource type="Script" uid="uid://blbr1s8nd511b" path="res://ui/cinematic_presentation/cinematic_presentation.gd" id="1_uq7l2"]
+[ext_resource type="Resource" uid="uid://dby2dqbbbhidt" path="res://ui/cinematic_presentation/presentation_config.tres" id="2_u81yt"]
+
+[node name="CinematicPresentation" type="Node3D" unique_id=328016177]
+script = ExtResource("1_uq7l2")
+config = ExtResource("2_u81yt")
+
+[node name="CinematicCamera" type="Camera3D" parent="." unique_id=1377214947]
+
+[node name="CutsceneOverlay" parent="." unique_id=1922110149 instance=ExtResource("1_lxiv0")]

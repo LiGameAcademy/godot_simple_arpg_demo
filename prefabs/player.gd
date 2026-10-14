@@ -16,6 +16,8 @@ var current_interactable: InteractionComponent = null
 var animation_state_machine: AnimationNodeStateMachinePlayback
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+var _control_locks: Array[StringName] = []
+
 func _ready() -> void:
 	DialogueManager.dialogue_started.connect(_on_dialogue_started)
 	DialogueManager.dialogue_finished.connect(_on_dialogue_finished)
@@ -32,7 +34,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= gravity * delta
 		
 	# 1. 获取输入 (2D向量)
-	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down") if can_control() else Vector2.ZERO
 
 	# 2. 转换为 3D 方向 (X/Z 平面)
 	var direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
@@ -53,12 +55,14 @@ func _physics_process(delta: float) -> void:
 	_set_movement_blend_position(velocity.length())
 
 	# 每帧更新交互焦点
-	_update_interaction_focus()
+	if can_control():
+		_update_interaction_focus()
 	
 	# 6. 应用移动
 	move_and_slide()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not can_control(): return
 	if event.is_action_pressed("interact"):
 		# 直接使用已经检测到的 current_interactable，无需再次 get_overlapping_areas
 		if is_instance_valid(current_interactable):
@@ -68,6 +72,25 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func get_inventory() -> C_Inventory:
 	return inventory_component
+
+func set_control_lock(owner_id: StringName, locked: bool) -> void:
+	if locked and not _control_locks.has(owner_id):
+		_control_locks.append(owner_id)
+	elif not locked:
+		_control_locks.erase(owner_id)
+	if locked:
+		velocity.x = 0.0
+		velocity.z = 0.0
+		if is_instance_valid(current_interactable):
+			current_interactable.unfocused()
+		current_interactable = null
+
+func can_control() -> bool:
+	return _control_locks.is_empty()
+
+func face_point(point: Vector3) -> void:
+	var offset: Vector3 = point - global_position
+	visuals.rotation.y = atan2(offset.x, offset.z)
 
 func _play_anim(anim_name: String) -> void:
 	if not is_instance_valid(animation_state_machine):
@@ -109,9 +132,11 @@ func _update_interaction_focus() -> void:
 		current_interactable = new_interactable
 
 func _on_dialogue_started() -> void:
-	set_physics_process(false)
-	velocity = Vector3.ZERO
+	#set_physics_process(false)
+	#velocity = Vector3.ZERO
+	set_control_lock(&"dialogue", true)
 
 func _on_dialogue_finished() -> void:
 	# 恢复控制
-	set_physics_process(true)
+	#set_physics_process(true)
+	set_control_lock(&"dialogue", false)

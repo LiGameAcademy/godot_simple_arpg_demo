@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://01jfud2v22ye"]
+
+[ext_resource type="Script" uid="uid://bbgivot1lycx1" path="res://scripts/tests/cutscene_workshop.gd" id="1_v7all"]
+[ext_resource type="PackedScene" uid="uid://b3e2ofxe5aiji" path="res://scenes/room_boss.tscn" id="1_virbk"]
+[ext_resource type="PackedScene" uid="uid://dgle1b2vb0agh" path="res://prefabs/player.tscn" id="2_v7all"]
+[ext_resource type="PackedScene" uid="uid://cbc2u3nacbwo2" path="res://ui/cinematic_presentation/cinematic_presentation.tscn" id="4_v7all"]
+
+[node name="CutsceneWorkshop" type="Node3D" unique_id=1692409321]
+script = ExtResource("1_v7all")
+
+[node name="RoomBoss" parent="." unique_id=1327989586 instance=ExtResource("1_virbk")]
+
+[node name="Player" parent="." unique_id=1112600480 instance=ExtResource("2_v7all")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.768074, 0, 14.054104)
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=437797309]
+layer = 128
+
+[node name="HUD" type="Control" parent="UILayer" unique_id=887205625]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="UILayer/HUD" unique_id=2073448948]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -175.5
+offset_top = 127.0
+offset_right = 175.5
+offset_bottom = 212.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "HUD"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CinematicPresentation" parent="." unique_id=328016177 instance=ExtResource("4_v7all")]
+
+[node name="GameCamera" type="Camera3D" parent="." unique_id=47657304]
+transform = Transform3D(1, 0, 0, 0, 0.17364822, 0.9848077, 0, -0.9848077, 0.17364822, 14, 18, 15)
+current = true
+
+[editable path="RoomBoss"]
+[editable path="RoomBoss/BossEncounter"]

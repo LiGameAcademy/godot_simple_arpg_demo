@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BossPresentationConfig" format=3 uid="uid://dby2dqbbbhidt"]
+
+[ext_resource type="Script" uid="uid://j6tbhxu1olfk" path="res://ui/cinematic_presentation/presentation_config.gd" id="1_xsw3w"]
+
+[resource]
+script = ExtResource("1_xsw3w")
+metadata/_custom_type_script = "uid://j6tbhxu1olfk"
