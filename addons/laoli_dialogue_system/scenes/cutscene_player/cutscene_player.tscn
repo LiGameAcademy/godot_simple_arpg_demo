@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bycypyic5h05u"]
+
+[ext_resource type="Script" uid="uid://d18kwn5n1ta3t" path="res://addons/laoli_dialogue_system/scenes/cutscene_player/cutscene_player.gd" id="1_wdyni"]
+
+[node name="CutscenePlayer" type="Node" unique_id=1206800643]
+script = ExtResource("1_wdyni")

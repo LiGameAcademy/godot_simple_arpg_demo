@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="CutsceneDefinition" format=3 uid="uid://n03lfs8kyc2n"]
+
+[ext_resource type="Script" uid="uid://cno3hvlc06u4k" path="res://addons/laoli_dialogue_system/scripts/core/cutscene/cutscene_definition.gd" id="1_d7k63"]
+[ext_resource type="Script" uid="uid://bxnsqy5v8wsdb" path="res://addons/laoli_dialogue_system/scripts/core/cutscene/cutscene_step.gd" id="2_v3mhs"]
+
+[sub_resource type="Resource" id="Resource_4gjpi"]
+script = ExtResource("2_v3mhs")
+clip_id = &"establish"
+metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
+
+[sub_resource type="Resource" id="Resource_d7k63"]
+script = ExtResource("2_v3mhs")
+kind = 2
+duration_seconds = 0.5
+metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
+
+[sub_resource type="Resource" id="Resource_v3mhs"]
+script = ExtResource("2_v3mhs")
+clip_id = &"corrupt"
+metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
+
+[sub_resource type="Resource" id="Resource_sgi7b"]
+script = ExtResource("2_v3mhs")
+clip_id = &"return"
+metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
+
+[sub_resource type="Resource" id="Resource_v68t0"]
+script = ExtResource("2_v3mhs")
+clip_id = &"title"
+metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
+
+[resource]
+script = ExtResource("1_d7k63")
+cutscene_id = &"boss_intro"
+steps = Array[ExtResource("2_v3mhs")]([SubResource("Resource_4gjpi"), SubResource("Resource_d7k63"), SubResource("Resource_v3mhs"), SubResource("Resource_sgi7b"), SubResource("Resource_v68t0")])
+metadata/_custom_type_script = "uid://cno3hvlc06u4k"

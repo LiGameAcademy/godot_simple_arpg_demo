@@ -90,8 +90,8 @@ func cleanup() -> void:
 	elif is_instance_valid(cinematic_camera) and cinematic_camera.is_inside_tree():
 		cinematic_camera.clear_current(false)
 
-func _view_transform(position: Vector3, fouce: Vector3) -> Transform3D:
-	return Transform3D(Basis.IDENTITY, position).looking_at(fouce)
+func _view_transform(pos: Vector3, fouce: Vector3) -> Transform3D:
+	return Transform3D(Basis.IDENTITY, pos).looking_at(fouce)
 
 func _on_clip_finished(run_id: int, index: int) -> void:
 	if run_id != _run_id or index != _index:

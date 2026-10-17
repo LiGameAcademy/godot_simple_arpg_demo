@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cnwxssm15un8k"]
+
+[ext_resource type="Script" uid="uid://esirsryuyxga" path="res://scenes/arpg_narrative_controller/arpg_narrative_controller.gd" id="1_aprwo"]
+[ext_resource type="PackedScene" uid="uid://bycypyic5h05u" path="res://addons/laoli_dialogue_system/scenes/cutscene_player/cutscene_player.tscn" id="2_b4mf7"]
+[ext_resource type="PackedScene" uid="uid://cbc2u3nacbwo2" path="res://ui/cinematic_presentation/cinematic_presentation.tscn" id="3_fg0r7"]
+
+[node name="ArpgNarrativeController" type="Node3D" unique_id=1233999006]
+script = ExtResource("1_aprwo")
+
+[node name="CutscenePlayer" parent="." unique_id=1206800643 instance=ExtResource("2_b4mf7")]
+
+[node name="CinematicPresentation" parent="." unique_id=328016177 instance=ExtResource("3_fg0r7")]
