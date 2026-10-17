@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7jbvgjqg3w8h"]
+[gd_scene format=3 uid="uid://c7jbvgjqg3w8h"]
 
 [ext_resource type="Script" uid="uid://bxu70q5yqc70" path="res://addons/laoli_dialogue_system/ui/dialogue_ui.gd" id="1_25t1q"]
 [ext_resource type="AudioStream" uid="uid://dgsdna7h8jl7h" path="res://assets/sfx/typing.mp3" id="2_2x5cq"]
@@ -9,11 +9,11 @@
 script = ExtResource("2_683g5")
 metadata/_custom_type_script = "uid://2hdvi1pkbdl5"
 
-[node name="DialogueUI" type="CanvasLayer"]
+[node name="DialogueUI" type="CanvasLayer" unique_id=1010401003]
 script = ExtResource("1_25t1q")
 theme = ExtResource("2_x5l3f")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=976622615]
 unique_name_in_owner = true
 anchors_preset = 7
 anchor_left = 0.5
@@ -26,7 +26,7 @@ offset_right = 400.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=43926821]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,10 +38,10 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=1644701165]
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="NameLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=545332040]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
@@ -52,10 +52,10 @@ text = "角色名"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer" unique_id=1523607553]
 layout_mode = 2
 
-[node name="TextLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="TextLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer" unique_id=1695189069]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
@@ -65,11 +65,11 @@ bbcode_enabled = true
 text = "文本内容描述"
 custom_effects = [SubResource("RichTextEffect_r5kn6")]
 
-[node name="ChoicesContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="ChoicesContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=388744474]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
-[node name="TypingSoundPlayer" type="AudioStreamPlayer" parent="."]
+[node name="TypingSoundPlayer" type="AudioStreamPlayer" parent="." unique_id=734328323]
 stream = ExtResource("2_2x5cq")

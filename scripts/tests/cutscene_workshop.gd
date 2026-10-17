@@ -15,6 +15,7 @@ const Executor = preload("res://addons/laoli_dialogue_system/scenes/cutscene_pla
 var _hud_visible : bool = true
 
 func _ready() -> void:
+	_register_dialogue()
 	game_camera.look_at(Vector3(14, 1.5, 10))
 	boss_actor.set_corruption(1.0)
 	narrative.finished.connect(_on_finished)
@@ -34,3 +35,11 @@ func _start_demo() -> void:
 func _on_finished(_outcome: Executor.Outcome) -> void:
 	hud.visible = _hud_visible
 	player.set_control_lock(&"boss_intro", false)
+
+func _register_dialogue() -> void:
+	DialogueManager.set_initiator(player)
+	var paths: Array[String] = ["intro_player", "intro_clone", "intro_challenge"]
+	for id: String in paths:
+		var node : DialogueNode = load("res://data/story/" + id + ".tres") as DialogueNode
+		DialogueManager.dialogue_graph[node.node_id] = node
+	

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DialogueNode" format=3 uid="uid://dice3750empl5"]
+
+[ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://addons/laoli_dialogue_system/scripts/core/actions/game_action.gd" id="1_xvo3k"]
+[ext_resource type="Script" uid="uid://bviunwm2xjgyg" path="res://addons/laoli_dialogue_system/scripts/core/dialogue/dialogue_option.gd" id="2_yptao"]
+[ext_resource type="Script" uid="uid://bt4xn7ir78qr3" path="res://addons/laoli_dialogue_system/scripts/core/dialogue/dialogue_node.gd" id="3_rf3s6"]
+
+[resource]
+script = ExtResource("3_rf3s6")
+node_id = "intro_player"
+character_key = "玩家"
+text_key = "那个人……为什么和我一样？"
+next_node_id = "END"
+metadata/_custom_type_script = "uid://bt4xn7ir78qr3"

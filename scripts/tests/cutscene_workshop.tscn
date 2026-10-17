@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dgle1b2vb0agh" path="res://prefabs/player.tscn" id="2_v7all"]
 [ext_resource type="PackedScene" uid="uid://cnwxssm15un8k" path="res://scenes/arpg_narrative_controller/arpg_narrative_controller.tscn" id="4_v7all"]
 [ext_resource type="Resource" uid="uid://n03lfs8kyc2n" path="res://data/story/boss_intro.tres" id="5_2o7h0"]
+[ext_resource type="PackedScene" uid="uid://c7jbvgjqg3w8h" path="res://addons/laoli_dialogue_system/ui/dialogue_ui.tscn" id="6_g6dlp"]
 
 [node name="CutsceneWorkshop" type="Node3D" unique_id=1692409321]
 script = ExtResource("1_v7all")
@@ -48,6 +49,8 @@ current = true
 
 [node name="ArpgNarrativeController" parent="." unique_id=1233999006 instance=ExtResource("4_v7all")]
 definition = ExtResource("5_2o7h0")
+
+[node name="DialogueUI" parent="." unique_id=1010401003 instance=ExtResource("6_g6dlp")]
 
 [editable path="RoomBoss"]
 [editable path="RoomBoss/BossEncounter"]

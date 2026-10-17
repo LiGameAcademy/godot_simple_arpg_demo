@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DialogueNode" format=3 uid="uid://ceuq234j66y15"]
+
+[ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://addons/laoli_dialogue_system/scripts/core/actions/game_action.gd" id="1_vds8s"]
+[ext_resource type="Script" uid="uid://bviunwm2xjgyg" path="res://addons/laoli_dialogue_system/scripts/core/dialogue/dialogue_option.gd" id="2_mumj8"]
+[ext_resource type="Script" uid="uid://bt4xn7ir78qr3" path="res://addons/laoli_dialogue_system/scripts/core/dialogue/dialogue_node.gd" id="3_b751j"]
+
+[resource]
+script = ExtResource("3_b751j")
+node_id = "intro_challenge"
+character_key = "异化回响"
+text_key = "走出这里的，只需要一个。"
+next_node_id = "END"
+metadata/_custom_type_script = "uid://bt4xn7ir78qr3"

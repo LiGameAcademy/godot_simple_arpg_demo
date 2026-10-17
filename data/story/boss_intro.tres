@@ -14,9 +14,27 @@ kind = 2
 duration_seconds = 0.5
 metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
 
+[sub_resource type="Resource" id="Resource_vds8s"]
+script = ExtResource("2_v3mhs")
+kind = 1
+dialogue_id = "intro_player"
+metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
+
 [sub_resource type="Resource" id="Resource_v3mhs"]
 script = ExtResource("2_v3mhs")
 clip_id = &"corrupt"
+metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
+
+[sub_resource type="Resource" id="Resource_wuyk8"]
+script = ExtResource("2_v3mhs")
+kind = 1
+dialogue_id = "intro_clone"
+metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
+
+[sub_resource type="Resource" id="Resource_7kyy2"]
+script = ExtResource("2_v3mhs")
+kind = 1
+dialogue_id = "intro_challenge"
 metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
 
 [sub_resource type="Resource" id="Resource_sgi7b"]
@@ -32,5 +50,5 @@ metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
 [resource]
 script = ExtResource("1_d7k63")
 cutscene_id = &"boss_intro"
-steps = Array[ExtResource("2_v3mhs")]([SubResource("Resource_4gjpi"), SubResource("Resource_d7k63"), SubResource("Resource_v3mhs"), SubResource("Resource_sgi7b"), SubResource("Resource_v68t0")])
+steps = Array[ExtResource("2_v3mhs")]([SubResource("Resource_4gjpi"), SubResource("Resource_d7k63"), SubResource("Resource_vds8s"), SubResource("Resource_v3mhs"), SubResource("Resource_wuyk8"), SubResource("Resource_7kyy2"), SubResource("Resource_sgi7b"), SubResource("Resource_v68t0")])
 metadata/_custom_type_script = "uid://cno3hvlc06u4k"
