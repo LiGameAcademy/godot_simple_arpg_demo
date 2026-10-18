@@ -1,13 +1,11 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene format=3 uid="uid://dvqenaq5ges4w"]
 
+[sub_resource type="BoxShape3D" id="ArenaFloorShape"]
+size = Vector3(28, 0.1, 20)
 
 [sub_resource type="StandardMaterial3D" id="Stone"]
 albedo_color = Color(0.16, 0.17, 0.23, 1)
 roughness = 0.9
-
-[sub_resource type="StandardMaterial3D" id="Energy"]
-shading_mode = 0
-albedo_color = Color(0.08, 0.75, 0.72, 1)
 
 [sub_resource type="CylinderMesh" id="Dais"]
 material = SubResource("Stone")
@@ -15,6 +13,14 @@ top_radius = 3.4
 bottom_radius = 3.6
 height = 0.35
 radial_segments = 12
+
+[sub_resource type="CylinderShape3D" id="DaisShape"]
+height = 0.35
+radius = 3.4
+
+[sub_resource type="StandardMaterial3D" id="Energy"]
+shading_mode = 0
+albedo_color = Color(0.08, 0.75, 0.72, 1)
 
 [sub_resource type="TorusMesh" id="Ring"]
 material = SubResource("Energy")
@@ -31,85 +37,84 @@ size = Vector3(0.8, 4.4, 0.8)
 material = SubResource("Energy")
 size = Vector3(0.16, 1.1, 0.16)
 
-[sub_resource type="CylinderShape3D" id="DaisShape"]
-radius = 3.4
-height = 0.35
+[node name="CloneSanctum" type="Node3D" unique_id=232500875]
 
-[sub_resource type="BoxShape3D" id="ArenaFloorShape"]
-size = Vector3(28, 0.1, 20)
+[node name="ArenaFloor" type="StaticBody3D" parent="." unique_id=105258628]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -0.08, 10)
 
-[node name="CloneSanctum" type="Node3D"]
-
-[node name="ArenaFloor" type="StaticBody3D" parent="."]
-position = Vector3(14, -0.08, 10)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ArenaFloor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ArenaFloor" unique_id=186213783]
 shape = SubResource("ArenaFloorShape")
 
-[node name="Dais" type="MeshInstance3D" parent="."]
-position = Vector3(14, 0.175, 8)
+[node name="Dais" type="MeshInstance3D" parent="." unique_id=1253606147]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0.175, 8)
 mesh = SubResource("Dais")
 
-[node name="Body" type="StaticBody3D" parent="Dais"]
+[node name="Body" type="StaticBody3D" parent="Dais" unique_id=842618708]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Dais/Body"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dais/Body" unique_id=1689293655]
 shape = SubResource("DaisShape")
 
-[node name="SealRing" type="MeshInstance3D" parent="."]
-position = Vector3(14, 0.37, 8)
+[node name="SealRing" type="MeshInstance3D" parent="Dais" unique_id=644484276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19500001, 0)
 mesh = SubResource("Ring")
+skeleton = NodePath("../..")
 
+[node name="PillarGroup" type="Node3D" parent="." unique_id=1658565338]
 
-[node name="PlayerArrival" type="Marker3D" parent="."]
-position = Vector3(11, 0, 13)
-
-[node name="BossFocus" type="Marker3D" parent="."]
-position = Vector3(14, 1.65, 8)
-
-[node name="Pillar0" type="MeshInstance3D" parent="."]
-position = Vector3(9, 2.2, 5)
+[node name="Pillar0" type="MeshInstance3D" parent="PillarGroup" unique_id=1618426170]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.2, 5)
 mesh = SubResource("Pillar")
+skeleton = NodePath("../..")
 
-[node name="Energy0" type="MeshInstance3D" parent="."]
-position = Vector3(9, 4.5, 5)
-rotation_degrees = Vector3(0, 0, 25)
+[node name="Energy0" type="MeshInstance3D" parent="PillarGroup/Pillar0" unique_id=2121142335]
+transform = Transform3D(0.90630776, -0.42261827, 0, 0.42261827, 0.90630776, 0, 0, 0, 1, 0, 2.3, 0)
 mesh = SubResource("Shard")
+skeleton = NodePath("../../..")
 
-[node name="Pillar1" type="MeshInstance3D" parent="."]
-position = Vector3(19, 2.2, 5)
+[node name="Pillar1" type="MeshInstance3D" parent="PillarGroup" unique_id=1651613308]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 2.2, 5)
 mesh = SubResource("Pillar")
+skeleton = NodePath("../..")
 
-[node name="Energy1" type="MeshInstance3D" parent="."]
-position = Vector3(19, 4.5, 5)
-rotation_degrees = Vector3(0, 0, 25)
+[node name="Energy1" type="MeshInstance3D" parent="PillarGroup/Pillar1" unique_id=2018693095]
+transform = Transform3D(0.90630776, -0.42261827, 0, 0.42261827, 0.90630776, 0, 0, 0, 1, 0, 2.3, 0)
 mesh = SubResource("Shard")
+skeleton = NodePath("../../..")
 
-[node name="Pillar2" type="MeshInstance3D" parent="."]
-position = Vector3(9, 2.2, 11)
+[node name="Pillar2" type="MeshInstance3D" parent="PillarGroup" unique_id=1055898485]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.2, 11)
 mesh = SubResource("Pillar")
+skeleton = NodePath("../..")
 
-[node name="Energy2" type="MeshInstance3D" parent="."]
-position = Vector3(9, 4.5, 11)
-rotation_degrees = Vector3(0, 0, 25)
+[node name="Energy2" type="MeshInstance3D" parent="PillarGroup/Pillar2" unique_id=1619436908]
+transform = Transform3D(0.90630776, -0.42261827, 0, 0.42261827, 0.90630776, 0, 0, 0, 1, 0, 2.3, 0)
 mesh = SubResource("Shard")
+skeleton = NodePath("../../..")
 
-[node name="Pillar3" type="MeshInstance3D" parent="."]
-position = Vector3(19, 2.2, 11)
+[node name="Pillar3" type="MeshInstance3D" parent="PillarGroup" unique_id=2017144839]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 2.2, 11)
 mesh = SubResource("Pillar")
+skeleton = NodePath("../..")
 
-[node name="Energy3" type="MeshInstance3D" parent="."]
-position = Vector3(19, 4.5, 11)
-rotation_degrees = Vector3(0, 0, 25)
+[node name="Energy3" type="MeshInstance3D" parent="PillarGroup/Pillar3" unique_id=1154045880]
+transform = Transform3D(0.90630776, -0.42261827, 0, 0.42261827, 0.90630776, 0, 0, 0, 1, 0, 2.3, 0)
 mesh = SubResource("Shard")
+skeleton = NodePath("../../..")
 
-[node name="RimLight" type="OmniLight3D" parent="."]
-position = Vector3(14, 4, 5)
+[node name="RimLight" type="OmniLight3D" parent="." unique_id=1753906728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 4, 5)
 light_color = Color(0.08, 0.85, 0.9, 1)
 light_energy = 4.0
 omni_range = 9.0
 
-[node name="FillLight" type="OmniLight3D" parent="."]
-position = Vector3(11, 5, 13)
+[node name="FillLight" type="OmniLight3D" parent="." unique_id=114510100]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 5, 13)
 light_color = Color(0.5, 0.35, 0.85, 1)
 light_energy = 2.5
 omni_range = 12.0
+
+[node name="PlayerArrival" type="Marker3D" parent="." unique_id=1258614086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 13)
+
+[node name="BossFocus" type="Marker3D" parent="." unique_id=1654333140]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 1.65, 8)

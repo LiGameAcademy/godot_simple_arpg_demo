@@ -1,12 +1,15 @@
-[gd_resource type="Resource" load_steps=5 format=3]
-[ext_resource type="Script" path="res://addons/laoli_dialogue_system/scripts/core/quest/quest.gd" id="1"]
-[ext_resource type="Script" path="res://addons/laoli_dialogue_system/scripts/core/quest/objective_kill.gd" id="2"]
-[ext_resource type="Script" path="res://addons/laoli_dialogue_system/scripts/core/quest/quest_objective.gd" id="3"]
+[gd_resource type="Resource" script_class="Quest" format=3 uid="uid://dnjklnerwe24h"]
+
+[ext_resource type="Script" uid="uid://bw4a3qea7fktc" path="res://addons/laoli_dialogue_system/scripts/core/quest/quest.gd" id="1"]
+[ext_resource type="Script" uid="uid://idhfdfg4eg6v" path="res://addons/laoli_dialogue_system/scripts/core/quest/objective_kill.gd" id="2"]
+[ext_resource type="Script" uid="uid://c3ecw04xqk861" path="res://addons/laoli_dialogue_system/scripts/core/quest/quest_objective.gd" id="3"]
+
 [sub_resource type="Resource" id="Kill"]
 script = ExtResource("2")
 target_enemy_id = "异化回响"
 required_amount = 1
 description = "击败异化回响"
+
 [resource]
 script = ExtResource("1")
 id = "defeat_clone"
