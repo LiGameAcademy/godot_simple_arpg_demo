@@ -1,11 +1,12 @@
 extends Node3D
 
 const SUPPORTED_CLIPS : Array[StringName] = [&"establish", &"corrupt", &"return", &"title"]
+const CutsceneOverlay : GDScript = preload("res://ui/cutscene_overlay/cutscene_overlay.gd")
 
 @export var config : BossPresentationConfig
 
 @onready var cinematic_camera: Camera3D = $CinematicCamera
-@onready var cutscene_overlay: CanvasLayer = $CutsceneOverlay
+@onready var cutscene_overlay: CutsceneOverlay = $CutsceneOverlay
 
 var _game_camera : Camera3D
 var _focus : Vector3
