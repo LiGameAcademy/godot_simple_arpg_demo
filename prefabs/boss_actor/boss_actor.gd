@@ -43,7 +43,19 @@ func play_pose(pose : StringName) -> void:
 
 func set_movement_speed(speed: float) -> void:
 	animation_tree.set("parameters/StateMachine/movement/blend_position", speed)
-	
+
+func restore_checkpoint(defeated: bool) -> void:
+	animation_player.stop()
+	animation_tree.active = not defeated
+	if defeated:
+		animation_player.play(&"hero/Death_A")
+		animation_player.seek(animation_player.get_animation(&"hero/Death_A").length, true)
+		animation_player.pause()
+	else:
+		var playback: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/StateMachine/playback") as AnimationNodeStateMachinePlayback
+		playback.start(&"movement")
+		set_movement_speed(0.0)
+
 func _prepare_visual_animation() -> void:
 	# 玩家攻击素材包括命中框轨道，展示Actor没有这个组件，只复制并移除该轨道
 	pass

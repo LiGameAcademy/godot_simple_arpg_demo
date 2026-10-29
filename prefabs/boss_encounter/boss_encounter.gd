@@ -68,6 +68,15 @@ func face_actor_point(point: Vector3) -> void:
 	var offset: Vector3 = point - actor.global_position
 	actor.rotation.y = atan2(offset.x, offset.z)
 
+func restore_checkpoint(intro_seen: bool, defeated: bool, resolution_seen: bool) -> void:
+	_defeated = defeated
+	_can_resolve = intro_seen and not defeated
+	_pending = not intro_seen
+	actor.transform = _initial_actor_pose
+	actor.restore_checkpoint(defeated)
+	actor.set_corruption(0.2 if resolution_seen else (1.0 if intro_seen else 0.15))
+	face_actor_point(_player.global_position)
+
 func _on_body_entered(body: Node3D) -> void:
 	if body != _player or _can_resolve or _defeated:
 		return

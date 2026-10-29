@@ -9,6 +9,7 @@ var quest_entries: Dictionary[Quest, QuestEntry] = {}
 
 func _ready() -> void:
 	# 核心：连接 QuestManager 的信号
+	QuestManager.quests_loaded.connect(_rebuild)
 	QuestManager.quest_accepted.connect(_on_quest_accepted)
 	QuestManager.quest_updated.connect(_on_quest_updated)
 	QuestManager.quest_completed.connect(_on_quest_completed)
@@ -31,6 +32,16 @@ func _get_quest_status_text(quest: Quest) -> String:
 		QuestStatus.FINISHED:
 			return "已完成"
 	return ""
+
+func _rebuild() -> void:
+	for entry: QuestEntry in quest_entries.values():
+		quest_container.remove_child(entry)
+		entry.queue_free()
+	quest_entries.clear()
+	for quest : Quest in QuestManager.active_quests:
+		_on_quest_accepted(quest)
+		if quest.is_completed:
+			_on_quest_completed(quest)
 
 func _on_quest_accepted(quest: Quest) -> void:
 	var entry : QuestEntry = QUEST_ENTRY.instantiate()

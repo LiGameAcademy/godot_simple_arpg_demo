@@ -23,6 +23,7 @@ signal quest_completed(quest : Quest)  # 任务完成（所有目标达成，但
 signal quest_ready_to_turn_in(quest : Quest)  # 任务可以交付（新增）
 signal quest_turned_in(quest : Quest)  # 任务已交付（新增）
 signal quest_updated(quest : Quest) # 进度更新时（比如杀怪 1/5 -> 2/5）
+signal quests_loaded()
 
 func _ready() -> void:
 	# 核心：连接全局事件总线
@@ -41,25 +42,29 @@ func _on_game_event(type: String, data: Dictionary) -> void:
 
 # --- 公共接口：接取任务 ---
 func accept_quest(quest_res: Quest) -> void:
-	# 1. 检查是否已经接过或已完成
 	if has_quest(quest_res.id) or is_quest_completed(quest_res.id):
 		print("任务已存在或已完成，无法接取：", quest_res.title)
 		return
 	
-	# 2. 【关键】实例化资源 (Deep Duplicate)
-	# 资源文件在磁盘上是只读模板，我们必须复制一份独立的实例来记录进度
 	var new_quest = quest_res.duplicate(true)
 	
-	# 3. 初始化并连接内部信号
 	new_quest.start()
 	# 监听这个新任务实例的信号，以便转发给 UI
-	new_quest.quest_updated.connect(func() -> void: quest_updated.emit(new_quest))
-	new_quest.quest_completed.connect(func(_id: String) -> void: _on_quest_completed(new_quest))
+	new_quest.quest_updated.connect(_on_quest_updated_by_id.bind(new_quest.id))
+	new_quest.quest_completed.connect(_on_quest_completed_by_id)
 	
-	# 4. 加入列表
 	active_quests.append(new_quest)
 	quest_accepted.emit(new_quest)
 	print("任务接取成功：", new_quest.title)
+
+func install_checkpoint(quests: Array[Quest], completed: Array[String]) -> void:
+	active_quests = quests.duplicate()
+	completed_quest_ids = completed.duplicate()
+	for quest: Quest in active_quests:
+		quest.start()
+		quest.quest_updated.connect(_on_quest_updated_by_id.bind(quest.id))
+		quest.quest_completed.connect(_on_quest_completed_by_id)
+	quests_loaded.emit()
 
 ## 交付任务（玩家与NPC对话后选择"交任务"）
 ## [param quest_id] 任务ID
@@ -148,3 +153,15 @@ func _on_quest_completed(quest: Quest) -> void:
 	
 	# 注意：此时任务仍在 active_quests 中，状态为 READY_TO_TURN_IN
 	# 只有当玩家交付任务后，才会移出 active_quests 并加入 completed_quest_ids
+
+func _on_quest_updated_by_id(quest_id: String) -> void:
+	for quest: Quest in active_quests:
+		if quest.id == quest_id:
+			quest_updated.emit(quest)
+			return
+
+func _on_quest_completed_by_id(quest_id: String) -> void:
+	for quest: Quest in active_quests:
+		if quest.id == quest_id:
+			_on_quest_completed(quest)
+			return

@@ -18,8 +18,7 @@ text = "F5 保存叙事检查点"
 
 [node name="Load" type="Button" parent="Controls" unique_id=1745017047]
 layout_mode = 2
-disabled = true
-text = "F9 读取检查点"
+text = "L 读取检查点"
 
 [node name="Feedback" type="Label" parent="." unique_id=1529244940]
 offset_left = 24.0

@@ -75,9 +75,12 @@ func _ready() -> void:
 	encounter.defeated.connect(_on_boss_defeated)
 	checkpoint_store = Store.new(checkpoint_path)
 	checkpoint_ui.save_requested.connect(save_checkpoint)
+	checkpoint_ui.load_requested.connect(load_checkpoint)
 
 func _process(_delta: float) -> void:
-	checkpoint_ui.set_available(_can_save_checkpoint(), false)
+	checkpoint_ui.set_available(_can_save_checkpoint(), not _checkpoint_loading and not _transitioning)
+	if _checkpoint_loading:
+		return
 	if _resolution_pending and not _transitioning and _room == room_boss \
 		and not narrative.is_playing() and not DialogueManager.is_dialogue_active() and _player_ready():
 		_resolution_pending = false
@@ -86,6 +89,10 @@ func _process(_delta: float) -> void:
 func _unhandled_input(event) -> void:
 	if event.is_action_pressed("save_story_checkpoint"):
 		save_checkpoint()
+		get_viewport().set_input_as_handled()
+		return
+	if event.is_action_pressed("load_story_checkpoint"):
+		load_checkpoint()
 		get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed("debug_defeat_boss"):
@@ -109,7 +116,7 @@ func _exit_tree() -> void:
 		_transition_tween.kill()
 
 func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> void:
-	if _transitioning or narrative.is_playing():
+	if _checkpoint_loading or target_room == _room or _transitioning or narrative.is_playing():
 		return
 	_transitioning = true
 	player.set_control_lock(&"room_transition", true)
@@ -150,6 +157,59 @@ func save_checkpoint() -> bool:
 		checkpoint_ui.show_message("保存失败：" + checkpoint_store.last_error)
 		return false
 	checkpoint_ui.show_message("叙事检查点已保存 · " + _checkpoint_label(String(snapshot["checkpoint"])))
+	return true
+
+func load_checkpoint() -> bool:
+	if _checkpoint_loading or _transitioning:
+		checkpoint_ui.show_message("切房或恢复中，请稍后读取检查点")
+		return false
+	if not is_instance_valid(player) or not is_instance_valid(camera) \
+		or not is_instance_valid(narrative) or not is_instance_valid(narrative.presentation) \
+		or not is_instance_valid(narrative.presentation.cutscene_overlay) or not is_instance_valid(encounter) \
+		or not is_instance_valid(encounter.actor):
+		checkpoint_ui.show_message("场景对象已失效，请重新进入关卡")
+		return false
+	var snapshot: Dictionary = checkpoint_store.load_snapshot()
+	if snapshot.is_empty():
+		checkpoint_ui.show_message("读取失败：" + checkpoint_store.last_error)
+		return false
+	var validator: Snapshot = Snapshot.new()
+	if not validator.validate(snapshot, GameState.quest_database):
+		checkpoint_ui.show_message("读取失败：" + validator.last_error)
+		return false
+	_checkpoint_loading = true
+	narrative.cancel("读取叙事检查点")
+	DialogueManager.clear_initiator(player)
+	player.set_control_lock(&"checkpoint", true)
+	player.reparent(room_boss)
+	player.global_position = encounter.arrival.global_position
+	player.velocity = Vector3.ZERO
+	_room = room_boss
+	camera.global_position = room_boss.camera_marker.global_position
+	camera.make_current()
+	var story: Dictionary = snapshot["story"]
+	_intro_seen = bool(story["intro_seen"])
+	_boss_defeated = bool(story["boss_defeated"])
+	_resolution_seen = bool(story["resolution_seen"])
+	_resolution_pending = _boss_defeated and not _resolution_seen
+
+	QuestManager.install_checkpoint(validator.quests.prepared_quests, validator.quests.prepared_completed)
+
+	DialogueManager.transcript.replace(snapshot["history"])
+	DialogueManager.set_initiator(player)
+
+	encounter.restore_checkpoint(_intro_seen, _boss_defeated, _resolution_seen)
+
+	player.face_point(encounter.actor.global_position)
+	player.show()
+	player.set_physics_process(true)
+	player.set_control_lock(&"checkpoint", false)
+
+	_checkpoint_loading = false
+	narrative.presentation.cutscene_overlay.show_combat_status("封印已解除" \
+		if _resolution_seen else ("异化回响已击败" if _boss_defeated else ("按 K 模拟击败异化回响" if _intro_seen else "")))
+	
+	checkpoint_ui.show_message("已恢复叙事检查点 · " + _checkpoint_label(String(snapshot["checkpoint"])))
 	return true
 
 func _can_save_checkpoint() -> bool:
@@ -235,7 +295,7 @@ func _player_ready() -> bool:
 		and player.animation_state_machine.get_current_node() == &"movement"
 
 func _can_debug_defeat() -> bool:
-	return _intro_seen and not _boss_defeated and not _transitioning and _room == room_boss \
+	return not _checkpoint_loading and _intro_seen and not _boss_defeated and not _transitioning and _room == room_boss \
 		and not narrative.is_playing() and not DialogueManager.is_dialogue_active() and player.can_control()
 
 func _on_passage(body: CharacterBody3D, source_room: DungeonRoom, target_room: DungeonRoom, arrival: Marker3D) -> void:
