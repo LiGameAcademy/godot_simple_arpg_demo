@@ -30,7 +30,7 @@ static  func validate(data: Variant) -> bool:
 		for key: String in ["node_id", "speaker", "text"]:
 			if not entry.get(key) is String:
 				return false
-		if String(entry["node_id"].is_empty or ids.has(String(entry["node_id"]))):
+		if String(entry["node_id"]).is_empty() or ids.has(String(entry["node_id"])):
 			return false
 		ids.append(String(entry["node_id"]))
 	return true

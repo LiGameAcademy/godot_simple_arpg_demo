@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://jp2c7dp678dm"]
+
+[ext_resource type="Script" uid="uid://dml5tl5p0fjjr" path="res://ui/checkpoint_controls/checkpoint_controls.gd" id="1_s8d5k"]
+
+[node name="CheckpointControls" type="CanvasLayer" unique_id=1343744765]
+layer = 180
+script = ExtResource("1_s8d5k")
+
+[node name="Controls" type="HBoxContainer" parent="." unique_id=1784327666]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="Save" type="Button" parent="Controls" unique_id=105932057]
+layout_mode = 2
+text = "F5 保存叙事检查点"
+
+[node name="Load" type="Button" parent="Controls" unique_id=1745017047]
+layout_mode = 2
+disabled = true
+text = "F9 读取检查点"
+
+[node name="Feedback" type="Label" parent="." unique_id=1529244940]
+offset_left = 24.0
+offset_top = 70.0
+offset_right = 64.0
+offset_bottom = 93.0
+text = "恢复剧情、任务与已读记录；按剧情标记恢复克隆体与结算资格"

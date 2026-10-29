@@ -5,6 +5,11 @@ const Narrative = preload("res://scenes/arpg_narrative_controller/arpg_narrative
 const Encounter = preload("res://prefabs/boss_encounter/boss_encounter.gd")
 const Executor = preload("res://addons/laoli_dialogue_system/scenes/cutscene_player/cutscene_player.gd")
 
+const Snapshot = preload("res://scripts/core/story_snapshot.gd")
+const Store = preload("res://addons/laoli_dialogue_system/scripts/core/save/checkpoint_store.gd")
+const QuestCodec = preload("res://addons/laoli_dialogue_system/scripts/core/save/quest_snapshot.gd")
+const CheckpointUI = preload("res://ui/checkpoint_controls/checkpoint_controls.gd")
+
 const RESOLUTION : CutsceneDefinition = preload("res://data/story/boss_resolution.tres")
 # 运镜时间 (秒)
 const TRANSITION_TIME = 1.5 
@@ -18,6 +23,7 @@ const INTRO_LINES: Array[DialogueNode] = [
 ]
 
 @export var registered_quests: Array[Quest] = []
+@export var checkpoint_path: String = "user://story_checkpoint.json"
 
 @onready var player: Player = $RoomLobby/Player
 @onready var inventory_ui: MarginContainer = $UILayer/HUD/inventory
@@ -29,6 +35,9 @@ const INTRO_LINES: Array[DialogueNode] = [
 @onready var room_boss: DungeonRoom = $RoomBoss
 @onready var encounter: Encounter = $RoomBoss/BossEncounter
 @onready var narrative: Narrative = $ArpgNarrativeController
+@onready var checkpoint_ui: CheckpointUI = $CheckpointControls
+
+var checkpoint_store: Store
 
 var _transitioning : bool = false
 var _room : DungeonRoom
@@ -41,6 +50,7 @@ var _hud_visible: bool = true
 var _quest_log_visible: bool = true
 var _player_visual_pose: Transform3D
 var _transition_tween: Tween
+var _checkpoint_loading: bool = false
 
 func _ready() -> void:
 	if not DialogueManager.set_initiator(player):
@@ -63,14 +73,21 @@ func _ready() -> void:
 	narrative.finished.connect(_on_story_finished)
 	narrative.actor_cue.connect(_on_actor_cue)
 	encounter.defeated.connect(_on_boss_defeated)
+	checkpoint_store = Store.new(checkpoint_path)
+	checkpoint_ui.save_requested.connect(save_checkpoint)
 
 func _process(_delta: float) -> void:
+	checkpoint_ui.set_available(_can_save_checkpoint(), false)
 	if _resolution_pending and not _transitioning and _room == room_boss \
 		and not narrative.is_playing() and not DialogueManager.is_dialogue_active() and _player_ready():
 		_resolution_pending = false
 		_begin_story(RESOLUTION)
 
 func _unhandled_input(event) -> void:
+	if event.is_action_pressed("save_story_checkpoint"):
+		save_checkpoint()
+		get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed("debug_defeat_boss"):
 		if _can_debug_defeat():
 			encounter.debug_defeat()
@@ -113,6 +130,39 @@ func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> v
 	target_room.on_player_enter()
 	if target_room == room_boss:
 		encounter.check_entry()
+
+func save_checkpoint() -> bool:
+	if not _can_save_checkpoint():
+		checkpoint_ui.show_message("当前无法保存，请结束对话、演出或切房后重试")
+		return false
+	var snapshot: Dictionary = {
+		"schema_version": Snapshot.VERSION,
+		"checkpoint": Snapshot.phase(_intro_seen, _boss_defeated),
+		"story": {"intro_seen": _intro_seen, "boss_defeated": _boss_defeated, "resolution_seen": _resolution_seen},
+		"quests": QuestCodec.capture(QuestManager.active_quests, QuestManager.completed_quest_ids),
+		"history": DialogueManager.transcript.entries.duplicate(true)
+	}
+	var validator: Snapshot = Snapshot.new()
+	if not validator.validate(snapshot, GameState.quest_database):
+		checkpoint_ui.show_message("保存失败：" + validator.last_error)
+		return false
+	if not checkpoint_store.save_snapshot(snapshot):
+		checkpoint_ui.show_message("保存失败：" + checkpoint_store.last_error)
+		return false
+	checkpoint_ui.show_message("叙事检查点已保存 · " + _checkpoint_label(String(snapshot["checkpoint"])))
+	return true
+
+func _can_save_checkpoint() -> bool:
+	return not _checkpoint_loading and not _transitioning \
+		and is_instance_valid(narrative) and is_instance_valid(player) and not narrative.is_playing() \
+		and not DialogueManager.is_dialogue_active()
+
+func _checkpoint_label(phase: String) -> String:
+	match phase:
+		"before_intro": return "初遇之前"
+		"before_resolution": return "入场已提交 · 按 K 可结算击败"
+		"after_boss": return "击败克隆体之后"
+	return "未知节点"
 
 func _register_quests() -> void:
 	for quest: Quest in registered_quests:

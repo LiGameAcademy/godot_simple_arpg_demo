@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://r0lyfuvxjbca" path="res://scripts/core/actions/action_teleporter.gd" id="12_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://cnwxssm15un8k" path="res://scenes/arpg_narrative_controller/arpg_narrative_controller.tscn" id="18_0ld40"]
 [ext_resource type="Resource" uid="uid://n03lfs8kyc2n" path="res://data/story/boss_intro.tres" id="19_gqmmt"]
+[ext_resource type="PackedScene" uid="uid://jp2c7dp678dm" path="res://ui/checkpoint_controls/checkpoint_controls.tscn" id="20_gqmmt"]
 
 [sub_resource type="Resource" id="Resource_jbj1t"]
 script = ExtResource("4_a8y0u")
@@ -138,6 +139,8 @@ grow_vertical = 0
 
 [node name="ArpgNarrativeController" parent="." unique_id=1233999006 instance=ExtResource("18_0ld40")]
 definition = ExtResource("19_gqmmt")
+
+[node name="CheckpointControls" parent="." unique_id=1343744765 instance=ExtResource("20_gqmmt")]
 
 [editable path="RoomLobby/Teleporter"]
 [editable path="RoomDungeon/Teleporter"]
