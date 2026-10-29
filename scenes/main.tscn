@@ -17,6 +17,8 @@
 [ext_resource type="Script" uid="uid://dq8sympe46jux" path="res://addons/laoli_dialogue_system/scripts/core/conditions/condition_quest_status.gd" id="10_dp3eg"]
 [ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://addons/laoli_dialogue_system/scripts/core/actions/game_action.gd" id="11_0ld40"]
 [ext_resource type="Script" uid="uid://r0lyfuvxjbca" path="res://scripts/core/actions/action_teleporter.gd" id="12_gqmmt"]
+[ext_resource type="PackedScene" uid="uid://cnwxssm15un8k" path="res://scenes/arpg_narrative_controller/arpg_narrative_controller.tscn" id="18_0ld40"]
+[ext_resource type="Resource" uid="uid://n03lfs8kyc2n" path="res://data/story/boss_intro.tres" id="19_gqmmt"]
 
 [sub_resource type="Resource" id="Resource_jbj1t"]
 script = ExtResource("4_a8y0u")
@@ -134,5 +136,9 @@ grow_vertical = 0
 
 [node name="QuestLogUI" parent="." unique_id=333447169 instance=ExtResource("9_choun")]
 
+[node name="ArpgNarrativeController" parent="." unique_id=1233999006 instance=ExtResource("18_0ld40")]
+definition = ExtResource("19_gqmmt")
+
 [editable path="RoomLobby/Teleporter"]
 [editable path="RoomDungeon/Teleporter"]
+[editable path="RoomBoss"]

@@ -1,6 +1,8 @@
 extends Node3D
 
-const SUPPORTED_CLIPS : Array[StringName] = [&"establish", &"corrupt", &"return", &"title"]
+const SUPPORTED_CLIPS : Array[StringName] = [
+		&"establish", &"recognition", &"mirror", &"corrupt", &"return", &"title", &"release"
+	]
 const CutsceneOverlay : GDScript = preload("res://ui/cutscene_overlay/cutscene_overlay.gd")
 
 @export var config : BossPresentationConfig
@@ -28,6 +30,12 @@ func _process(delta: float) -> void:
 	_elapsed += delta
 	if _clip == &"corrupt":
 		corruption_changed.emit(clampf(_elapsed / config.durations[_clip], 0.0, 1.0))
+	if _clip == &"mirror" and _elapsed >= 0.25 and not _mirrored:
+		_mirrored = true
+		actor_cue.emit(&"mirror_clone")
+	if _clip == &"mirror" and _elapsed >= 1.3:
+		actor_cue.emit(&"break_sync")
+		_clip = &"mirror_hold"
 
 func _exit_tree() -> void:
 	cleanup()
@@ -70,6 +78,9 @@ func play_clip(run_id: int, index: int, clip: StringName) -> bool:
 			destination = _room_camera
 		&"title":
 			cutscene_overlay.show_title()
+		&"release":
+			cutscene_overlay.show_title("回响归于寂静", "这一次，由你走出封印！")
+			actor_cue.emit(&"seal_release")
 	_tween = create_tween()
 	_tween.tween_property(cinematic_camera, "global_transform", destination, duration)\
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
@@ -101,21 +112,3 @@ func _on_clip_finished(run_id: int, index: int) -> void:
 	if _clip == &"corrupt":
 		corruption_changed.emit(1.0)
 	clip_finished.emit(run_id, index)
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		

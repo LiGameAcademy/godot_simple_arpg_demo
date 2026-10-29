@@ -10,8 +10,7 @@ metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
 
 [sub_resource type="Resource" id="Resource_d7k63"]
 script = ExtResource("2_v3mhs")
-kind = 2
-duration_seconds = 0.5
+clip_id = &"recognition"
 metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
 
 [sub_resource type="Resource" id="Resource_vds8s"]
@@ -22,7 +21,7 @@ metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
 
 [sub_resource type="Resource" id="Resource_v3mhs"]
 script = ExtResource("2_v3mhs")
-clip_id = &"corrupt"
+clip_id = &"mirror"
 metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
 
 [sub_resource type="Resource" id="Resource_wuyk8"]
@@ -33,16 +32,21 @@ metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
 
 [sub_resource type="Resource" id="Resource_7kyy2"]
 script = ExtResource("2_v3mhs")
-kind = 1
-dialogue_id = "intro_challenge"
+clip_id = &"corrupt"
 metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
 
 [sub_resource type="Resource" id="Resource_sgi7b"]
 script = ExtResource("2_v3mhs")
-clip_id = &"return"
+kind = 1
+dialogue_id = "intro_challenge"
 metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
 
 [sub_resource type="Resource" id="Resource_v68t0"]
+script = ExtResource("2_v3mhs")
+clip_id = &"return"
+metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
+
+[sub_resource type="Resource" id="Resource_l8oao"]
 script = ExtResource("2_v3mhs")
 clip_id = &"title"
 metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
@@ -50,5 +54,5 @@ metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
 [resource]
 script = ExtResource("1_d7k63")
 cutscene_id = &"boss_intro"
-steps = Array[ExtResource("2_v3mhs")]([SubResource("Resource_4gjpi"), SubResource("Resource_d7k63"), SubResource("Resource_vds8s"), SubResource("Resource_v3mhs"), SubResource("Resource_wuyk8"), SubResource("Resource_7kyy2"), SubResource("Resource_sgi7b"), SubResource("Resource_v68t0")])
+steps = Array[ExtResource("2_v3mhs")]([SubResource("Resource_4gjpi"), SubResource("Resource_d7k63"), SubResource("Resource_vds8s"), SubResource("Resource_v3mhs"), SubResource("Resource_wuyk8"), SubResource("Resource_7kyy2"), SubResource("Resource_sgi7b"), SubResource("Resource_v68t0"), SubResource("Resource_l8oao")])
 metadata/_custom_type_script = "uid://cno3hvlc06u4k"

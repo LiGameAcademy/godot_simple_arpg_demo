@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="CutsceneDefinition" format=3 uid="uid://powdgkbijk25"]
+
+[ext_resource type="Script" uid="uid://cno3hvlc06u4k" path="res://addons/laoli_dialogue_system/scripts/core/cutscene/cutscene_definition.gd" id="1_y84tw"]
+[ext_resource type="Script" uid="uid://bxnsqy5v8wsdb" path="res://addons/laoli_dialogue_system/scripts/core/cutscene/cutscene_step.gd" id="2_tgpg5"]
+
+[sub_resource type="Resource" id="Resource_n8feq"]
+script = ExtResource("2_tgpg5")
+clip_id = &"release"
+metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
+
+[sub_resource type="Resource" id="Resource_8lvxu"]
+script = ExtResource("2_tgpg5")
+kind = 2
+duration_seconds = 0.25
+metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
+
+[sub_resource type="Resource" id="Resource_y84tw"]
+script = ExtResource("2_tgpg5")
+kind = 1
+dialogue_id = "clone_last_words"
+metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
+
+[sub_resource type="Resource" id="Resource_tgpg5"]
+script = ExtResource("2_tgpg5")
+clip_id = &"return"
+metadata/_custom_type_script = "uid://bxnsqy5v8wsdb"
+
+[resource]
+script = ExtResource("1_y84tw")
+cutscene_id = &"boss_resolution"
+steps = Array[ExtResource("2_tgpg5")]([SubResource("Resource_n8feq"), SubResource("Resource_8lvxu"), SubResource("Resource_y84tw"), SubResource("Resource_tgpg5")])
+metadata/_custom_type_script = "uid://cno3hvlc06u4k"

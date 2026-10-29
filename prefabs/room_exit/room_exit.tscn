@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cpbtubc646maq"]
+
+[ext_resource type="Script" uid="uid://bonpyuqm4ws51" path="res://prefabs/room_exit/room_exit.gd" id="1_is1wa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wvhbo"]
+size = Vector3(3, 4, 2)
+
+[node name="RoomExit" type="Area3D" unique_id=1920666881]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_is1wa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=860095758]
+shape = SubResource("BoxShape3D_wvhbo")

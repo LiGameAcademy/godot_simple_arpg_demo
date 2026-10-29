@@ -4,10 +4,12 @@
 [ext_resource type="MeshLibrary" uid="uid://n4o6kmw6ap81" path="res://assets/grid_libraries/dungeon_tileset.tres" id="1_xsnal"]
 [ext_resource type="PackedScene" uid="uid://cn7gh6vlj8af5" path="res://assets/scenes/door.tscn" id="2_iq1h0"]
 [ext_resource type="PackedScene" uid="uid://ddbuum1ld4kny" path="res://prefabs/boss_encounter/boss_encounter.tscn" id="4_krl05"]
+[ext_resource type="PackedScene" uid="uid://cpbtubc646maq" path="res://prefabs/room_exit/room_exit.tscn" id="5_alhx7"]
 
-[node name="RoomBoss" type="Node3D" unique_id=1327989586 node_paths=PackedStringArray("camera_marker")]
+[node name="RoomBoss" type="Node3D" unique_id=1327989586 node_paths=PackedStringArray("camera_marker", "exit_trigger")]
 script = ExtResource("1_qxqvb")
 camera_marker = NodePath("CamPos")
+exit_trigger = NodePath("RoomExit")
 
 [node name="GridMapFloor" type="GridMap" parent="." unique_id=1389355578]
 mesh_library = ExtResource("1_xsnal")
@@ -42,3 +44,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 18, 15)
 
 [node name="BossEncounter" parent="." unique_id=1467591076 instance=ExtResource("4_krl05")]
+
+[node name="RoomExit" parent="." unique_id=1920666881 instance=ExtResource("5_alhx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 2, 18.5)

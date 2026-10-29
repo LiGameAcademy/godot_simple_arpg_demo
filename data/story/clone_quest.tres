@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Quest" format=3 uid="uid://cvhncwwlgj1v2"]
+
+[ext_resource type="Script" uid="uid://c3ecw04xqk861" path="res://addons/laoli_dialogue_system/scripts/core/quest/quest_objective.gd" id="1_pj0vp"]
+[ext_resource type="Script" uid="uid://idhfdfg4eg6v" path="res://addons/laoli_dialogue_system/scripts/core/quest/objective_kill.gd" id="2_abu8f"]
+[ext_resource type="Script" uid="uid://bw4a3qea7fktc" path="res://addons/laoli_dialogue_system/scripts/core/quest/quest.gd" id="2_p70ka"]
+
+[sub_resource type="Resource" id="Resource_pj0vp"]
+script = ExtResource("2_abu8f")
+target_enemy_id = "异化回响"
+required_amount = 1
+description = "击败异化回响"
+metadata/_custom_type_script = "uid://idhfdfg4eg6v"
+
+[resource]
+script = ExtResource("2_p70ka")
+id = "defeat_clone"
+title = "另一个你"
+description = "击败封印制造的异化回响。"
+objectives = Array[ExtResource("1_pj0vp")]([SubResource("Resource_pj0vp")])
+metadata/_custom_type_script = "uid://bw4a3qea7fktc"

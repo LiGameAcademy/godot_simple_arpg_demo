@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://ddbuum1ld4kny"]
 
 [ext_resource type="PackedScene" uid="uid://ddv18pg82q1pj" path="res://prefabs/boss_encounter/clone_sanctum.tscn" id="1_a34pe"]
+[ext_resource type="Script" uid="uid://d2jdwu74h3h5t" path="res://prefabs/boss_encounter/boss_encounter.gd" id="1_q76nx"]
 [ext_resource type="PackedScene" uid="uid://o2kfco03ttrw" path="res://prefabs/boss_actor/boss_actor.tscn" id="2_q76nx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ifow5"]
 size = Vector3(20, 5, 14)
 
 [node name="BossEncounter" type="Node3D" unique_id=1467591076]
+script = ExtResource("1_q76nx")
 
 [node name="CloneSanctum" parent="." unique_id=714020035 instance=ExtResource("1_a34pe")]
 

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DialogueNode" format=3 uid="uid://chdo7qlyfweao"]
+
+[ext_resource type="Script" uid="uid://cmiev5h2tq6x7" path="res://addons/laoli_dialogue_system/scripts/core/actions/game_action.gd" id="1_hiepr"]
+[ext_resource type="Script" uid="uid://bviunwm2xjgyg" path="res://addons/laoli_dialogue_system/scripts/core/dialogue/dialogue_option.gd" id="2_ai3hp"]
+[ext_resource type="Script" uid="uid://bt4xn7ir78qr3" path="res://addons/laoli_dialogue_system/scripts/core/dialogue/dialogue_node.gd" id="3_647r5"]
+
+[resource]
+script = ExtResource("3_647r5")
+node_id = "clone_last_words"
+character_key = "异化回响"
+text_key = "原来……你真的能走出去。那就带着我的那一份，一起离开这里。"
+next_node_id = "END"
+metadata/_custom_type_script = "uid://bt4xn7ir78qr3"
