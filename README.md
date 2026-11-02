@@ -4,7 +4,7 @@
 
 A low-poly Godot prototype combining room exploration, NPC dialogue and quests, resource-driven cutscenes, a gameplay ability system, attributes/vitals, talents, equipment, and instance-based inventory.
 
-The feature integration branch is under validation. The stable pre-integration narrative build is preserved at `archive/2026-11-02/before-feature-integration`; recorded-course tags remain unchanged.
+The recorded-course narrative contracts remain covered by regression checks. The pre-integration narrative build is preserved at `archive/2026-11-02/before-feature-integration`; recorded-course tags remain unchanged.
 
 ## Requirements and setup
 
@@ -58,4 +58,4 @@ The archived inventory trial referenced an unavailable ability-system commit. Th
 
 The integration checks cover narrative outcomes/checkpoints, real combat, skill locking, consumables, equipment and inventory persistence. See the repository tests and the linked dependency documentation. Gameplay tuning and final presentation remain prototype work.
 
-Current validation status: all four Windows gameplay suites pass, but Godot 4.7.2 still reports `Plugin is not attached to debugger` when the integrated editor exits. The full CI gate remains strict; this candidate must not be merged or used to delete historical branches until that diagnostic is resolved or its acceptance is explicitly decided. See [integration status](docs/integration_status.md).
+Godot 4.7.2 validation covers import, the recorded narrative flow, inventory, real combat, talents and spells. The debug window starts hidden in its scene so editor previews do not open it before runtime initialization. See [integration notes](docs/integration_status.md) for dependency versions and the precisely documented pre-existing GAS script-retention diagnostic.

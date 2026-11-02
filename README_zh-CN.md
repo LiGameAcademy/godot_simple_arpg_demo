@@ -2,7 +2,7 @@
 
 [English](README.md) · [叙事插件](https://github.com/LiGameAcademy/laoli_dialogue_system)
 
-Low-Poly 原型：房间探索、NPC 对话与任务、剧情演出、技能、属性与生命/法力、天赋、装备和实例化背包。当前功能整合候选正在验证；整合前稳定版保留在 `archive/2026-11-02/before-feature-integration`。
+Low-Poly 原型：房间探索、NPC 对话与任务、剧情演出、技能、属性与生命/法力、天赋、装备和实例化背包。录制课程的剧情契约继续由回归检查覆盖；整合前版本保留在 `archive/2026-11-02/before-feature-integration`。
 
 ## 运行
 
@@ -28,4 +28,4 @@ master 是受保护稳定分支；临时整合分支通过 PR 和验证后清理
 
 原背包试验引用了远端不可取得的技能系统提交，正式整合必须固定到已发布且验证过的依赖。功能验收覆盖演出、检查点、真实战斗、输入锁、消耗品、装备和存读档；数值与最终表现仍是原型阶段。
 
-当前验证状态：Windows 下四组游戏回归均已通过，但整合工程退出 Godot 4.7.2 编辑器时仍报告 `Plugin is not attached to debugger`。完整 CI 保持严格检查；该问题修复或明确决定接受此限制前，不合并候选版本，也不删除历史功能分支。详见[整合状态](docs/integration_status.md)。
+Godot 4.7.2 验证覆盖导入、课程剧情、背包、真实战斗、天赋和法术。调试窗口在场景中默认隐藏，避免编辑器预览在运行初始化前打开窗口；依赖版本和精确记录的技能插件既有脚本资源保留诊断见[整合说明](docs/integration_status.md)。
