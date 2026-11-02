@@ -1,4 +1,5 @@
 extends Node
+## Coordinates the selected sequence with presentation and dialogue services.
 
 const Executor = preload("res://addons/laoli_dialogue_system/scenes/cutscene_player/cutscene_player.gd")
 const Presentation = preload("res://ui/cinematic_presentation/cinematic_presentation.gd")
@@ -60,14 +61,14 @@ func start(camera: Camera3D, fouce: Vector3, room_view: Transform3D,\
 		if not is_instance_valid(target) or not target.is_inside_tree() or target.is_queued_for_deletion():
 			last_error = "演出对象不可用"
 			return false
-	for step: CutsceneStep in definition.steps:
+	for step: CutsceneStep in selected.steps:
 		if step.kind == CutsceneStep.StepKind.SHOW_DIALOGUE and not _valid_dialogue(step.dialogue_id):
 			last_error = "Missing dialogue: " + step.dialogue_id
 			return false
 		if step.kind == CutsceneStep.StepKind.PLAY_CLIP and not presentation.has_clip(step.clip_id):
 			last_error = "Unknown clip: " + String(step.clip_id)
 			return false
-	_run_id = executor.play(definition)
+	_run_id = executor.play(selected)
 	if _run_id < 0:
 		last_error = executor.last_error
 		return false

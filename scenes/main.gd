@@ -257,13 +257,13 @@ func _commit_intro() -> bool:
 		return true
 	var status: int = QuestManager.get_quest_status(CLONE_QUEST.id)
 	if status == QuestManager.QuestStatus.UNAVAILABLE:
-		narrative.presentation.overlay.show_combat_status("演出任务未注册，请检查配置。")
+		narrative.presentation.cutscene_overlay.show_combat_status("演出任务未注册，请检查配置。")
 		return false
 	if status == QuestManager.QuestStatus.CAN_ACCEPT:
 		QuestManager.accept_quest(CLONE_QUEST)
 	var final_status: int = QuestManager.get_quest_status(CLONE_QUEST.id)
 	if final_status not in [QuestManager.QuestStatus.IN_PROGRESS, QuestManager.QuestStatus.READY_TO_TURN_IN, QuestManager.QuestStatus.FINISHED]:
-		narrative.presentation.overlay.show_combat_status("演出任务接取失败，请检查任务状态。")
+		narrative.presentation.cutscene_overlay.show_combat_status("演出任务接取失败，请检查任务状态。")
 		return false
 	_intro_seen = true
 	return true

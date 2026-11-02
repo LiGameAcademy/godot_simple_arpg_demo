@@ -77,7 +77,7 @@
         {
             "mimeType" : "image/png",
             "name" : "dungeon_texture",
-            "uri" : "dungeon_texture.png"
+            "uri" : "../../textures/texture.png"
         }
     ],
     "accessors" : [

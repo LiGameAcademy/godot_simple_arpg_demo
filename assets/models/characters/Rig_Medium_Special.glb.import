@@ -16,6 +16,8 @@ dest_files=["res://.godot/imported/Rig_Medium_Special.glb-c634e05499356cebca72a9
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
+mesh_library/use_node_names_as_mesh_names=false
+array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
@@ -42,7 +44,7 @@ _subresources={
 "Skeletons_Awaken_Floor": {
 "save_to_file/enabled": true,
 "save_to_file/fallback_path": "res://assets/animations/Skeletons_Awaken_Floor.res",
-"save_to_file/keep_custom_tracks": "",
+"save_to_file/keep_custom_tracks": true,
 "save_to_file/path": "uid://0t1t13ad7oc5",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
@@ -2098,7 +2100,7 @@ _subresources={
 "Skeletons_Death": {
 "save_to_file/enabled": true,
 "save_to_file/fallback_path": "res://assets/animations/Skeletons_Death.res",
-"save_to_file/keep_custom_tracks": "",
+"save_to_file/keep_custom_tracks": true,
 "save_to_file/path": "uid://c321f6o352lpt",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
@@ -4154,7 +4156,7 @@ _subresources={
 "Skeletons_Death_Pose": {
 "save_to_file/enabled": true,
 "save_to_file/fallback_path": "res://assets/animations/Skeletons_Death_Pose.res",
-"save_to_file/keep_custom_tracks": "",
+"save_to_file/keep_custom_tracks": true,
 "save_to_file/path": "uid://c5px3xubqw5vs",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
@@ -6210,7 +6212,7 @@ _subresources={
 "Skeletons_Death_Resurrect": {
 "save_to_file/enabled": true,
 "save_to_file/fallback_path": "res://assets/animations/Skeletons_Death_Resurrect.res",
-"save_to_file/keep_custom_tracks": "",
+"save_to_file/keep_custom_tracks": true,
 "save_to_file/path": "uid://0m2p24c586id",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
@@ -8266,7 +8268,7 @@ _subresources={
 "Skeletons_Idle": {
 "save_to_file/enabled": true,
 "save_to_file/fallback_path": "res://assets/animations/Skeletons_Idle.res",
-"save_to_file/keep_custom_tracks": "",
+"save_to_file/keep_custom_tracks": true,
 "save_to_file/path": "uid://c3wbrswbjovf8",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
@@ -10323,3 +10325,4 @@ _subresources={
 }
 gltf/naming_version=2
 gltf/embedded_image_handling=1
+gltf/texture_map_mode=0
