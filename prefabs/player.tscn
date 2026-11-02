@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://dgle1b2vb0agh"]
+[gd_scene load_steps=42 format=3 uid="uid://vf0i84fp8dp8"]
 
 [ext_resource type="PackedScene" uid="uid://bi2kodwwmc3c3" path="res://assets/scenes/barbarian.tscn" id="1_fjjwp"]
 [ext_resource type="Script" uid="uid://cwaron85itarw" path="res://prefabs/player.gd" id="1_glu7e"]
+[ext_resource type="Resource" uid="uid://cg4anfcgfpik4" path="res://data/player_data/barbarian.tres" id="2_ay5dx"]
 [ext_resource type="Animation" uid="uid://cm5n4q215plkl" path="res://assets/animations/Death_A.res" id="3_0rjj5"]
 [ext_resource type="Animation" uid="uid://dawfoiahm3glv" path="res://assets/animations/Death_A_Pose.res" id="4_tqk3o"]
 [ext_resource type="Animation" uid="uid://cmfdo0yledao0" path="res://assets/animations/Death_B.res" id="5_ciq6y"]
@@ -11,7 +12,7 @@
 [ext_resource type="Animation" uid="uid://cvywnwnhqo33m" path="res://assets/animations/Idle_A.res" id="9_wxp3c"]
 [ext_resource type="Animation" uid="uid://8ri1xej4kb14" path="res://assets/animations/Idle_B.res" id="10_by1qc"]
 [ext_resource type="Animation" uid="uid://3uk0awwm5qwh" path="res://assets/animations/Interact.res" id="11_a45g5"]
-[ext_resource type="Animation" uid="uid://botybfionhses" path="res://assets/animations/Melee_1H_Attack_Chop.res" id="12_t3ho8"]
+[ext_resource type="Animation" uid="uid://b15oriwj2usy2" path="res://assets/animations/Melee_1H_Attack_Chop.res" id="12_t3ho8"]
 [ext_resource type="Animation" uid="uid://cjjj4qcnpy03r" path="res://assets/animations/PickUp.res" id="13_45f8r"]
 [ext_resource type="Animation" uid="uid://uf1ma5a53w8w" path="res://assets/animations/Running_A.res" id="14_wv5fy"]
 [ext_resource type="Animation" uid="uid://ci682lhjnmxjr" path="res://assets/animations/Running_B.res" id="15_b1coh"]
@@ -23,23 +24,21 @@
 [ext_resource type="Animation" uid="uid://bu7sgeqk2g5et" path="res://assets/animations/Walking_A.res" id="21_n30mv"]
 [ext_resource type="Animation" uid="uid://em4l3w6o44i5" path="res://assets/animations/Walking_B.res" id="22_lnex7"]
 [ext_resource type="Animation" uid="uid://b62s8m87aejpa" path="res://assets/animations/Walking_C.res" id="23_ko3tw"]
-[ext_resource type="Script" uid="uid://cwn5lghk3dx3o" path="res://prefabs/sword_hitbox.gd" id="24_tuhnq"]
-[ext_resource type="Script" uid="uid://cpxaj0hrrf8q0" path="res://addons/simple_inventory/src/core/C_Inventory.gd" id="25_g56qp"]
+[ext_resource type="Script" path="res://prefabs/sword_hitbox.gd" id="24_tuhnq"]
+[ext_resource type="Animation" uid="uid://rqarug4jh6mk" path="res://assets/animations/Melee_1H_Attack_Jump_Chop.res" id="25_8jxos"]
+[ext_resource type="Script" path="res://addons/simple_inventory/scripts/components/inventory_component.gd" id="25_g56qp"]
+[ext_resource type="Script" path="res://addons/simple_inventory/scripts/components/equipment_component.gd" id="pilot_equipment"]
+[ext_resource type="PackedScene" path="res://prefabs/player_equipment/player_equipment.tscn" id="pilot_effects"]
+[ext_resource type="PackedScene" path="res://prefabs/player_inventory/player_inventory.tscn" id="pilot_inventory"]
+[ext_resource type="Resource" path="res://addons/simple_inventory/assets/data/equip_slots/weapon_equip_slot.tres" id="pilot_weapon"]
+[ext_resource type="Script" uid="uid://cot8b4lx60hjt" path="res://addons/godot_gameplay_abilities/scripts/components/gameplay_vital_attribute_component.gd" id="27_ay5dx"]
+[ext_resource type="Script" uid="uid://deeb5kb27c70s" path="res://addons/godot_gameplay_abilities/scripts/components/gameplay_ability_component.gd" id="28_ability"]
+[ext_resource type="Script" uid="uid://bi5jbjke61sbe" path="res://addons/godot_gameplay_abilities/scripts/components/visual_adapter/visual_adapter_animation_tree.gd" id="29_sh7kr"]
+[ext_resource type="Script" uid="uid://bfscgs86ck8ao" path="res://addons/godot_gameplay_abilities/scripts/components/gameplay_status_component.gd" id="30_2c4y0"]
+[ext_resource type="Script" uid="uid://dlrdxkyo5lkx7" path="res://addons/godot_gameplay_abilities/scripts/components/gameplay_modifier_component.gd" id="31_modifier"]
 
 [sub_resource type="Animation" id="Animation_8no16"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../SwordHitbox:monitoring")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4dotd"]
 _data = {
@@ -58,6 +57,7 @@ _data = {
 &"Idle_B": ExtResource("10_by1qc"),
 &"Interact": ExtResource("11_a45g5"),
 &"Melee_1H_Attack_Chop": ExtResource("12_t3ho8"),
+&"Melee_1H_Attack_Jump_Chop": ExtResource("25_8jxos"),
 &"PickUp": ExtResource("13_45f8r"),
 &"Running_A": ExtResource("14_wv5fy"),
 &"Running_B": ExtResource("15_b1coh"),
@@ -77,75 +77,165 @@ size = Vector3(1.5, 1.5, 1.5)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_glu7e"]
 height = 2.3457031
 
-[node name="Player" type="CharacterBody3D" unique_id=1112600480 groups=["Player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("ability_component", "_visual_adapter", "_attachment_point_mapping") groups=["Entities", "Player"]]
 collision_layer = 2
 script = ExtResource("1_glu7e")
+player_data = ExtResource("2_ay5dx")
+ability_component = NodePath("GameplayAbilityComponent")
+_visual_adapter = NodePath("AnimationTreeVisualAdapter")
+_attachment_point_mapping = {
+&"chest": NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/ChestAttachment"),
+&"hand_l": NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/HandSlotAttachmentL"),
+&"hand_r": NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/HandSlotAttachmentR"),
+&"head": NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/HeadAttachment"),
+&"root": NodePath("Visuals/Barbarian/Rig_Medium/Skeleton3D/RootAttachment")
+}
 
-[node name="Visuals" type="Node3D" parent="." unique_id=1192135601]
+[node name="Visuals" type="Node3D" parent="."]
 
-[node name="Barbarian" parent="Visuals" unique_id=659901322 instance=ExtResource("1_fjjwp")]
+[node name="Barbarian" parent="Visuals" instance=ExtResource("1_fjjwp")]
 
-[node name="Skeleton3D" parent="Visuals/Barbarian/Rig_Medium" parent_id_path=PackedInt32Array(659901322, 910378084) index="0" unique_id=2030411160]
-bones/1/position = Vector3(-9.918816e-10, 0.35584915, 0.004160253)
-bones/2/rotation = Quaternion(-0.009787831, 0.00020872332, 0.0047805705, 0.99994075)
-bones/3/rotation = Quaternion(0.0856977, 0.00075312785, -0.0016297364, 0.9963196)
-bones/4/rotation = Quaternion(-0.578017, -0.13537398, -0.67675364, 0.43540192)
-bones/5/rotation = Quaternion(3.7504392e-08, -4.6372502e-08, -0.4558502, 0.8900566)
-bones/7/rotation = Quaternion(-0.25871837, -0.26415864, -0.07595171, 0.9260218)
-bones/9/rotation = Quaternion(-0.03270364, -0.030274404, 0.032669425, 0.99847215)
-bones/10/rotation = Quaternion(-0.6239135, 0.045550533, 0.61748964, 0.4768268)
-bones/11/rotation = Quaternion(4.803672e-08, 4.355158e-08, 0.50977015, 0.86031073)
-bones/13/rotation = Quaternion(-0.19064826, 0.25129864, -0.10767496, 0.94281936)
-bones/15/position = Vector3(0.17094508, 0.110283025, -0.002190457)
-bones/15/rotation = Quaternion(0.9947506, 0.070429064, 0.059125107, 0.04489136)
-bones/16/rotation = Quaternion(0.4047022, 5.5093007e-08, -2.7767615e-07, 0.91444856)
-bones/17/rotation = Quaternion(-0.6654525, -0.15314557, 0.07165799, 0.72703826)
-bones/18/rotation = Quaternion(-1.0843215e-05, 0.91954225, -0.39299121, 2.5260347e-06)
-bones/19/position = Vector3(-0.17094508, 0.11372506, 0.0021868765)
-bones/19/rotation = Quaternion(0.96281666, -0.03101094, 0.018099103, 0.26775894)
-bones/20/rotation = Quaternion(0.60436755, -5.20306e-08, 4.2124358e-07, 0.7967056)
-bones/21/rotation = Quaternion(-0.6144693, 0.084199876, -0.031275604, 0.78381103)
-bones/22/rotation = Quaternion(3.4321401e-06, 0.9200829, -0.39172372, -2.02798e-07)
+[node name="Rig_Medium" parent="Visuals/Barbarian" index="0"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="BoneAttachment3D" parent="Visuals/Barbarian/Rig_Medium/Skeleton3D" index="7" unique_id=2147406827]
-transform = Transform3D(-0.23499264, -0.09442404, -0.96739966, -0.97060126, 0.076093376, 0.22834408, 0.052051205, 0.9926193, -0.10952946, -0.5096359, 0.57296956, 0.024546826)
+[node name="Skeleton3D" parent="Visuals/Barbarian/Rig_Medium" index="0"]
+bones/1/position = Vector3(-1.6329066e-09, 0.33727258, 0.0068489076)
+bones/1/scale = Vector3(0.99999994, 1, 0.99999994)
+bones/2/scale = Vector3(1.0000001, 1, 1.0000001)
+bones/3/rotation = Quaternion(0.123540685, 6.8657227e-09, 0.010693407, 0.9922819)
+bones/3/scale = Vector3(1, 0.9999999, 1)
+bones/4/position = Vector3(0.21200737, 0.13413215, 8.402462e-08)
+bones/4/rotation = Quaternion(-0.60797983, -0.14537412, -0.6383652, 0.44912905)
+bones/4/scale = Vector3(0.9999991, 0.99999905, 0.99999964)
+bones/5/rotation = Quaternion(2.2685436e-08, -2.5746107e-08, -0.5202195, 0.85403264)
+bones/5/scale = Vector3(1.0000004, 0.9999999, 1)
+bones/6/rotation = Quaternion(2.6357031e-11, 6.232488e-10, 0.026658094, 0.99964464)
+bones/6/scale = Vector3(1.0000001, 1, 1)
+bones/7/rotation = Quaternion(-0.2477658, -0.2696635, -0.06822652, 0.9280296)
+bones/7/scale = Vector3(0.99999994, 0.9999999, 1.0000002)
+bones/8/position = Vector3(5.138494e-10, 0.096125126, -0.057500064)
+bones/8/rotation = Quaternion(-0.025259208, -0.0006135409, -0.5007622, 0.86521614)
+bones/8/scale = Vector3(1.0000001, 1, 1)
+bones/9/rotation = Quaternion(-0.074701905, -0.0376509, 0.040577546, 0.99566835)
+bones/9/scale = Vector3(1.0000001, 1, 0.99999994)
+bones/10/position = Vector3(-0.21200737, 0.13413215, 7.658628e-08)
+bones/10/rotation = Quaternion(-0.6642726, 0.062357835, 0.57778, 0.47013173)
+bones/10/scale = Vector3(0.99999887, 0.99999875, 0.99999964)
+bones/11/rotation = Quaternion(-1.555509e-08, 5.079194e-08, 0.52405524, 0.85168433)
+bones/11/scale = Vector3(1.0000005, 0.9999998, 1.0000002)
+bones/12/rotation = Quaternion(-3.002606e-08, -9.604189e-09, -0.026658088, 0.99964464)
+bones/12/scale = Vector3(1.0000001, 1.0000001, 1)
+bones/13/rotation = Quaternion(-0.1886011, 0.24388646, -0.13931254, 0.941032)
+bones/13/scale = Vector3(0.99999964, 1, 1.0000005)
+bones/14/position = Vector3(-5.138423e-10, 0.096125096, -0.057500005)
+bones/14/rotation = Quaternion(-6.2431266e-10, -3.9854977e-09, 0.7071068, 0.7071067)
+bones/14/scale = Vector3(1, 1.0000001, 1)
+bones/15/rotation = Quaternion(0.9836658, 0.08909106, 0.08156338, 0.13346092)
+bones/15/scale = Vector3(0.99999994, 0.9999997, 1.0000008)
+bones/16/rotation = Quaternion(0.54921, 5.6858582e-08, -3.700812e-07, 0.83568436)
+bones/16/scale = Vector3(1.0000004, 0.9999999, 0.99999994)
+bones/17/rotation = Quaternion(-0.7116909, -0.18651754, 0.110435806, 0.6682149)
+bones/17/scale = Vector3(0.99999964, 1.0000006, 0.99999946)
+bones/18/rotation = Quaternion(-1.3994728e-05, 0.9201451, -0.39157754, 3.206474e-06)
+bones/18/scale = Vector3(0.99999994, 0.99999774, 1.0000024)
+bones/19/rotation = Quaternion(0.984887, -0.037697792, 0.028513454, 0.16662417)
+bones/19/scale = Vector3(0.9999999, 0.99999976, 1.0000008)
+bones/20/rotation = Quaternion(0.5830163, -5.511928e-08, 4.0835437e-07, 0.81246054)
+bones/20/scale = Vector3(0.99999994, 0.99999976, 0.99999994)
+bones/21/rotation = Quaternion(-0.735192, 0.10782858, -0.0398865, 0.6680381)
+bones/21/scale = Vector3(0.99999976, 1.0000006, 0.9999992)
+bones/22/rotation = Quaternion(4.418092e-06, 0.9200457, -0.39181104, -2.7986763e-07)
+bones/22/scale = Vector3(1.0000002, 0.9999979, 1.0000024)
 
-[node name="AnimationPlayer" parent="Visuals/Barbarian" index="1" unique_id=933484524]
-libraries/ = SubResource("AnimationLibrary_4dotd")
-libraries/hero = SubResource("AnimationLibrary_dhpvg")
+[node name="HandSlotAttachmentR" parent="Visuals/Barbarian/Rig_Medium/Skeleton3D" index="7"]
+transform = Transform3D(-0.27507776, -0.09423254, -0.9567928, -0.9612634, 0.008953267, 0.27548265, -0.017393379, 0.995509, -0.09304511, -0.5230904, 0.56457937, 0.027944898)
 
-[node name="InteractionArea" type="Area3D" parent="Visuals" unique_id=1134444710]
+[node name="axe_1handed2" parent="Visuals/Barbarian/Rig_Medium/Skeleton3D/HandSlotAttachmentR" index="0"]
+visible = false
+
+[node name="HandSlotAttachmentL" parent="Visuals/Barbarian/Rig_Medium/Skeleton3D" index="8"]
+transform = Transform3D(-0.06729627, -0.070647255, 0.9952285, 0.99321723, -0.09953105, 0.060095545, 0.09481109, 0.9925228, 0.07686588, 0.51087207, 0.59581757, 0.06765054)
+
+[node name="ChestAttachment" parent="Visuals/Barbarian/Rig_Medium/Skeleton3D" index="9"]
+transform = Transform3D(0.9962749, -9.313226e-09, 0.08623533, 0.021221755, 0.96924657, -0.24517438, -0.08358331, 0.2460911, 0.96563613, -2.9196552e-09, 0.90423805, 0.0068489076)
+
+[node name="HeadAttachment" parent="Visuals/Barbarian/Rig_Medium/Skeleton3D" index="11"]
+transform = Transform3D(0.99611235, -0.08798991, 0.0042921975, 0.08796673, 0.9908623, -0.10224241, 0.004743319, 0.10222244, 0.99475026, -5.4230185e-09, 1.1647682, 0.07299735)
+
+[node name="AnimationPlayer" parent="Visuals/Barbarian" index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_4dotd"),
+&"hero": SubResource("AnimationLibrary_dhpvg")
+}
+speed_scale = 2.0
+
+[node name="AnimationTree" parent="Visuals/Barbarian" index="2"]
+active = true
+parameters/StateMachine/movement/blend_position = 0.0
+
+[node name="InteractionArea" type="Area3D" parent="Visuals"]
 collision_layer = 0
 collision_mask = 128
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Visuals/InteractionArea" unique_id=784776660]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7578491, 1.2650251)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Visuals/InteractionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7578491, -0.73497486)
 shape = SubResource("BoxShape3D_glu7e")
 debug_color = Color(0.9126743, 0.24877563, 0.40559328, 0.41960785)
 
-[node name="SwordHitbox" type="Area3D" parent="Visuals" unique_id=540403071]
+[node name="SwordHitbox" type="Area3D" parent="Visuals"]
+visible = false
 collision_layer = 0
 collision_mask = 8
 monitoring = false
 script = ExtResource("24_tuhnq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Visuals/SwordHitbox" unique_id=1860262388]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7578491, 1.2650251)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Visuals/SwordHitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7578491, -0.73497486)
 shape = SubResource("BoxShape3D_glu7e")
 debug_color = Color(0.9126743, 0.24877563, 0.40559328, 0.41960785)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1825161914]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1924508, 0)
 shape = SubResource("CapsuleShape3D_glu7e")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1791013558]
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 light_color = Color(1, 0.99215686, 0.8156863, 1)
 light_energy = 1.2
 omni_range = 4.0
 
-[node name="InventoryComponent" type="Node" parent="." unique_id=629035274]
+[node name="InventoryComponent" type="Node" parent="."]
 script = ExtResource("25_g56qp")
 metadata/_custom_type_script = "uid://cpxaj0hrrf8q0"
+
+[node name="PlayerEquipment" parent="." instance=ExtResource("pilot_effects")]
+
+[node name="PlayerInventory" parent="." instance=ExtResource("pilot_inventory")]
+
+[node name="EquipmentComponent" type="Node" parent="."]
+script = ExtResource("pilot_equipment")
+equip_slot_configs_array = [ExtResource("pilot_weapon")]
+
+[node name="GameplayAttributeComponent" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("27_ay5dx")
+metadata/_custom_type_script = "uid://dxe8n134quibl"
+
+[node name="GameplayStatusComponent" type="Node" parent="."]
+script = ExtResource("30_2c4y0")
+metadata/_custom_type_script = "uid://bfscgs86ck8ao"
+
+[node name="GameplayAbilityComponent" type="Node" parent="." node_paths=PackedStringArray("_status_comp")]
+unique_name_in_owner = true
+script = ExtResource("28_ability")
+_status_comp = NodePath("../GameplayStatusComponent")
+
+[node name="GameplayModifierComponent" type="Node" parent="."]
+script = ExtResource("31_modifier")
+
+[node name="AnimationTreeVisualAdapter" type="Node" parent="." node_paths=PackedStringArray("_animation_tree")]
+script = ExtResource("29_sh7kr")
+_animation_tree = NodePath("../Visuals/Barbarian/AnimationTree")
+metadata/_custom_type_script = "uid://bi5jbjke61sbe"
 
 [editable path="Visuals/Barbarian"]
