@@ -1,0 +1,79 @@
+[gd_scene load_steps=16 format=3 uid="uid://csynuqnu7jq4p"]
+
+[ext_resource type="Material" uid="uid://dxoj7x61qukw7" path="res://assets/materials/fire_core.tres" id="1_73oji"]
+[ext_resource type="Script" uid="uid://770hm2pf7n6s" path="res://addons/godot_gameplay_abilities/scripts/entities/projectile_base.gd" id="2_projectile_base"]
+[ext_resource type="Script" uid="uid://ca86hvsd4v4bc" path="res://prefabs/fx/light_flicker.tres.gd" id="3_qsv8u"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_er1ty"]
+
+[sub_resource type="Gradient" id="Gradient_er1ty"]
+offsets = PackedFloat32Array(0, 0.25457102, 0.7004219, 1)
+colors = PackedColorArray(1, 1, 0, 1, 0.9372549, 0.24313726, 0.05490196, 1, 0.45490196, 0.14117648, 0.09411765, 1, 0.0627451, 0, 0, 0.7647059)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_73oji"]
+gradient = SubResource("Gradient_er1ty")
+
+[sub_resource type="Curve" id="Curve_gregu"]
+_data = [Vector2(0, 0.3299799), 0.0, 0.0, 0, 0, Vector2(0.4966622, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.35010064), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qsv8u"]
+curve = SubResource("Curve_gregu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kgtyj"]
+gravity = Vector3(0, 1, 0)
+scale_curve = SubResource("CurveTexture_qsv8u")
+color_ramp = SubResource("GradientTexture1D_73oji")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_er1ty"]
+albedo_color = Color(0.5491595, 0.56088704, 0.22510952, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_4yyi3"]
+material = SubResource("StandardMaterial3D_er1ty")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_73oji"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_73oji"]
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_gregu"]
+material = SubResource("StandardMaterial3D_73oji")
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_collision"]
+radius = 0.3
+
+[node name="FireBall" type="Area3D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("2_projectile_base")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_er1ty")
+surface_material_override/0 = ExtResource("1_73oji")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+visible = false
+process_material = SubResource("ParticleProcessMaterial_kgtyj")
+draw_pass_1 = SubResource("QuadMesh_4yyi3")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1.6119872, 1.6119872, 0, 1)
+light_energy = 3.2963288
+light_volumetric_fog_energy = 1.5
+shadow_enabled = true
+shadow_bias = 0.02
+shadow_blur = 2.0
+omni_range = 8.0
+omni_attenuation = 0.5
+script = ExtResource("3_qsv8u")
+
+[node name="Sparks" type="GPUParticles3D" parent="."]
+visible = false
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_73oji")
+draw_pass_1 = SubResource("QuadMesh_gregu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_collision")

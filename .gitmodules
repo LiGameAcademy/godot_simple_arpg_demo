@@ -1,4 +1,7 @@
 [submodule "addons/laoli_dialogue_system"]
-	path = addons/laoli_dialogue_system
-	url = https://github.com/LiGameAcademy/laoli_dialogue_system.git
-	branch = master
+    path = addons/laoli_dialogue_system
+    url = https://github.com/LiGameAcademy/laoli_dialogue_system.git
+    branch = master
+[submodule "addons/godot_gameplay_abilities"]
+    path = addons/godot_gameplay_abilities
+    url = https://github.com/LiGameAcademy/godot_gameplay_abilities.git

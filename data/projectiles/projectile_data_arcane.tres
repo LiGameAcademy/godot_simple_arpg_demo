@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ProjectileData" load_steps=9 format=3 uid="uid://ds4wx1ltqdqp0"]
+
+[ext_resource type="Script" uid="uid://b2nxkgycmifbj" path="res://addons/godot_gameplay_abilities/scripts/entities/data/projectile_data.gd" id="1_projectile_data"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="2_7jch6"]
+[ext_resource type="Script" uid="uid://c4bbvuycoblmm" path="res://addons/godot_gameplay_abilities/scripts/entities/movement_strategies/homing_movement_strategy.gd" id="2_homing_strategy"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="3_h81af"]
+[ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/godot_gameplay_abilities/scripts/status/features/status_feature.gd" id="4_jhbrn"]
+[ext_resource type="PackedScene" uid="uid://dajag4lw1syt0" path="res://prefabs/arcane_bolt.tscn" id="6_ovlgk"]
+
+[sub_resource type="Resource" id="Resource_homing"]
+script = ExtResource("2_homing_strategy")
+metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/entities/movement_strategies/homing_movement_strategy.gd"
+
+[sub_resource type="Resource" id="Resource_cc7c1"]
+script = ExtResource("2_7jch6")
+metadata/_custom_type_script = "uid://c068pgasfc70p"
+
+[resource]
+script = ExtResource("1_projectile_data")
+speed = 10.0
+homing_acceleration = 20.0
+max_pierce_count = 0
+movement_strategy = SubResource("Resource_homing")
+projectile_scene = ExtResource("6_ovlgk")
+payload_statuses = Array[ExtResource("2_7jch6")]([SubResource("Resource_cc7c1")])

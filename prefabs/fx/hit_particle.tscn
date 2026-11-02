@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhgtrr5xlh6ng"]
+
+[ext_resource type="Script" uid="uid://cdu4rgnr54hcw" path="res://prefabs/fx/hit_particle.gd" id="1_nyu2a"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_exk5v"]
+emission_shape = 1
+emission_sphere_radius = 0.5
+radial_velocity_min = -1.0000223
+radial_velocity_max = 0.99997765
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 2.0
+color = Color(1, 0.18431373, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exk5v"]
+albedo_color = Color(0.9137255, 0.07058824, 0.02745098, 1)
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_v5umt"]
+material = SubResource("StandardMaterial3D_exk5v")
+size = Vector2(0.1, 0.1)
+
+[node name="HitParticle" type="GPUParticles3D"]
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_exk5v")
+draw_pass_1 = SubResource("QuadMesh_v5umt")
+script = ExtResource("1_nyu2a")

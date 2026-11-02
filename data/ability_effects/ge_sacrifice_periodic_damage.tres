@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GE_ApplyDamage" load_steps=5 format=3 uid="uid://dg18d2pq24yve"]
+
+[ext_resource type="Script" uid="uid://uhmb38g5nej3" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_apply_damage.gd" id="1_ge_damage"]
+[ext_resource type="Resource" uid="uid://b5k7x2m5oap4s" path="res://data/cues/hit_cue_physical_wrapper.tres" id="1_k58p2"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="2_dgrru"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="4_ac087"]
+
+[resource]
+script = ExtResource("1_ge_damage")
+damage_multiplier = 0.8
+cue = ExtResource("1_k58p2")

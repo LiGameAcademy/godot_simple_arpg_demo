@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="SacrificeAbilityDefinition" load_steps=18 format=3 uid="uid://dv881tgsi371p"]
+
+[ext_resource type="Script" uid="uid://c8k7x2m5oap4g" path="res://addons/godot_gameplay_abilities/scripts/abilities/definitions/sacrifice_ability_definition.gd" id="1_sacrifice_def"]
+[ext_resource type="Script" uid="uid://bckrp16etx7ol" path="res://addons/godot_gameplay_abilities/scripts/abilities/costs/ability_cost_base.gd" id="2_cost_base"]
+[ext_resource type="Script" uid="uid://bj10701f03s5k" path="res://addons/godot_gameplay_abilities/scripts/abilities/targeting/strategies/self_targeting_strategy.gd" id="3_self_targeting"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="4_status_data"]
+[ext_resource type="Script" uid="uid://3n073v4axo0p" path="res://addons/godot_gameplay_abilities/scripts/abilities/costs/vital_cost.gd" id="5_vital_cost"]
+[ext_resource type="Script" uid="uid://bub2shiljqxwy" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/cost_feature.gd" id="6_cost_feature"]
+[ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/gameplay_ability_feature.gd" id="7_feature_base"]
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="7_gcxoj"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="9_icon"]
+[ext_resource type="Resource" uid="uid://b18fu3bld8xcc" path="res://data/targeting/area_targeting_sacrifice.tres" id="11_area_targeting_strategy"]
+[ext_resource type="Resource" uid="uid://bcp7gpxweokag" path="res://data/cues/sacrifice_aura_cue.tres" id="11_jim2a"]
+[ext_resource type="Resource" uid="uid://dg18d2pq24yve" path="res://data/ability_effects/ge_sacrifice_periodic_damage.tres" id="13_periodic_damage_effect"]
+
+[sub_resource type="Resource" id="Resource_initial_cost"]
+script = ExtResource("5_vital_cost")
+
+[sub_resource type="Resource" id="Resource_cost_feature"]
+script = ExtResource("6_cost_feature")
+costs = Array[ExtResource("2_cost_base")]([SubResource("Resource_initial_cost")])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
+atlas = ExtResource("9_icon")
+region = Rect2(288, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icon_active"]
+atlas = ExtResource("9_icon")
+region = Rect2(320, 96, 32, 32)
+
+[sub_resource type="Resource" id="Resource_self_targeting"]
+script = ExtResource("3_self_targeting")
+
+[resource]
+script = ExtResource("1_sacrifice_def")
+area_targeting_strategy = ExtResource("11_area_targeting_strategy")
+periodic_damage_effect = ExtResource("13_periodic_damage_effect")
+toggle_cue = ExtResource("11_jim2a")
+cooldown_duration = 5.0
+targeting_strategy = SubResource("Resource_self_targeting")
+icon_when_active = SubResource("AtlasTexture_icon_active")
+ability_id = &"sacrifice"
+ability_name = "献祭"
+description = "切换献祭状态：开启时持续消耗生命值，对周围敌人造成伤害"
+icon = SubResource("AtlasTexture_icon")
+features = Array[ExtResource("7_feature_base")]([SubResource("Resource_cost_feature")])
