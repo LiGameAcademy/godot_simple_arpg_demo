@@ -1,0 +1,22 @@
+{
+	"village_chief_chatter": {
+		"character": "CHARACTER_VILLAGE_CHIEF",
+		"text": [
+			"VILLAGE_CHIEF_CHATTER_1",
+			"VILLAGE_CHIEF_CHATTER_2",
+			"VILLAGE_CHIEF_CHATTER_3",
+			"VILLAGE_CHIEF_CHATTER_4"
+		],
+		"text_weights": [1.0, 1.0, 1.5, 1.0],
+		"choices": [
+			{
+				"text": "VILLAGE_CHIEF_CHOICE_TEST_VARIABLES",
+				"next_node": "variable_test_start"
+			},
+			{
+				"text": "VILLAGE_CHIEF_CHOICE_EXIT",
+				"next_node": "END"
+			}
+		]
+	}
+}
