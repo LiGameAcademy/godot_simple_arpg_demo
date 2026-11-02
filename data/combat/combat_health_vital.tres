@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="HealthVital" load_steps=2 format=3]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/attributes/vitals/health_vital.gd" id="1"]
+[resource]
+script = ExtResource("1")
+vital_id = &"health"
+max_value_attribute = &"max_health"

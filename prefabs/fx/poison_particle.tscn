@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://dlynb4rjh583q"]
+
+[ext_resource type="Script" uid="uid://beneou4gpc4u7" path="res://prefabs/fx/poison_particle.gd" id="1_xyiex"]
+
+[sub_resource type="Gradient" id="Gradient_mkydl"]
+offsets = PackedFloat32Array(0, 0.49591282, 1)
+colors = PackedColorArray(0.48452926, 1, 0.48452926, 0.8, 0.6651851, 0.9063318, 0.58383155, 0.6, 0.3491902, 0.735357, 0.3491902, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xyiex"]
+gradient = SubResource("Gradient_mkydl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mkydl"]
+emission_shape = 1
+emission_sphere_radius = 0.4
+direction = Vector3(0, 0.5, 0)
+initial_velocity_min = 0.19999999
+initial_velocity_max = 0.79999995
+gravity = Vector3(0, -0.5, 0)
+scale_min = 0.19999999
+scale_max = 0.39999998
+color_ramp = SubResource("GradientTexture1D_xyiex")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xyiex"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.58383155, 1, 0.58383155, 0.8)
+emission_enabled = true
+emission = Color(0.48452926, 0.9063318, 0.48452926, 1)
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_5ywo0"]
+material = SubResource("StandardMaterial3D_xyiex")
+
+[node name="PoisonParticle" type="Node3D"]
+script = ExtResource("1_xyiex")
+
+[node name="PoisonParticles" type="GPUParticles3D" parent="."]
+amount = 30
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_mkydl")
+draw_pass_1 = SubResource("QuadMesh_5ywo0")

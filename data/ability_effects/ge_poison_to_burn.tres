@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GE_StatusTransform" load_steps=6 format=3 uid="uid://bq3t57js8l8dd"]
+
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="1_swivq"]
+[ext_resource type="Script" uid="uid://uum4tll8q71n" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_status_transform.gd" id="2_hdnec"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="3_s2snw"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="4_0wg3a"]
+[ext_resource type="Resource" uid="uid://c7bgognybjafi" path="res://data/ability_status/burn_status.tres" id="4_hdnec"]
+
+[resource]
+script = ExtResource("2_hdnec")
+match_tags = Array[StringName]([&"status.poison"])
+statuses_to_apply = Dictionary[ExtResource("3_s2snw"), int]({
+ExtResource("4_hdnec"): 2
+})
+metadata/_custom_type_script = "uid://dsbbvbc125ete"

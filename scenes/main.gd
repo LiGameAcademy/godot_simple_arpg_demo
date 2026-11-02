@@ -24,14 +24,17 @@ const INTRO_LINES: Array[DialogueNode] = [
 ]
 
 @export var registered_quests: Array[Quest] = []
+@export var inventory_save_path: String = "user://arpg_inventory.json"
+@onready var _bt_debug: BTDebugPanel = $BTDebugPanel
 @export var checkpoint_path: String = "user://story_checkpoint.json"
 
 @onready var _lobby_teleporter: TeleporterScript = $RoomLobby/Teleporter
 @onready var _dungeon_teleporter: TeleporterScript = $RoomDungeon/Teleporter
 @onready var player: Player = $RoomLobby/Player
-@onready var inventory_ui: MarginContainer = $UILayer/HUD/inventory
+@onready var inventory_ui: InventoryPanel = $UILayer/HUD/inventory
 @onready var hud: Control = $UILayer/HUD
 @onready var quest_log: ArpgQuestLogUI = $QuestLogUI
+@onready var _camera_controller: CameraController = $CameraController
 @onready var camera: Camera3D = $Camera3D
 @onready var room_lobby: DungeonRoom = $RoomLobby
 @onready var room_dungeon: DungeonRoom = $RoomDungeon
@@ -56,6 +59,7 @@ var _transition_tween: Tween
 var _checkpoint_loading: bool = false
 
 func _enter_tree() -> void:
+	TagManager.register_tags_from_directory("res://data/tags/", true)
 	QuestManager.register_game_event_signal(GameState.game_event_occurred)
 	QuestManager.register_quest_database_provider(
 		func(id: String) -> bool: return GameState.quest_database.has(id))
@@ -72,10 +76,10 @@ func _ready() -> void:
 	_register_quests()
 	_init_dialogue()
 	_room = room_lobby
+	_camera_controller.initialize(camera, room_lobby.camera_marker)
 	#var start_room = $RoomLobby
 	camera.global_position = _room.camera_marker.global_position
-	var player_inventory : C_Inventory = player.get_inventory() # 确保你在player脚本中实现了这个方法
-	inventory_ui.initialize(player_inventory)
+	inventory_ui.initialize_components(player.get_inventory(), player.equipment_component, player)
 	_register_intro_dialogue()
 	encounter.initialize(player)
 	room_dungeon.room_exit_requested.connect(_on_passage.bind(room_dungeon, room_boss, encounter.arrival))
@@ -85,6 +89,11 @@ func _ready() -> void:
 	narrative.finished.connect(_on_story_finished)
 	narrative.actor_cue.connect(_on_actor_cue)
 	encounter.defeated.connect(_on_boss_defeated)
+	encounter.boss_health_changed.connect(_on_boss_health_changed)
+	encounter.player_damage_requested.connect(player.take_damage)
+	player.died.connect(_on_player_died)
+	room_dungeon.enemy_defeated.connect(_on_enemy_defeated)
+	room_dungeon.loot_requested.connect(_on_loot_requested)
 	checkpoint_store = Store.new(checkpoint_path)
 	checkpoint_ui.save_requested.connect(save_checkpoint)
 	checkpoint_ui.load_requested.connect(load_checkpoint)
@@ -98,7 +107,19 @@ func _process(_delta: float) -> void:
 		_resolution_pending = false
 		_begin_story(RESOLUTION)
 
-func _unhandled_input(event) -> void:
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_P and player.can_control():
+		TalentManager.add_points(1)
+	if event.is_action_pressed("toggle_bt_debug"):
+		_bt_debug.toggle_visibility()
+		get_viewport().set_input_as_handled()
+		return
+	if event.is_action_pressed("save_inventory") or event.is_action_pressed("load_inventory"):
+		if _can_save_checkpoint():
+			var success: bool = player.inventory_binding.save_state(inventory_save_path) if event.is_action_pressed("save_inventory") else player.inventory_binding.load_state(inventory_save_path)
+			checkpoint_ui.show_message("背包存档成功" if success else "背包存档失败")
+		get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed("save_story_checkpoint"):
 		save_checkpoint()
 		get_viewport().set_input_as_handled()
@@ -131,6 +152,7 @@ func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> v
 	if _checkpoint_loading or target_room == _room or _transitioning or narrative.is_playing():
 		return
 	_transitioning = true
+	_camera_controller.set_process(false)
 	player.set_control_lock(&"room_transition", true)
 	player.set_physics_process(false)
 	player.hide()
@@ -142,6 +164,8 @@ func transition_to_room(target_room: DungeonRoom, target_position: Vector3) -> v
 	player.global_position = target_position
 	player.velocity = Vector3.ZERO
 	_room = target_room
+	_camera_controller.set_room_marker(target_room.camera_marker)
+	_camera_controller.set_process(true)
 	player.show()
 	player.set_physics_process(true)
 	player.set_control_lock(&"room_transition", false)
@@ -197,6 +221,7 @@ func load_checkpoint() -> bool:
 	player.global_position = encounter.arrival.global_position
 	player.velocity = Vector3.ZERO
 	_room = room_boss
+	_camera_controller.set_room_marker(room_boss.camera_marker)
 	camera.global_position = room_boss.camera_marker.global_position
 	camera.make_current()
 	var story: Dictionary = snapshot["story"]
@@ -213,13 +238,14 @@ func load_checkpoint() -> bool:
 	encounter.restore_checkpoint(_intro_seen, _boss_defeated, _resolution_seen)
 
 	player.face_point(encounter.actor.global_position)
+	player.restore_checkpoint()
 	player.show()
 	player.set_physics_process(true)
 	player.set_control_lock(&"checkpoint", false)
 
 	_checkpoint_loading = false
 	narrative.presentation.cutscene_overlay.show_combat_status("封印已解除" \
-		if _resolution_seen else ("异化回响已击败" if _boss_defeated else ("按 K 模拟击败异化回响" if _intro_seen else "")))
+		if _resolution_seen else ("异化回响已击败" if _boss_defeated else ("击败异化回响以继续剧情" if _intro_seen else "")))
 	
 	checkpoint_ui.show_message("已恢复叙事检查点 · " + _checkpoint_label(String(snapshot["checkpoint"])))
 	return true
@@ -227,7 +253,7 @@ func load_checkpoint() -> bool:
 func _can_save_checkpoint() -> bool:
 	return not _checkpoint_loading and not _transitioning \
 		and is_instance_valid(narrative) and is_instance_valid(player) and not narrative.is_playing() \
-		and not DialogueManager.is_dialogue_active()
+		and not DialogueManager.is_dialogue_active() and player.can_control()
 
 func _checkpoint_label(phase: String) -> String:
 	match phase:
@@ -291,6 +317,7 @@ func _begin_story(sequence: CutsceneDefinition) -> bool:
 		narrative.presentation.cutscene_overlay.show_combat_status("无法开始演出：" + narrative.last_error)
 		return false
 	_active_story = sequence.cutscene_id
+	_camera_controller.set_process(false)
 	player.set_control_lock(&"boss_intro", true)
 	hud.hide()
 	quest_log.hide()
@@ -327,6 +354,7 @@ func _on_actor_cue(cue: StringName) -> void:
 			encounter.face_actor_point(player.global_position)
 
 func _on_story_finished(outcome: Executor.Outcome) -> void:
+	_camera_controller.set_process(true)
 	var ended_story: StringName = _active_story
 	_active_story = &""
 	if ended_story == &"" or not is_inside_tree() or is_queued_for_deletion():
@@ -340,7 +368,7 @@ func _on_story_finished(outcome: Executor.Outcome) -> void:
 		if encounter_available:
 			if success:
 				encounter.commit_intro()
-				narrative.presentation.cutscene_overlay.show_combat_status("按 K 模拟击败异化回响")
+				narrative.presentation.cutscene_overlay.show_combat_status("击败异化回响以继续剧情")
 			else:
 				encounter.cancel_intro()
 	elif ended_story == &"boss_resolution":
@@ -370,3 +398,21 @@ func _on_boss_defeated() -> void:
 func _on_teleport_requested(initiator: Node, target_room: DungeonRoom, marker: Node3D) -> void:
 	if initiator == player and is_instance_valid(target_room) and is_instance_valid(marker):
 		transition_to_room(target_room, marker.global_position)
+
+func _on_enemy_defeated(enemy_id: String) -> void:
+	GameState.emit_game_event("enemy_died", {"enemy_id": enemy_id})
+
+func _on_loot_requested(scene: PackedScene, position: Vector3, impulse: Vector3) -> void:
+	var loot: RigidBody3D = scene.instantiate() as RigidBody3D
+	add_child(loot)
+	loot.global_position = position
+	loot.apply_impulse(impulse)
+
+func _on_player_died(_entity: CharacterBase) -> void:
+	narrative.cancel("player defeated")
+	encounter.stop_combat()
+	narrative.presentation.cutscene_overlay.show_combat_status("你已倒下 · 按 L 读取叙事检查点")
+
+func _on_boss_health_changed(current: int, maximum: int) -> void:
+	if current > 0 and _intro_seen and not narrative.is_playing():
+		narrative.presentation.cutscene_overlay.show_combat_status("异化回响 %d / %d" % [current, maximum])

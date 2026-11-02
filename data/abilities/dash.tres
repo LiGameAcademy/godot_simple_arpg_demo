@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ActiveAbilityDefinition" load_steps=7 format=3 uid="uid://bq3236nkirgvu"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/abilities/definitions/active_ability_definition.gd" id="1"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/abilities/targeting/strategies/self_targeting_strategy.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/effects/dash_effect.gd" id="3"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/abilities/costs/vital_cost.gd" id="4"]
+[sub_resource type="Resource" id="Target"]
+script = ExtResource("2")
+[sub_resource type="Resource" id="Dash"]
+script = ExtResource("3")
+[sub_resource type="Resource" id="Cost"]
+script = ExtResource("4")
+[resource]
+script = ExtResource("1")
+ability_id = &"dash"
+ability_name = "冲刺"
+description = "向面朝方向冲刺，碰到障碍停止。"
+cooldown_duration = 2.0
+costs = [SubResource("Cost")]
+effects = [SubResource("Dash")]
+targeting_strategy = SubResource("Target")

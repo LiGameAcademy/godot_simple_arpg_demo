@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="MagicFieldData" load_steps=7 format=3 uid="uid://d0ymlnsj146i7"]
+
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="1_lkvdu"]
+[ext_resource type="PackedScene" uid="uid://bynsg0m6hv0su" path="res://prefabs/fireball_explosion_aoe.tscn" id="2_fireball_circle_scene"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="2_p2s5k"]
+[ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/godot_gameplay_abilities/scripts/status/features/status_feature.gd" id="4_lkvdu"]
+[ext_resource type="Script" uid="uid://c3fih0laarrcq" path="res://addons/godot_gameplay_abilities/scripts/entities/data/magic_field_data.gd" id="6_8hovx"]
+
+[ext_resource type="Resource" path="res://data/ability_status/fire_impact.tres" id="Impact"]
+
+[sub_resource type="Resource" id="Resource_vl22y"]
+script = ExtResource("2_p2s5k")
+duration = 0.0
+metadata/_custom_type_script = "uid://c068pgasfc70p"
+
+[resource]
+script = ExtResource("6_8hovx")
+duration = 0.1
+magic_field_scene = ExtResource("2_fireball_circle_scene")
+payload_statuses = [ExtResource("Impact")]

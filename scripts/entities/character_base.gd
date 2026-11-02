@@ -1,0 +1,144 @@
+extends CharacterBody3D
+class_name CharacterBase
+
+signal died(entity: CharacterBase)
+
+## 角色基类
+## 提供通用的动画系统、属性组件等基础功能
+
+@export_group("Components")
+## 属性组件（使用 unique_name_in_owner 时使用 %GameplayAttributeComponent）
+@onready var attribute_component: GameplayVitalAttributeComponent = %GameplayAttributeComponent
+## 能力组件（可选，如果角色需要使用能力系统）
+@export var ability_component: GameplayAbilityComponent
+## 视觉适配器（处理动画相关逻辑，连接业务层和技能组件）
+@export var _visual_adapter: VisualAdapter = null
+## 挂点映射
+@export var _attachment_point_mapping: Dictionary[StringName, BoneAttachment3D] = {}
+
+@export_group("Death Settings")
+## 死亡动画名称（如果为空，将尝试使用 "death"）
+@export var death_animation_name: StringName = &"death"
+## 是否已死亡（防止重复触发）
+var _is_dead: bool = false
+
+func _enter_tree() -> void:
+	var colliders: Array[Node] = []
+	_collect_combat_colliders(self, colliders)
+	CombatUtils.register_entity(self, colliders)
+
+func _ready() -> void:
+	_init_components()
+	_setup_death_listener()
+
+func _exit_tree() -> void:
+	CombatUtils.unregister_entity(self)
+
+func _collect_combat_colliders(node: Node, colliders: Array[Node]) -> void:
+	if node is CollisionObject3D:
+		colliders.append(node)
+	for child: Node in node.get_children():
+		_collect_combat_colliders(child, colliders)
+
+## 获取属性组件
+func get_gameplay_vital_attribute_component() -> GameplayVitalAttributeComponent:
+	return attribute_component
+
+func get_gameplay_attribute_component() -> GameplayVitalAttributeComponent:
+	return attribute_component
+
+func get_attribute_component() -> GameplayVitalAttributeComponent:
+	return attribute_component
+
+## 获取能力组件
+func get_gameplay_ability_component() -> GameplayAbilityComponent:
+	return ability_component
+
+
+func get_ability_component() -> GameplayAbilityComponent:
+	return ability_component
+
+## 获取视觉适配器
+func get_visual_adapter() -> Node:
+	return _visual_adapter
+
+#region ========== 能力系统相关 ==========
+
+## 尝试施放技能（通用方法，替代原来的 _try_attack）
+## [param] ability_id: StringName 技能 ID
+## [param] target: Node 目标节点（可选）
+## [param] context: Dictionary 上下文信息（可选）
+func try_activate_ability(ability_id: StringName, context: Dictionary = {}) -> void:
+	if not is_instance_valid(ability_component):
+		push_warning("CharacterBase: Cannot cast ability, ability_component is not valid")
+		return
+	
+	# 如果上下文中没有 facing_angle，则获取面朝方向
+	if not context.has("facing_angle"):
+		var facing_angle: float = _get_facing_angle()
+		context["facing_angle"] = facing_angle
+	
+	if ability_component.can_activate_ability(ability_id, context):
+		var ok: bool = ability_component.try_activate_ability(ability_id, context)
+		if not ok:
+			print("CharacterBase: Failed to commit cast for ability: %s" % ability_id)
+			return
+		print("CharacterBase: Ability committed cast: ", ability_id)
+	else:
+		print("CharacterBase: Ability can not cast: ", ability_id)
+
+func play_animation(animation_name : StringName, speed : float = 1.0) -> void:
+	_visual_adapter.play_animation(animation_name, speed)
+
+## 获取角色面朝角度（子类可重写）
+## [return] float 面朝角度（弧度），如果返回 null 则不设置 facing_angle
+func _get_facing_angle() -> float:
+	if rotation.y != 0.0:
+		return rotation.y
+	
+	# 如果都没有，从 transform 计算
+	# 注意：模型朝向 -Z（Godot 默认前方）
+	# 由于模型从 +Z 改为 -Z（旋转了 180 度），角度需要加 π
+	var forward: Vector3 = -global_transform.basis.z
+	var base_angle: float = atan2(forward.x, forward.z)
+	return base_angle + PI
+
+## 获取挂点节点（用于 Cue 系统）
+## [param] attachment_point: StringName 挂点名（如 "head", "foot", "body" 等）
+## [return] Node3D 挂点节点，如果找不到则返回 null
+func get_attachment_point(attachment_point: StringName) -> Node3D:
+	return _attachment_point_mapping.get(attachment_point, self)
+
+#endregion
+
+## 初始化组件（子类可重写）
+func _init_components() -> void:
+	pass
+
+## 设置死亡监听器
+func _setup_death_listener() -> void:
+	var health: HealthVital = attribute_component.get_vital(&"health") as HealthVital
+	if health != null:
+		health.health_depleted.connect(_on_health_depleted)
+
+func _on_health_depleted(_instigator: Node) -> void:
+	_play_death_animation()
+	died.emit(self)
+
+## 播放死亡动画
+func _play_death_animation() -> void:
+	if _is_dead:
+		return
+	
+	_is_dead = true
+	
+	# 使用 VisualAdapter 播放死亡动画
+	if is_instance_valid(_visual_adapter):
+		var anim_name: StringName = death_animation_name
+		if anim_name.is_empty():
+			anim_name = &"death"  # 默认使用 "death"
+		
+		_visual_adapter.play_animation(anim_name)
+		print("CharacterBase: Playing death animation: %s" % anim_name)
+	else:
+		push_warning("CharacterBase: Cannot play death animation, _visual_adapter is not valid")

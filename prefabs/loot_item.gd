@@ -1,29 +1,21 @@
 extends RigidBody3D
 
 @onready var loot_area: Area3D = $LootArea
+@export var item_def: GameplayItem
 
-@export var item_def: Item 
 
 func _ready() -> void:
 	loot_area.body_entered.connect(_on_body_entered)
 
-func collect(target_inventory: C_Inventory) -> void:
-	if is_instance_valid(item_def):
-		print("物品进入背包：", item_def.name)
-		GameState.emit_game_event("item_added", {"item_id": item_def.name, "amount": item_def.quantity})
-		# 调用组件的方法添加物品
-		target_inventory.add_item(item_def.duplicate())
-		
-		# 播放音效...
-		queue_free()
-	else:
-		printerr("错误：掉落物未配置 Item 数据")
 
-func _on_body_entered(body) -> void:
-	# 我们不管撞到的是 Player 还是 NPC，只要它身上有 InventoryComponent，就能捡！
-	if not body.has_method("get_inventory"):
+func collect(target_inventory: InventoryComponent) -> void:
+	if not is_instance_valid(item_def) or not is_instance_valid(target_inventory):
 		return
-	var inventory = body.get_inventory()
-	
-	if is_instance_valid(inventory):
-		collect(inventory)
+	var item: GameplayItemInstance = GameplayEquipInstance.new(item_def as GameplayEquip) if item_def is GameplayEquip else GameplayItemInstance.new(item_def)
+	if target_inventory.add_item(item):
+		queue_free()
+
+
+func _on_body_entered(body: Node3D) -> void:
+	if body is Player:
+		collect((body as Player).get_inventory())

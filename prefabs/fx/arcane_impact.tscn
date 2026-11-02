@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c0fl6cvq24q1r"]
+
+[node name="ArcaneMissilesImpact" type="Node3D"]
+
+[node name="BurstParticles" type="GPUParticles3D" parent="."]
+
+[node name="ShockwaveRing" type="MeshInstance3D" parent="."]
+
+[node name="ResidualSmoke" type="GPUParticles3D" parent="."]
+
+[node name="ImpactSound" type="AudioStreamPlayer3D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

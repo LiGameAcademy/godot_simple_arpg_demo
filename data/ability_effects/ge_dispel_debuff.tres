@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GE_DispelStatus" load_steps=4 format=3 uid="uid://cg3d00sgphv3w"]
+
+[ext_resource type="Script" uid="uid://crahppjpy8j6s" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="1_ytr5b"]
+[ext_resource type="Script" uid="uid://cfwhf4vfpfv6i" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_dispel_status.gd" id="2_six7b"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="3_oypie"]
+
+[resource]
+script = ExtResource("2_six7b")
+tags_to_remove = Array[StringName]([&"status.debuff"])
+metadata/_custom_type_script = "uid://cu1i0rll0pqvb"

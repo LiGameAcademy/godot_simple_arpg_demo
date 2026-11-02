@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="GE_ApplyHealing" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_apply_healing.gd" id="1_healing"]
+
+[resource]
+script = ExtResource("1_healing")
+healing_multiplier = 0.3
+

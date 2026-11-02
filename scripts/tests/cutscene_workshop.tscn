@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bbgivot1lycx1" path="res://scripts/tests/cutscene_workshop.gd" id="1_v7all"]
 [ext_resource type="PackedScene" uid="uid://b3e2ofxe5aiji" path="res://scenes/room_boss.tscn" id="1_virbk"]
-[ext_resource type="PackedScene" uid="uid://dgle1b2vb0agh" path="res://prefabs/player.tscn" id="2_v7all"]
+[ext_resource type="PackedScene" path="res://prefabs/player.tscn" id="2_v7all"]
 [ext_resource type="PackedScene" uid="uid://cnwxssm15un8k" path="res://scenes/arpg_narrative_controller/arpg_narrative_controller.tscn" id="4_v7all"]
 [ext_resource type="Resource" uid="uid://n03lfs8kyc2n" path="res://data/story/boss_intro.tres" id="5_2o7h0"]
 [ext_resource type="PackedScene" uid="uid://c7jbvgjqg3w8h" path="res://addons/laoli_dialogue_system/ui/dialogue_ui.tscn" id="6_g6dlp"]

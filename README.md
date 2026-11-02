@@ -2,13 +2,13 @@
 
 [简体中文](README_zh-CN.md) · [Narrative plugin](https://github.com/LiGameAcademy/laoli_dialogue_system)
 
-A low-poly Godot course host for NPC dialogue, quests, room transitions, and Resource-driven cutscenes. The current stable mainline follows the recorded course through lesson 40, with necessary runtime fixes and a pinned narrative plugin dependency.
+A low-poly Godot prototype combining room exploration, NPC dialogue and quests, resource-driven cutscenes, a gameplay ability system, attributes/vitals, talents, equipment, and instance-based inventory.
 
-Broader ability-system, equipment and inventory features are being integrated on a separate branch. They are not yet part of this stable version.
+The recorded-course narrative contracts remain covered by regression checks. The pre-integration narrative build is preserved at `archive/2026-11-02/before-feature-integration`; recorded-course tags remain unchanged.
 
-## Setup
+## Requirements and setup
 
-Use **Godot 4.7.2**. Godot 4.5 compatibility has not been verified.
+Use **Godot 4.7.2**. Godot 4.5 compatibility is not claimed.
 
 ```sh
 git clone --recurse-submodules https://github.com/LiGameAcademy/godot_simple_arpg_demo.git
@@ -16,46 +16,46 @@ cd godot_simple_arpg_demo
 git submodule update --init --recursive
 ```
 
-Open the root project.godot, wait for resource import, then run the main scene. The narrative plugin is mounted at addons/laoli_dialogue_system and pinned to the validated v0.1.0 commit. Dependency upgrades require explicit validation and a host gitlink update.
+Open `project.godot`, wait for resource import, and run the main scene. The narrative plugin and gameplay ability system are pinned Git submodules. The inventory plugin is currently included in this repository. Upgrades must update and validate the dependency pointers explicitly.
 
-## Current behavior
+## Integrated systems
 
-- NPC dialogue choices, actions, conditions, quests and rewards.
-- Boss introduction and resolution sequences, correlated dialogue sessions, skip/cancel cleanup and control restoration.
-- Stable narrative checkpoints for story flags, quest progress and minimal dialogue history.
-- The course's simplified boss flow: enter the boss room, finish or skip the introduction, then press K to simulate defeat and trigger the resolution.
+- NPC choices, action/condition registration, quest acceptance, collect/kill objectives and rewards.
+- Boss introduction and resolution sequences with matching dialogue sessions, skip/cancel/failure cleanup and input locks.
+- Character health/mana and attributes, combo attack, dash, fireball, arcane missiles and sacrifice skills.
+- Independent item instances, potion use, axe/staff equipment, attribute/skill/model changes and inventory snapshots.
+- Talent UI, ability and vital HUDs, camera shake, and optional debugging tools.
+- Real boss health and combat feed the narrative defeat/result flow. Debug defeat remains available separately.
 
-The host owns actors, camera presentation, world rules and save eligibility. Shared dialogue/quest/cutscene execution lives in the plugin. This stable version does not include the separate combat/ability and inventory-trial branches.
+The host owns world rules, actors, camera presentation, rewards and save policy. Shared dialogue/quest/cutscene code lives in the narrative plugin.
 
 ## Controls
 
 | Input | Action |
 | --- | --- |
 | WASD | Move |
-| E | Interact |
-| Left mouse | Basic attack animation |
-| B | Inventory |
-| F | Skip a cutscene |
-| K | Simulate boss defeat after the introduction |
+| E | Interact with a focused object |
+| Left mouse | Combo attack |
+| Right mouse | Dash |
+| 1 / 2 / 3 | Fireball / arcane missiles / sacrifice |
+| B | Inventory and equipment |
+| T / P | Talent tree / debug grant one talent point |
+| F | Skip current cutscene |
+| K | Debug boss defeat after introduction |
 | F5 / L | Save / restore a narrative checkpoint |
+| F6 / F8 | Save / restore inventory and equipment |
+| Ctrl+Shift+C | Behavior tree debug panel |
 
-Checkpoint buttons are also available. Checkpoints do not contain full character or inventory state. scripts/tests/cutscene_workshop.tscn is an interactive presentation sandbox; press I to start.
+Narrative checkpoints store story flags, quest progress and minimal dialogue history; they restore stable narrative phases and revive the player. Inventory/equipment persistence is separate. Neither format is a complete world/character save, and ordinary enemy state is not rewound by narrative restore.
 
 ## Versions and branches
 
-master is the protected stable branch. Work is integrated through PRs; temporary branches are removed only after merge/verification or explicit archival.
+`master` is the protected stable branch. Temporary integration branches are merged through PRs, validated, and then removed. Historical course tags and archive tags preserve earlier implementations. A branch is removed only after its tip is reachable from the integrated mainline or explicitly archived.
 
-- course/lesson-40-recorded: original recorded follow-along version.
-- course/lesson-40: course closeout with runtime fixes, before plugin migration.
-- archive/2026-11-02/before-feature-integration: stable narrative host before combining gameplay branches.
+The archived inventory trial referenced an unavailable ability-system commit. The integrated dependency must point to a published, tested commit; a missing trial gitlink is not a supported installation.
 
-Existing course and archive tags are retained. Use them when matching an older recording instead of moving the tags to new implementations.
+## Validation
 
-## Verification
+The integration checks cover narrative outcomes/checkpoints, real combat, skill locking, consumables, equipment and inventory persistence. See the repository tests and the linked dependency documentation. Gameplay tuning and final presentation remain prototype work.
 
-```sh
-godot --headless --path . --editor --import
-godot --headless --fixed-fps 60 --path . res://tests/verify_course_closeout.tscn --quit-after 10000
-```
-
-The regression covers intro/resolution, skip/cancel, three checkpoint phases, bad-save protection, animation and material isolation, host actions and teleporter signals. It uses a disposable checkpoint. Automated checks do not replace final visual and gameplay acceptance.
+Godot 4.7.2 validation covers import, the recorded narrative flow, inventory, real combat, talents and spells. The debug window starts hidden in its scene so editor previews do not open it before runtime initialization. See [integration notes](docs/integration_status.md) for dependency versions and the precisely documented pre-existing GAS script-retention diagnostic.

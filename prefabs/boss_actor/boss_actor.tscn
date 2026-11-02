@@ -63,9 +63,6 @@ bones/21/scale = Vector3(1, 1.0000008, 0.99999875)
 bones/22/rotation = Quaternion(-8.934892e-05, 0.9202217, -0.3913977, 2.0290998e-05)
 bones/22/scale = Vector3(1, 0.9999966, 1.0000037)
 
-[node name="BoneAttachment3D" parent="Visuals/Barbarian/Rig_Medium/Skeleton3D" index="7" unique_id=2147406827]
-transform = Transform3D(2.4565233e-07, -0.1498944, -0.98870146, -0.99999905, 8.940687e-08, 3.4555764e-08, -3.1498374e-07, 0.98870134, -0.14989464, -0.49106094, 0.6410296, 0.10659539)
-
 [node name="AnimationTree" parent="Visuals/Barbarian" index="2" unique_id=139923669]
 active = false
 

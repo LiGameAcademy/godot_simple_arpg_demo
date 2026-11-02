@@ -3,14 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="1_tefeu"]
 [ext_resource type="Script" uid="uid://bw4a3qea7fktc" path="res://addons/laoli_dialogue_system/scripts/core/quest/quest.gd" id="2_choun"]
-[ext_resource type="PackedScene" uid="uid://dgle1b2vb0agh" path="res://prefabs/player.tscn" id="2_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://b1t1sf3ftqb3f" path="res://prefabs/Teleporter.tscn" id="3_tbgi4"]
+[ext_resource type="PackedScene" path="res://prefabs/player.tscn" id="2_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://b1t1sf3ftqb3f" path="res://prefabs/teleporter.tscn" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://5u5shejmnm2d" path="res://scenes/room_dungeon.tscn" id="3_tefeu"]
 [ext_resource type="Script" uid="uid://c3ecw04xqk861" path="res://addons/laoli_dialogue_system/scripts/core/quest/quest_objective.gd" id="3_trceg"]
 [ext_resource type="Script" uid="uid://idhfdfg4eg6v" path="res://addons/laoli_dialogue_system/scripts/core/quest/objective_kill.gd" id="4_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://b3e2ofxe5aiji" path="res://scenes/room_boss.tscn" id="4_o6xl0"]
 [ext_resource type="Script" uid="uid://bifopecxyouao" path="res://addons/laoli_dialogue_system/scripts/core/quest/objective_collect.gd" id="5_jkv2x"]
-[ext_resource type="PackedScene" uid="uid://cgv4kbrho80c8" path="res://addons/simple_inventory/src/widgets/inventory.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" path="res://addons/simple_inventory/ui/widgets/inventory_panel.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://c7jbvgjqg3w8h" path="res://addons/laoli_dialogue_system/ui/dialogue_ui.tscn" id="8_85g3d"]
 [ext_resource type="PackedScene" uid="uid://gckn4gya5lgd" path="res://ui/quest_log_ui.tscn" id="9_choun"]
 [ext_resource type="Script" uid="uid://cuacmob0vopu8" path="res://addons/laoli_dialogue_system/scripts/core/conditions/game_condition.gd" id="9_muem4"]
@@ -20,6 +20,26 @@
 [ext_resource type="PackedScene" uid="uid://cnwxssm15un8k" path="res://scenes/arpg_narrative_controller/arpg_narrative_controller.tscn" id="18_0ld40"]
 [ext_resource type="Resource" uid="uid://n03lfs8kyc2n" path="res://data/story/boss_intro.tres" id="19_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://jp2c7dp678dm" path="res://ui/checkpoint_controls/checkpoint_controls.tscn" id="20_gqmmt"]
+
+[ext_resource type="PackedScene" uid="uid://0dbkas4m50et" path="res://scenes/room_lobby.tscn" id="Combat_1_jyhfs"]
+[ext_resource type="Script" uid="uid://ctchlggjlcgm8" path="res://scenes/main.gd" id="Combat_1_tefeu"]
+[ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute.gd" id="Combat_2_gqmmt"]
+[ext_resource type="PackedScene" path="res://prefabs/player.tscn" id="Combat_2_tbgi4"]
+[ext_resource type="Script" path="res://scripts/data/game_data.gd" id="Combat_3_choun"]
+[ext_resource type="PackedScene" uid="uid://5u5shejmnm2d" path="res://scenes/room_dungeon.tscn" id="Combat_3_tefeu"]
+[ext_resource type="PackedScene" uid="uid://b3e2ofxe5aiji" path="res://scenes/room_boss.tscn" id="Combat_4_o6xl0"]
+[ext_resource type="PackedScene" path="res://addons/simple_inventory/ui/widgets/inventory_panel.tscn" id="Combat_7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://b1t1sf3ftqb3f" path="res://prefabs/teleporter.tscn" id="Combat_17_y6deb"]
+[ext_resource type="PackedScene" path="res://ui/attribute_dashboard.tscn" id="Combat_21_yc10j"]
+[ext_resource type="PackedScene" path="res://ui/attribute_row.tscn" id="Combat_22_jscy8"]
+[ext_resource type="PackedScene" uid="uid://bsrgdmu7j2fgc" path="res://ui/vital_hud.tscn" id="Combat_23_vital"]
+[ext_resource type="PackedScene" uid="uid://dejtvj01nnaqw" path="res://ui/ability_bar.tscn" id="Combat_24_y6deb"]
+[ext_resource type="PackedScene" uid="uid://b8k7x2m5oap4q" path="res://ui/status_debug_panel.tscn" id="Combat_25_2wyq8"]
+[ext_resource type="Script" uid="uid://bguhd2ngg3kqx" path="res://scripts/camera/camera_controller.gd" id="Combat_25_og1vs"]
+[ext_resource type="PackedScene" uid="uid://b4qtmgalki1a8" path="res://addons/godot_gameplay_abilities/ui/tag_debug_panel.tscn" id="Combat_26_vxglm"]
+[ext_resource type="PackedScene" uid="uid://cvoh1c8wh5vrc" path="res://ui/talent_tree.tscn" id="Combat_27_talent_tree"]
+[ext_resource type="Resource" uid="uid://7mjb5xu6rh5" path="res://data/talents/test_talent_tree.tres" id="Combat_28_talent_tree_data"]
+[ext_resource type="PackedScene" uid="uid://8cm7of0bkv8r" path="res://addons/godot_gameplay_abilities/ui/bt_debug_panel.tscn" id="Combat_29_fv21b"]
 
 [sub_resource type="Resource" id="Resource_jbj1t"]
 script = ExtResource("4_a8y0u")
@@ -71,6 +91,30 @@ script = ExtResource("10_dp3eg")
 quest_id = "chief_forest_quest"
 required_status = 2
 metadata/_custom_type_script = "uid://dq8sympe46jux"
+
+[sub_resource type="Resource" id="Combat_Resource_ya4ey"]
+script = ExtResource("Combat_3_choun")
+metadata/_custom_type_script = "uid://448qdsu8i3o"
+
+[sub_resource type="ProceduralSkyMaterial" id="Combat_ProceduralSkyMaterial_ubp1v"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Combat_Sky_c4wp1"]
+sky_material = SubResource("Combat_ProceduralSkyMaterial_ubp1v")
+
+[sub_resource type="Environment" id="Combat_Environment_fpimf"]
+background_mode = 1
+sky = SubResource("Combat_Sky_c4wp1")
+ambient_light_energy = 0.0
+tonemap_mode = 2
+glow_enabled = true
+glow_strength = 0.8
+glow_bloom = 0.2
+
+[sub_resource type="BoxMesh" id="Combat_BoxMesh_yq6so"]
+size = Vector3(1.5, 1.5, 1.5)
+
 
 [node name="Main" type="Node3D" unique_id=2127295558]
 script = ExtResource("1_tefeu")
@@ -142,6 +186,73 @@ definition = ExtResource("19_gqmmt")
 
 [node name="CheckpointControls" parent="." unique_id=1343744765 instance=ExtResource("20_gqmmt")]
 
+[node name="VitalHUD" parent="UILayer/HUD" instance=ExtResource("Combat_23_vital")]
+layout_mode = 1
+offset_right = 200.0
+offset_bottom = 114.0
+
+[node name="AttributeDashboard" parent="UILayer/HUD" instance=ExtResource("Combat_21_yc10j")]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.23900001
+anchor_bottom = 0.38200003
+offset_left = 2.0
+offset_top = 76.0
+offset_right = 1.1199951
+offset_bottom = 76.43997
+row_prefab = ExtResource("Combat_22_jscy8")
+
+[node name="AbilityBar" parent="UILayer/HUD" instance=ExtResource("Combat_24_y6deb")]
+layout_mode = 1
+
+[node name="StatusDebugPanel" parent="UILayer/HUD" instance=ExtResource("Combat_25_2wyq8")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+offset_left = -457.0
+offset_top = -542.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="TagDebugPanel" parent="UILayer/HUD" instance=ExtResource("Combat_26_vxglm")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -396.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 549.0
+grow_horizontal = 0
+grow_vertical = 1
+script = null
+
+[node name="TalentTree" parent="UILayer/HUD" instance=ExtResource("Combat_27_talent_tree")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -240.0
+offset_right = 360.0
+offset_bottom = 240.0
+talent_tree = ExtResource("Combat_28_talent_tree_data")
+target_entity = NodePath("../../../../RoomLobby/Player")
+
+[node name="BTDebugPanel" parent="." instance=ExtResource("Combat_29_fv21b")]
+
+[node name="CameraController" type="Node" parent="."]
+script = ExtResource("Combat_25_og1vs")
+metadata/_custom_type_script = "uid://bguhd2ngg3kqx"
+
 [editable path="RoomLobby/Teleporter"]
 [editable path="RoomDungeon/Teleporter"]
 [editable path="RoomBoss"]
+

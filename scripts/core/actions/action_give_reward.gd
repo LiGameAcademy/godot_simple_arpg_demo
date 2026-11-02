@@ -7,5 +7,4 @@ func init_from_data(data: Dictionary) -> void:
 func _execute_internal(_initiator: Node, _target: Node) -> bool:
 	if reward_id.is_empty():
 		return false
-	GameState.handle_give_reward_action({"id": reward_id})
-	return true
+	return GameState.handle_give_reward_action({"id": reward_id}, _initiator)

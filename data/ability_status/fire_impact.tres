@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="GameplayStatusData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/ability_effects/ge_damage_fire.tres" id="2"]
+[resource]
+script = ExtResource("1")
+status_id = &"fire_impact"
+duration = 0.0
+apply_effects = [ExtResource("2")]

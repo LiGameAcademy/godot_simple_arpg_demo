@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ProjectileAbilityDefinition" load_steps=18 format=3 uid="uid://dot5q23nxvk0v"]
+
+[ext_resource type="Script" uid="uid://c5vx876lp85n" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/gameplay_ability_feature.gd" id="1_hupgj"]
+[ext_resource type="Script" uid="uid://bxrr6ngbc4t80" path="res://addons/godot_gameplay_abilities/scripts/abilities/definitions/projectile_ability_definition.gd" id="1_projectile_def"]
+[ext_resource type="Script" uid="uid://c1b8yx546msla" path="res://addons/godot_gameplay_abilities/scripts/effects/gameplay_effect.gd" id="2_effect"]
+[ext_resource type="Script" uid="uid://c068pgasfc70p" path="res://addons/godot_gameplay_abilities/scripts/status/gameplay_status_data.gd" id="4_07wpr"]
+[ext_resource type="Script" uid="uid://f6ejv1dhcuwg" path="res://addons/godot_gameplay_abilities/scripts/entities/movement_strategies/linear_movement_strategy.gd" id="4_31md0"]
+[ext_resource type="Resource" uid="uid://d0ymlnsj146i7" path="res://data/magic_circles/fireball_explosion_magic_circle_data.tres" id="4_hsgk6"]
+[ext_resource type="Script" uid="uid://b2nxkgycmifbj" path="res://addons/godot_gameplay_abilities/scripts/entities/data/projectile_data.gd" id="5_5m1cr"]
+[ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="5_icon"]
