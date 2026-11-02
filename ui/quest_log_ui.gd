@@ -13,15 +13,16 @@ func _ready() -> void:
 	QuestManager.quest_accepted.connect(_on_quest_accepted)
 	QuestManager.quest_updated.connect(_on_quest_updated)
 	QuestManager.quest_completed.connect(_on_quest_completed)
+	_rebuild()
 
 func _get_quest_text(quest: Quest) -> String:
-	var txt = quest.title + " " + _get_quest_status_text(quest) + "\n"
-	for obj in quest.objectives:
+	var txt: String = quest.title + " " + _get_quest_status_text(quest) + "\n"
+	for obj: QuestObjective in quest.objectives:
 		txt += "- " + obj.get_progress_text() + "\n"
 	return txt
 
 func _get_quest_status_text(quest: Quest) -> String:
-	var status = QuestManager.get_quest_status(quest.id)
+	var status: int = QuestManager.get_quest_status(quest.id)
 	match status:
 		QuestStatus.UNAVAILABLE:
 			return "未接取"
@@ -58,4 +59,14 @@ func _on_quest_completed(quest: Quest) -> void:
 	var entry : ArpgQuestEntry = quest_entries.get(quest, null)
 	if entry:
 		entry.update_display(_get_quest_text(quest), quest.description)
-	entry.disabled = true
+		entry.disabled = true
+
+func _rebuild() -> void:
+	for entry: QuestEntry in quest_entries.values():
+		quest_container.remove_child(entry)
+		entry.queue_free()
+	quest_entries.clear()
+	for quest: Quest in QuestManager.active_quests:
+		_on_quest_accepted(quest)
+		if quest.is_completed:
+			_on_quest_completed(quest)

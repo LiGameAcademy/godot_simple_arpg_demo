@@ -4,8 +4,6 @@ func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 
 func _on_area_entered(area: Area3D) -> void:
-	# 因为 Mask 设为了 4，所以撞到的一定是敌人的 Hurtbox
-	# Hurtbox 的父节点才是 Enemy 实体
-	var enemy = area.get_parent()
-	if enemy.has_method("take_damage"):
-		enemy.take_damage(1) # 造成 1 点伤害
+	# 命中框只通知接收区域，区域向所属实体发信号。
+	if area.has_method("receive_damage"):
+		area.call("receive_damage", 1)
