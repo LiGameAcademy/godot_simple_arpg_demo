@@ -26,6 +26,7 @@ func _run() -> void:
 	_main.narrative.executor.finished.connect(_on_finished)
 	await get_tree().physics_frame
 	await _verify_animations()
+	await _verify_host_actions()
 	await _verify_material_isolation()
 	_expect(_main.save_checkpoint(), "save before intro")
 	var before_intro: Dictionary = _main.checkpoint_store.load_snapshot()
@@ -147,6 +148,33 @@ func _verify_material_isolation() -> void:
 	actor.set_corruption(0.15)
 	other.queue_free()
 	await get_tree().process_frame
+
+
+func _verify_host_actions() -> void:
+	var inventory: C_Inventory = _main.player.get_inventory()
+	var item: Item = load("res://data/items/potion_health_small.tres") as Item
+	var count: int = inventory.get_item_count_by_name(item.name)
+	var add: ActionAddItem = ActionAddItem.new()
+	add.item = item
+	_expect(add.execute(_main.player, null), "host add action follows boolean contract")
+	_expect(inventory.get_item_count_by_name(item.name) == count + 1, "host add action changes inventory")
+	var remove: ActionRemoveItem = ActionRemoveItem.new()
+	remove.item_name = item.name
+	_expect(remove.execute(_main.player, null), "host remove action reports success")
+	var condition: ConditionHasItem = ConditionHasItem.new()
+	condition.item_name = "closeout_missing_item"
+	add.condition = condition
+	_expect(not add.execute(_main.player, null), "base action condition prevents host side effect")
+	_expect(inventory.get_item_count_by_name(item.name) == count, "failed condition leaves inventory intact")
+	var teleport: ActionTeleport = ActionTeleport.new()
+	var interaction: InteractionComponent = _main.get_node("RoomLobby/Teleporter/InteractionComponent") as InteractionComponent
+	_expect(teleport.execute(_main.player, interaction), "teleporter requests transition via signals")
+	for frame: int in range(120):
+		await get_tree().physics_frame
+		if not _main._transitioning:
+			break
+	_expect(_main._room == _main.room_dungeon, "level handles teleporter signal")
+	await _main.transition_to_room(_main.room_lobby, _main._lobby_teleporter.global_position)
 
 
 func _on_finished(_run_id: int, sequence_id: StringName, outcome: Executor.Outcome) -> void:

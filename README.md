@@ -4,6 +4,14 @@
 
 本版本保留课程中的简化流程：进入 Boss 房触发入场演出，按 `K` 模拟击败，然后播放收尾演出。备课版的实际 Boss 战斗、新技能系统和新版背包没有混入本课程主线。
 
+## 插件依赖
+
+对话、任务、历史与演出执行核心由 Git 子模块 `addons/laoli_dialogue_system` 提供，来源为 [laoli_dialogue_system](https://github.com/LiGameAcademy/laoli_dialogue_system)。本工程固定到验证过的提交，不跟随远端自动升级。
+
+首次克隆使用 `git clone --recurse-submodules`；已有检出在切换版本后执行 `git submodule update --init --recursive`。插件使用说明见 [插件文档](addons/laoli_dialogue_system/docs/README.md)。
+
+宿主显式注册游戏事件、任务数据库与配置查询；Boss 片段、镜头、剧情提交和三阶段检查点仍由 ARPG 管理。新版动作通过 GameAction 的条件检查与布尔执行接口接入，传送请求由场景信号交给关卡处理。课程录制和收口标签保持不变。
+
 ## 运行
 
 使用 Godot **4.7.2** 打开根目录的 `project.godot`，等待首次资源导入完成，再运行主场景。未验证 Godot 4.5 兼容性。

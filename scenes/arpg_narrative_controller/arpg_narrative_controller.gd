@@ -51,7 +51,7 @@ func start(camera: Camera3D, fouce: Vector3, room_view: Transform3D,\
 	if selected == null:
 		last_error = "演出资源为空"
 		return false
-	last_error = selected.validata()
+	last_error = selected.validate()
 	if not last_error.is_empty():
 		return false
 	if presentation.config == null:

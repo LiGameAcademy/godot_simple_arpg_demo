@@ -1,19 +1,11 @@
 extends GameAction
 class_name ActionGiveReward
-
+## Delegates configured reward policy to the host game state.
 @export var reward_id: String = ""
-
-func init_from_data(action_data: Dictionary) -> void:
-	reward_id = action_data.get("id", "")
+func init_from_data(data: Dictionary) -> void:
+	reward_id = String(data.get("id", ""))
+func _execute_internal(_initiator: Node, _target: Node) -> bool:
 	if reward_id.is_empty():
-		push_error("ActionGiveReward: reward_id为空")
-		return
-
-func execute(_initiator: Node, _target: Node) -> void:
-	if reward_id.is_empty():
-		push_error("ActionGiveReward: reward_id为空")
-		return
-	
-	# 调用GameState的奖励处理逻辑
+		return false
 	GameState.handle_give_reward_action({"id": reward_id})
-	print("获得奖励：", reward_id)
+	return true
