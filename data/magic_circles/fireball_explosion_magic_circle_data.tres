@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/godot_gameplay_abilities/scripts/status/features/status_feature.gd" id="4_lkvdu"]
 [ext_resource type="Script" uid="uid://c3fih0laarrcq" path="res://addons/godot_gameplay_abilities/scripts/entities/data/magic_field_data.gd" id="6_8hovx"]
 
+[ext_resource type="Resource" path="res://data/ability_status/fire_impact.tres" id="Impact"]
+
 [sub_resource type="Resource" id="Resource_vl22y"]
 script = ExtResource("2_p2s5k")
 duration = 0.0
@@ -15,4 +17,4 @@ metadata/_custom_type_script = "uid://c068pgasfc70p"
 script = ExtResource("6_8hovx")
 duration = 0.1
 magic_field_scene = ExtResource("2_fireball_circle_scene")
-payload_statuses = Array[ExtResource("2_p2s5k")]([SubResource("Resource_vl22y")])
+payload_statuses = [ExtResource("Impact")]

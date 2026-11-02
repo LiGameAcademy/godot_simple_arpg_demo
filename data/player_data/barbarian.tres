@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://lm7wlbrgn7bt" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute.gd" id="2_nkcd8"]
 [ext_resource type="Script" uid="uid://d373ug5yg4v21" path="res://scripts/data/attribute_set/secondary_attribute_set.gd" id="3_ed0ic"]
 [ext_resource type="Script" uid="uid://coyhetiyc4y1" path="res://scripts/data/player_data.gd" id="4_x6008"]
-[ext_resource type="Script" uid="uid://myeh0phiojr0" path="res://addons/godot_gameplay_abilities/scripts/abilities/gameplay_ability_definition.gd" id="19_sssar"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/abilities/gameplay_ability_definition.gd" id="19_sssar"]
 [ext_resource type="Resource" uid="uid://dqyj5y5ta5vje" path="res://data/abilities/combo_attack.tres" id="20_sssar"]
 [ext_resource type="Resource" uid="uid://bq3236nkirgvu" path="res://data/abilities/dash.tres" id="21_lpmmf"]
 [ext_resource type="Resource" uid="uid://dot5q23nxvk0v" path="res://data/abilities/fireball.tres" id="22_0tg7o"]

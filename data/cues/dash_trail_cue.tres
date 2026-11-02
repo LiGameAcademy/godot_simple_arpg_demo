@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="GameplayCue" load_steps=6 format=3 uid="uid://7epxb5iuexp6"]
 
-[ext_resource type="Script" uid="uid://cyc24nfkwkmo1" path="res://addons/gameplay_abiltiy_system/scripts/cues/gameplay_cue_base.gd" id="1_excli"]
-[ext_resource type="Script" uid="uid://6mcxpdojhh7u" path="res://addons/gameplay_abiltiy_system/scripts/cues/gameplay_cue.gd" id="2_aldp5"]
-[ext_resource type="Material" uid="uid://br75uh6cdvax4" path="res://assets/materials/ghost_trail_material.tres" id="2_hj631"]
-[ext_resource type="Script" uid="uid://c5t56reab6urg" path="res://addons/gameplay_abiltiy_system/scripts/cues/cue_trail.gd" id="3_76uw8"]
+[ext_resource type="Script" path="res://addons/gameplay_abiltiy_system/scripts/cues/gameplay_cue_base.gd" id="1_excli"]
+[ext_resource type="Script" path="res://addons/gameplay_abiltiy_system/scripts/cues/gameplay_cue.gd" id="2_aldp5"]
+[ext_resource type="Material" path="res://assets/materials/ghost_trail_material.tres" id="2_hj631"]
+[ext_resource type="Script" path="res://addons/gameplay_abiltiy_system/scripts/cues/cue_trail.gd" id="3_76uw8"]
 
 [sub_resource type="Resource" id="Resource_xbvfu"]
 script = ExtResource("3_76uw8")

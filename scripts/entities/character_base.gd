@@ -1,6 +1,8 @@
 extends CharacterBody3D
 class_name CharacterBase
 
+signal died(entity: CharacterBase)
+
 ## 角色基类
 ## 提供通用的动画系统、属性组件等基础功能
 
@@ -20,10 +22,12 @@ class_name CharacterBase
 ## 是否已死亡（防止重复触发）
 var _is_dead: bool = false
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	var colliders: Array[Node] = []
 	_collect_combat_colliders(self, colliders)
 	CombatUtils.register_entity(self, colliders)
+
+func _ready() -> void:
 	_init_components()
 	_setup_death_listener()
 
@@ -37,10 +41,20 @@ func _collect_combat_colliders(node: Node, colliders: Array[Node]) -> void:
 		_collect_combat_colliders(child, colliders)
 
 ## 获取属性组件
+func get_gameplay_vital_attribute_component() -> GameplayVitalAttributeComponent:
+	return attribute_component
+
+func get_gameplay_attribute_component() -> GameplayVitalAttributeComponent:
+	return attribute_component
+
 func get_attribute_component() -> GameplayVitalAttributeComponent:
 	return attribute_component
 
 ## 获取能力组件
+func get_gameplay_ability_component() -> GameplayAbilityComponent:
+	return ability_component
+
+
 func get_ability_component() -> GameplayAbilityComponent:
 	return ability_component
 
@@ -93,7 +107,7 @@ func _get_facing_angle() -> float:
 ## [param] attachment_point: StringName 挂点名（如 "head", "foot", "body" 等）
 ## [return] Node3D 挂点节点，如果找不到则返回 null
 func get_attachment_point(attachment_point: StringName) -> Node3D:
-	return _attachment_point_mapping.get(attachment_point, null)
+	return _attachment_point_mapping.get(attachment_point, self)
 
 #endregion
 
@@ -103,25 +117,13 @@ func _init_components() -> void:
 
 ## 设置死亡监听器
 func _setup_death_listener() -> void:
-	# 监听统一游戏事件：entity_died
-	AbilityEventBus.game_event_occurred.connect(_on_game_event_occurred)
+	var health: HealthVital = attribute_component.get_vital(&"health") as HealthVital
+	if health != null:
+		health.health_depleted.connect(_on_health_depleted)
 
-## 处理游戏事件
-func _on_game_event_occurred(event_type: StringName, context: Dictionary) -> void:
-	if event_type != &"entity_died":
-		return
-	
-	# 检查是否是自己的死亡事件
-	var entity: Node = context.get("entity") as Node
-	if entity != self:
-		return
-	
-	# 防止重复触发
-	if _is_dead:
-		return
-	
-	# 播放死亡动画
+func _on_health_depleted(_instigator: Node) -> void:
 	_play_death_animation()
+	died.emit(self)
 
 ## 播放死亡动画
 func _play_death_animation() -> void:

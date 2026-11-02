@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://ct224mxbkm3nx" path="res://addons/godot_gameplay_abilities/scripts/attributes/gameplay_attribute_modifier.gd" id="3_ks1xf"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="3_yic65"]
 [ext_resource type="Script" uid="uid://c0qsmmiapnmu7" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_attribute_modifier.gd" id="4_0q610"]
-[ext_resource type="Script" uid="uid://b8k7x2m5oap4w" path="res://scripts/systems/test_manager.gd" id="4_freeze_cue"]
+[ext_resource type="Script" uid="uid://b5j8c2s6k9m4p" path="res://scripts/systems/test_manager.gd" id="4_freeze_cue"]
 [ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/godot_gameplay_abilities/scripts/status/features/status_feature.gd" id="6_egm0p"]
 
 [sub_resource type="Resource" id="Resource_e3py3"]

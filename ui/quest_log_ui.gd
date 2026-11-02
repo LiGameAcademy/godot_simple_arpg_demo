@@ -61,12 +61,3 @@ func _on_quest_completed(quest: Quest) -> void:
 		entry.update_display(_get_quest_text(quest), quest.description)
 		entry.disabled = true
 
-func _rebuild() -> void:
-	for entry: QuestEntry in quest_entries.values():
-		quest_container.remove_child(entry)
-		entry.queue_free()
-	quest_entries.clear()
-	for quest: Quest in QuestManager.active_quests:
-		_on_quest_accepted(quest)
-		if quest.is_completed:
-			_on_quest_completed(quest)

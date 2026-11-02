@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://bg8bey7bjksfi" path="res://addons/godot_gameplay_abilities/scripts/modifiers/gameplay_ability_modifier.gd" id="1_hbrea"]
 [ext_resource type="Script" uid="uid://douxicmi8r2jr" path="res://scripts/talent/talent_data.gd" id="1_talent_data"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hbrea"]
-load_path = "res://.godot/imported/icons.png-3a2c064d0bba3f942d69c3204833c3d7.ctex"
+[ext_resource type="Texture2D" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="Icon"]
+[ext_resource type="Resource" path="res://data/modifiers/mod_cooldown_reduction.tres" id="Modifier"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_poylq"]
-atlas = SubResource("CompressedTexture2D_hbrea")
+atlas = ExtResource("Icon")
 region = Rect2(128, 64, 32, 32)
 
 [resource]
@@ -17,3 +17,4 @@ display_name = "急速冷却"
 description = "所有技能冷却时间减少 20%"
 icon = SubResource("AtlasTexture_poylq")
 cost = 2
+ability_modifiers = [ExtResource("Modifier")]

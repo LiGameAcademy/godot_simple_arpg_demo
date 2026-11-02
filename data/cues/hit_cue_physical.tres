@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CueAttachedParticle" load_steps=3 format=3 uid="uid://bgfj67kw1fhtp"]
 
 [ext_resource type="Script" uid="uid://cc0tonea2c7ay" path="res://addons/godot_gameplay_abilities/scripts/cues/cue_attached_particle.gd" id="1_attached_particle"]
-[ext_resource type="PackedScene" uid="uid://dd4rw7h0bphf2" path="res://prefabs/fx/floating_text.tscn" id="1_ibw2e"]
+[ext_resource type="PackedScene" path="res://prefabs/fx/floating_text.tscn" id="1_ibw2e"]
 
 [resource]
 script = ExtResource("1_attached_particle")

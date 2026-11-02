@@ -1,64 +1,39 @@
 extends CharacterBase
 class_name Enemy
-
-# 预留给掉落物的插槽 (稍后制作)
-@export var loot_scene: PackedScene 
+## Owns enemy life-cycle presentation; the room forwards kill and loot events.
+signal defeated(enemy_id: String)
+signal loot_requested(scene: PackedScene, position: Vector3, impulse: Vector3)
+const Profile = preload("res://scripts/core/combat_profile.gd")
+const HEALTH = preload("res://data/combat/combat_health_vital.tres")
+const MAX_HEALTH = preload("res://data/attributes/max_health.tres")
+@export var profile: Profile = preload("res://data/combat/enemy_profile.tres")
+@export var loot_scene: PackedScene
 @export var enemy_id: String = "skeleton"
-
-# 简单的生命值
-var hp: int = 3
-
+var _awake: bool = false
 func _ready() -> void:
 	super()
+	died.connect(_on_defeated)
 	hide()
-
 func awaken() -> void:
-	await get_tree().create_timer(randf_range(0.1, 0.5)).timeout
-	show()
-	_visual_adapter.play_animation("awaken")
-
-# 公开接口：受到伤害
-func take_damage(amount: int) -> void:
-	hp -= amount
-	print("骷髅受到伤害！剩余HP: ", hp)
-	
-	# 受击反馈 (简单的闪白或动画，这里省略)
-	_visual_adapter.play_animation("hit")
-	
-	if hp <= 0:
-		die()
-
-func die() -> void:
-	GameState.emit_game_event("enemy_died", {"enemy_id": enemy_id})
-	# 1. 生成掉落物 (稍后实现)
-	spawn_loot()
-	# 2. 销毁自身
-	_visual_adapter.play_animation("death")
-
-func spawn_loot() -> void:
-	if not is_instance_valid(loot_scene):
+	if _awake or _is_dead:
 		return
-	var loot = loot_scene.instantiate()
-	# 添加到当前场景 (不要加给怪物自己，因为怪物要死)
-	get_parent().add_child(loot)
-	loot.global_position = global_position + Vector3(0, 1, 0)
-	
-	# 给它一个随机的爆炸推力！
-	var random_dir = Vector3(randf_range(-2, 2), 2, randf_range(-2, 2)).normalized()
-	loot.apply_impulse(random_dir * 5.0)
-
-## 获取动画树路径（重写基类方法）
-func _get_animation_tree_path() -> NodePath:
-	return NodePath("Skeleton_Warrior/AnimationTree")
-
-## 组件初始化（重写基类方法）
+	_awake = true
+	show()
+	_visual_adapter.play_animation(&"awaken")
 func _init_components() -> void:
-	super()
-	
-	attribute_component.initialize()
-	var health_vital : HealthVital = attribute_component.get_vital("health")
-	if is_instance_valid(health_vital):
-		health_vital.damage_applied.connect(
-			func(_damage_info : DamageInfo, _final_damage: float) -> void:
-				_visual_adapter.play_animation("hit")
-		)
+	var stats: GameplayAttributeSet = GameplayAttributeSet.new()
+	stats.attributes[MAX_HEALTH] = float(profile.max_health)
+	attribute_component.initialize([stats], [HEALTH])
+func take_damage(amount: int) -> void:
+	var health: HealthVital = attribute_component.get_vital(&"health") as HealthVital
+	if health != null and amount > 0:
+		var damage: DamageInfo = DamageInfo.new()
+		damage.final_damage = float(amount)
+		health.apply_damage(damage, self)
+func _on_defeated(_entity: CharacterBase) -> void:
+	defeated.emit(enemy_id)
+	if loot_scene != null:
+		var impulse: Vector3 = Vector3(randf_range(-2, 2), 2, randf_range(-2, 2)).normalized() * 5
+		loot_requested.emit(loot_scene, global_position + Vector3.UP, impulse)
+	collision_layer = 0
+	collision_mask = 0

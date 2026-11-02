@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://ctnmjf6pyjfeu" path="res://addons/godot_gameplay_abilities/scripts/status/features/status_feature.gd" id="4_jhbrn"]
 [ext_resource type="PackedScene" uid="uid://dajag4lw1syt0" path="res://prefabs/arcane_bolt.tscn" id="6_ovlgk"]
 
+[ext_resource type="Resource" path="res://data/ability_status/arcane_impact.tres" id="Impact"]
+
 [sub_resource type="Resource" id="Resource_homing"]
 script = ExtResource("2_homing_strategy")
 metadata/_custom_type_script = "res://addons/godot_gameplay_abilities/scripts/entities/movement_strategies/homing_movement_strategy.gd"
@@ -22,4 +24,4 @@ homing_acceleration = 20.0
 max_pierce_count = 0
 movement_strategy = SubResource("Resource_homing")
 projectile_scene = ExtResource("6_ovlgk")
-payload_statuses = Array[ExtResource("2_7jch6")]([SubResource("Resource_cc7c1")])
+payload_statuses = [ExtResource("Impact")]

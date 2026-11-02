@@ -5,7 +5,7 @@ const Player = preload("res://prefabs/player.gd")
 const Narrative = preload("res://scenes/arpg_narrative_controller/arpg_narrative_controller.gd")
 const Executor = preload("res://addons/laoli_dialogue_system/scenes/cutscene_player/cutscene_player.gd")
 
-@onready var boss_actor: Actor = $RoomBoss/BossEncounter/BossActor
+@onready var boss_actor: Actor = $RoomBoss/BossEncounter/BossCombatant/BossActor
 @onready var boss_focus: Marker3D = $RoomBoss/BossEncounter/BossFocus
 @onready var game_camera: Camera3D = $GameCamera
 @onready var player: Player = $Player

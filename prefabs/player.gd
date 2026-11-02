@@ -1,5 +1,12 @@
 extends CharacterBase
 class_name Player
+## Owns player controls; vitals, abilities and inventory remain component-owned.
+
+@onready var animation_tree: AnimationTree = $Visuals/Barbarian/AnimationTree
+@onready var animation_state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/StateMachine/playback")
+var _control_locks: Array[StringName] = []
+var _focused_interaction: InteractionComponent
+
 
 @export var player_data : PlayerData = null
 
@@ -34,6 +41,9 @@ var _last_movement_direction: Vector2 = Vector2(0, 1)
 
 func _ready() -> void:
 	super()
+	ability_component.modifier_component = $GameplayModifierComponent as GameplayModifierComponent
+	DialogueManager.dialogue_started.connect(_on_dialogue_started)
+	DialogueManager.dialogue_finished.connect(_on_dialogue_finished)
 	
 	# 将快捷键管理器添加到场景树，使其能够接收 _unhandled_input
 	if not shortcut_manager.is_inside_tree():
@@ -74,7 +84,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	# 1. 获取输入 (2D向量)
-	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down") if can_control() else Vector2.ZERO
 
 	# 2. 转换为 3D 方向 (X/Z 平面)
 	# 注意：模型朝向 -Z（Godot 默认前方）
@@ -109,8 +119,11 @@ func _physics_process(delta: float) -> void:
 	_set_movement_blend_position(velocity.length())
 	# 6. 应用移动
 	move_and_slide()
+	_update_interaction_focus()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not can_control():
+		return
 	if event.is_action_pressed("interact"):
 		_try_interact()
 
@@ -133,7 +146,7 @@ func _try_interact() -> void:
 		var target: Area3D = bodies[0]
 		# 检查目标是否有 interact 方法
 		if target.has_method("interact"):
-			target.interact()
+			target.interact(self)
 
 ## 组件初始化（重写基类方法）
 func _init_components() -> void:
@@ -241,6 +254,8 @@ func is_ranged_ability(ability_instance: GameplayAbilityInstance) -> bool:
 ## [param] ability_id: StringName 技能 ID
 ## [param] context: Dictionary 上下文信息（可选）
 func try_activate_ability(ability_id: StringName, context: Dictionary = {}) -> void:
+	if not can_control():
+		return
 	if not is_instance_valid(ability_component):
 		push_warning("Player: Cannot cast ability, ability_component is not valid")
 		return
@@ -252,6 +267,8 @@ func try_activate_ability(ability_id: StringName, context: Dictionary = {}) -> v
 		return
 	
 	context.instigator = self
+	context["resolve_combat_entity"] = CombatUtils.get_entity_from_collider
+	context["base_damage"] = attribute_component.get_value(&"attack")
 	
 	# 检查技能是否可以释放
 	if not ability_component.can_activate_ability(ability_id, context):
@@ -259,8 +276,11 @@ func try_activate_ability(ability_id: StringName, context: Dictionary = {}) -> v
 	
 	# 将鼠标位置传入 context（用于目标选择等）
 	# 转向逻辑已移至行为树节点（AbilityNodeFaceTarget）
-	var mouse_pos: Vector3 = get_mouse_world_position()
-	context["target_position"] = mouse_pos
+	if not context.has("target_position"):
+		context["target_position"] = get_mouse_world_position()
+	if context["target_position"] is Vector3:
+		face_point(context["target_position"] as Vector3)
+	context["facing_direction"] = -visuals.global_basis.z
 	
 	# 调用基类方法
 	super(ability_id, context)
@@ -274,7 +294,7 @@ func _get_facing_angle() -> float:
 
 ## 技能完成回调
 ## [param] _ability_id: StringName 技能ID（未使用，保留以匹配信号签名）
-func _on_ability_completed(_ability_id: StringName) -> void:
+func _on_ability_completed(_ability: GameplayAbilityInstance) -> void:
 	_visual_adapter.play_animation("movement")
 
 
@@ -307,3 +327,60 @@ func _on_cancel_channeling_requested(ability_id: StringName, _shortcut: String) 
 	if is_instance_valid(blackboard):
 		# 设置信号，触发行为树中的 BTWaitSignal
 		blackboard.set_var("event_input_released", true)
+
+func can_control() -> bool:
+	var health: HealthVital = attribute_component.get_vital(&"health") as HealthVital
+	return _control_locks.is_empty() and health != null and health.is_alive
+
+func set_control_lock(reason: StringName, locked: bool) -> void:
+	if locked and not _control_locks.has(reason):
+		_control_locks.append(reason)
+	elif not locked:
+		_control_locks.erase(reason)
+	if locked:
+		velocity = Vector3.ZERO
+		var current: GameplayAbilityInstance = ability_component.get_current_casting_ability()
+		if current != null and current.is_active:
+			ability_component.cancel_ability(current.get_definition().ability_id)
+
+func face_point(point: Vector3) -> void:
+	var offset: Vector3 = point - global_position
+	visuals.rotation.y = atan2(offset.x, offset.z) + PI
+
+func take_damage(amount: int) -> void:
+	var health: HealthVital = attribute_component.get_vital(&"health") as HealthVital
+	if not can_control() or health == null or amount <= 0:
+		return
+	var damage: DamageInfo = DamageInfo.new()
+	damage.final_damage = float(amount)
+	health.apply_damage(damage, self)
+
+func restore_checkpoint() -> void:
+	var health: HealthVital = attribute_component.get_vital(&"health") as HealthVital
+	health.initialize(attribute_component)
+	_is_dead = false
+	_control_locks.clear()
+	remove_from_group("death")
+	animation_tree.active = true
+	animation_state_machine.start(&"movement")
+
+func _on_dialogue_started() -> void:
+	set_control_lock(&"dialogue", true)
+
+func _on_dialogue_finished() -> void:
+	set_control_lock(&"dialogue", false)
+
+func _update_interaction_focus() -> void:
+	var selected: InteractionComponent
+	if can_control():
+		for area: Area3D in interaction_area.get_overlapping_areas():
+			if area is InteractionComponent:
+				selected = area as InteractionComponent
+				break
+	if selected == _focused_interaction:
+		return
+	if is_instance_valid(_focused_interaction):
+		_focused_interaction.unfocused()
+	_focused_interaction = selected
+	if is_instance_valid(selected):
+		selected.focused()

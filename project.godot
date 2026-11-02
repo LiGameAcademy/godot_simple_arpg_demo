@@ -15,17 +15,30 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="3d_simple_rpg"
-run/main_scene="uid://30orglekea3b"
+run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
+GameplayAbilitySystem="*res://addons/godot_gameplay_abilities/scripts/singletons/gameplay_ability_system.gd"
+AbilityEventBus="*res://addons/godot_gameplay_abilities/scripts/singletons/ability_event_bus.gd"
+TagManager="*res://addons/godot_gameplay_abilities/scripts/singletons/gameplay_tag_manager.gd"
+GameplayCueManager="*res://addons/godot_gameplay_abilities/scripts/singletons/gameplay_cue_manager.gd"
+ItemManager="*res://addons/simple_inventory/scripts/managers/item_manager.gd"
+ItemUseStrategyManager="*res://addons/simple_inventory/scripts/managers/item_use_strategy_manager.gd"
+TalentManager="*res://scripts/singletons/talent_manager.gd"
+Panku="*res://addons/panku_console/console.tscn"
+DDD="*res://addons/zylann.debug_draw/debug_draw.gd"
 GameState="*res://scripts/globals/game_state.gd"
 DialogueHistoryManager="*res://addons/laoli_dialogue_system/scripts/core/history/dialogue_history_manager.gd"
 VariableManager="*res://addons/laoli_dialogue_system/scripts/core/variable/variable_manager.gd"
 QuestManager="*res://addons/laoli_dialogue_system/scripts/core/quest/quest_manager.gd"
 DialogueManager="*res://addons/laoli_dialogue_system/scripts/core/dialogue/dialogue_manager.gd"
+
+[debug_draw_3d]
+
+settings/addon_root_folder="res://addons/debug_draw_3d"
 
 [display]
 
@@ -39,28 +52,12 @@ window/stretch/mode="canvas_items"
 
 enabled=PackedStringArray("res://addons/laoli_dialogue_system/plugin.cfg", "res://addons/simple_inventory/plugin.cfg")
 
+[global_group]
+
+Entities=""
+
 [input]
 
-load_story_checkpoint={
-"deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194340,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
-]
-}
-save_story_checkpoint={
-"deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194336,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
-]
-}
-skip_cutscene={
-"deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":70,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
-]
-}
-retry_story={
-"deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
-]
-}
 move_up={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":119,"location":0,"echo":false,"script":null)
@@ -120,6 +117,36 @@ load_story_checkpoint={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":76,"key_label":0,"unicode":108,"location":0,"echo":false,"script":null)
 ]
+}
+toggle_status_debug={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+toggle_tag_debug={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":84,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+toggle_talent_tree={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":84,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+toggle_bt_debug={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":true,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+
+save_inventory={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"physical_keycode":4194337)]
+}
+
+load_inventory={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"physical_keycode":4194339)]
 }
 
 [internationalization]

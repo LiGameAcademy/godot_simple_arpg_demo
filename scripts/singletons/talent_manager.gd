@@ -90,4 +90,4 @@ func _apply_talent_to_entity(entity: Node, talent: TalentData) -> void:
 	var source_id: String = "talent." + String(talent.talent_id)
 	for mod in talent.ability_modifiers:
 		if is_instance_valid(mod):
-			modifier_comp.add_modifier(mod, source_id)
+			modifier_comp.add_modifier(mod.duplicate(true) as GameplayAbilityModifier, source_id)

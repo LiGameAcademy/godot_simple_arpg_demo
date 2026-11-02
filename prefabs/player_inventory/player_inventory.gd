@@ -16,7 +16,9 @@ func initialize(inventory: InventoryComponent, equipment: EquipmentComponent, us
 	var axe: ArpgEquip = load("res://data/items/axe.tres") as ArpgEquip
 	var staff: ArpgEquip = load("res://data/items/staff.tres") as ArpgEquip
 	inventory.initialize(user, equipment)
-	ItemUseStrategyManager.register_strategy(&"arpg_heal", HEAL_STRATEGY)
+	inventory.items_received.connect(_on_items_received)
+	if not ItemUseStrategyManager.strategies.has(&"arpg_heal"):
+		ItemUseStrategyManager.register_strategy(&"arpg_heal", HEAL_STRATEGY)
 	if not ItemManager.item_types.has(&"arpg_consumable"):
 		ItemManager.register_item_type(GameplayItemType.new(&"arpg_consumable", "药水", null, 1, true, 10, &"arpg_heal"))
 	for config: GameplayItem in [potion, axe, staff]:
@@ -44,3 +46,7 @@ func load_state(path: String) -> bool:
 	if parser.parse(file.get_as_text()) != OK or not parser.data is Dictionary:
 		return false
 	return InventorySnapshot.restore(parser.data as Dictionary, _inventory, _equipment)
+
+func _on_items_received(item_id: StringName, quantity: int) -> void:
+	var id: String = String(item_id)
+	GameState.emit_game_event("item_added", {"item_id": id, "id": id, "amount": quantity})

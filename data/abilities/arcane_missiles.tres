@@ -8,7 +8,6 @@
 [ext_resource type="Resource" uid="uid://ds4wx1ltqdqp0" path="res://data/projectiles/projectile_data_arcane.tres" id="5_projectile_data"]
 [ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/abilities/features/cost_feature.gd" id="5_q0cdq"]
 [ext_resource type="Texture2D" uid="uid://l7twcyijdiou" path="res://addons/simple_inventory/assets/textures/items/icons.png" id="7_icon"]
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/filters/gameplay_filter_data.gd" id="8_82pxk"]
 
 [sub_resource type="Resource" id="Resource_77e8j"]
 script = ExtResource("3_cd6ue")
