@@ -1,0 +1,4 @@
+[submodule "addons/laoli_dialogue_system"]
+	path = addons/laoli_dialogue_system
+	url = https://github.com/LiGameAcademy/laoli_dialogue_system.git
+	branch = master

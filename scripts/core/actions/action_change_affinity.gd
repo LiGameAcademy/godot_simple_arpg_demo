@@ -1,25 +1,13 @@
 extends GameAction
 class_name ActionChangeAffinity
-
-## 改变好感度
-
+## Applies configured affinity changes through the host state owner.
 @export var npc_id: String = ""
 @export var value: int = 0
-
-func init_from_data(action_data: Dictionary) -> void:
-	npc_id = action_data.get("npc_id", "")
-	value = action_data.get("value", 0)
+func init_from_data(data: Dictionary) -> void:
+	npc_id = String(data.get("npc_id", ""))
+	value = int(data.get("value", 0))
+func _execute_internal(_initiator: Node, _target: Node) -> bool:
 	if npc_id.is_empty():
-		push_error("ActionChangeAffinity: npc_id为空")
-		return
-	if value == 0:
-		push_error("ActionChangeAffinity: value为0")
-		return
-
-func execute(_initiator: Node, _target: Node) -> void:
-	if npc_id.is_empty():
-		push_error("ActionChangeAffinity: npc_id为空")
-		return
-	
+		return false
 	GameState.change_npc_affinity(npc_id, value)
-	print("好感度变化：%s +%d" % [npc_id, value])
+	return true

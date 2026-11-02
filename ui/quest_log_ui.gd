@@ -1,11 +1,11 @@
 extends CanvasLayer
-class_name QuestLogUI
+class_name ArpgQuestLogUI
 
 const QuestStatus = QuestManager.QuestStatus
-const QUEST_ENTRY = preload("uid://buxpglhrujy2")
+const QUEST_ENTRY = preload("res://ui/quest_entry.tscn")
 @onready var quest_container: VBoxContainer = %QuestContainer
 
-var quest_entries: Dictionary[Quest, QuestEntry] = {}
+var quest_entries: Dictionary[Quest, ArpgQuestEntry] = {}
 
 func _ready() -> void:
 	# 核心：连接 QuestManager 的信号
@@ -34,7 +34,7 @@ func _get_quest_status_text(quest: Quest) -> String:
 	return ""
 
 func _rebuild() -> void:
-	for entry: QuestEntry in quest_entries.values():
+	for entry: ArpgQuestEntry in quest_entries.values():
 		quest_container.remove_child(entry)
 		entry.queue_free()
 	quest_entries.clear()
@@ -44,18 +44,18 @@ func _rebuild() -> void:
 			_on_quest_completed(quest)
 
 func _on_quest_accepted(quest: Quest) -> void:
-	var entry : QuestEntry = QUEST_ENTRY.instantiate()
+	var entry : ArpgQuestEntry = QUEST_ENTRY.instantiate()
 	quest_container.add_child(entry)
 	entry.update_display(_get_quest_text(quest), quest.description)
 	quest_entries[quest] = entry
 
 func _on_quest_updated(quest: Quest) -> void:
-	var entry : QuestEntry = quest_entries.get(quest, null)
+	var entry : ArpgQuestEntry = quest_entries.get(quest, null)
 	if entry:
 		entry.update_display(_get_quest_text(quest), quest.description)
 
 func _on_quest_completed(quest: Quest) -> void:
-	var entry : QuestEntry = quest_entries.get(quest, null)
+	var entry : ArpgQuestEntry = quest_entries.get(quest, null)
 	if entry:
 		entry.update_display(_get_quest_text(quest), quest.description)
 	entry.disabled = true

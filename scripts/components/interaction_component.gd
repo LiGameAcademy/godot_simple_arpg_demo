@@ -13,6 +13,7 @@ class_name InteractionComponent
 @export var prompt_text: String = "E: Interact"
 
 signal interacted(initiator: Node)
+signal teleport_requested(initiator: Node)
 
 func _ready() -> void:
 	_setup_label()
@@ -64,3 +65,7 @@ func _execute_actions(action_list: Array[GameAction], initiator: Node) -> void:
 	for action in action_list:
 		if action:
 			action.execute(initiator, self)
+
+## Notifies the owning teleporter without searching for a parent or level.
+func request_teleport(initiator: Node) -> void:
+	teleport_requested.emit(initiator)

@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://buxpglhrujy2"]
+[gd_scene load_steps=2 format=3 uid="uid://ilp4im8h4rm7"]
 
-[ext_resource type="Script" uid="uid://crvi0ppv6n3ie" path="res://ui/quest_entry.gd" id="1_vk1oi"]
+[ext_resource type="Script" uid="uid://ddoe3qf0jtxmp" path="res://ui/quest_entry.gd" id="1_vk1oi"]
 
 [node name="QuestEntry" type="Button"]
 offset_right = 8.0

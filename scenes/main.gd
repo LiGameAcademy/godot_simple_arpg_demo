@@ -1,5 +1,6 @@
 extends Node3D
 
+const TeleporterScript = preload("res://prefabs/teleporter.gd")
 const Player = preload("res://prefabs/player.gd")
 const Narrative = preload("res://scenes/arpg_narrative_controller/arpg_narrative_controller.gd")
 const Encounter = preload("res://prefabs/boss_encounter/boss_encounter.gd")
@@ -25,10 +26,12 @@ const INTRO_LINES: Array[DialogueNode] = [
 @export var registered_quests: Array[Quest] = []
 @export var checkpoint_path: String = "user://story_checkpoint.json"
 
+@onready var _lobby_teleporter: TeleporterScript = $RoomLobby/Teleporter
+@onready var _dungeon_teleporter: TeleporterScript = $RoomDungeon/Teleporter
 @onready var player: Player = $RoomLobby/Player
 @onready var inventory_ui: MarginContainer = $UILayer/HUD/inventory
 @onready var hud: Control = $UILayer/HUD
-@onready var quest_log: QuestLogUI = $QuestLogUI
+@onready var quest_log: ArpgQuestLogUI = $QuestLogUI
 @onready var camera: Camera3D = $Camera3D
 @onready var room_lobby: DungeonRoom = $RoomLobby
 @onready var room_dungeon: DungeonRoom = $RoomDungeon
@@ -52,7 +55,16 @@ var _player_visual_pose: Transform3D
 var _transition_tween: Tween
 var _checkpoint_loading: bool = false
 
+func _enter_tree() -> void:
+	QuestManager.register_game_event_signal(GameState.game_event_occurred)
+	QuestManager.register_quest_database_provider(
+		func(id: String) -> bool: return GameState.quest_database.has(id))
+	QuestManager.register_quest_resource_getter(
+		func(id: String) -> Quest: return GameState.quest_database.get(id) as Quest)
+
 func _ready() -> void:
+	_lobby_teleporter.transition_requested.connect(_on_teleport_requested)
+	_dungeon_teleporter.transition_requested.connect(_on_teleport_requested)
 	if not DialogueManager.set_initiator(player):
 		push_error("对话服务仍被旧场景占用。")
 	_register_actions()
@@ -147,7 +159,7 @@ func save_checkpoint() -> bool:
 		"checkpoint": Snapshot.phase(_intro_seen, _boss_defeated),
 		"story": {"intro_seen": _intro_seen, "boss_defeated": _boss_defeated, "resolution_seen": _resolution_seen},
 		"quests": QuestCodec.capture(QuestManager.active_quests, QuestManager.completed_quest_ids),
-		"history": DialogueManager.transcript.entries.duplicate(true)
+		"history": DialogueHistoryManager.capture_checkpoint()
 	}
 	var validator: Snapshot = Snapshot.new()
 	if not validator.validate(snapshot, GameState.quest_database):
@@ -195,7 +207,7 @@ func load_checkpoint() -> bool:
 
 	QuestManager.install_checkpoint(validator.quests.prepared_quests, validator.quests.prepared_completed)
 
-	DialogueManager.transcript.replace(snapshot["history"])
+	DialogueHistoryManager.restore_checkpoint(snapshot["history"])
 	DialogueManager.set_initiator(player)
 
 	encounter.restore_checkpoint(_intro_seen, _boss_defeated, _resolution_seen)
@@ -354,3 +366,7 @@ func _on_boss_defeated() -> void:
 	GameState.emit_game_event("enemy_died", {"enemy_id": "异化回响"})
 	_resolution_pending = true
 	narrative.presentation.cutscene_overlay.show_combat_status("异化回响已击败 · 任务标完成")
+
+func _on_teleport_requested(initiator: Node, target_room: DungeonRoom, marker: Node3D) -> void:
+	if initiator == player and is_instance_valid(target_room) and is_instance_valid(marker):
+		transition_to_room(target_room, marker.global_position)
