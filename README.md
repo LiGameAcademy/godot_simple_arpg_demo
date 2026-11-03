@@ -1,6 +1,6 @@
 # Godot Simple ARPG Demo
 
-[简体中文](README_zh-CN.md) · [Narrative plugin](https://github.com/LiGameAcademy/laoli_dialogue_system)
+[简体中文](README_zh-CN.md) · [Narrative plugin](https://github.com/LiGameAcademy/laoli_dialogue_system) · [Inventory plugin](https://github.com/LiGameAcademy/laoli_simple_inventory)
 
 A low-poly Godot prototype combining room exploration, NPC dialogue and quests, resource-driven cutscenes, a gameplay ability system, attributes/vitals, talents, equipment, and instance-based inventory.
 
@@ -18,7 +18,7 @@ cd godot_simple_arpg_demo
 git submodule update --init --recursive
 ```
 
-Open `project.godot`, wait for resource import, and run the main scene. The narrative plugin and gameplay ability system are pinned Git submodules. The inventory plugin is currently included in this repository. Upgrades must update and validate the dependency pointers explicitly.
+Open `project.godot`, wait for resource import, and run the main scene. Narrative, gameplay abilities and inventory are pinned Git submodules. Inventory uses the plugin-only `laoli_simple_inventory` repository at `addons/simple_inventory`; its complete source/teaching project is maintained separately. Upgrades must update and validate the dependency pointers explicitly.
 
 ## Integrated systems
 
@@ -30,6 +30,8 @@ Open `project.godot`, wait for resource import, and run the main scene. The narr
 - Real boss health and combat feed the narrative defeat/result flow. Debug defeat remains available separately.
 
 The host owns world rules, actors, camera presentation, rewards and save policy. Shared dialogue/quest/cutscene code lives in the narrative plugin.
+
+The inventory dependency includes the successful-receipt event used by collection objectives; it does not count snapshot restore as acquisition. Its default UI now uses verified Cryo textures; item icons and the font have separate [asset notices](addons/simple_inventory/THIRD_PARTY_NOTICES.md). Inventory snapshot version and host gameplay bindings are unchanged by this dependency migration.
 
 ## Controls
 

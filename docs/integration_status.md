@@ -1,5 +1,13 @@
 # Feature integration and validation
 
+## Inventory dependency closeout — 2026-11-03
+
+Inventory now mounts the plugin-only [laoli_simple_inventory](https://github.com/LiGameAcademy/laoli_simple_inventory) snapshot `9e5cff9323f76fac1c306cd7b457310381a691a8` at `addons/simple_inventory`. Its tree matches the authoritative source project's plugin directory at `9c0802c`, integrated through [GodotSimpleInventory PR #1](https://github.com/LiGameAcademy/GodotSimpleInventory/pull/1). The distribution begins with the approved snapshot rather than copying historical unverified assets into its Git history.
+
+The host keeps healing, attributes/skills/models, collection-event policy and inventory file paths. The generic `items_received` event has been returned to the source project; successful complete stack merges count, rejected additions and restores do not. Snapshot version and host API paths remain unchanged. Default UI textures were replaced with verified Cryo regions; Shikashi icons and Adobe font licensing are documented inside the dependency. Removed unverified legacy GUI/click files are not included in the release tree.
+
+Independent source validation covers 169 core assertions, 10 dual-UI checks, 9 isolated-host contracts and 8 Windows editor lifecycle checks. Interactive appearance/drag preferences and Godot 4.5 remain outside those claims. ARPG's complete integration gate still applies to the actual migrated host; the existing exact GAS script-retention baseline below is unchanged.
+
 The integrated project combines combat, inventory pilot, web-export and preparation histories while retaining the recorded lesson-40 narrative contracts. The pre-integration state remains at `archive/2026-11-02/before-feature-integration` (`ed59e46`). Recorded course tags are unchanged.
 
 ## Behavior covered by checks
