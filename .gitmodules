@@ -5,3 +5,6 @@
 [submodule "addons/godot_gameplay_abilities"]
     path = addons/godot_gameplay_abilities
     url = https://github.com/LiGameAcademy/godot_gameplay_abilities.git
+[submodule "addons/simple_inventory"]
+	path = addons/simple_inventory
+	url = https://github.com/LiGameAcademy/laoli_simple_inventory.git

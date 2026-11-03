@@ -1,6 +1,6 @@
 # Godot 简易 ARPG 演示工程
 
-[English](README.md) · [叙事插件](https://github.com/LiGameAcademy/laoli_dialogue_system)
+[English](README.md) · [叙事插件](https://github.com/LiGameAcademy/laoli_dialogue_system) · [背包插件](https://github.com/LiGameAcademy/laoli_simple_inventory)
 
 Low-Poly 原型：房间探索、NPC 对话与任务、剧情演出、技能、属性与生命/法力、天赋、装备和实例化背包。录制课程的剧情契约继续由回归检查覆盖；整合前版本保留在 `archive/2026-11-02/before-feature-integration`。
 
@@ -8,11 +8,13 @@ Low-Poly 原型：房间探索、NPC 对话与任务、剧情演出、技能、�
 
 ## 运行
 
-使用 Godot 4.7.2。递归克隆仓库，或检出后执行 `git submodule update --init --recursive`，等待资源导入后运行主场景。叙事插件与技能系统固定为子模块提交；背包插件当前内嵌在本仓库。不宣称已验证 Godot 4.5。
+使用 Godot 4.7.2。递归克隆仓库，或检出后执行 `git submodule update --init --recursive`，等待资源导入后运行主场景。叙事、技能与背包插件均固定为子模块提交；背包使用插件根目录发行库 `laoli_simple_inventory`，路径仍为 `addons/simple_inventory`，完整教学源工程独立维护。不宣称已验证 Godot 4.5。
 
 ## 功能与职责
 
 对话、任务、历史与演出执行核心由叙事插件提供；ARPG 自己维护演员、镜头、具体剧情、任务提交与奖励。战斗提供连击、冲刺、火球、奥术飞弹、献祭、属性与生命/法力。背包提供药水、斧子和法杖装备、属性/技能/模型联动及独立快照。Boss 的真实生命值与击败结果衔接剧情收尾；调试击败入口单独保留。
+
+背包发行版已包含收集任务使用的成功入包事件，完整堆叠会通知，读档不计入。默认界面改用已核对来源的Cryo素材，图标和字体许可见[素材署名](addons/simple_inventory/THIRD_PARTY_NOTICES.md)。本次依赖迁移不改变背包快照版本与宿主玩法接口。
 
 ## 操作
 
