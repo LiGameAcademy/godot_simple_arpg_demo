@@ -6,6 +6,16 @@ Low-Poly 原型：房间探索、NPC 对话与任务、剧情演出、技能、�
 
 > 想继续学习 Godot、获取更多项目学习资源并参与交流，欢迎加入[老李游戏学院知识星球](https://wx.zsxq.com/group/28885154818841)。
 
+## 实机截图
+
+![Boss入场演出与对白特写](docs/screenshots/boss_challenge.png)
+
+| Boss遭遇与任务进度 | 游戏中的背包与装备 |
+| --- | --- |
+| ![带当前任务的Boss战斗场景](docs/screenshots/boss_gameplay.png) | ![药水堆叠、备用武器与已装备斧子的背包界面](docs/screenshots/inventory_in_game.png) |
+
+Godot4.7.2实际运行截图；取景时隐藏开发调试覆盖层。[截图版本与场景](docs/screenshots/README.md)。
+
 ## 运行
 
 使用 Godot 4.7.2。递归克隆仓库，或检出后执行 `git submodule update --init --recursive`，等待资源导入后运行主场景。叙事、技能与背包插件均固定为子模块提交；背包使用插件根目录发行库 `laoli_simple_inventory`，路径仍为 `addons/simple_inventory`，完整教学源工程独立维护。不宣称已验证 Godot 4.5。

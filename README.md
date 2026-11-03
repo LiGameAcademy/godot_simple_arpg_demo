@@ -8,6 +8,16 @@ A low-poly Godot prototype combining room exploration, NPC dialogue and quests, 
 
 The recorded-course narrative contracts remain covered by regression checks. The pre-integration narrative build is preserved at `archive/2026-11-02/before-feature-integration`; recorded-course tags remain unchanged.
 
+## Screenshots
+
+![Boss introduction and cinematic dialogue](docs/screenshots/boss_challenge.png)
+
+| Boss encounter and quest progress | Inventory and equipment in the game |
+| --- | --- |
+| ![Playable boss arena with the active quest](docs/screenshots/boss_gameplay.png) | ![Inventory with a potion stack, spare weapon and equipped axe](docs/screenshots/inventory_in_game.png) |
+
+Actual Godot 4.7.2 runtime captures, Chinese UI shown. Developer overlays were hidden for capture. [Versions and scenes](docs/screenshots/README.md).
+
 ## Requirements and setup
 
 Use **Godot 4.7.2**. Godot 4.5 compatibility is not claimed.
