@@ -17,6 +17,18 @@ func _ready() -> void:
 	_check(inventory.get_item(0).quantity == 3, "seeded potions")
 	_check(inventory.get_item(1).item_config.item_id == &"axe", "seeded axe")
 	_check(inventory.get_item(2).item_config.item_id == &"staff", "seeded staff")
+	var panel: InventoryPanel = main.get_node("UILayer/HUD/inventory") as InventoryPanel
+	var open_inventory: InputEventKey = InputEventKey.new()
+	open_inventory.physical_keycode = KEY_B
+	open_inventory.pressed = true
+	get_viewport().push_input(open_inventory)
+	var first_open_populated: bool = panel.visible and panel.inventory_widget.tab_bar.current_tab == 0
+	for index: int in range(3):
+		var slot: ItemSlot = panel.inventory_widget.get_slot(index) as ItemSlot
+		first_open_populated = first_open_populated and slot.get_item() == inventory.get_item(index) \
+				and slot.item_tile.is_visible_in_tree()
+	_check(first_open_populated, "first B press renders potions, axe and staff on All")
+	panel.close()
 	_check((inventory.get_item(1).item_config as ArpgEquip).abilities.size() == 2, "axe skills loaded")
 	_check((inventory.get_item(2).item_config as ArpgEquip).abilities.size() == 2, "staff skills loaded")
 	var health: float = attributes.get_vital_value(&"health")

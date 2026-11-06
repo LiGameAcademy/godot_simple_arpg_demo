@@ -28,7 +28,7 @@ def main():
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     suites = [("verify_course_closeout", "PASS: course intro/resolution"),
-              ("inventory_pilot_smoke", "ARPG inventory pilot: 34 passed, 0 failed"),
+              ("inventory_pilot_smoke", "ARPG inventory pilot: 35 passed, 0 failed"),
               ("verify_feature_integration", "PASS: feature integration"),
               ("verify_spell_integration", "PASS: spell integration")]
     commands = [] if args.runtime_only else [("import", ["--editor", "--import"], None)]
