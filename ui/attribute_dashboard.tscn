@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cxv8s5e0pkmnp" path="res://ui/attribute_dashboard.gd" id="1_va7it"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_toggle"]
-physical_keycode = 4194333
+physical_keycode = 4194338
 
 [sub_resource type="Shortcut" id="Shortcut_toggle"]
 events = [SubResource("InputEventKey_toggle")]
@@ -114,6 +114,6 @@ theme_override_constants/separation = 4
 [node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
-text = "关闭（F2）"
+text = "关闭（F7）"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/CloseButton" to="." method="hide"]

@@ -92,10 +92,10 @@ func _verify_panel_controls(hud: Control) -> void:
 	var close_attributes: Button = attributes.get_node("MarginContainer/VBoxContainer/CloseButton") as Button
 	close_attributes.pressed.emit()
 	_check(not attributes.visible, "attribute close button hides panel")
-	_press_key(KEY_F2)
-	_check(attributes.visible, "F2 reopens attributes")
-	_press_key(KEY_F2)
-	_check(not attributes.visible, "F2 closes attributes")
+	_press_key(KEY_F7)
+	_check(attributes.visible, "F7 reopens attributes")
+	_press_key(KEY_F7)
+	_check(not attributes.visible, "F7 closes attributes")
 	var talents_were_visible: bool = talents.visible
 	_press_key(KEY_T, true)
 	_check(tags.visible and talents.visible == talents_were_visible, "Ctrl+T opens tags without toggling talents")
