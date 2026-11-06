@@ -9,7 +9,7 @@ A low-poly Godot prototype combining room exploration, NPC dialogue and quests, 
 
 > For more Godot learning resources and to support future development, visit [LiGameAcademy on Patreon](https://www.patreon.com/cw/LiGameAcademy).
 
-[itch.io](https://godot-li.itch.io/)
+[English Discord](https://discord.gg/5KAqAMU8x5) · [itch.io](https://godot-li.itch.io/)
 
 The recorded-course narrative contracts remain covered by regression checks. The pre-integration narrative build is preserved at `archive/2026-11-02/before-feature-integration`; recorded-course tags remain unchanged.
 

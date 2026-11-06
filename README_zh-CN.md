@@ -9,7 +9,7 @@ Low-Poly 原型：房间探索、NPC 对话与任务、剧情演出、技能、�
 
 > 想继续学习 Godot、获取更多项目学习资源并参与交流，欢迎加入[老李游戏学院知识星球](https://wx.zsxq.com/group/28885154818841)。
 
-[中文 Discord](https://discord.gg/V5nuzC2BcJ) · [itch.io 主页](https://godot-li.itch.io/) · [B 站主页](https://space.bilibili.com/8618918)
+[中文 Discord](https://discord.gg/94RZFTRKDP) · [itch.io 主页](https://godot-li.itch.io/) · [B 站主页](https://space.bilibili.com/8618918)
 
 ## 实机截图
 
