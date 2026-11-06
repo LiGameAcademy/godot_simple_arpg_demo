@@ -40,7 +40,7 @@ func _ready() -> void:
 
 ## 处理未处理的输入事件（用于快捷键）
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(toggle_action):
+	if event.is_action_pressed(toggle_action, false, true):
 		toggle_visibility()
 		get_viewport().set_input_as_handled()
 

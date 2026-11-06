@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://addons/godot_gameplay_abilities/ui/tag_debug_panel.tscn" id="1"]
+
+[node name="TagDebugPanel" instance=ExtResource("1")]
+visible = false
+
+[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer" index="3"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "关闭（Ctrl+T）"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CloseButton" to="." method="hide"]
