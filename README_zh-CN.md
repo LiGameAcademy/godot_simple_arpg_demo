@@ -3,7 +3,7 @@
 [![CI](https://github.com/LiGameAcademy/godot_simple_arpg_demo/actions/workflows/validate.yml/badge.svg?branch=master)](https://github.com/LiGameAcademy/godot_simple_arpg_demo/actions/workflows/validate.yml)
 [![GitHub stars](https://img.shields.io/github/stars/LiGameAcademy/godot_simple_arpg_demo)](https://github.com/LiGameAcademy/godot_simple_arpg_demo/stargazers)
 
-[English](README.md) · [叙事插件](https://github.com/LiGameAcademy/laoli_dialogue_system) · [背包插件](https://github.com/LiGameAcademy/laoli_simple_inventory)
+[English](README.md) · [叙事插件](https://github.com/LiGameAcademy/laoli_dialogue_system) · [通用能力系统插件](https://github.com/LiGameAcademy/godot_gameplay_abilities) · [背包插件](https://github.com/LiGameAcademy/laoli_simple_inventory)
 
 Low-Poly 原型：房间探索、NPC 对话与任务、剧情演出、技能、属性与生命/法力、天赋、装备和实例化背包。录制课程的剧情契约继续由回归检查覆盖；整合前版本保留在 `archive/2026-11-02/before-feature-integration`。
 
