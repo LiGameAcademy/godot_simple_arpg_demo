@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://addons/laoli_dialogue_system/ui/dialogue_ui.tscn" id="1_dialogue"]
+
+[node name="DialogueUI" instance=ExtResource("1_dialogue")]
+layer = 160
+
+[node name="Panel" parent="." index="0"]
+offset_top = -290.0

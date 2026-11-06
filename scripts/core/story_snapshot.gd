@@ -24,7 +24,7 @@ func validate(data: Dictionary, database: Dictionary[String, Quest]) -> bool:
 	var expected: String = phase(bool(story["intro_seen"]), bool(story["boss_defeated"]))
 	if data["checkpoint"] != expected:
 		return _reject("剧情标记与检查点不一致")
-	if not quests.prepare(data["quests"], database):
+	if not quests.prepare(_upgrade_legacy_potion_objective(data["quests"]), database):
 		return _reject(quests.last_error)
 	var clone_found: bool = quests.prepared_completed.has("defeat_clone")
 	var clone_done: bool = clone_found
@@ -35,6 +35,18 @@ func validate(data: Dictionary, database: Dictionary[String, Quest]) -> bool:
 	if clone_found != bool(story["intro_seen"]) or clone_done != bool(story["boss_defeated"]):
 		return _reject("剧情标记与克隆体任务不一致")
 	return true
+
+static func _upgrade_legacy_potion_objective(quest_data: Dictionary) -> Dictionary:
+	var upgraded: Dictionary = quest_data.duplicate(true)
+	if not upgraded.get("active") is Array:
+		return upgraded
+	for entry: Variant in upgraded["active"]:
+		if not entry is Dictionary or entry.get("id") != "chief_forest_quest" or not entry.get("goals") is Array:
+			continue
+		for goal: Variant in entry["goals"]:
+			if goal is Dictionary and goal.get("key") == "collect:小红药水:3":
+				goal["key"] = "collect:potion_health_small:3"
+	return upgraded
 
 static func phase(intro_seen: bool, boss_defeated: bool) -> String:
 	return "after_boss" if boss_defeated else ("before_resolution" if intro_seen else "before_intro")
