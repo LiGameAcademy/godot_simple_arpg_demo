@@ -3,7 +3,7 @@
 [![CI](https://github.com/LiGameAcademy/godot_simple_arpg_demo/actions/workflows/validate.yml/badge.svg?branch=master)](https://github.com/LiGameAcademy/godot_simple_arpg_demo/actions/workflows/validate.yml)
 [![GitHub stars](https://img.shields.io/github/stars/LiGameAcademy/godot_simple_arpg_demo)](https://github.com/LiGameAcademy/godot_simple_arpg_demo/stargazers)
 
-[简体中文](README_zh-CN.md) · [Narrative plugin](https://github.com/LiGameAcademy/laoli_dialogue_system) · [Inventory plugin](https://github.com/LiGameAcademy/laoli_simple_inventory)
+[简体中文](README_zh-CN.md) · [Narrative plugin](https://github.com/LiGameAcademy/laoli_dialogue_system) · [Gameplay abilities plugin](https://github.com/LiGameAcademy/godot_gameplay_abilities) · [Inventory plugin](https://github.com/LiGameAcademy/laoli_simple_inventory)
 
 A low-poly Godot prototype combining room exploration, NPC dialogue and quests, resource-driven cutscenes, a gameplay ability system, attributes/vitals, talents, equipment, and instance-based inventory.
 
