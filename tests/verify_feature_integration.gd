@@ -10,6 +10,7 @@ func _run() -> void:
 	main.checkpoint_path = "user://feature_integration_checkpoint.json"
 	add_child(main)
 	await get_tree().physics_frame
+	_verify_panel_controls(main.hud)
 	var player: Player = main.player
 	var inventory: InventoryComponent = player.get_inventory()
 	inventory.items_received.connect(_on_received)
@@ -83,6 +84,41 @@ func _run() -> void:
 	if _failed == 0:
 		print("PASS: feature integration acquisition, real combat, story locks, boss resolution and death restore")
 	get_tree().quit.call_deferred(0 if _failed == 0 else 1)
+func _verify_panel_controls(hud: Control) -> void:
+	var attributes: Control = hud.get_node("AttributeDashboard") as Control
+	var tags: Control = hud.get_node("TagDebugPanel") as Control
+	var talents: Control = hud.get_node("TalentTree") as Control
+	_check(attributes.visible and not tags.visible, "default panel visibility")
+	var close_attributes: Button = attributes.get_node("MarginContainer/VBoxContainer/CloseButton") as Button
+	close_attributes.pressed.emit()
+	_check(not attributes.visible, "attribute close button hides panel")
+	_press_key(KEY_F2)
+	_check(attributes.visible, "F2 reopens attributes")
+	_press_key(KEY_F2)
+	_check(not attributes.visible, "F2 closes attributes")
+	var talents_were_visible: bool = talents.visible
+	_press_key(KEY_T, true)
+	_check(tags.visible and talents.visible == talents_were_visible, "Ctrl+T opens tags without toggling talents")
+	var close_tags: Button = tags.get_node("MarginContainer/VBoxContainer/CloseButton") as Button
+	close_tags.pressed.emit()
+	_check(not tags.visible, "tag close button hides panel")
+	_press_key(KEY_T, true)
+	_check(tags.visible, "Ctrl+T reopens tags")
+	_press_key(KEY_T, true)
+	_check(not tags.visible, "Ctrl+T closes tags")
+	_press_key(KEY_T)
+	_check(talents.visible != talents_were_visible and not tags.visible, "plain T still toggles talents")
+	_press_key(KEY_T)
+
+func _press_key(key: Key, ctrl: bool = false) -> void:
+	var event: InputEventKey = InputEventKey.new()
+	event.physical_keycode = key
+	event.ctrl_pressed = ctrl
+	event.pressed = true
+	get_viewport().push_input(event)
+	event.pressed = false
+	get_viewport().push_input(event)
+
 func _on_received(_item_id: StringName, quantity: int) -> void:
 	_received += quantity
 func _check(condition: bool, message: String) -> void:

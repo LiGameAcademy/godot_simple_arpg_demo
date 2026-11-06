@@ -64,6 +64,8 @@ The inventory dependency includes the successful-receipt event used by collectio
 | F5 / L | Save / restore a narrative checkpoint |
 | F6 / F8 | Save / restore inventory and equipment |
 | Ctrl+Shift+C | Behavior tree debug panel |
+| F2 | Toggle the attribute panel |
+| Ctrl+T | Toggle the tag debug panel |
 
 Narrative checkpoints store story flags, quest progress and minimal dialogue history; they restore stable narrative phases and revive the player. Inventory/equipment persistence is separate. Neither format is a complete world/character save, and ordinary enemy state is not rewound by narrative restore.
 

@@ -18,6 +18,7 @@ const SECONDARY_ATTRS = [&"max_health", &"max_mana", &"attack", &"defense", &"sp
 
 # 预制体
 @export var row_prefab: PackedScene
+@export var toggle_shortcut: Shortcut
 
 var _points_manager: AttributePointsManager
 var _attribute_component: GameplayAttributeComponent
@@ -37,6 +38,12 @@ func _ready() -> void:
 		return
 	
 	initialize(attribute_comp, player.attribute_points_manager)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if toggle_shortcut and event is InputEventKey and event.pressed and not event.echo \
+			and toggle_shortcut.matches_event(event):
+		visible = not visible
+		get_viewport().set_input_as_handled()
 
 ## 初始化面板
 ## [param] comp: GameplayAttributeComponent 属性组件

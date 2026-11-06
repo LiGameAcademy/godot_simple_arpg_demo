@@ -36,7 +36,7 @@
 [ext_resource type="PackedScene" uid="uid://dejtvj01nnaqw" path="res://ui/ability_bar.tscn" id="Combat_24_y6deb"]
 [ext_resource type="PackedScene" uid="uid://b8k7x2m5oap4q" path="res://ui/status_debug_panel.tscn" id="Combat_25_2wyq8"]
 [ext_resource type="Script" uid="uid://bguhd2ngg3kqx" path="res://scripts/camera/camera_controller.gd" id="Combat_25_og1vs"]
-[ext_resource type="PackedScene" uid="uid://b4qtmgalki1a8" path="res://addons/godot_gameplay_abilities/ui/tag_debug_panel.tscn" id="Combat_26_vxglm"]
+[ext_resource type="PackedScene" path="res://ui/arpg_tag_debug_panel.tscn" id="Combat_26_vxglm"]
 [ext_resource type="PackedScene" uid="uid://cvoh1c8wh5vrc" path="res://ui/talent_tree.tscn" id="Combat_27_talent_tree"]
 [ext_resource type="Resource" uid="uid://7mjb5xu6rh5" path="res://data/talents/test_talent_tree.tres" id="Combat_28_talent_tree_data"]
 [ext_resource type="PackedScene" uid="uid://8cm7of0bkv8r" path="res://addons/godot_gameplay_abilities/ui/bt_debug_panel.tscn" id="Combat_29_fv21b"]
@@ -230,7 +230,6 @@ offset_right = 0.0
 offset_bottom = 549.0
 grow_horizontal = 0
 grow_vertical = 1
-script = null
 
 [node name="TalentTree" parent="UILayer/HUD" instance=ExtResource("Combat_27_talent_tree")]
 layout_mode = 1
