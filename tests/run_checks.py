@@ -30,7 +30,8 @@ def main():
     suites = [("verify_course_closeout", "PASS: course intro/resolution"),
               ("inventory_pilot_smoke", "ARPG inventory pilot: 35 passed, 0 failed"),
               ("verify_feature_integration", "PASS: feature integration"),
-              ("verify_spell_integration", "PASS: spell integration")]
+              ("verify_spell_integration", "PASS: spell integration"),
+              ("verify_village_quest", "PASS: village dialogue layering")]
     commands = [] if args.runtime_only else [("import", ["--editor", "--import"], None)]
     commands += [(name, ["--fixed-fps", "60", f"res://tests/{name}.tscn", "--quit-after", "10000"], marker)
                  for name, marker in suites]

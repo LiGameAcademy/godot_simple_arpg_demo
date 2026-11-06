@@ -18,8 +18,16 @@ func _ready() -> void:
 func _get_quest_text(quest: Quest) -> String:
 	var txt: String = quest.title + " " + _get_quest_status_text(quest) + "\n"
 	for obj: QuestObjective in quest.objectives:
-		txt += "- " + obj.get_progress_text() + "\n"
+		txt += "- " + _get_objective_text(obj) + "\n"
 	return txt
+
+func _get_objective_text(objective: QuestObjective) -> String:
+	var collect: ObjectiveCollect = objective as ObjectiveCollect
+	if collect:
+		var item: GameplayItem = GameState.get_item_resource(collect.target_item_id)
+		if item:
+			return "收集 %s (%d/%d)" % [item.display_name, collect.current_amount, collect.required_amount]
+	return objective.get_progress_text()
 
 func _get_quest_status_text(quest: Quest) -> String:
 	var status: int = QuestManager.get_quest_status(quest.id)
