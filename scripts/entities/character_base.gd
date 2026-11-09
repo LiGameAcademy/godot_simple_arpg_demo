@@ -117,11 +117,11 @@ func _init_components() -> void:
 
 ## 设置死亡监听器
 func _setup_death_listener() -> void:
-	var health: HealthVital = attribute_component.get_vital(&"health") as HealthVital
-	if health != null:
-		health.health_depleted.connect(_on_health_depleted)
+	attribute_component.health_depleted.connect(_on_health_depleted)
 
-func _on_health_depleted(_instigator: Node) -> void:
+func _on_health_depleted(vital_id: StringName, _instigator: Node) -> void:
+	if vital_id != &"health" or _is_dead:
+		return
 	_play_death_animation()
 	died.emit(self)
 

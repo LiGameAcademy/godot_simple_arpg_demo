@@ -12,6 +12,7 @@ func _run() -> void:
 	await get_tree().physics_frame
 	_verify_panel_controls(main.hud)
 	var player: Player = main.player
+	_verify_enemy_death_after_reinitialize(main)
 	var inventory: InventoryComponent = player.get_inventory()
 	inventory.items_received.connect(_on_received)
 	var potion: GameplayItem = inventory.get_item(0).item_config
@@ -84,6 +85,24 @@ func _run() -> void:
 	if _failed == 0:
 		print("PASS: feature integration acquisition, real combat, story locks, boss resolution and death restore")
 	get_tree().quit.call_deferred(0 if _failed == 0 else 1)
+func _verify_enemy_death_after_reinitialize(main: Main) -> void:
+	var enemy: Enemy = (load("res://prefabs/enemy.tscn") as PackedScene).instantiate() as Enemy
+	enemy.position = Vector3(100.0, 0.0, 100.0)
+	main.add_child(enemy)
+	var attributes: GameplayVitalAttributeComponent = enemy.get_attribute_component()
+	var original: GameplayVital = attributes.get_vital(&"health")
+	var deaths: Array[CharacterBase] = []
+	var defeats: Array[String] = []
+	enemy.died.connect(func(entity: CharacterBase) -> void: deaths.append(entity))
+	enemy.defeated.connect(func(id: String) -> void: defeats.append(id))
+	attributes.initialize()
+	_check(attributes.get_vital(&"health") != original, "reinitialization replaces the enemy's health Vital")
+	enemy.take_damage(10000)
+	enemy.take_damage(10000)
+	_check(attributes.get_vital_value(&"health") == 0.0 and deaths == [enemy] and defeats == [enemy.enemy_id],
+		"lethal damage after reinitialization emits one character death and one enemy defeat")
+	enemy.free()
+
 func _verify_panel_controls(hud: Control) -> void:
 	var attributes: Control = hud.get_node("AttributeDashboard") as Control
 	var tags: Control = hud.get_node("TagDebugPanel") as Control
