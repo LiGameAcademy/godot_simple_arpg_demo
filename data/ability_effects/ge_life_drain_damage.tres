@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="GE_ApplyDamage" load_steps=3 format=3]
+[gd_resource type="Resource" load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://addons/godot_gameplay_abilities/scripts/effects/ge_apply_damage.gd" id="1_damage"]
+[ext_resource type="Script" path="res://scripts/data/life_drain_effect.gd" id="1_damage"]
 [ext_resource type="Resource" path="res://data/cues/hit_cue_physical_wrapper.tres" id="2_cue"]
 
 [resource]
@@ -8,3 +8,4 @@ script = ExtResource("1_damage")
 damage_multiplier = 0.5
 cue = ExtResource("2_cue")
 
+base_damage_attribute = &"intelligence"
