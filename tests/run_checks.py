@@ -31,6 +31,7 @@ def main():
               ("inventory_pilot_smoke", "ARPG inventory pilot: 35 passed, 0 failed"),
               ("verify_feature_integration", "PASS: feature integration"),
               ("verify_spell_integration", "PASS: spell integration"),
+              ("verify_life_drain", "PASS: life drain channel and beam"),
               ("verify_village_quest", "PASS: village dialogue layering")]
     commands = [] if args.runtime_only else [("import", ["--editor", "--import"], None)]
     commands += [(name, ["--fixed-fps", "60", f"res://tests/{name}.tscn", "--quit-after", "10000"], marker)
