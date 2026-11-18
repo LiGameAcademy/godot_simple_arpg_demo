@@ -20,9 +20,9 @@ func _ready() -> void:
 		abilities[ability.ability_id] = ability
 
 	var combo: ComboAbilityDefinition = abilities.get(&"combo_attack") as ComboAbilityDefinition
-	if combo == null or combo.combo_steps != [
-		abilities.get(&"basic_attack"), abilities.get(&"basic_attack"), abilities.get(&"heavy_attack")
-	]:
+	var basic: ActiveAbilityDefinition = abilities.get(&"basic_attack") as ActiveAbilityDefinition
+	var heavy: ActiveAbilityDefinition = abilities.get(&"heavy_attack") as ActiveAbilityDefinition
+	if combo == null or basic == null or heavy == null or combo.combo_steps != [basic, basic, heavy]:
 		_fail("The playable combo must resolve basic attack, basic attack, and heavy attack in order.")
 
 	var player: PlayerData = load("res://data/player_data/barbarian.tres") as PlayerData
