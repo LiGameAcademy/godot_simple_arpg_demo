@@ -198,9 +198,11 @@ func _setup_shortcuts() -> void:
 			shortcut_manager.bind_shortcut(ability_id, shortcut)
 
 ## 技能学会回调（自动绑定快捷键）
-func _on_ability_learned(ability_id: StringName) -> void:
+func _on_ability_learned(ability: GameplayAbilityInstance) -> void:
 	if not is_instance_valid(player_data):
 		return
+
+	var ability_id: StringName = ability.get_definition().ability_id
 	
 	# 从 PlayerData 读取快捷键配置
 	var shortcuts: Dictionary = player_data.ability_shortcuts
