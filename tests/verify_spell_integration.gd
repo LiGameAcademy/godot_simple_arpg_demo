@@ -15,7 +15,8 @@ func _run() -> void:
 	_check(main.save_checkpoint(), "save spell fixture")
 	var boss: Node3D = main.encounter.get_node("BossCombatant") as Node3D
 	boss.set_physics_process(false)
-	await _verify_cleanse(main.player, boss)
+	var bar: AbilityBar = main.get_node("UILayer/HUD/AbilityBar") as AbilityBar
+	await _verify_cleanse(main.player, boss, bar)
 	TalentManager.add_points(10)
 	var talent: TalentData = load("res://data/talents/talent_fireball_multicast.tres") as TalentData
 	_check(TalentManager.learn_talent(main.player, talent), "multicast talent learns")
@@ -59,7 +60,7 @@ func _run() -> void:
 	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://spell_integration_checkpoint.json"))
 	get_tree().quit.call_deferred(0 if _failed == 0 else 1)
 
-func _verify_cleanse(player: Node3D, boss: Node3D) -> void:
+func _verify_cleanse(player: Node3D, boss: Node3D, bar: AbilityBar) -> void:
 	var definition: ActiveAbilityDefinition = load("res://data/abilities/cleanse.tres") as ActiveAbilityDefinition
 	_check(is_instance_valid(definition) and definition.ability_id == &"cleanse", "load the active cleanse resource")
 	if not is_instance_valid(definition):
@@ -86,7 +87,9 @@ func _verify_cleanse(player: Node3D, boss: Node3D) -> void:
 	_check(player_statuses.has_status(debuff.status_id) and player_statuses.has_status(buff.status_id)
 		and boss_statuses.has_status(debuff.status_id), "cleanse starts with active statuses on both entities")
 
+	_check(not bar.ability_buttons.has(definition.ability_id), "cleanse has no button before learning")
 	abilities.learn_ability(definition)
+	_check(bar.ability_buttons.has(definition.ability_id), "learning cleanse adds a real ability button")
 	_check(abilities.try_activate_ability(definition.ability_id, {"target_unit": boss}), "accept a cleanse cast")
 	for frame: int in range(60):
 		await get_tree().process_frame
