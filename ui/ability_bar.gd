@@ -102,7 +102,7 @@ func _remove_ability_button(ability_id: StringName) -> void:
 	ability_buttons.erase(ability_id)
 
 ## 技能学会回调
-func _on_ability_learned(_ability_id: StringName) -> void:
+func _on_ability_learned(_ability: GameplayAbilityInstance) -> void:
 	_refresh_abilities()
 
 ## 技能遗忘回调
