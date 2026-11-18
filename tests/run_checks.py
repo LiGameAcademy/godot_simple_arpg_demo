@@ -27,7 +27,8 @@ def main():
     parser.add_argument("--runtime-only", action="store_true", help="Diagnostic runs only; CI always validates imports too.")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
-    suites = [("verify_course_closeout", "PASS: course intro/resolution"),
+    suites = [("verify_ability_assets", "PASS: all ability assets"),
+              ("verify_course_closeout", "PASS: course intro/resolution"),
               ("inventory_pilot_smoke", "ARPG inventory pilot: 35 passed, 0 failed"),
               ("verify_feature_integration", "PASS: feature integration"),
               ("verify_spell_integration", "PASS: spell integration"),
