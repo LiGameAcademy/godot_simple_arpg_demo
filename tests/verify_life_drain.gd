@@ -1,6 +1,9 @@
 extends Node
 ## Exercises the actual life drain resource, its Vital effects and its beam scene.
 
+## Load this fixture with the script to keep Godot 4.7.2 script loading order stable.
+const LIFE_DRAIN = preload("res://data/abilities/life_drain.tres")
+
 class Combatant extends Node3D:
 	var attributes: GameplayVitalAttributeComponent
 
@@ -19,7 +22,7 @@ func _ready() -> void:
 	_run.call_deferred()
 
 func _run() -> void:
-	var definition: ChannelingAbilityDefinition = load("res://data/abilities/life_drain.tres") as ChannelingAbilityDefinition
+	var definition: ChannelingAbilityDefinition = LIFE_DRAIN as ChannelingAbilityDefinition
 	_check(definition != null and definition.channeling_cue != null, "load life drain and its beam Cue")
 	if definition == null:
 		get_tree().quit(1)
@@ -56,9 +59,13 @@ func _run() -> void:
 	_check(not ability.is_active and ability.channel_end_reason == &"released", "release ends the channel")
 	_check(not is_instance_valid(beam), "ending frees the beam")
 	_check(_health(caster) == 20.0 and _health(target) == 20.0, "release prevents a due extra tick")
+	var ability_ref: WeakRef = weakref(ability)
+	ability = null
 	caster.queue_free()
 	target.queue_free()
 	await get_tree().process_frame
+	_check(not is_instance_valid(caster) and not is_instance_valid(target), "teardown frees both combatants")
+	_check(ability_ref.get_ref() == null, "freeing the caster releases its learned ability")
 	if _failed == 0:
 		print("PASS: life drain channel and beam")
 	get_tree().quit(0 if _failed == 0 else 1)
